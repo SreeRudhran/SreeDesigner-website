@@ -2917,19 +2917,70 @@
       }
     };
 
+    async function loadDynamicShowcaseGrid(filterTag = 'All') {
+      const container = document.getElementById('servicesGridContainer');
+      if (!container || !window.AtelierDataService) return;
+      
+      const items = await window.AtelierDataService.getShowcaseItems(filterTag);
+      if (!items || items.length === 0) return;
+
+      container.innerHTML = items.map((item, idx) => {
+        const primaryTag = item.tags && item.tags.length > 0 ? item.tags[0] : 'Bespoke Atelier';
+        const priceDisplay = typeof item.starting_price === 'number' ? `from ₹${item.starting_price.toLocaleString('en-IN')}` : (item.starting_price || 'Custom Quote');
+        const encodedItem = encodeURIComponent(JSON.stringify(item));
+        return `
+          <div class="service-card-luxury" data-tags="${(item.tags || []).join(',')}">
+            <div class="service-img-container">
+              <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="service-png-img">
+            </div>
+            <div class="service-info">
+              <span class="service-tag-badge">${primaryTag}</span>
+              <h3>${item.title}</h3>
+              <p>${item.description || 'Custom hand zardozi and fitting atelier service.'}</p>
+            </div>
+            <div class="service-bottom-row">
+              <div class="service-price-starting">${priceDisplay}</div>
+              <button onclick="openCustomItemDetail('${encodedItem}')" class="btn-book-service">See More →</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     function filterPortfolio(category, btn) {
       document.querySelectorAll('#portfolioFilterBar .filter-pill').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const cards = document.querySelectorAll('#servicesGridContainer .service-card-luxury');
-      cards.forEach(card => {
-        const tags = card.getAttribute('data-tags') || '';
-        if (category === 'All' || tags.includes(category)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      if (btn) btn.classList.add('active');
+      loadDynamicShowcaseGrid(category);
+    }
+
+    function openCustomItemDetail(encodedItem) {
+      try {
+        const item = JSON.parse(decodeURIComponent(encodedItem));
+        document.getElementById('showcaseDetailTitle').textContent = item.title;
+        document.getElementById('showcaseDetailHeading').textContent = item.title;
+        document.getElementById('showcaseDetailTag').textContent = (item.tags && item.tags[0]) || 'Bespoke Atelier';
+        document.getElementById('showcaseDetailDesc').textContent = item.description || 'Bespoke hand zardozi and custom fitting atelier service.';
+        document.getElementById('showcaseDetailPrice').textContent = typeof item.starting_price === 'number' ? `from ₹${item.starting_price}` : (item.starting_price || 'from ₹2,500');
+        document.getElementById('showcaseDetailMainImg').src = item.main_image_url || 'assets/images/service_bridal.png';
+        document.getElementById('showcaseDetailWaBtn').href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20${encodeURIComponent(item.title)}`;
+
+        // Thumbs
+        const thumbsContainer = document.getElementById('showcaseThumbs');
+        thumbsContainer.innerHTML = '';
+        const subList = item.images && item.images.length > 0 ? item.images.map(img => typeof img === 'string' ? img : img.image_url) : [item.main_image_url];
+        subList.forEach(src => {
+          if (!src) return;
+          const thumb = document.createElement('img');
+          thumb.src = src;
+          thumb.style.cssText = 'width:64px; height:64px; object-fit:cover; border-radius:8px; cursor:pointer; border:1px solid var(--line);';
+          thumb.onclick = () => { document.getElementById('showcaseDetailMainImg').src = src; };
+          thumbsContainer.appendChild(thumb);
+        });
+
+        document.getElementById('showcaseDetailModal').style.display = 'flex';
+      } catch (e) {
+        openShowcaseDetail('demo-1');
+      }
     }
 
     function openShowcaseDetail(itemId) {
@@ -2953,26 +3004,12 @@
         thumbsContainer.appendChild(thumb);
       });
 
-      // Render Similar Works
-      const similarGrid = document.getElementById('similarWorksGrid');
-      similarGrid.innerHTML = '';
-      Object.keys(demoItems).forEach(key => {
-        if (key !== itemId) {
-          const sim = demoItems[key];
-          const div = document.createElement('div');
-          div.style.cssText = 'border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center; background:var(--bg-nude-alt); cursor:pointer;';
-          div.onclick = () => openShowcaseDetail(key);
-          div.innerHTML = `
-            <img src="${sim.img}" style="width:100%; height:100px; object-fit:cover; border-radius:8px; margin-bottom:8px;">
-            <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">${sim.title}</div>
-            <div style="font-size:0.75rem; color:var(--gold-dark); margin-top:4px;">${sim.price}</div>
-          `;
-          similarGrid.appendChild(div);
-        }
-      });
-
       document.getElementById('showcaseDetailModal').style.display = 'flex';
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDynamicShowcaseGrid('All');
+    });
   </script>
 
 </body>
