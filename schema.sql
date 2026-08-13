@@ -105,14 +105,13 @@ CREATE INDEX IF NOT EXISTS idx_blog_published ON public.blog_posts(is_published,
 
 -- SEED DEFAULT DYNAMIC TAGS
 INSERT INTO public.tags (name, slug) VALUES 
-('Bridal Work', 'bridal-work'),
-('Hand Embroidery', 'hand-embroidery'),
-('Machine Embroidery', 'machine-embroidery'),
-('Aari & Maggam', 'aari-maggam'),
-('Blouse Stitching', 'blouse-stitching'),
-('Lehenga Couture', 'lehenga-couture'),
-('Salwar & Chudidhar', 'salwar-chudidhar'),
-('Garment Alterations', 'garment-alterations')
+('Hand Embroidered Blouses', 'hand-embroidered-blouses'),
+('Machine Embroidered Blouse', 'machine-embroidered-blouse'),
+('Bridal Blouse & Maggam Work', 'bridal-blouse-maggam-work'),
+('Kurtis & Chudidhar', 'kurtis-chudidhar'),
+('Lehengas & Festive Couture', 'lehengas-festive-couture'),
+('Frocks & Gowns', 'frocks-gowns'),
+('Zardozi Work', 'zardozi-work')
 ON CONFLICT (name) DO NOTHING;
 
 -- ROW LEVEL SECURITY (RLS) POLICIES
