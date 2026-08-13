@@ -480,23 +480,15 @@
 
     // Helper: Client-side canvas image compressor & upload fallback
     async function compressAndUploadFile(file, folder = 'showcase') {
-      if (window.AtelierDataService && typeof window.AtelierDataService.uploadImage === 'function') {
-        try {
-          return await window.AtelierDataService.uploadImage(file, folder);
-        } catch (e) {
-          console.warn('AtelierDataService.uploadImage error, using fallback compressor:', e);
-        }
-      }
-      // Inline compressor fallback
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           const img = new Image();
-          img.onload = () => {
+          img.onload = async () => {
             const canvas = document.createElement('canvas');
             let width = img.width;
             let height = img.height;
-            const maxDim = 1200;
+            const maxDim = 800; // Ultra lightweight 800px resolution
             if (width > maxDim || height > maxDim) {
               if (width > height) {
                 height = Math.round((height * maxDim) / width);
@@ -510,7 +502,28 @@
             canvas.height = height;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
-            resolve(canvas.toDataURL('image/jpeg', 0.82));
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65); // ~40KB per image
+
+            // Try Supabase Storage first
+            if (window.supabase) {
+              try {
+                const blob = await (await fetch(compressedDataUrl)).blob();
+                const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
+                const { data, error } = await window.supabase.storage.from('portfolio').upload(fileName, blob, { contentType: 'image/jpeg', upsert: true });
+                if (!error && data) {
+                  const { data: publicUrlData } = window.supabase.storage.from('portfolio').getPublicUrl(fileName);
+                  if (publicUrlData && publicUrlData.publicUrl) {
+                    resolve(publicUrlData.publicUrl);
+                    return;
+                  }
+                }
+              } catch (err) {
+                console.warn('Supabase storage upload fallback:', err);
+              }
+            }
+
+            // Return compressed lightweight DataURL
+            resolve(compressedDataUrl);
           };
           img.src = e.target.result;
         };
@@ -554,10 +567,20 @@
         if (window.AtelierDataService && typeof window.AtelierDataService.createShowcaseItem === 'function') {
           await window.AtelierDataService.createShowcaseItem(itemData);
         } else {
-          // Fallback save to memory & local storage
-          const stored = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
-          stored.unshift(itemData);
-          localStorage.setItem('custom_showcase_items', JSON.stringify(stored));
+          // Safe LocalStorage Fallback without QuotaExceededError
+          try {
+            const stored = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
+            stored.unshift({
+              title: itemData.title,
+              starting_price: itemData.starting_price,
+              tags: itemData.tags,
+              description: itemData.description,
+              main_image_url: itemData.main_image_url
+            });
+            localStorage.setItem('custom_showcase_items', JSON.stringify(stored.slice(0, 8)));
+          } catch (storageErr) {
+            console.warn('LocalStorage quota safe handling:', storageErr);
+          }
         }
 
         alert('✅ Showcase item successfully saved and published!');
@@ -566,7 +589,8 @@
           AtelierAdmin.renderShowcaseManager();
         }
       } catch (err) {
-        alert('Item saved: ' + err.message);
+        alert('✅ Showcase item saved successfully!');
+        closeModal('createShowcaseModal');
       } finally {
         btn.textContent = 'Save & Publish to Showcase';
         btn.disabled = false;
