@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sree Designers &amp; Boutique — South Indian Fashion Atelier</title>
+  <meta name="description"
+    content="Luxury South Indian bespoke bridal blouse tailoring, hand zardozi embroidery, machine embroidery, lehengas, and garment alterations in Coimbatore and Tiruppur.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Jost:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-nude: #F5EBE6;
+      --bg-nude-alt: #EFE4DC;
+      --bg-card: rgba(255, 255, 255, 0.7);
+      --ink: #1C1B18;
+      --ink-soft: #5C5850;
+      --gold: #C59B27;
+      --gold-dark: #9A7718;
+      --gold-soft: #DFB64F;
+      --tan: #D9B98A;
+      --white: #FFFFFF;
+      --whatsapp: #25D366;
+      --whatsapp-dark: #128C7E;
+      --line: rgba(28, 27, 24, 0.12);
+      --shadow-soft: 0 30px 60px -20px rgba(28, 27, 24, 0.15);
+      --shadow-hover: 0 40px 80px -25px rgba(197, 155, 39, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-nude);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .display {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold-dark);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 36px;
+    }
+
+    ::selection {
+      background: var(--gold-soft);
+      color: var(--ink);
+    }
+
+    /* ============ HEADER NAV ============ */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 235, 230, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      transition: all 0.3s ease;
+    }
+
+    nav.wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 86px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-symbol {
+      width: 44px;
+      height: 44px;
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .brand-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      font-weight: 600;
+    }
+
+    .brand-name span {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      padding: 6px 0;
+      color: var(--ink);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-icon-btn:hover {
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-color: var(--ink);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--gold-dark);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-cta {
+      padding: 12px 26px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      background: var(--ink);
+      color: var(--bg-nude);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.3);
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    /* =============================================
+       HERO — Clean Layer System
+    ============================================= */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 660px;
+      max-height: 980px;
+      overflow: hidden;
+      /* Silk texture background */
+      background: url('assets/images/hero_bg.jpg') center center / cover no-repeat;
+    }
+
+    /* Subtle warm vignette overlay so text stays readable */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 20% 60%, rgba(245,235,230,0.45) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 50%, rgba(245,235,230,0.3) 0%, transparent 65%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Giant text wrapper — perfectly centered ── */
+    .hero-title-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* The BASE dark text */
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(5.5rem, 17vw, 18rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: lowercase;
+      color: rgba(28, 27, 24, 0.92);
+      white-space: nowrap;
+      display: block;
+      position: relative;
+    }
+
+    /* Gold sheen overlay — ::after on the SAME element,
+       guarantees pixel-perfect alignment with the base text */
+    .hero-title::after {
+      content: 'sree designers';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* JS sets --sheen custom property on this element's style */
+      background: var(--sheen, radial-gradient(300px circle at 50% 50%, rgba(212,175,55,0) 0%, transparent 100%));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      pointer-events: none;
+      will-change: background;
+    }
+
+    /* ── Model — bottom-anchored center cutout ── */
+    .hero-model {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 93%;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .hero-model img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 24px 36px rgba(28,27,24,0.18));
+      -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+      transition: filter 0.4s ease;
+    }
+
+    /* ── Left minimal editorial info ── */
+    .hero-left {
+      position: absolute;
+      left: clamp(28px, 4.5vw, 72px);
+      top: 50%;
+      transform: translateY(-38%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 250px;
+    }
+
+    .hero-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--gold-dark);
+    }
+
+    .hero-price {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-price strong {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 400;
+      color: var(--ink);
+      display: block;
+      line-height: 1.1;
+    }
+
+    .hero-tagline {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 24ch;
+      margin-top: 4px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid rgba(28,27,24,0.4);
+      padding-bottom: 2px;
+      margin-top: 8px;
+      width: fit-content;
+      transition: color 0.3s ease, border-color 0.3s ease, gap 0.3s ease;
+    }
+
+    .hero-link:hover {
+      color: var(--gold-dark);
+      border-color: var(--gold-dark);
+      gap: 12px;
+    }
+
+    /* ── Bottom bar ── */
+    .hero-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px clamp(28px, 4.5vw, 72px);
+      border-top: 1px solid rgba(28,27,24,0.1);
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-soft);
+      background: rgba(235, 220, 212, 0.55);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-bar-count {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .hero-bar-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(28,27,24,0.2);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      line-height: 1;
+    }
+
+    .hero-bar-btn:hover {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    /* Sparkle icon in bar */
+    .hero-bar-sparkle {
+      color: var(--gold-dark);
+      display: inline-block;
+      animation: twinkle 2.5s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* ── Layer 1: Backdrop Giant Typography ── */
+    .hero-backdrop-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    .hero-backdrop-text span {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(6rem, 17.5vw, 19rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: lowercase;
+      color: #1C1B18;
+      white-space: nowrap;
+      display: block;
+      /* Soft fill: a second layer painted via JS inline style */
+      position: relative;
+    }
+
+    /* The animated gold sheen overlay — lives on top of the text character layer */
+    .hero-sheen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .hero-sheen span {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(6rem, 17.5vw, 19rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: lowercase;
+      white-space: nowrap;
+      display: block;
+      background: radial-gradient(
+        380px circle at var(--mx) var(--my),
+        rgba(212, 175, 55, 0.6) 0%,
+        rgba(154, 119, 24, 0.3) 45%,
+        transparent 72%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: background 0.08s linear;
+    }
+
+    /* ── Layer 3: Central Model Cutout ── */
+    .hero-model {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 92%;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .hero-model img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 30px 40px rgba(28,27,24,0.14));
+      transition: transform 0.2s cubic-bezier(0.25,1,0.5,1);
+      will-change: transform;
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    }
+
+    /* ── Layer 4: Left Editorial Text — floats in left space ── */
+    .hero-left {
+      position: absolute;
+      left: clamp(24px, 4vw, 60px);
+      bottom: 18%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 280px;
+    }
+
+    .hero-from {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-soft);
+    }
+
+    .hero-price {
+      font-family: 'Jost', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .hero-desc {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 26ch;
+    }
+
+    .hero-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 3px;
+      width: fit-content;
+      margin-top: 6px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .hero-explore:hover {
+      color: var(--gold-dark);
+      transform: translateX(5px);
+    }
+
+    /* ── Layer 5: Right Badge — floats in right space ── */
+    .hero-right {
+      position: absolute;
+      right: clamp(24px, 4vw, 60px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      text-align: right;
+      max-width: 200px;
+    }
+
+    .hero-badge-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .hero-badge-desc {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    /* sparkle */
+    .hero-sparkle {
+      position: absolute;
+      right: clamp(24px, 4vw, 60px);
+      bottom: 22%;
+      z-index: 20;
+      color: var(--gold-dark);
+      font-size: 1.4rem;
+      animation: spinSparkle 4s infinite linear;
+    }
+
+    @keyframes spinSparkle {
+      0%   { transform: rotate(0deg) scale(1);   opacity: 0.7; }
+      50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
+      100% { transform: rotate(360deg) scale(1);  opacity: 0.7; }
+    }
+
+    /* ── Bottom Bar ── */
+    .hero-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px clamp(24px, 4vw, 60px);
+      border-top: 1px solid var(--line);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      background: rgba(245, 235, 230, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-bar-center {
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      font-size: 0.78rem;
+    }
+
+    .hero-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    .hero-arr {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-arr button {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .hero-arr button:hover {
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-color: var(--ink);
+    }
+
+    /* Eyebrow label in hero */
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold-dark);
+      margin-bottom: 4px;
+    }
+
+
+
+    .hero-typography-backdrop h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(5.5rem, 17vw, 18.5rem);
+      font-weight: 900;
+      line-height: 0.82;
+      letter-spacing: -0.04em;
+      text-transform: lowercase;
+      color: #1C1B18;
+      white-space: nowrap;
+      margin: 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    /* Interactive Soft Fill Animation Overlay on Backdrop Text */
+    .hero-typography-backdrop h1::after {
+      content: 'sree designers';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      background: radial-gradient(
+        420px circle at var(--mouse-x) var(--mouse-y),
+        #D4AF37 0%,
+        #9A7718 45%,
+        transparent 75%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    /* Hero Central Layout Container */
+    .hero-main-container {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 0.8fr;
+      align-items: center;
+      gap: 30px;
+      height: 100%;
+      padding-top: 10px;
+    }
+
+    /* Central Model PNG Cutout Container - Full Length */
+    .hero-model-wrap {
+      grid-column: 2;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 720px;
+      perspective: 1000px;
+      z-index: 5;
+    }
+
+    .hero-model-img {
+      height: 100%;
+      max-height: 740px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 25px 35px rgba(28, 27, 24, 0.16));
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+      mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    }
+
+    /* Left Editorial Content Block (UNBOXED - MATCHES REFERENCE) */
+    .hero-content-left {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-left: 10px;
+      z-index: 15;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .hero-price-tag {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .hero-price-tag span {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+    }
+
+    .hero-price-val {
+      font-family: 'Jost', sans-serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .hero-quote {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 32ch;
+      font-style: italic;
+      font-weight: 300;
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 4px;
+      width: fit-content;
+      margin-top: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta-btn:hover {
+      color: var(--gold-dark);
+      border-color: var(--gold-dark);
+      transform: translateX(6px);
+    }
+
+    .hero-cta-btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .hero-cta-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Right Editorial Highlights Block (UNBOXED) */
+    .hero-content-right {
+      grid-column: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-end;
+      text-align: right;
+      z-index: 15;
+    }
+
+    .hero-feature-badge {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      max-width: 240px;
+      box-shadow: none;
+    }
+      max-width: 240px;
+      box-shadow: 0 10px 25px -10px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .hero-feature-badge:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-feature-badge strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .hero-feature-badge p {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      line-height: 1.4;
+    }
+
+    /* Bottom Information Status Bar */
+    .hero-bottom-bar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+    }
+
+    .hero-bottom-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sparkle-icon {
+      color: var(--gold-dark);
+      animation: pulseSparkle 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+      50% { transform: scale(1.25) rotate(15deg); opacity: 1; }
+    }
+
+    .hero-bottom-center {
+      text-transform: lowercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+    }
+
+    .hero-bottom-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hero-slider-arrows {
+      display: flex;
+      gap: 8px;
+    }
+
+    .slider-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .slider-btn:hover {
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-color: var(--ink);
+    }
+
+    /* ============ SECTION HEADINGS ============ */
+    section {
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .section-alt {
+      background: var(--bg-nude-alt);
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin-bottom: 64px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-top: 14px;
+    }
+
+    .section-head p {
+      margin-top: 18px;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* ============ REALISTIC TRANSPARENT PNG SERVICES GRID ============ */
+    .services-grid-editorial {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .service-card-luxury {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      min-height: 480px;
+    }
+
+    .service-card-luxury:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--shadow-hover);
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(197, 155, 39, 0.4);
+    }
+
+    .service-img-container {
+      position: relative;
+      height: 270px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 20px;
+      perspective: 800px;
+    }
+
+    /* Soft Glow Backdrop inside card */
+    .service-img-container::before {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 185, 138, 0.35) 0%, transparent 70%);
+      bottom: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .service-card-luxury:hover .service-img-container::before {
+      transform: scale(1.3);
+      background: radial-gradient(circle, rgba(197, 155, 39, 0.45) 0%, transparent 75%);
+    }
+
+    /* Background-Removed PNG Image */
+    .service-png-img {
+      height: 100%;
+      max-height: 260px;
+      width: auto;
+      object-fit: contain;
+      z-index: 2;
+      filter: drop-shadow(0 15px 25px rgba(28, 27, 24, 0.12));
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .service-card-luxury:hover .service-png-img {
+      transform: scale(1.08) translateY(-6px);
+    }
+
+    .service-info {
+      position: relative;
+      z-index: 3;
+    }
+
+    .service-card-luxury {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card-luxury:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 40px 70px -20px rgba(28,27,24,0.2);
+    }
+
+    /* ── Scene Panel (upper 60% of card) ── */
+    .service-scene {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    /* Scenic CSS background — each card has a unique scene class */
+    .scene-chettinad {
+      /* Chettinad mansion: deep terracotta warm interior with arched corridors */
+      background:
+        radial-gradient(ellipse 120% 60% at 50% 100%, rgba(78,35,12,0.55) 0%, transparent 65%),
+        linear-gradient(180deg, #C4773A 0%, #D4894A 25%, #E8A86B 50%, #C9762C 75%, #8B4513 100%);
+    }
+    .scene-chettinad::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 2px, transparent 2px, transparent 60px),
+        radial-gradient(ellipse 50% 80% at 20% 50%, rgba(120,50,10,0.3) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 80% 50%, rgba(120,50,10,0.3) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    .scene-loom {
+      /* Handloom workshop: sunlit threads, warm amber wood */
+      background:
+        radial-gradient(ellipse 100% 50% at 50% 100%, rgba(40,20,5,0.5) 0%, transparent 60%),
+        linear-gradient(160deg, #F0C060 0%, #E8A830 20%, #D4891A 45%, #C07820 65%, #8B5A10 100%);
+    }
+    .scene-loom::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(175deg, rgba(255,200,50,0.12) 0px, rgba(255,200,50,0.12) 1px, transparent 1px, transparent 12px),
+        repeating-linear-gradient(85deg, rgba(255,120,20,0.08) 0px, rgba(255,120,20,0.08) 1px, transparent 1px, transparent 18px);
+      z-index: 0;
+    }
+
+    .scene-kerala {
+      /* Kerala Nalukettu courtyard: open sky, pillars, green tropical light */
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 100%, rgba(10,40,10,0.5) 0%, transparent 55%),
+        linear-gradient(180deg, #7DB87D 0%, #5A9E6A 18%, #A8C87A 38%, #C8D888 55%, #8AAF68 78%, #3D6B3D 100%);
+    }
+    .scene-kerala::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle 80px at 20% 30%, rgba(255,255,200,0.18) 0%, transparent 60%),
+        radial-gradient(circle 60px at 80% 20%, rgba(255,255,200,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 30% at 50% 0%, rgba(135,185,255,0.35) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    .scene-coconut {
+      /* Coconut grove: lush green, golden light through palms */
+      background:
+        radial-gradient(ellipse 100% 45% at 50% 100%, rgba(10,35,5,0.6) 0%, transparent 55%),
+        linear-gradient(170deg, #2D7D2D 0%, #4A9E4A 15%, #6ABF5E 35%, #A8D870 55%, #7AB840 75%, #1E5E1E 100%);
+    }
+    .scene-coconut::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 30% 80% at 30% 0%, rgba(255,230,100,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse 20% 60% at 70% 0%, rgba(255,220,80,0.18) 0%, transparent 50%),
+        radial-gradient(circle 120px at 50% 0%, rgba(200,255,150,0.2) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    .scene-bazaar {
+      /* Tamil Nadu temple bazaar street: marigold saffron warm dusk */
+      background:
+        radial-gradient(ellipse 110% 45% at 50% 100%, rgba(60,20,5,0.55) 0%, transparent 55%),
+        linear-gradient(180deg, #E87830 0%, #F0952A 20%, #E8B050 40%, #D88020 65%, #9A4A10 100%);
+    }
+    .scene-bazaar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,160,30,0.1) 0px, rgba(255,160,30,0.1) 1px, transparent 1px, transparent 28px),
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,200,80,0.3) 0%, transparent 55%);
+      z-index: 0;
+    }
+
+    .scene-haveli {
+      /* Heritage South Indian haveli: cool deep indigo evening */
+      background:
+        radial-gradient(ellipse 100% 45% at 50% 100%, rgba(5,5,30,0.6) 0%, transparent 55%),
+        linear-gradient(180deg, #2A1F5A 0%, #3D2D7A 18%, #5A4A98 38%, #7868B8 58%, #4A3880 80%, #1A1240 100%);
+    }
+    .scene-haveli::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle 100px at 50% 30%, rgba(255,220,100,0.2) 0%, transparent 55%),
+        repeating-linear-gradient(90deg, rgba(200,180,255,0.05) 0px, rgba(200,180,255,0.05) 2px, transparent 2px, transparent 48px);
+      z-index: 0;
+    }
+
+    /* Ground shadow strip at bottom of scene */
+    .service-scene::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* PNG model floats in front of scene */
+    .service-png-img {
+      position: relative;
+      z-index: 3;
+      height: 90%;
+      max-height: 280px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,0.28));
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+    }
+
+    .service-card-luxury:hover .service-png-img {
+      transform: scale(1.06) translateY(-8px);
+    }
+
+    /* Info section below the scene */
+    .service-info {
+      padding: 22px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .service-tag-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+
+    .service-card-luxury h3 {
+      font-size: 1.4rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .service-card-luxury p {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .service-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .service-price-starting {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .btn-book-service {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-dark);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(197, 155, 39, 0.4);
+      background: transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-book-service:hover {
+      background: var(--gold-dark);
+      color: var(--white);
+      border-color: var(--gold-dark);
+    }
+
+    /* ============ ESTIMATOR TOOL ============ */
+    .estimator-container {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 56px 48px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 52px;
+      align-items: center;
+      border: 1px solid var(--line);
+    }
+
+    .field-group {
+      margin-bottom: 24px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .estimator-select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-family: 'Jost', sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--bg-nude);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%201C1B18' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+    }
+
+    .estimator-select:focus {
+      border-color: var(--gold-dark);
+      background-color: var(--white);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.15);
+    }
+
+    .estimator-result-card {
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-radius: 20px;
+      padding: 44px 36px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .estimator-result-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(197, 155, 39, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .estimator-result-card .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gold-soft);
+      font-weight: 600;
+    }
+
+    .estimator-price-val {
+      font-family: 'Fraunces', serif;
+      font-size: 3.4rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .btn-estimator-book {
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      padding: 16px 32px;
+      border-radius: 999px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-estimator-book:hover {
+      background: var(--gold-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ============ STORES & CONTACT ============ */
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+    }
+
+    .store-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .store-card h3 {
+      font-size: 1.6rem;
+    }
+
+    .store-address {
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .store-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .btn-store-map {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-store-map:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    /* Form Styles */
+    .enquiry-container {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 48px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-grid .field-full {
+      grid-column: span 2;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      background: var(--bg-nude);
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold-dark);
+      background: var(--white);
+    }
+
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .btn-submit-form {
+      grid-column: span 2;
+      background: var(--ink);
+      color: var(--bg-nude);
+      padding: 16px 36px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-submit-form:hover {
+      background: var(--gold-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: var(--ink);
+      color: var(--bg-nude);
+      padding: 60px 0 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+
+    .footer-brand-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(245, 235, 230, 0.6);
+      margin-top: 16px;
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--whatsapp);
+      color: #fff;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+      z-index: 99;
+      transition: transform 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: var(--whatsapp-dark);
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 1024px) {
+      .hero-left {
+        left: 20px;
+        bottom: 14%;
+        max-width: 220px;
+      }
+      .hero-right {
+        right: 16px;
+        max-width: 160px;
+      }
+      .hero-badge-title { font-size: 0.9rem; }
+      .hero-badge-desc  { font-size: 0.72rem; }
+      .services-grid-editorial {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .estimator-container {
+        grid-template-columns: 1fr;
+      }
+      .stores-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav .nav-links {
+        display: none;
+      }
+      .menu-btn {
+        display: block;
+      }
+      .hero-backdrop-text span,
+      .hero-sheen span {
+        font-size: 3.6rem;
+      }
+      .hero-left {
+        bottom: 12%;
+        max-width: 180px;
+      }
+      .hero-right { display: none; }
+      .hero-sparkle { display: none; }
+      .services-grid-editorial {
+        grid-template-columns: 1fr;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-grid .field-full, .btn-submit-form {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <header>
+    <nav class="wrap">
+      <a href="#" class="brand">
+        <img src="assets/images/logo.png" alt="Sree Designers &amp; Boutique Logo"
+          style="height:54px; width:54px; object-fit:contain; border-radius:12px; background:#f5ebe6; padding:4px; display:block; flex-shrink:0;">
+        <div class="brand-name">
+          Sree Designers &amp; Boutique
+          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#services">Collection</a>
+        <a href="#services">Craftsmanship</a>
+        <a href="#estimator">Estimate</a>
+        <a href="#stores">Stores</a>
+        <a href="#enquiry">Fitting</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" aria-label="Account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+        <button class="nav-icon-btn" aria-label="Shopping Bag">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge">0</span>
+        </button>
+        <a href="#enquiry" class="nav-cta">Book Fitting</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+
+    <!-- Backdrop giant text with gold ::after sheen (pixel-perfect) -->
+    <div class="hero-title-wrap" aria-hidden="true">
+      <span class="hero-title" id="heroTitle">sree designers</span>
+    </div>
+
+    <!-- Model cutout — bottom-anchored center -->
+    <div class="hero-model">
+      <img src="assets/images/hero_model.png" alt="Sree Designers model in embroidered half saree" id="heroModelImg">
+    </div>
+
+
+
+    <!-- Bottom bar -->
+    <div class="hero-bar">
+      <span><span class="hero-bar-sparkle">✦</span>&nbsp; Free delivery in TN &nbsp;·&nbsp; Easy fittings</span>
+      <span>Sree Designers — South Indian Fashion Atelier since 2012</span>
+      <div class="hero-bar-count">
+        <span>01 / 06</span>
+        <button class="hero-bar-btn" aria-label="Previous">‹</button>
+        <button class="hero-bar-btn" aria-label="Next">›</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- LUXURY SERVICES SECTION WITH REALISTIC BACKGROUND-REMOVED PNG CUTOUTS -->
+  <section class="section-alt" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our Signature Craft</span>
+        <h2>Bespoke Tailoring &amp; Embroidery Services</h2>
+        <p>Every piece is handcrafted by master artisans with precision measurements, hand-dyed silk linings, and opulent embellishments.</p>
+      </div>
+
+      <div class="services-grid-editorial">
+
+        <!-- Service 1: Bridal Blouse & Maggam Work -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_bridal.png" alt="Bridal Blouse Tailoring" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Bridal Atelier</span>
+            <h3>Bridal Blouse Tailoring &amp; Maggam Work</h3>
+            <p>Intricate gold zardozi, peacock motifs, threadwork, and custom bridal pads with flawless fitting.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹3,800</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Bridal%20Blouse%20Tailoring." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+        <!-- Service 2: Precision Machine Embroidery -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_machine_embroidery.png" alt="Machine Embroidery Blouse" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Digital Precision</span>
+            <h3>Precision Machine Embroidery</h3>
+            <p>Computerized high-density floral and geometric embroidery with vibrant color-matched silk threads.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹1,800</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Machine%20Embroidery." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+        <!-- Service 3: Hand Embroidery & Zardozi -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_hand_embroidery.png" alt="Hand Embroidery Zardozi Work" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Artisanal Legacy</span>
+            <h3>Hand Embroidery &amp; Zardozi</h3>
+            <p>Bespoke hand-sewn metallic wires, cut beads, kundan stones, and subtle metallic thread accents.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹2,500</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Hand%20Embroidery." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+        <!-- Service 4: Lehenga Fit & Festive Wear -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_lehenga.png" alt="Lehenga Fit &amp; Festive Wear" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Festive Couture</span>
+            <h3>Opulent Lehenga &amp; Festive Couture</h3>
+            <p>Custom silk lehenga stitching, waist canvas structuring, dupattas, and heavy festive skirts.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹4,200</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Lehenga%20Stitching." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+        <!-- Service 5: Chudidhar & Salwar Sets -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_salwar.png" alt="Chudidhar &amp; Salwar Tailoring" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Daily Luxury</span>
+            <h3>Chudidhar &amp; Salwar Tailoring</h3>
+            <p>Perfectly fitted necklines, designer pants, patialas, and lightweight silk salwar suits.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹1,200</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Salwar%20Tailoring." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+        <!-- Service 6: Custom Fit & Boutique Alterations -->
+        <div class="service-card-luxury">
+          <div class="service-img-container">
+            <img src="assets/images/service_alterations.png" alt="Custom Fit Alterations" class="service-png-img">
+          </div>
+          <div class="service-info">
+            <span class="service-tag-badge">Master Fit</span>
+            <h3>Garment Alterations &amp; Re-fitting</h3>
+            <p>Saree blouse sizing adjustments, cup insertion, zipper replacements, and sleeve restructuring.</p>
+          </div>
+          <div class="service-bottom-row">
+            <div class="service-price-starting">from ₹450</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20Garment%20Alterations." target="_blank" class="btn-book-service">WhatsApp Book →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE TAILORING COST ESTIMATOR -->
+  <section id="estimator">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Instant Calculator</span>
+        <h2>Tailoring &amp; Embroidery Estimator</h2>
+        <p>Select your garment specifications for a transparent instant cost estimate.</p>
+      </div>
+
+      <div class="estimator-container">
+        <div class="estimator-inputs">
+          <div class="field-group">
+            <label for="calcGarment">Garment Type</label>
+            <select id="calcGarment" class="estimator-select">
+              <option value="1800">Bridal Blouse Tailoring (₹1,800)</option>
+              <option value="1200">Standard Saree Blouse (₹1,200)</option>
+              <option value="3500">Lehenga Choli Set (₹3,500)</option>
+              <option value="1100">Salwar / Chudidhar Suit (₹1,100)</option>
+              <option value="450">Boutique Garment Alteration (₹450)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="calcWork">Embroidery &amp; Craft Level</label>
+            <select id="calcWork" class="estimator-select">
+              <option value="0">Plain Stitching (No Embroidery)</option>
+              <option value="1200">Precision Machine Embroidery (+₹1,200)</option>
+              <option value="2500">Hand Zardozi Sleeve Detailing (+₹2,500)</option>
+              <option value="4500">Grand Bridal Maggam All-Over (+₹4,500)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="calcSpeed">Turnaround Speed</label>
+            <select id="calcSpeed" class="estimator-select">
+              <option value="0">Standard Studio Care (5–7 Days)</option>
+              <option value="500">Priority Delivery (3 Days) (+₹500)</option>
+              <option value="1000">Express Express (24–48 Hours) (+₹1,000)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="estimator-result-card">
+          <span class="label">Estimated Quote</span>
+          <div class="estimator-price-val" id="calcPriceVal">₹1,800</div>
+          <p style="font-size: 0.85rem; opacity: 0.8;">Includes custom fitting, premium cotton lining, and padded cups (where applicable).</p>
+          <button class="btn-estimator-book" id="btnBookEstimate">Reserve This Package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE LOCATIONS & APPOINTMENT BOOKING -->
+  <section class="section-alt" id="stores">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Visit Our Boutiques</span>
+        <h2>Coimbatore &amp; Tiruppur Studios</h2>
+        <p>Walk in for a fitting consultation or schedule your appointment in advance.</p>
+      </div>
+
+      <div class="stores-grid">
+        <div class="store-card">
+          <h3>Coimbatore Studio</h3>
+          <div class="store-address">
+            <strong>Sree Fashion Designers</strong><br>
+            R.S. Puram / Cross Cut Road Area<br>
+            Coimbatore, Tamil Nadu 641002<br>
+            Phone: +91 99763 44673
+          </div>
+          <div class="store-actions">
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20visit%20Coimbatore%20Studio." target="_blank" class="btn-store-map">Get Location Map →</a>
+          </div>
+        </div>
+
+        <div class="store-card">
+          <h3>Tiruppur Studio</h3>
+          <div class="store-address">
+            <strong>Sree Fashion Designers</strong><br>
+            PN Road / Avinashi Road Junction<br>
+            Tiruppur, Tamil Nadu 641602<br>
+            Phone: +91 99763 44673
+          </div>
+          <div class="store-actions">
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20visit%20Tiruppur%20Studio." target="_blank" class="btn-store-map">Get Location Map →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRY FORM -->
+  <section id="enquiry">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Online Booking</span>
+        <h2>Schedule Your Fitting Session</h2>
+      </div>
+
+      <div class="enquiry-container">
+        <form id="enquiryForm" class="form-grid">
+          <div class="field">
+            <input type="text" id="fname" class="form-input" placeholder="Your Full Name *" required>
+          </div>
+          <div class="field">
+            <input type="tel" id="fphone" class="form-input" placeholder="Phone / WhatsApp Number *" required>
+          </div>
+          <div class="field">
+            <select id="fstudio" class="form-input">
+              <option>Coimbatore Studio</option>
+              <option>Tiruppur Studio</option>
+            </select>
+          </div>
+          <div class="field">
+            <select id="fservice" class="form-input">
+              <option>Bridal Blouse Tailoring</option>
+              <option>Machine Embroidery</option>
+              <option>Hand Zardozi Work</option>
+              <option>Lehenga Stitching</option>
+              <option>Salwar / Chudidhar</option>
+              <option>Alterations &amp; Re-fitting</option>
+            </select>
+          </div>
+          <div class="field-full">
+            <textarea id="fmsg" class="form-textarea" placeholder="Garment details, preferred date, or special measurements..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit-form">Submit Appointment Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap footer-wrap">
+      <div class="footer-brand-title">Sree Designers &amp; Boutique</div>
+      <div class="footer-links">
+        <a href="#hero">Collection</a>
+        <a href="#services">Services</a>
+        <a href="#estimator">Calculator</a>
+        <a href="#stores">Stores</a>
+        <a href="#enquiry">Book Fitting</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Sree Fashion Designers &amp; Boutique · Coimbatore &amp; Tiruppur. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment."
+    target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    </svg>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* ── Gold Sheen: pixel-perfect via ::after on .hero-title ──
+       We track mouse X/Y relative to the title element itself,
+       so the gradient origin maps exactly to the letter positions. */
+    const hero      = document.getElementById('hero');
+    const titleEl   = document.getElementById('heroTitle');
+
+    let tx = 50, ty = 50;   // target %
+    let cx = 50, cy = 50;   // current (lerped)
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      cx = lerp(cx, tx, 0.07);
+      cy = lerp(cy, ty, 0.07);
+
+      if (titleEl) {
+        /* Directly set CSS custom props on the element that has ::after */
+        titleEl.style.setProperty('--gx', cx.toFixed(2) + '%');
+        titleEl.style.setProperty('--gy', cy.toFixed(2) + '%');
+        /* Override the ::after background inline so it responds */
+        titleEl.style.setProperty('--sheen',
+          `radial-gradient(300px circle at ${cx.toFixed(2)}% ${cy.toFixed(2)}%,
+            rgba(212,175,55,0.62) 0%,
+            rgba(185,140,20,0.3) 38%,
+            transparent 68%)`
+        );
+      }
+      requestAnimationFrame(tick);
+    }
+
+    if (hero) {
+      hero.addEventListener('mousemove', e => {
+        if (!titleEl) return;
+        const r = titleEl.getBoundingClientRect();
+        /* Clamp to 0-100%, allow slight overflow for edge glow */
+        tx = Math.max(-5, Math.min(105, ((e.clientX - r.left) / r.width) * 100));
+        ty = Math.max(-5, Math.min(105, ((e.clientY - r.top)  / r.height) * 100));
+      });
+      hero.addEventListener('mouseleave', () => { tx = 50; ty = 50; });
+    }
+
+    requestAnimationFrame(tick);
+
+    /* ── Price Estimator ── */
+    const calcGarment  = document.getElementById('calcGarment');
+    const calcWork     = document.getElementById('calcWork');
+    const calcSpeed    = document.getElementById('calcSpeed');
+    const calcPriceVal = document.getElementById('calcPriceVal');
+
+    function updatePrice() {
+      const total = (parseInt(calcGarment?.value) || 1800)
+                  + (parseInt(calcWork?.value)    || 0)
+                  + (parseInt(calcSpeed?.value)   || 0);
+      if (calcPriceVal) calcPriceVal.textContent = '₹' + total.toLocaleString('en-IN');
+    }
+    ['calcGarment','calcWork','calcSpeed'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', updatePrice);
+    });
+    updatePrice();
+
+    document.getElementById('btnBookEstimate')?.addEventListener('click', () => {
+      const msg = document.getElementById('fmsg');
+      if (msg) msg.value = `Requested Quote: ${calcPriceVal?.textContent} for ${calcGarment?.options[calcGarment.selectedIndex]?.text}`;
+      document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
