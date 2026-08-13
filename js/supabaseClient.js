@@ -322,6 +322,137 @@ const AtelierDataService = {
       };
       reader.readAsDataURL(file);
     });
+  },
+
+  // Create Showcase Item
+  async createShowcaseItem(item) {
+    if (supabase) {
+      try {
+        const { data, error } = await supabase.from('showcase_items').insert([{
+          title: item.title,
+          slug: item.slug || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          description: item.description,
+          starting_price: parseFloat(item.starting_price) || 1800,
+          main_image_url: item.main_image_url,
+          main_image_alt: item.title,
+          is_published: true
+        }]).select();
+        if (!error && data && data.length > 0) {
+          const newItem = data[0];
+          if (item.images && item.images.length > 0) {
+            const imgInserts = item.images.map((url, idx) => ({
+              showcase_item_id: newItem.id,
+              image_url: url,
+              sort_order: idx + 1
+            }));
+            await supabase.from('showcase_images').insert(imgInserts);
+          }
+          return newItem;
+        }
+      } catch (err) {
+        console.warn('Supabase insert failed:', err);
+      }
+    }
+    const newItem = {
+      id: 'item-' + Date.now(),
+      title: item.title,
+      slug: item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      description: item.description,
+      starting_price: parseFloat(item.starting_price) || 1800,
+      main_image_url: item.main_image_url,
+      tags: item.tags || ['Bridal Work'],
+      images: (item.images || []).map((url, i) => ({ id: 'sub-' + i, image_url: url }))
+    };
+    FALLBACK_SHOWCASE.unshift(newItem);
+    return newItem;
+  },
+
+  // Create Blog Article
+  async createBlogPost(post) {
+    if (supabase) {
+      try {
+        const { data, error } = await supabase.from('blog_posts').insert([{
+          title: post.title,
+          slug: post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          excerpt: post.excerpt,
+          content: post.content,
+          featured_image_url: post.featured_image_url,
+          author_name: post.author_name || 'Sree Designers Master Atelier',
+          seo_title: post.seo_title || post.title,
+          seo_description: post.seo_description || post.excerpt,
+          faq_items: post.faq_items || [],
+          is_published: true
+        }]).select();
+        if (!error && data && data.length > 0) return data[0];
+      } catch (err) {
+        console.warn('Supabase blog insert error:', err);
+      }
+    }
+    const newPost = {
+      id: 'blog-' + Date.now(),
+      title: post.title,
+      slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      excerpt: post.excerpt,
+      content: post.content,
+      featured_image_url: post.featured_image_url,
+      author_name: post.author_name || 'Sree Designers Master Atelier',
+      category: post.category || 'Bridal Trends',
+      read_time_minutes: 4,
+      published_at: new Date().toISOString()
+    };
+    FALLBACK_BLOGS.unshift(newPost);
+    return newPost;
+  },
+
+  // Create Testimonial / Review
+  async createTestimonial(review) {
+    if (supabase) {
+      try {
+        const { data, error } = await supabase.from('testimonials').insert([{
+          client_name: review.client_name,
+          location: review.location,
+          rating: parseInt(review.rating) || 5,
+          quote: review.quote,
+          is_published: true
+        }]).select();
+        if (!error && data && data.length > 0) return data[0];
+      } catch (err) {}
+    }
+    const newRev = {
+      id: 't-' + Date.now(),
+      customer_name: review.client_name,
+      location: review.location,
+      rating: parseInt(review.rating) || 5,
+      comment: review.quote,
+      work_type: review.work_type || 'Bridal Blouse'
+    };
+    FALLBACK_TESTIMONIALS.unshift(newRev);
+    return newRev;
+  },
+
+  // Create Instagram Reel
+  async createSocialPost(reel) {
+    if (supabase) {
+      try {
+        const { data, error } = await supabase.from('social_posts').insert([{
+          title: reel.title,
+          instagram_url: reel.instagram_url,
+          thumbnail_url: reel.thumbnail_url,
+          caption: reel.caption,
+          is_published: true
+        }]).select();
+        if (!error && data && data.length > 0) return data[0];
+      } catch (err) {}
+    }
+    const newReel = {
+      id: 'r-' + Date.now(),
+      title: reel.title,
+      instagram_url: reel.instagram_url,
+      thumbnail_url: reel.thumbnail_url,
+      caption: reel.caption
+    };
+    FALLBACK_REELS.unshift(newReel);
+    return newReel;
   }
 };
 
