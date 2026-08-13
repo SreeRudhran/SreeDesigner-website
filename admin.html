@@ -472,6 +472,12 @@
   <script src="js/admin.js"></script>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.AtelierAdmin && typeof window.AtelierAdmin.init === 'function') {
+        window.AtelierAdmin.init();
+      }
+    });
+
     function openCreateShowcaseModal() { document.getElementById('createShowcaseModal').style.display = 'flex'; }
     function openCreateBlogModal() { document.getElementById('createBlogModal').style.display = 'flex'; }
     function openCreateReviewModal() { document.getElementById('createReviewModal').style.display = 'flex'; }

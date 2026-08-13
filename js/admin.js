@@ -45,15 +45,19 @@ const AtelierAdmin = {
     const hash = window.location.hash.toLowerCase();
     const path = window.location.pathname.toLowerCase();
     const modal = document.getElementById('adminModal');
-    if (!modal) return;
 
-    if (hash.includes('admin') || path.includes('admin')) {
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      this.checkSession();
+    if (modal) {
+      if (hash.includes('admin') || path.includes('admin')) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        this.checkSession();
+      } else {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
     } else {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
+      // Direct load on standalone admin.html page
+      this.checkSession();
     }
   },
 
