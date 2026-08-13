@@ -520,10 +520,23 @@ async function submitShowcase(e) {
   btn.disabled = true;
 
   try {
-    const fileEl = document.getElementById('sc_img');
-    let imgUrl = 'assets/images/service_bridal.png';
-    if (fileEl.files && fileEl.files[0]) {
-      imgUrl = await compressImage(fileEl.files[0]);
+    // 1. Compress & upload main image
+    const mainFileEl = document.getElementById('sc_img');
+    let mainImgUrl = 'assets/images/service_bridal.png';
+    if (mainFileEl.files && mainFileEl.files[0]) {
+      mainImgUrl = await compressImage(mainFileEl.files[0]);
+    }
+
+    // 2. Compress & upload secondary images
+    const subFileEl = document.getElementById('sc_imgs');
+    const subImgUrls = [];
+    if (subFileEl.files && subFileEl.files.length > 0) {
+      btn.textContent = `Uploading extra photos (0/${subFileEl.files.length})...`;
+      for (let i = 0; i < subFileEl.files.length; i++) {
+        btn.textContent = `Uploading extra photos (${i+1}/${subFileEl.files.length})...`;
+        const url = await compressImage(subFileEl.files[i]);
+        subImgUrls.push({ id: 'sub-' + Date.now() + '-' + i, image_url: url });
+      }
     }
 
     const newItem = {
@@ -532,7 +545,8 @@ async function submitShowcase(e) {
       description: document.getElementById('sc_desc').value,
       starting_price: parseFloat(document.getElementById('sc_price').value) || 1800,
       tags: [document.getElementById('sc_tag').value],
-      main_image_url: imgUrl,
+      main_image_url: mainImgUrl,
+      images: subImgUrls,   // ← secondary images saved here
       is_published: true
     };
 

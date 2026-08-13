@@ -553,10 +553,10 @@
           <img id="mainGalleryImg" src="assets/images/service_bridal.png" alt="Grand Regal Peacock Maggam Blouse Full Front View">
         </div>
         <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img src="assets/images/service_hand_embroidery.png" alt="Hand Zardozi Peacock Sleeve Detail">
+          <img id="gallerySubImg1" src="assets/images/service_hand_embroidery.png" alt="Detail View">
         </div>
         <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img src="assets/images/hero_model.png" alt="Model Trial Fitting Preview">
+          <img id="gallerySubImg2" src="assets/images/hero_model.png" alt="Fitting Preview">
         </div>
       </div>
 
@@ -572,35 +572,15 @@
 
         <div class="price-wrap">
           <span class="price-main" id="productPrice">₹3,800</span>
-          <span class="price-original">₹5,500</span>
-          <span style="font-size:0.8rem; background:rgba(212,175,55,0.18); color:var(--gold-dark); padding:4px 10px; border-radius:999px; font-weight:600;">SAVE 30%</span>
+          <span class="price-original" id="productMRP" style="text-decoration:line-through; color:var(--ink-soft);">₹5,500</span>
+          <span id="productDiscount" style="font-size:0.8rem; background:rgba(212,175,55,0.18); color:var(--gold-dark); padding:4px 10px; border-radius:999px; font-weight:600;">SAVE 30%</span>
         </div>
 
         <p id="productDesc" style="color:var(--ink-soft); font-size:0.95rem; margin-bottom:28px; line-height:1.65;">
           Custom South Indian bridal silk blouse featuring hand-stitched gold zardozi wires, ruby kundan stone embellishments, a teardrop back neck cutout, and high-density peacock sleeve motifs. Includes custom padded cup fittings and silk lining.
         </p>
 
-        <!-- COLOR SWATCH SELECTOR -->
-        <div class="option-group">
-          <span class="option-label">Select Silk Shade</span>
-          <div class="swatch-list">
-            <div class="swatch-circle active" style="background:#8b0000;" title="Deep Ruby Red"></div>
-            <div class="swatch-circle" style="background:#1b4332;" title="Emerald Green"></div>
-            <div class="swatch-circle" style="background:#d4af37;" title="Royal Gold"></div>
-            <div class="swatch-circle" style="background:#0f2027;" title="Midnight Blue"></div>
-          </div>
-        </div>
 
-        <!-- NECKLINE & FIT SELECTOR -->
-        <div class="option-group">
-          <span class="option-label">Select Neckline &amp; Fit</span>
-          <div class="pill-options">
-            <button class="option-pill active">Sweetheart Cut</button>
-            <button class="option-pill">Teardrop Back</button>
-            <button class="option-pill">Elbow Sleeves</button>
-            <button class="option-pill">Deep U-Neck</button>
-          </div>
-        </div>
 
         <!-- ACTION BUTTONS -->
         <div class="action-buttons-row">
@@ -770,8 +750,19 @@
       const titleEl = document.getElementById('productTitle');
       if (titleEl) titleEl.textContent = item.title;
 
+      // 4b. DYNAMIC PRICE — MRP is calculated as price / 0.7 (30% off)
+      const salePrice  = parseFloat(item.starting_price) || 3800;
+      const DISCOUNT   = 30; // default 30% off
+      const mrpPrice   = Math.round(salePrice / (1 - DISCOUNT / 100));
+
       const priceEl = document.getElementById('productPrice');
-      if (priceEl) priceEl.textContent = typeof item.starting_price === 'number' ? `₹${item.starting_price.toLocaleString('en-IN')}` : (item.starting_price || '₹3,800');
+      if (priceEl) priceEl.textContent = `₹${salePrice.toLocaleString('en-IN')}`;
+
+      const mrpEl = document.getElementById('productMRP');
+      if (mrpEl) mrpEl.textContent = `₹${mrpPrice.toLocaleString('en-IN')}`;
+
+      const discEl = document.getElementById('productDiscount');
+      if (discEl) discEl.textContent = `SAVE ${DISCOUNT}%`;
 
       const descEl = document.getElementById('productDesc');
       if (descEl) descEl.textContent = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';
@@ -783,10 +774,20 @@
         mainImg.alt = item.title;
       }
 
-      const subList = item.images && item.images.length > 0 ? item.images.map(i => typeof i === 'string' ? i : i.image_url) : [item.main_image_url];
-      const sideItems = document.querySelectorAll('.gallery-side-item img');
-      if (sideItems[0]) sideItems[0].src = subList[1] || item.main_image_url || 'assets/images/service_bridal.png';
-      if (sideItems[1]) sideItems[1].src = subList[2] || item.main_image_url || 'assets/images/service_bridal.png';
+      // Sub-images: use the extra uploaded images (index 0 and 1 of sub-images)
+      // item.images is the array of secondary images uploaded alongside the main one
+      const subImgs = [];
+      if (item.images && item.images.length > 0) {
+        item.images.forEach(img => {
+          const url = typeof img === 'string' ? img : img.image_url;
+          if (url && url !== item.main_image_url) subImgs.push(url);
+        });
+      }
+      // Fallback: if no sub-images, show main image in side slots
+      const sub1 = document.getElementById('gallerySubImg1');
+      const sub2 = document.getElementById('gallerySubImg2');
+      if (sub1) sub1.src = subImgs[0] || item.main_image_url || 'assets/images/service_bridal.png';
+      if (sub2) sub2.src = subImgs[1] || item.main_image_url || 'assets/images/service_bridal.png';
 
       // 5. DYNAMIC WHATSAPP CTA LINK
       const waBtn = document.getElementById('btnProductWhatsApp');
