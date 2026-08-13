@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bridal Journal &amp; Style Guides — Sree Designers &amp; Boutique</title>
+  <meta name="description" content="Explore South Indian fashion trends, maggam embroidery care guides, hand zardozi stitching tips, and bridal fitting advice curated by Sree Designers.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SUPABASE JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg-nude: #f5ebe6;
+      --bg-nude-alt: #ebdcd5;
+      --white: #ffffff;
+      --ink: #1c1b18;
+      --ink-soft: #5a564e;
+      --gold: #d4af37;
+      --gold-dark: #b98c14;
+      --line: rgba(28, 27, 24, 0.12);
+      --shadow-soft: 0 20px 40px rgba(28, 27, 24, 0.05);
+      --shadow-hover: 0 28px 60px rgba(28, 27, 24, 0.12);
+      --font-serif: 'Fraunces', serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-nude);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* HEADER NAV */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 235, 230, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav.wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 84px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .brand-name span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .nav-cta {
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg-nude);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* HERO SECTION (INSPIRED BY REFERENCE IMAGE 3) */
+    .blog-hero {
+      text-align: center;
+      padding: 70px 0 50px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      background: var(--white);
+      border: 1px solid rgba(197, 155, 39, 0.4);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .blog-hero h1 {
+      font-family: var(--font-serif);
+      font-size: 3.4rem;
+      line-height: 1.12;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .blog-hero p {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* FILTER & SEARCH BAR (INSPIRED BY REFERENCE IMAGE 3) */
+    .blog-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 20px 12px 42px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-soft);
+    }
+
+    .category-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cat-pill {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .cat-pill.active, .cat-pill:hover {
+      background: var(--ink);
+      color: var(--bg-nude);
+      border-color: var(--ink);
+    }
+
+    /* ARTICLES GRID (INSPIRED BY REFERENCE IMAGE 3) */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 90px;
+    }
+
+    .article-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .article-cover {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .article-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .article-tag {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-dark);
+    }
+
+    .article-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .article-card p {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .read-more-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s ease;
+    }
+
+    .read-more-link:hover { gap: 10px; }
+
+    /* RESPONSIVE MOBILE MEDIA QUERIES */
+    @media (max-width: 768px) {
+      .blog-hero h1 { font-size: 2.4rem; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .blog-controls-bar { flex-direction: column; align-items: stretch; }
+      .search-input-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header>
+    <nav class="wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+        <div class="brand-name">
+          Sree Designers &amp; Boutique
+          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html#services">Collection &amp; Craftsmanship</a>
+        <a href="index.html#process">How It Works</a>
+        <a href="blog.html" style="color:var(--gold-dark); font-weight:600;">Journal</a>
+        <a href="index.html#reels">Reels</a>
+        <a href="index.html#stores">Stores</a>
+      </div>
+
+      <a href="https://wa.me/919976344673" target="_blank" class="nav-cta">Book Fitting</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <!-- BLOG HERO SECTION (INSPIRED BY REFERENCE IMAGE 3) -->
+    <section class="blog-hero">
+      <span class="badge-pill">BRIDAL JOURNAL</span>
+      <h1>Insights and Style Updates</h1>
+      <p>A curated collection of hand-picked guides, maggam embroidery trends, fabric selection advice, and fitting tips from our master artisans in Samalapuram &amp; Karnempettai.</p>
+    </section>
+
+    <!-- SEARCH & CATEGORY PILLS BAR (INSPIRED BY REFERENCE IMAGE 3) -->
+    <div class="blog-controls-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="articleSearchInput" class="search-input" placeholder="Search articles or embroidery guides..." onkeyup="filterArticles()">
+      </div>
+
+      <div class="category-pills" id="blogCategoryPills">
+        <button class="cat-pill active" onclick="filterCategory('All', this)">All Articles</button>
+        <button class="cat-pill" onclick="filterCategory('Bridal Trends', this)">Bridal Trends</button>
+        <button class="cat-pill" onclick="filterCategory('Stitching Guide', this)">Stitching Guides</button>
+        <button class="cat-pill" onclick="filterCategory('Embroidery Care', this)">Embroidery Care</button>
+      </div>
+    </div>
+
+    <!-- ARTICLES GRID (INSPIRED BY REFERENCE IMAGE 3) -->
+    <div class="articles-grid" id="articlesGrid">
+
+      <!-- Article 1 -->
+      <article class="article-card" data-category="Bridal Trends" data-title="Top 10 South Indian Bridal Blouse Trends">
+        <img src="assets/images/bridal_blouse.jpg" alt="Top 10 South Indian Bridal Blouse Trends" class="article-cover">
+        <div class="article-body">
+          <div>
+            <div class="article-meta">
+              <span class="article-tag">Bridal Trends</span>
+              <span>•</span>
+              <span>Feb 24, 2026</span>
+            </div>
+            <h3>Top 10 South Indian Bridal Blouse Embroidery Trends for 2026 Weddings</h3>
+            <p>Discover hand zardozi peacock motifs, elbow-length dense maggam sleeves, teardrop back cutouts, and built-in cup fitting techniques for Kanchipuram silk sarees.</p>
+          </div>
+          <a href="product.html" class="read-more-link">Read Full Guide →</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="article-card" data-category="Stitching Guide" data-title="Hand Zardozi vs Machine Embroidery">
+        <img src="assets/images/hero_bg.jpg" alt="Hand Zardozi vs Machine Embroidery" class="article-cover">
+        <div class="article-body">
+          <div>
+            <div class="article-meta">
+              <span class="article-tag">Stitching Guide</span>
+              <span>•</span>
+              <span>Feb 18, 2026</span>
+            </div>
+            <h3>Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide</h3>
+            <p>Comparing turnaround speed, metallic wire intricacy, kundan stone durability, and price differences for bespoke bridal and reception wear.</p>
+          </div>
+          <a href="product.html" class="read-more-link">Read Full Guide →</a>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="article-card" data-category="Embroidery Care" data-title="How to Preserve Bridal Silk Blouse Zardozi Work">
+        <img src="assets/images/service_hand_embroidery.png" alt="Preserving Zardozi Work" class="article-cover">
+        <div class="article-body">
+          <div>
+            <div class="article-meta">
+              <span class="article-tag">Embroidery Care</span>
+              <span>•</span>
+              <span>Jan 30, 2026</span>
+            </div>
+            <h3>How to Preserve Metallic Zardozi &amp; Kundan Embroidery for Decades</h3>
+            <p>Essential advice on dry cleaning, muslin cloth wrapping, preventing metallic tarnish, and storing padded silk blouses safely in humid climates.</p>
+          </div>
+          <a href="product.html" class="read-more-link">Read Full Guide →</a>
+        </div>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="article-card" data-category="Stitching Guide" data-title="Perfect Saree Blouse Fitting & Padded Cups Guide">
+        <img src="assets/images/service_bridal.png" alt="Padded Cup Fitting Guide" class="article-cover">
+        <div class="article-body">
+          <div>
+            <div class="article-meta">
+              <span class="article-tag">Stitching Guide</span>
+              <span>•</span>
+              <span>Jan 15, 2026</span>
+            </div>
+            <h3>The Science of Perfect Saree Blouse Fitting &amp; Padded Cup Insertion</h3>
+            <p>Why custom trial fittings matter, how armhole canvas depth affects mobility, and choosing between standard cotton lining versus premium silk lining.</p>
+          </div>
+          <a href="product.html" class="read-more-link">Read Full Guide →</a>
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+
+  <script>
+    function filterCategory(category, btn) {
+      document.querySelectorAll('#blogCategoryPills .cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('#articlesGrid .article-card');
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (category === 'All' || cat === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterArticles() {
+      const q = document.getElementById('articleSearchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('#articlesGrid .article-card');
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const text = card.innerText.toLowerCase();
+        if (title.includes(q) || text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
