@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Showcase — Sree Designers &amp; Boutique</title>
+  <meta name="description" content="Explore handcrafted South Indian boutique garments, maggam embroidery, and custom fit work by Sree Designers.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SUPABASE JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg-nude: #f5ebe6;
+      --bg-nude-alt: #ebdcd5;
+      --white: #ffffff;
+      --ink: #1c1b18;
+      --ink-soft: #5a564e;
+      --gold: #d4af37;
+      --gold-dark: #b98c14;
+      --line: rgba(28, 27, 24, 0.12);
+      --shadow-soft: 0 20px 40px rgba(28, 27, 24, 0.05);
+      --shadow-hover: 0 28px 60px rgba(28, 27, 24, 0.12);
+      --font-serif: 'Fraunces', serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-nude);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* HEADER NAV */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 235, 230, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav.wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 84px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .brand-name span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .nav-cta {
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg-nude);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* CATEGORY HERO */
+    .cat-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cat-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      background: var(--white);
+      border: 1px solid rgba(197, 155, 39, 0.4);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .cat-hero h1 {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .cat-hero p {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+    }
+
+    /* CATEGORY PRODUCTS GRID */
+    .category-products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 90px;
+    }
+
+    .cat-product-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cat-product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .cat-product-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .cat-product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .cat-product-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .cat-product-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 16px;
+    }
+
+    .btn-view-product {
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-view-product:hover {
+      background: var(--gold-dark);
+    }
+
+    @media (max-width: 768px) {
+      .category-products-grid { grid-template-columns: 1fr; }
+      .cat-hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header>
+    <nav class="wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+        <div class="brand-name">
+          Sree Designers &amp; Boutique
+          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html#services">Collection &amp; Craftsmanship</a>
+        <a href="index.html#process">How It Works</a>
+        <a href="blog.html">Journal</a>
+        <a href="index.html#reels">Reels</a>
+        <a href="index.html#stores">Stores</a>
+      </div>
+
+      <a href="https://wa.me/919976344673" target="_blank" class="nav-cta">Book Fitting</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <!-- CATEGORY HERO HEADER -->
+    <section class="cat-hero">
+      <span class="cat-badge" id="catBadge">COLLECTION DIRECTORY</span>
+      <h1 id="catTitle">Hand Embroidered Blouses</h1>
+      <p id="catDesc">Explore published products tailored by our master artisans under this signature category.</p>
+    </section>
+
+    <!-- PRODUCTS GRID FOR THIS CATEGORY -->
+    <div class="category-products-grid" id="catProductsGrid">
+      <div style="grid-column: span 3; text-align:center; padding:40px; color:var(--ink-soft);">Loading published category items...</div>
+    </div>
+
+  </main>
+
+  <!-- MODULE SCRIPTS -->
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/seo.js"></script>
+
+  <script>
+    async function loadCategoryProducts() {
+      const params = new URLSearchParams(window.location.search);
+      const categoryName = params.get('cat') || 'Hand Embroidered Blouses';
+
+      document.getElementById('catTitle').textContent = categoryName;
+      document.getElementById('catBadge').textContent = `CATEGORY · ${categoryName.toUpperCase()}`;
+      document.title = `${categoryName} Collection — Sree Designers & Boutique`;
+
+      if (!window.AtelierDataService) return;
+
+      const items = await window.AtelierDataService.getShowcaseItems(categoryName);
+      const container = document.getElementById('catProductsGrid');
+      
+      if (!items || items.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: span 3; text-align:center; padding:60px 20px; background:var(--white); border-radius:24px; border:1px solid var(--line);">
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem; margin-bottom:12px;">No products published under this category yet</h3>
+            <p style="color:var(--ink-soft); font-size:0.92rem; margin-bottom:24px;">Log in to the Admin Panel to upload and publish new products under "${categoryName}".</p>
+            <a href="admin.html" style="padding:10px 24px; background:var(--ink); color:var(--white); border-radius:999px; font-size:0.85rem; font-weight:600; text-transform:uppercase;">Go to Admin Panel →</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => `
+        <div class="cat-product-card">
+          <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="cat-product-img">
+          <div class="cat-product-body">
+            <div>
+              <h3 class="cat-product-title">${item.title}</h3>
+              <div class="cat-product-price">from ₹${item.starting_price || 2500}</div>
+              <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:20px;">${item.description || 'Custom handcrafted South Indian garment.'}</p>
+            </div>
+            <a href="product.html?id=${encodeURIComponent(item.id || item.slug || 'demo-1')}" class="btn-view-product">View Product Details →</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCategoryProducts();
+    });
+  </script>
+
+</body>
+</html>
