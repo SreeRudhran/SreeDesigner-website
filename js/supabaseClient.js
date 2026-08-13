@@ -4,15 +4,14 @@
  */
 
 // SUPABASE CONFIGURATION
-// Replace SUPABASE_URL and SUPABASE_ANON_KEY with your project credentials from Supabase Dashboard
 const SUPABASE_CONFIG = {
-  url: window.ENV_SUPABASE_URL || 'https://xyzcompany.supabase.co',
-  anonKey: window.ENV_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_key'
+  url: 'https://qailnqhcocmudqogyudr.supabase.co',
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg'
 };
 
 // Initialize Supabase JS Client safely
 let supabase = null;
-if (window.supabase && SUPABASE_CONFIG.url !== 'https://xyzcompany.supabase.co') {
+if (window.supabase && SUPABASE_CONFIG.url) {
   supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
 }
 
