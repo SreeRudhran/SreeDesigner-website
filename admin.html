@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal — Sree Designers &amp; Boutique</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SUPABASE JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg-nude: #f5ebe6;
+      --bg-nude-alt: #ebdcd5;
+      --white: #ffffff;
+      --ink: #1c1b18;
+      --ink-soft: #5a564e;
+      --gold: #d4af37;
+      --gold-dark: #b98c14;
+      --line: rgba(28, 27, 24, 0.12);
+      --font-serif: 'Fraunces', serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-nude);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(245, 235, 230, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .brand-name span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .admin-container {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    /* LOGIN VIEW */
+    #adminLoginView {
+      max-width: 440px;
+      margin: 60px auto;
+      padding: 44px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--bg-nude-alt);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+
+    .form-input:focus {
+      border-color: var(--gold-dark);
+      background: var(--white);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: var(--bg-nude);
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      color: var(--white);
+    }
+
+    /* DASHBOARD VIEW */
+    #adminDashboardView {
+      display: flex;
+      min-height: 640px;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: var(--bg-nude-alt);
+      border-right: 1px solid var(--line);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--ink-soft);
+      border: none;
+      background: transparent;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .content-area {
+      flex: 1;
+      padding: 36px;
+      overflow-y: auto;
+    }
+
+    .admin-item-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      background: var(--white);
+    }
+
+    .admin-item-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .admin-badge {
+      background: var(--bg-nude);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+      <div class="brand-name">
+        Sree Designers &amp; Boutique
+        <span>Admin CMS Portal</span>
+      </div>
+    </a>
+
+    <a href="index.html" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink);">Back to Website →</a>
+  </header>
+
+  <div class="admin-container">
+
+    <!-- LOGIN SCREEN -->
+    <div id="adminLoginView" class="card">
+      <h2 style="font-family:var(--font-serif); font-size:1.8rem; margin-bottom:8px; text-align:center;">Boutique Owner Login</h2>
+      <p style="font-size:0.85rem; color:var(--ink-soft); text-align:center; margin-bottom:28px;">Sign in with your Supabase credentials to manage portfolio items, blog posts &amp; reviews.</p>
+      
+      <form id="adminLoginForm">
+        <input type="email" id="adminEmail" class="form-input" placeholder="Admin Email *" required value="admin@sreedesigners.com">
+        <input type="password" id="adminPassword" class="form-input" placeholder="Password *" required value="password123">
+        <button type="submit" class="btn-primary">Sign In to Dashboard</button>
+      </form>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="adminDashboardView" class="card" style="display:none;">
+      <div class="sidebar">
+        <div style="font-size:0.78rem; color:var(--ink-soft); margin-bottom:16px; padding:0 8px;">
+          Logged in as:<br><strong id="adminUserEmail">admin@sreedesigners.com</strong>
+        </div>
+        <button class="nav-btn active" data-tab="showcase" onclick="AtelierAdmin.switchTab('showcase')">📁 Portfolio Showcase</button>
+        <button class="nav-btn" data-tab="blog" onclick="AtelierAdmin.switchTab('blog')">✍️ Blog Articles</button>
+        <button class="nav-btn" data-tab="testimonials" onclick="AtelierAdmin.switchTab('testimonials')">⭐ Customer Reviews</button>
+        <button class="nav-btn" data-tab="social" onclick="AtelierAdmin.switchTab('social')">🎥 Instagram Reels</button>
+        <button class="nav-btn" id="adminLogoutBtn" style="margin-top:auto; color:#dc2626;">🚪 Log Out</button>
+      </div>
+
+      <div class="content-area">
+        <!-- Showcase Tab -->
+        <div class="admin-tab-content" id="adminTab-showcase">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Service Portfolio Showcase Items</h3>
+            <button class="btn-primary" style="width:auto; padding:10px 20px;" onclick="alert('Item creation form ready')">+ Add Showcase Item</button>
+          </div>
+          <div id="adminShowcaseList"></div>
+        </div>
+
+        <!-- Blog Tab -->
+        <div class="admin-tab-content" id="adminTab-blog" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem;">SEO Blog Articles</h3>
+            <button class="btn-primary" style="width:auto; padding:10px 20px;" onclick="alert('Blog creation form ready')">+ Write Article</button>
+          </div>
+          <div id="adminBlogList"></div>
+        </div>
+
+        <!-- Testimonials Tab -->
+        <div class="admin-tab-content" id="adminTab-testimonials" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Customer Reviews &amp; Testimonials</h3>
+            <button class="btn-primary" style="width:auto; padding:10px 20px;" onclick="alert('Review creation form ready')">+ Add Review</button>
+          </div>
+          <div id="adminTestimonialList"></div>
+        </div>
+
+        <!-- Social Tab -->
+        <div class="admin-tab-content" id="adminTab-social" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Instagram Video Reels</h3>
+            <button class="btn-primary" style="width:auto; padding:10px 20px;" onclick="alert('Reel creation form ready')">+ Add Reel</button>
+          </div>
+          <div id="adminSocialList"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODULE SCRIPTS -->
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/seo.js"></script>
+  <script src="js/admin.js"></script>
+
+  <script>
+    // Ensure standalone admin.html always displays admin UI
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof AtelierAdmin !== 'undefined') {
+        AtelierAdmin.init();
+        // If standalone admin.html page, ensure container is visible
+        const loginView = document.getElementById('adminLoginView');
+        const dashView = document.getElementById('adminDashboardView');
+        if (localStorage.getItem('sree_admin_logged') === 'true') {
+          if (loginView) loginView.style.display = 'none';
+          if (dashView) dashView.style.display = 'flex';
+          AtelierAdmin.switchTab('showcase');
+        } else {
+          if (loginView) loginView.style.display = 'block';
+          if (dashView) dashView.style.display = 'none';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
