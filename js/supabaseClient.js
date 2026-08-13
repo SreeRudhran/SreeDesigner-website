@@ -217,36 +217,44 @@ const FALLBACK_REELS = [
 // ----------------------------------------------------------------------------
 const AtelierDataService = {
 
-  // Fetch Showcase Items
+  // Fetch Showcase Items (Guaranteed 2.5s Timeout Fail-Safe)
   async getShowcaseItems(filterTag = 'All') {
     let items = [];
+
     if (supabase) {
       try {
-        let query = supabase.from('showcase_items').select('*, showcase_images(*), showcase_item_tags(tags(name))').order('sort_order', { ascending: true });
-        const { data, error } = await query;
-        if (!error && data && data.length > 0) {
-          items = data.map(item => ({
-            ...item,
-            tags: item.showcase_item_tags?.map(t => t.tags?.name).filter(Boolean) || [],
-            images: item.showcase_images || []
-          }));
+        const fetchPromise = supabase.from('showcase_items').select('*');
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500));
+        const res = await Promise.race([fetchPromise, timeoutPromise]);
+        if (res && res.data && res.data.length > 0) {
+          items = res.data;
         }
       } catch (e) {
-        console.warn('Supabase offline, using local memory storage:', e);
+        console.warn('Supabase fetch fallback:', e);
       }
     }
+
     if (!items || items.length === 0) {
       items = [...FALLBACK_SHOWCASE];
     }
-    // Combine custom items saved in local storage
+
+    // Always merge persistent custom items
     try {
       const customItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
       if (customItems && customItems.length > 0) {
-        items = [...customItems, ...items];
+        const existingIds = new Set(items.map(i => String(i.id)));
+        const uniqueCustom = customItems.filter(c => !existingIds.has(String(c.id)));
+        items = [...uniqueCustom, ...items];
       }
     } catch(e) {}
 
-    return items.filter(item => filterTag === 'All' || (item.tags && item.tags.includes(filterTag)));
+    if (filterTag === 'All' || !filterTag) return items;
+
+    return items.filter(item => {
+      if (!item.tags) return true;
+      if (Array.isArray(item.tags)) return item.tags.some(t => String(t).toLowerCase().includes(filterTag.toLowerCase()));
+      return String(item.tags).toLowerCase().includes(filterTag.toLowerCase());
+    });
   },
 
   // Fetch Single Showcase Item by ID or Slug
@@ -257,13 +265,15 @@ const AtelierDataService = {
     return found || items[0];
   },
 
-  // Fetch Blog Posts
+  // Fetch Blog Posts (Guaranteed 2.5s Timeout Fail-Safe)
   async getBlogPosts() {
     let posts = [];
     if (supabase) {
       try {
-        const { data, error } = await supabase.from('blog_posts').select('*').eq('is_published', true).order('published_at', { ascending: false });
-        if (!error && data && data.length > 0) posts = data;
+        const fetchPromise = supabase.from('blog_posts').select('*');
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500));
+        const res = await Promise.race([fetchPromise, timeoutPromise]);
+        if (res && res.data && res.data.length > 0) posts = res.data;
       } catch (e) {}
     }
     if (!posts || posts.length === 0) {
@@ -272,7 +282,9 @@ const AtelierDataService = {
     try {
       const customPosts = JSON.parse(localStorage.getItem('custom_blog_items') || '[]');
       if (customPosts && customPosts.length > 0) {
-        posts = [...customPosts, ...posts];
+        const existingIds = new Set(posts.map(p => String(p.id)));
+        const uniqueCustom = customPosts.filter(c => !existingIds.has(String(c.id)));
+        posts = [...uniqueCustom, ...posts];
       }
     } catch(e) {}
     return posts;
@@ -289,8 +301,10 @@ const AtelierDataService = {
     let reviews = [];
     if (supabase) {
       try {
-        const { data, error } = await supabase.from('testimonials').select('*').eq('is_published', true).order('created_at', { ascending: false });
-        if (!error && data && data.length > 0) reviews = data;
+        const fetchPromise = supabase.from('testimonials').select('*');
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500));
+        const res = await Promise.race([fetchPromise, timeoutPromise]);
+        if (res && res.data && res.data.length > 0) reviews = res.data;
       } catch (e) {}
     }
     if (!reviews || reviews.length === 0) {
@@ -299,7 +313,9 @@ const AtelierDataService = {
     try {
       const customReviews = JSON.parse(localStorage.getItem('custom_review_items') || '[]');
       if (customReviews && customReviews.length > 0) {
-        reviews = [...customReviews, ...reviews];
+        const existingIds = new Set(reviews.map(r => String(r.id)));
+        const uniqueCustom = customReviews.filter(c => !existingIds.has(String(c.id)));
+        reviews = [...uniqueCustom, ...reviews];
       }
     } catch(e) {}
     return reviews;
@@ -310,8 +326,10 @@ const AtelierDataService = {
     let reels = [];
     if (supabase) {
       try {
-        const { data, error } = await supabase.from('social_posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
-        if (!error && data && data.length > 0) reels = data;
+        const fetchPromise = supabase.from('social_posts').select('*');
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2500));
+        const res = await Promise.race([fetchPromise, timeoutPromise]);
+        if (res && res.data && res.data.length > 0) reels = res.data;
       } catch (e) {}
     }
     if (!reels || reels.length === 0) {
