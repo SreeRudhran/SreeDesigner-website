@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category Showcase — Sree Designers &amp; Boutique</title>
-  <meta name="description" content="Explore handcrafted South Indian boutique garments, maggam embroidery, and custom fit work by Sree Designers.">
+  <title>Category Collection — Sree Designers &amp; Boutique</title>
+  <meta name="description" content="Explore custom tailored designer blouses, bridal maggam embroidery, and festive couture in Coimbatore &amp; Tiruppur.">
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- SUPABASE JS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -25,8 +22,6 @@
       --gold: #d4af37;
       --gold-dark: #b98c14;
       --line: rgba(28, 27, 24, 0.12);
-      --shadow-soft: 0 20px 40px rgba(28, 27, 24, 0.05);
-      --shadow-hover: 0 28px 60px rgba(28, 27, 24, 0.12);
       --font-serif: 'Fraunces', serif;
       --font-sans: 'Jost', sans-serif;
     }
@@ -37,18 +32,10 @@
       background: var(--bg-nude);
       color: var(--ink);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .wrap {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* HEADER NAV */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -56,127 +43,206 @@
       background: rgba(245, 235, 230, 0.96);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
-    }
-
-    nav.wrap {
+      padding: 18px 48px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      height: 84px;
+      align-items: center;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
+      color: inherit;
     }
 
     .brand-name {
       font-family: var(--font-serif);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
     .brand-name span {
       display: block;
       font-family: var(--font-sans);
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold-dark);
     }
 
-    .nav-links {
+    .header-nav {
       display: flex;
       gap: 24px;
       align-items: center;
     }
 
-    .nav-links a {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .nav-link {
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
       font-weight: 500;
-      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
     }
+    .nav-link:hover { color: var(--ink); }
 
     .nav-cta {
-      padding: 10px 22px;
-      border-radius: 999px;
       background: var(--ink);
       color: var(--bg-nude);
-      font-size: 0.82rem;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.8rem;
       font-weight: 600;
+      text-decoration: none;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .nav-cta:hover {
+      background: var(--gold-dark);
+      color: var(--white);
     }
 
-    /* CATEGORY HERO */
+    /* BREADCRUMB & HERO BANNER */
     .cat-hero {
-      text-align: center;
-      padding: 60px 0 40px;
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 1240px;
+      margin: 36px auto 28px;
+      padding: 0 24px;
     }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { text-decoration: none; color: inherit; }
+    .breadcrumb a:hover { color: var(--gold-dark); }
 
     .cat-badge {
       display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      background: var(--bg-nude-alt);
       color: var(--gold-dark);
-      background: var(--white);
-      border: 1px solid rgba(197, 155, 39, 0.4);
-      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
-    .cat-hero h1 {
+    .cat-title {
       font-family: var(--font-serif);
-      font-size: 3.2rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
       line-height: 1.15;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    .cat-hero p {
-      font-size: 1.05rem;
+    .cat-sub {
       color: var(--ink-soft);
+      font-size: 1rem;
+      max-width: 720px;
     }
 
-    /* CATEGORY PRODUCTS GRID */
-    .category-products-grid {
+    /* QUICK CATEGORY SWITCHER PILLS */
+    .cat-pills-bar {
+      max-width: 1240px;
+      margin: 0 auto 32px;
+      padding: 0 24px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cat-pills-bar::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      white-space: nowrap;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+    }
+
+    /* PRODUCT GRID */
+    .products-container {
+      max-width: 1240px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+
+    .cat-products-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      margin-bottom: 90px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
     }
 
     .cat-product-card {
       background: var(--white);
+      border-radius: 20px;
       border: 1px solid var(--line);
-      border-radius: 24px;
       overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cat-product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
 
-    .cat-product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-hover);
+    .cat-product-img-wrap {
+      position: relative;
+      padding-top: 110%;
+      background: #faf6f3;
+      overflow: hidden;
     }
 
     .cat-product-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: 320px;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .cat-product-card:hover .cat-product-img {
+      transform: scale(1.05);
+    }
+
+    .discount-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #8b0000;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.04em;
     }
 
     .cat-product-body {
-      padding: 24px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -185,163 +251,297 @@
 
     .cat-product-title {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
-      line-height: 1.25;
-      margin-bottom: 8px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.35;
+      color: var(--ink);
     }
 
-    .cat-product-price {
-      font-size: 1.25rem;
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .price-sale {
+      font-size: 1.15rem;
       font-weight: 700;
+      color: var(--ink);
+    }
+
+    .price-mrp {
+      font-size: 0.85rem;
+      text-decoration: line-through;
+      color: var(--ink-soft);
+    }
+
+    .price-badge {
+      font-size: 0.7rem;
+      background: rgba(212,175,55,0.2);
       color: var(--gold-dark);
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .cat-product-desc {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
       margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .btn-view-product {
-      padding: 12px 20px;
+      display: block;
+      text-align: center;
+      padding: 10px 18px;
       border-radius: 999px;
       background: var(--ink);
       color: var(--white);
-      font-size: 0.82rem;
+      text-decoration: none;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      text-align: center;
       transition: all 0.3s ease;
     }
-
     .btn-view-product:hover {
       background: var(--gold-dark);
     }
 
+    /* CUSTOMER BESPOKE ENQUIRY BOX */
+    .bespoke-enquiry-box {
+      grid-column: span 4;
+      text-align: center;
+      padding: 56px 32px;
+      background: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+
+    .bespoke-enquiry-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .bespoke-enquiry-box p {
+      color: var(--ink-soft);
+      font-size: 0.96rem;
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .btn-whatsapp-bespoke {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25d366;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(37,211,102,0.25);
+      transition: transform 0.2s;
+    }
+    .btn-whatsapp-bespoke:hover {
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      color: var(--bg-nude);
+      padding: 48px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .cat-products-grid { grid-template-columns: repeat(3, 1fr); }
+      .bespoke-enquiry-box { grid-column: span 3; }
+    }
     @media (max-width: 768px) {
-      .category-products-grid { grid-template-columns: 1fr; }
-      .cat-hero h1 { font-size: 2.2rem; }
+      header { padding: 14px 20px; }
+      .header-nav { display: none; }
+      .cat-products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .bespoke-enquiry-box { grid-column: span 2; padding: 36px 18px; }
+      .cat-product-body { padding: 14px; }
+      .cat-product-title { font-size: 0.95rem; }
+    }
+    @media (max-width: 480px) {
+      .cat-products-grid { grid-template-columns: 1fr; }
+      .bespoke-enquiry-box { grid-column: span 1; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER NAVIGATION -->
+  <!-- HEADER -->
   <header>
-    <nav class="wrap">
-      <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
-        <div class="brand-name">
-          Sree Designers &amp; Boutique
-          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
-        </div>
-      </a>
-
-      <div class="nav-links">
-        <a href="index.html#services">Collection &amp; Craftsmanship</a>
-        <a href="index.html#process">How It Works</a>
-        <a href="blog.html">Journal</a>
-        <a href="index.html#reels">Reels</a>
-        <a href="index.html#stores">Stores</a>
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+      <div class="brand-name">
+        Sree Designers &amp; Boutique
+        <span>Samalapuram &amp; Karnempettai</span>
       </div>
+    </a>
 
-      <a href="https://wa.me/919976344673" target="_blank" class="nav-cta">Book Fitting</a>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#categories" class="nav-link">Categories</a>
+      <a href="index.html#services" class="nav-link">Craftsmanship</a>
+      <a href="index.html#stores" class="nav-link">Our Studios</a>
+      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" class="nav-cta">Book Studio Fitting</a>
     </nav>
   </header>
 
-  <main class="wrap">
-
-    <!-- CATEGORY HERO HEADER -->
-    <section class="cat-hero">
-      <span class="cat-badge" id="catBadge">COLLECTION DIRECTORY</span>
-      <h1 id="catTitle">Hand Embroidered Blouses</h1>
-      <p id="catDesc">Explore published products tailored by our master artisans under this signature category.</p>
-    </section>
-
-    <!-- PRODUCTS GRID FOR THIS CATEGORY -->
-    <div class="category-products-grid" id="catProductsGrid">
-      <div style="grid-column: span 3; text-align:center; padding:40px; color:var(--ink-soft);">Loading published category items...</div>
+  <!-- CATEGORY HERO BANNER -->
+  <div class="cat-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="index.html#categories">Collections</a>
+      <span>/</span>
+      <span id="breadcrumbCat">Hand Embroidered Blouses</span>
     </div>
 
-  </main>
+    <span class="cat-badge" id="catBadge">CATEGORY · HAND EMBROIDERED BLOUSES</span>
+    <h1 class="cat-title" id="catTitle">Hand Embroidered Blouses</h1>
+    <p class="cat-sub" id="catSubtitle">Explore bespoke handcrafted bridal blouses, zardozi embroidery &amp; custom-fitted couture tailored by master artisans.</p>
+  </div>
 
-  <!-- MODULE SCRIPTS -->
-  <script src="js/supabaseClient.js"></script>
-  <script src="js/seo.js"></script>
+  <!-- QUICK CATEGORY SWITCHER PILLS -->
+  <div class="cat-pills-bar">
+    <a href="category.html?cat=Hand%20Embroidered%20Blouses" class="cat-pill" data-cat="Hand Embroidered Blouses">Hand Embroidered Blouses</a>
+    <a href="category.html?cat=Machine%20Embroidered%20Blouse" class="cat-pill" data-cat="Machine Embroidered Blouse">Machine Embroidered Blouse</a>
+    <a href="category.html?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="cat-pill" data-cat="Bridal Blouse &amp; Maggam Work">Bridal Blouses &amp; Maggam</a>
+    <a href="category.html?cat=Kurtis%20%26%20Chudidhar" class="cat-pill" data-cat="Kurtis &amp; Chudidhar">Kurtis &amp; Chudidhar</a>
+    <a href="category.html?cat=Lehengas%20%26%20Festive%20Couture" class="cat-pill" data-cat="Lehengas &amp; Festive Couture">Lehengas &amp; Festive</a>
+    <a href="category.html?cat=Frocks%20%26%20Gowns" class="cat-pill" data-cat="Frocks &amp; Gowns">Frocks &amp; Gowns</a>
+    <a href="category.html?cat=Zardozi%20Work" class="cat-pill" data-cat="Zardozi Work">Zardozi Work</a>
+  </div>
+
+  <!-- PRODUCT SHOWCASE SECTION -->
+  <section class="products-container">
+    <div class="cat-products-grid" id="catProductsGrid">
+      <!-- Dynamically populated from universal catalog + local storage additions -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Sree Designers &amp; Boutique. Master Atelier in Samalapuram &amp; Karnempettai, Tamil Nadu.</p>
+    <p style="margin-top:8px; font-size:0.75rem; color:#888;">For bespoke orders and bridal bookings: <a href="https://wa.me/919976344673">+91 99763 44673</a></p>
+  </footer>
+
+  <!-- MASTER CATALOG -->
+  <script src="js/catalogData.js"></script>
 
   <script>
-    const SUPABASE_URL  = 'https://qailnqhcocmudqogyudr.supabase.co';
-    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg';
+    function getCategoryProducts(categoryName) {
+      // 1. Get unified dataset (custom uploaded items + master catalog)
+      let allItems = [];
+      if (typeof window.getUnifiedCatalog === 'function') {
+        allItems = window.getUnifiedCatalog();
+      } else if (typeof MASTER_CATALOG !== 'undefined') {
+        let custom = [];
+        try { custom = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+        const customIds = new Set(custom.map(c => String(c.id)));
+        allItems = [...custom, ...MASTER_CATALOG.filter(d => !customIds.has(String(d.id)))];
+      }
 
-    async function fetchShowcaseByCategory(categoryName) {
-      // 1. Read localStorage items saved by admin
-      let localItems = [];
-      try { localItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+      if (!categoryName || categoryName === 'All') return allItems;
 
-      // 2. Try Supabase REST with 3s timeout
-      let remoteItems = [];
-      try {
-        const res = await Promise.race([
-          fetch(`${SUPABASE_URL}/rest/v1/showcase_items?select=*`, {
-            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
-          }),
-          new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 3000))
-        ]);
-        if (res.ok) remoteItems = await res.json();
-      } catch(e) {}
+      const norm = categoryName.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-      // 3. Merge (local first, deduplicate)
-      const remoteIds = new Set(remoteItems.map(r => String(r.id)));
-      const uniqueLocal = localItems.filter(l => !remoteIds.has(String(l.id)));
-      const all = [...uniqueLocal, ...remoteItems];
-
-      // 4. Filter by category
-      if (!categoryName || categoryName === 'All') return all;
-      return all.filter(item => {
-        const tags = Array.isArray(item.tags) ? item.tags : [item.tags || ''];
-        return tags.some(t => String(t).toLowerCase().includes(categoryName.toLowerCase()));
+      return allItems.filter(item => {
+        if (!item.tags) return false;
+        const tags = Array.isArray(item.tags) ? item.tags : [item.tags];
+        return tags.some(t => {
+          const normTag = String(t).toLowerCase().replace(/[^a-z0-9]/g, '');
+          return normTag.includes(norm) || norm.includes(normTag);
+        });
       });
     }
 
-    async function loadCategoryProducts() {
+    function loadCategoryPage() {
       const params = new URLSearchParams(window.location.search);
       const categoryName = params.get('cat') || 'Hand Embroidered Blouses';
 
+      // Update Header Text & Meta
+      document.getElementById('breadcrumbCat').textContent = categoryName;
       document.getElementById('catTitle').textContent = categoryName;
       document.getElementById('catBadge').textContent = `CATEGORY · ${categoryName.toUpperCase()}`;
       document.title = `${categoryName} Collection — Sree Designers & Boutique`;
 
-      const container = document.getElementById('catProductsGrid');
-      container.innerHTML = `<div style="grid-column:span 3;text-align:center;padding:40px;"><p style="color:var(--ink-soft);">Loading ${categoryName} products...</p></div>`;
+      // Update active pill
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        const pCat = pill.getAttribute('data-cat') || pill.textContent.trim();
+        if (pCat.toLowerCase() === categoryName.toLowerCase() || categoryName.toLowerCase().includes(pCat.toLowerCase())) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
 
-      const items = await fetchShowcaseByCategory(categoryName);
+      const items = getCategoryProducts(categoryName);
+      const container = document.getElementById('catProductsGrid');
 
       if (!items || items.length === 0) {
+        // Customer-Facing Graceful Fallback (NO ADMIN TEXT!)
         container.innerHTML = `
-          <div style="grid-column: span 3; text-align:center; padding:60px 20px; background:var(--white); border-radius:24px; border:1px solid var(--line);">
-            <h3 style="font-family:var(--font-serif); font-size:1.5rem; margin-bottom:12px;">No products published under this category yet</h3>
-            <p style="color:var(--ink-soft); font-size:0.92rem; margin-bottom:24px;">Log in to the Admin Panel to upload and publish new products under "${categoryName}".</p>
-            <a href="admin.html" style="padding:10px 24px; background:var(--ink); color:var(--white); border-radius:999px; font-size:0.85rem; font-weight:600; text-transform:uppercase;">Go to Admin Panel →</a>
+          <div class="bespoke-enquiry-box">
+            <h3>Bespoke Custom Tailoring Available</h3>
+            <p>Looking for a one-of-a-kind design in <strong>${categoryName}</strong>? Our master artisans craft bespoke blouses, lehengas &amp; bridal wear to your exact measurements.</p>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20looking%20for%20custom%20designs%20under%20${encodeURIComponent(categoryName)}" target="_blank" class="btn-whatsapp-bespoke">
+              💬 Enquire on WhatsApp →
+            </a>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = items.map(item => `
-        <div class="cat-product-card">
-          <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="cat-product-img" onerror="this.src='assets/images/service_bridal.png'">
-          <div class="cat-product-body">
-            <div>
-              <h3 class="cat-product-title">${item.title}</h3>
-              <div class="cat-product-price">from ₹${item.starting_price || 2500}</div>
-              <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:20px;">${item.description || 'Custom handcrafted South Indian garment.'}</p>
+      container.innerHTML = items.map(item => {
+        const salePrice = parseFloat(item.starting_price) || 2500;
+        const mrpPrice = Math.round(salePrice / 0.7); // 30% discount
+        const imgUrl = item.main_image_url || 'assets/images/service_bridal.png';
+
+        return `
+          <div class="cat-product-card">
+            <div class="cat-product-img-wrap">
+              <img src="${imgUrl}" alt="${item.title}" class="cat-product-img" onerror="this.src='assets/images/service_bridal.png'">
+              <span class="discount-tag">30% OFF</span>
             </div>
-            <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">View Product Details →</a>
+            <div class="cat-product-body">
+              <div>
+                <h3 class="cat-product-title">${item.title}</h3>
+                <div class="price-row">
+                  <span class="price-sale">₹${salePrice.toLocaleString('en-IN')}</span>
+                  <span class="price-mrp">₹${mrpPrice.toLocaleString('en-IN')}</span>
+                  <span class="price-badge">SAVE 30%</span>
+                </div>
+                <p class="cat-product-desc">${item.description || 'Handcrafted bespoke garment tailored to perfection.'}</p>
+              </div>
+              <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">View Details →</a>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      loadCategoryProducts();
-    });
+    document.addEventListener('DOMContentLoaded', loadCategoryPage);
   </script>
-
 </body>
 </html>

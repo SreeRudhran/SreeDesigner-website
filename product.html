@@ -681,42 +681,31 @@
   <!-- MODULE SCRIPTS -->
   <script src="js/supabaseClient.js"></script>
   <script src="js/seo.js"></script>
-
+  <script src="js/catalogData.js"></script>
   <script>
     function swapImage(src) {
       const main = document.getElementById('mainGalleryImg');
       if (main && src) main.src = src;
     }
 
-    // ── INLINE DATA LOADER (no external JS dependency) ─────────────────────
-    const SUPABASE_URL  = 'https://qailnqhcocmudqogyudr.supabase.co';
-    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg';
-
+    // ── INLINE DATA LOADER WITH MASTER CATALOG SUPPORT ─────────────────────
     async function fetchAllShowcaseItems() {
-      // 1. Read custom items saved by admin panel (localStorage)
+      if (typeof window.getUnifiedCatalog === 'function') {
+        return window.getUnifiedCatalog();
+      }
+      if (typeof MASTER_CATALOG !== 'undefined') {
+        let custom = [];
+        try { custom = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+        const customIds = new Set(custom.map(c => String(c.id)));
+        return [...custom, ...MASTER_CATALOG.filter(d => !customIds.has(String(d.id)))];
+      }
       let localItems = [];
       try { localItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
-
-      // 2. Try Supabase REST (3s timeout)
-      let remoteItems = [];
-      try {
-        const res = await Promise.race([
-          fetch(`${SUPABASE_URL}/rest/v1/showcase_items?select=*`, {
-            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
-          }),
-          new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 3000))
-        ]);
-        if (res.ok) remoteItems = await res.json();
-      } catch(e) {}
-
-      // 3. Merge: local first, then remote (deduplicate by id)
-      const remoteIds = new Set(remoteItems.map(r => String(r.id)));
-      const uniqueLocal = localItems.filter(l => !remoteIds.has(String(l.id)));
-      return [...uniqueLocal, ...remoteItems];
+      return localItems;
     }
 
     async function findItemById(idOrSlug, allItems) {
-      if (!idOrSlug || idOrSlug === 'demo-1') return allItems[0] || null;
+      if (!idOrSlug) return allItems[0] || null;
       return allItems.find(i =>
         String(i.id) === String(idOrSlug) ||
         (i.slug && i.slug === idOrSlug) ||
