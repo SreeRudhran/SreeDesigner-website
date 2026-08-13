@@ -219,34 +219,55 @@ const AtelierDataService = {
 
   // Fetch Showcase Items
   async getShowcaseItems(filterTag = 'All') {
+    let items = [];
     if (supabase) {
       try {
         let query = supabase.from('showcase_items').select('*, showcase_images(*), showcase_item_tags(tags(name))').order('sort_order', { ascending: true });
         const { data, error } = await query;
         if (!error && data && data.length > 0) {
-          return data.map(item => ({
+          items = data.map(item => ({
             ...item,
             tags: item.showcase_item_tags?.map(t => t.tags?.name).filter(Boolean) || [],
             images: item.showcase_images || []
-          })).filter(item => filterTag === 'All' || item.tags.includes(filterTag));
+          }));
         }
       } catch (e) {
         console.warn('Supabase offline, using local memory storage:', e);
       }
     }
-    // Fallback filter
-    return FALLBACK_SHOWCASE.filter(item => filterTag === 'All' || item.tags.includes(filterTag));
+    if (!items || items.length === 0) {
+      items = [...FALLBACK_SHOWCASE];
+    }
+    // Combine custom items saved in local storage
+    try {
+      const customItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
+      if (customItems && customItems.length > 0) {
+        items = [...customItems, ...items];
+      }
+    } catch(e) {}
+
+    return items.filter(item => filterTag === 'All' || (item.tags && item.tags.includes(filterTag)));
   },
 
   // Fetch Blog Posts
   async getBlogPosts() {
+    let posts = [];
     if (supabase) {
       try {
         const { data, error } = await supabase.from('blog_posts').select('*').eq('is_published', true).order('published_at', { ascending: false });
-        if (!error && data && data.length > 0) return data;
+        if (!error && data && data.length > 0) posts = data;
       } catch (e) {}
     }
-    return FALLBACK_BLOGS;
+    if (!posts || posts.length === 0) {
+      posts = [...FALLBACK_BLOGS];
+    }
+    try {
+      const customPosts = JSON.parse(localStorage.getItem('custom_blog_items') || '[]');
+      if (customPosts && customPosts.length > 0) {
+        posts = [...customPosts, ...posts];
+      }
+    } catch(e) {}
+    return posts;
   },
 
   // Fetch Single Blog Post by Slug
@@ -257,24 +278,38 @@ const AtelierDataService = {
 
   // Fetch Testimonials
   async getTestimonials() {
+    let reviews = [];
     if (supabase) {
       try {
         const { data, error } = await supabase.from('testimonials').select('*').eq('is_published', true).order('created_at', { ascending: false });
-        if (!error && data && data.length > 0) return data;
+        if (!error && data && data.length > 0) reviews = data;
       } catch (e) {}
     }
-    return FALLBACK_TESTIMONIALS;
+    if (!reviews || reviews.length === 0) {
+      reviews = [...FALLBACK_TESTIMONIALS];
+    }
+    try {
+      const customReviews = JSON.parse(localStorage.getItem('custom_review_items') || '[]');
+      if (customReviews && customReviews.length > 0) {
+        reviews = [...customReviews, ...reviews];
+      }
+    } catch(e) {}
+    return reviews;
   },
 
   // Fetch Social Reels
   async getSocialPosts() {
+    let reels = [];
     if (supabase) {
       try {
         const { data, error } = await supabase.from('social_posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
-        if (!error && data && data.length > 0) return data;
+        if (!error && data && data.length > 0) reels = data;
       } catch (e) {}
     }
-    return FALLBACK_REELS;
+    if (!reels || reels.length === 0) {
+      reels = [...FALLBACK_REELS];
+    }
+    return reels;
   },
 
   // Image Upload Helper (Compresses image client-side to <250KB before upload)

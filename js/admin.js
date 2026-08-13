@@ -99,38 +99,34 @@ const AtelierAdmin = {
 
   async handleLogin(e) {
     e.preventDefault();
-    const email = document.getElementById('adminEmail')?.value || 'admin@sreedesigners.com';
-    const password = document.getElementById('adminPassword')?.value || 'password123';
-    const alertEl = document.getElementById('adminLoginAlert');
-    if (alertEl) alertEl.style.display = 'none';
+    const email = document.getElementById('adminEmail')?.value?.trim();
+    const password = document.getElementById('adminPassword')?.value?.trim();
 
-    // Try Supabase Auth first
-    if (window.supabase) {
-      try {
-        let { data, error } = await window.supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          // Auto sign up if user does not exist in Supabase Auth yet
-          const signUpRes = await window.supabase.auth.signUp({ email, password });
-          if (!signUpRes.error && signUpRes.data?.user) {
-            data = signUpRes.data;
+    // Check credentials:
+    // Admin Email: admin@sreedesigners.com
+    // Admin Password: SreeAtelier2026! (or Supabase auth)
+    if (email !== 'admin@sreedesigners.com' || password !== 'SreeAtelier2026!') {
+      // Try Supabase Auth first
+      let supabaseSuccess = false;
+      if (window.supabase) {
+        try {
+          let { data, error } = await window.supabase.auth.signInWithPassword({ email, password });
+          if (data?.user) {
+            this.currentUser = data.user;
+            supabaseSuccess = true;
           }
-        }
-        if (data?.user) {
-          this.currentUser = data.user;
-          localStorage.setItem('sree_admin_logged', 'true');
-          localStorage.setItem('sree_admin_email', email);
-          this.showDashboard();
-          return;
-        }
-      } catch (err) {
-        console.warn('Supabase Auth attempt fallback:', err);
+        } catch (err) {}
+      }
+
+      if (!supabaseSuccess) {
+        alert('❌ Access Denied: Invalid Email or Password! Please use the correct admin credentials.');
+        return;
       }
     }
 
-    // Direct Instant Login Success Fallback (Guarantees Admin portal always works)
     localStorage.setItem('sree_admin_logged', 'true');
-    localStorage.setItem('sree_admin_email', email);
-    this.currentUser = { email };
+    localStorage.setItem('sree_admin_email', email || 'admin@sreedesigners.com');
+    this.currentUser = { email: email || 'admin@sreedesigners.com' };
     this.showDashboard();
   },
 
@@ -150,7 +146,7 @@ const AtelierAdmin = {
 
   switchTab(tabName) {
     this.activeTab = tabName;
-    document.querySelectorAll('.admin-nav-item').forEach(btn => {
+    document.querySelectorAll('.sidebar .nav-btn').forEach(btn => {
       if (btn.getAttribute('data-tab') === tabName) {
         btn.classList.add('active');
       } else {
