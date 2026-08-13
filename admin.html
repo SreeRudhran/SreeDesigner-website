@@ -6,659 +6,657 @@
   <title>Admin Portal — Sree Designers &amp; Boutique</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/png" href="assets/images/logo.png">
-
-  <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- SUPABASE JS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
     :root {
-      --bg-nude: #f5ebe6;
-      --bg-nude-alt: #ebdcd5;
-      --white: #ffffff;
-      --ink: #1c1b18;
-      --ink-soft: #5a564e;
-      --gold: #d4af37;
-      --gold-dark: #b98c14;
-      --line: rgba(28, 27, 24, 0.12);
-      --font-serif: 'Fraunces', serif;
-      --font-sans: 'Jost', sans-serif;
+      --bg: #f5ebe6; --bg2: #ebdcd5; --white: #fff; --ink: #1c1b18;
+      --soft: #5a564e; --gold: #b98c14; --line: rgba(28,27,24,.12);
+      --serif: 'Fraunces', serif; --sans: 'Jost', sans-serif;
     }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); min-height:100vh; display:flex; flex-direction:column; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg-nude);
-      color: var(--ink);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    header { background:rgba(245,235,230,.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--line); padding:16px 36px; display:flex; justify-content:space-between; align-items:center; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-name { font-family:var(--serif); font-size:1.2rem; font-weight:600; }
+    .brand-name span { display:block; font-family:var(--sans); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
 
-    header {
-      background: rgba(245, 235, 230, 0.96);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
-      padding: 16px 36px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .wrap { flex:1; max-width:1240px; width:100%; margin:30px auto; padding:0 24px; }
+    .card { background:var(--white); border-radius:24px; border:1px solid var(--line); box-shadow:0 20px 50px rgba(0,0,0,.06); overflow:hidden; }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
+    /* LOGIN */
+    #loginView { max-width:440px; margin:60px auto; padding:44px; }
+    .field-label { font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; display:block; }
+    .field-input, .field-select, .field-textarea {
+      width:100%; padding:12px 16px; border-radius:12px; border:1px solid var(--line);
+      background:var(--bg2); font-family:inherit; font-size:.92rem; outline:none;
+      transition:all .3s; margin-bottom:16px;
     }
+    .field-input:focus, .field-select:focus, .field-textarea:focus { border-color:var(--gold); background:var(--white); }
+    .btn-main { padding:12px 24px; border-radius:999px; background:var(--ink); color:var(--bg); border:none; font-size:.85rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+    .btn-main:hover { background:var(--gold); color:var(--white); }
+    .login-err { color:#dc2626; font-size:.85rem; margin-bottom:12px; display:none; }
 
-    .brand-name {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
+    /* DASHBOARD */
+    #dashView { display:none; min-height:680px; }
+    .sidebar { width:240px; background:var(--bg2); border-right:1px solid var(--line); padding:24px 16px; display:flex; flex-direction:column; gap:10px; }
+    .nav-btn { padding:14px 18px; border-radius:12px; font-size:.88rem; font-weight:500; cursor:pointer; color:var(--soft); border:none; background:transparent; text-align:left; transition:all .2s; width:100%; }
+    .nav-btn:hover, .nav-btn.active { background:var(--white); color:var(--ink); box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    .content-area { flex:1; padding:36px; overflow-y:auto; }
+    .tab-pane { display:none; }
+    .tab-pane.active { display:block; }
 
-    .brand-name span {
-      display: block;
-      font-family: var(--font-sans);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-    }
+    .item-card { display:flex; align-items:center; gap:20px; padding:18px; border:1px solid var(--line); border-radius:16px; margin-bottom:16px; background:var(--white); }
+    .item-thumb { width:72px; height:72px; border-radius:12px; object-fit:cover; flex-shrink:0; }
+    .item-info { flex:1; min-width:0; }
+    .item-info h4 { font-family:var(--serif); font-size:1rem; margin-bottom:4px; }
+    .badge { background:var(--bg); padding:4px 10px; border-radius:6px; font-size:.78rem; font-weight:600; color:var(--gold); }
+    .item-info small { font-size:.78rem; color:var(--soft); }
+    .item-actions { display:flex; gap:8px; flex-shrink:0; }
+    .btn-sm { padding:6px 14px; border-radius:999px; font-size:.75rem; font-weight:600; cursor:pointer; border:none; text-transform:uppercase; letter-spacing:.04em; }
+    .btn-preview { background:var(--ink); color:var(--white); }
+    .btn-delete { background:#dc2626; color:var(--white); }
 
-    .admin-container {
-      flex: 1;
-      max-width: 1240px;
-      width: 100%;
-      margin: 30px auto;
-      padding: 0 24px;
-    }
+    .tab-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+    .tab-header h3 { font-family:var(--serif); font-size:1.5rem; }
+    .tab-header p { font-size:.85rem; color:var(--soft); margin-top:4px; }
+    .empty-msg { color:var(--soft); text-align:center; padding:40px 20px; }
 
-    .card {
-      background: var(--white);
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
-      overflow: hidden;
-    }
+    /* MODAL */
+    .modal { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.65); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:20px; }
+    .modal.open { display:flex; }
+    .modal-box { background:var(--white); border-radius:24px; width:100%; max-width:680px; max-height:90vh; overflow-y:auto; padding:36px; box-shadow:0 40px 100px rgba(0,0,0,.3); position:relative; }
+    .modal-box h3 { font-family:var(--serif); font-size:1.6rem; margin-bottom:6px; }
+    .modal-box p { font-size:.85rem; color:var(--soft); margin-bottom:24px; }
+    .modal-close { position:absolute; top:20px; right:24px; font-size:1.8rem; background:transparent; border:none; cursor:pointer; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 
-    /* LOGIN VIEW */
-    #adminLoginView {
-      max-width: 440px;
-      margin: 60px auto;
-      padding: 44px;
-    }
-
-    .form-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .form-input, .form-textarea, .form-select {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: var(--bg-nude-alt);
-      font-family: inherit;
-      font-size: 0.92rem;
-      outline: none;
-      transition: all 0.3s ease;
-      margin-bottom: 16px;
-    }
-
-    .form-input:focus, .form-textarea:focus, .form-select:focus {
-      border-color: var(--gold-dark);
-      background: var(--white);
-    }
-
-    .btn-primary {
-      padding: 12px 24px;
-      border-radius: 999px;
-      background: var(--ink);
-      color: var(--bg-nude);
-      border: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-dark);
-      color: var(--white);
-    }
-
-    /* DASHBOARD VIEW */
-    #adminDashboardView {
-      display: flex;
-      min-height: 680px;
-    }
-
-    .sidebar {
-      width: 240px;
-      background: var(--bg-nude-alt);
-      border-right: 1px solid var(--line);
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .nav-btn {
-      padding: 14px 18px;
-      border-radius: 12px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: var(--ink-soft);
-      border: none;
-      background: transparent;
-      text-align: left;
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover, .nav-btn.active {
-      background: var(--white);
-      color: var(--ink);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .content-area {
-      flex: 1;
-      padding: 36px;
-      overflow-y: auto;
-    }
-
-    .admin-item-card {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      margin-bottom: 16px;
-      background: var(--white);
-    }
-
-    .admin-item-thumb {
-      width: 72px;
-      height: 72px;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    .admin-badge {
-      background: var(--bg-nude);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--gold-dark);
-    }
-
-    /* MODAL POPUP FOR CREATION FORMS */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-card {
-      background: var(--white);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 680px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 36px;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      font-size: 1.8rem;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
+    .nav-cta { padding:10px 22px; border-radius:999px; background:var(--ink); color:var(--bg); font-size:.82rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
   </style>
 </head>
 <body>
 
-  <header>
-    <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
-      <div class="brand-name">
-        Sree Designers &amp; Boutique
-        <span>Admin Content Management System</span>
+<header>
+  <a href="index.html" class="brand">
+    <img src="assets/images/logo.png" alt="Logo" style="height:44px;width:44px;object-fit:contain;border-radius:10px;background:var(--bg);padding:3px;">
+    <div class="brand-name">Sree Designers &amp; Boutique <span>Admin Content Management System</span></div>
+  </a>
+  <a href="index.html" style="font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">← Back to Site</a>
+</header>
+
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="loginView" class="card">
+    <h2 style="font-family:var(--serif);font-size:1.8rem;margin-bottom:8px;text-align:center;">Boutique Owner Login</h2>
+    <p style="font-size:.85rem;color:var(--soft);text-align:center;margin-bottom:28px;">Sign in to manage portfolio items, blog posts &amp; reviews.</p>
+    <div class="login-err" id="loginErr">❌ Incorrect email or password.</div>
+    <label class="field-label">Email Address</label>
+    <input type="email" id="adminEmail" class="field-input" placeholder="admin@sreedesigners.com" autocomplete="off" value="">
+    <label class="field-label">Password</label>
+    <input type="password" id="adminPassword" class="field-input" placeholder="Enter password" autocomplete="new-password" value="">
+    <button class="btn-main" style="width:100%;" onclick="doLogin()">Sign In to Dashboard</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashView" class="card">
+    <div class="sidebar">
+      <div style="font-size:.78rem;color:var(--soft);padding:0 8px;margin-bottom:6px;">Logged in as:<br><strong id="userEmail">admin@sreedesigners.com</strong></div>
+      <button class="nav-btn active" data-tab="showcase" onclick="switchTab('showcase')">📁 Showcase Portfolio</button>
+      <button class="nav-btn" data-tab="blog" onclick="switchTab('blog')">✍️ Blog Articles</button>
+      <button class="nav-btn" data-tab="testimonials" onclick="switchTab('testimonials')">⭐ Customer Reviews</button>
+      <button class="nav-btn" data-tab="social" onclick="switchTab('social')">🎥 Instagram Reels</button>
+      <button class="nav-btn" style="margin-top:auto;color:#dc2626;" onclick="doLogout()">🚪 Log Out</button>
+    </div>
+    <div class="content-area">
+
+      <!-- SHOWCASE TAB -->
+      <div class="tab-pane active" id="tab-showcase">
+        <div class="tab-header">
+          <div>
+            <h3>Service Portfolio Showcase</h3>
+            <p>Manage portfolio items, images &amp; prices shown on the collection grid.</p>
+          </div>
+          <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
+        </div>
+        <div id="listShowcase"><p class="empty-msg">Loading items...</p></div>
       </div>
-    </a>
 
-    <a href="index.html" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink);">Back to Public Site →</a>
-  </header>
-
-  <div class="admin-container">
-
-    <!-- LOGIN SCREEN -->
-    <div id="adminLoginView" class="card">
-      <h2 style="font-family:var(--font-serif); font-size:1.8rem; margin-bottom:8px; text-align:center;">Boutique Owner Login</h2>
-      <p style="font-size:0.85rem; color:var(--ink-soft); text-align:center; margin-bottom:28px;">Sign in with your Supabase credentials to manage portfolio items, blog posts &amp; reviews.</p>
-      
-      <form id="adminLoginForm">
-        <label class="form-label">Email Address</label>
-        <input type="email" id="adminEmail" class="form-input" placeholder="admin@sreedesigners.com *" required value="">
-        <label class="form-label">Password</label>
-        <input type="password" id="adminPassword" class="form-input" placeholder="Enter Password *" required value="">
-        <button type="submit" class="btn-primary" style="width:100%;">Sign In to Dashboard</button>
-      </form>
-    </div>
-
-    <!-- DASHBOARD SCREEN -->
-    <div id="adminDashboardView" class="card" style="display:none;">
-      <div class="sidebar">
-        <div style="font-size:0.78rem; color:var(--ink-soft); margin-bottom:16px; padding:0 8px;">
-          Logged in as:<br><strong id="adminUserEmail">admin@sreedesigners.com</strong>
+      <!-- BLOG TAB -->
+      <div class="tab-pane" id="tab-blog">
+        <div class="tab-header">
+          <div>
+            <h3>SEO Blog Articles</h3>
+            <p>Write fashion guides &amp; maggam care articles for search engine ranking.</p>
+          </div>
+          <button class="btn-main" onclick="openModal('modalBlog')">+ Write New Article</button>
         </div>
-        <button class="nav-btn active" data-tab="showcase" onclick="AtelierAdmin.switchTab('showcase')">📁 Showcase Portfolio</button>
-        <button class="nav-btn" data-tab="blog" onclick="AtelierAdmin.switchTab('blog')">✍️ Blog Articles</button>
-        <button class="nav-btn" data-tab="testimonials" onclick="AtelierAdmin.switchTab('testimonials')">⭐ Customer Reviews</button>
-        <button class="nav-btn" data-tab="social" onclick="AtelierAdmin.switchTab('social')">🎥 Instagram Reels</button>
-        <button class="nav-btn" id="adminLogoutBtn" style="margin-top:auto; color:#dc2626;">🚪 Log Out</button>
+        <div id="listBlog"><p class="empty-msg">Loading articles...</p></div>
       </div>
 
-      <div class="content-area">
-        <!-- Showcase Tab -->
-        <div class="admin-tab-content" id="adminTab-showcase">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-            <div>
-              <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Service Portfolio Showcase</h3>
-              <p style="font-size:0.85rem; color:var(--ink-soft);">Manage portfolio items, images &amp; prices shown on the collection grid.</p>
-            </div>
-            <button class="btn-primary" onclick="openCreateShowcaseModal()">+ Add New Showcase Item</button>
+      <!-- TESTIMONIALS TAB -->
+      <div class="tab-pane" id="tab-testimonials">
+        <div class="tab-header">
+          <div>
+            <h3>Customer Reviews &amp; Testimonials</h3>
+            <p>Add verified bride ratings &amp; studio feedback.</p>
           </div>
-          <div id="adminShowcaseList"></div>
+          <button class="btn-main" onclick="openModal('modalReview')">+ Add New Review</button>
         </div>
+        <div id="listTestimonials"><p class="empty-msg">Loading reviews...</p></div>
+      </div>
 
-        <!-- Blog Tab -->
-        <div class="admin-tab-content" id="adminTab-blog" style="display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-            <div>
-              <h3 style="font-family:var(--font-serif); font-size:1.5rem;">SEO Blog Articles</h3>
-              <p style="font-size:0.85rem; color:var(--ink-soft);">Write fashion guides &amp; maggam care articles for search engine ranking.</p>
-            </div>
-            <button class="btn-primary" onclick="openCreateBlogModal()">+ Write New Article</button>
+      <!-- SOCIAL TAB -->
+      <div class="tab-pane" id="tab-social">
+        <div class="tab-header">
+          <div>
+            <h3>Instagram Video Reels</h3>
+            <p>Feature crafting videos and fitting reel stories.</p>
           </div>
-          <div id="adminBlogList"></div>
         </div>
+        <div id="listSocial"><p class="empty-msg">No reels yet.</p></div>
+      </div>
 
-        <!-- Testimonials Tab -->
-        <div class="admin-tab-content" id="adminTab-testimonials" style="display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-            <div>
-              <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Customer Reviews &amp; Testimonials</h3>
-              <p style="font-size:0.85rem; color:var(--ink-soft);">Add verified bride ratings &amp; studio feedback.</p>
-            </div>
-            <button class="btn-primary" onclick="openCreateReviewModal()">+ Add New Review</button>
-          </div>
-          <div id="adminTestimonialList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD SHOWCASE ITEM -->
+<div class="modal" id="modalShowcase">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modalShowcase')">&times;</button>
+    <h3>Add New Portfolio Showcase Item</h3>
+    <p>Upload images and specify starting price &amp; category tags.</p>
+    <form id="formShowcase" onsubmit="submitShowcase(event)">
+      <label class="field-label">Title *</label>
+      <input type="text" id="sc_title" class="field-input" placeholder="e.g. Peacock Zardozi Maggam Blouse" required>
+      <div class="grid2">
+        <div>
+          <label class="field-label">Starting Price (₹) *</label>
+          <input type="number" id="sc_price" class="field-input" placeholder="3800" required>
         </div>
-
-        <!-- Social Tab -->
-        <div class="admin-tab-content" id="adminTab-social" style="display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-            <div>
-              <h3 style="font-family:var(--font-serif); font-size:1.5rem;">Instagram Video Reels</h3>
-              <p style="font-size:0.85rem; color:var(--ink-soft);">Feature crafting videos and fitting reel stories.</p>
-            </div>
-            <button class="btn-primary" onclick="openCreateReelModal()">+ Add New Video Reel</button>
-          </div>
-          <div id="adminSocialList"></div>
+        <div>
+          <label class="field-label">Category *</label>
+          <select id="sc_tag" class="field-select" required>
+            <option value="Hand Embroidered Blouses">Hand Embroidered Blouses</option>
+            <option value="Machine Embroidered Blouse">Machine Embroidered Blouse</option>
+            <option value="Bridal Blouse & Maggam Work">Bridal Blouse &amp; Maggam Work</option>
+            <option value="Kurtis & Chudidhar">Kurtis &amp; Chudidhar</option>
+            <option value="Lehengas & Festive Couture">Lehengas &amp; Festive Couture</option>
+            <option value="Frocks & Gowns">Frocks &amp; Gowns</option>
+            <option value="Zardozi Work">Zardozi Work</option>
+          </select>
         </div>
       </div>
-    </div>
-
+      <label class="field-label">Description *</label>
+      <textarea id="sc_desc" class="field-textarea" rows="3" placeholder="Describe zardozi wire detailing, neckline options..." required></textarea>
+      <label class="field-label">Main Image *</label>
+      <input type="file" id="sc_img" class="field-input" accept="image/*" required>
+      <label class="field-label">Extra Photos (optional)</label>
+      <input type="file" id="sc_imgs" class="field-input" accept="image/*" multiple>
+      <button type="submit" id="btnShowcase" class="btn-main" style="width:100%;margin-top:8px;">Save &amp; Publish to Showcase</button>
+    </form>
   </div>
+</div>
 
-  <!-- 1. CREATE SHOWCASE ITEM MODAL FORM -->
-  <div class="modal-overlay" id="createShowcaseModal">
-    <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeModal('createShowcaseModal')">&times;</button>
-      <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Add New Portfolio Showcase Item</h3>
-      <p style="font-size:0.85rem; color:var(--ink-soft); margin-bottom:24px;">Upload images and specify starting price &amp; category tags.</p>
+<!-- MODAL: ADD BLOG -->
+<div class="modal" id="modalBlog">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modalBlog')">&times;</button>
+    <h3>Write New SEO Blog Article</h3>
+    <p>Publish bridal style tips and maggam embroidery guides for Google indexing.</p>
+    <form id="formBlog" onsubmit="submitBlog(event)">
+      <label class="field-label">Article Title *</label>
+      <input type="text" id="bg_title" class="field-input" placeholder="e.g. Top 10 South Indian Bridal Blouse Trends for 2026" required>
+      <div class="grid2">
+        <div>
+          <label class="field-label">Category *</label>
+          <select id="bg_cat" class="field-select">
+            <option>Bridal Trends</option>
+            <option>Stitching Guide</option>
+            <option>Embroidery Care</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Author Name</label>
+          <input type="text" id="bg_author" class="field-input" value="Sree Designers Master Atelier">
+        </div>
+      </div>
+      <label class="field-label">Short Excerpt *</label>
+      <textarea id="bg_excerpt" class="field-textarea" rows="2" placeholder="Brief summary shown on article cards..." required></textarea>
+      <label class="field-label">Full Article Content *</label>
+      <textarea id="bg_content" class="field-textarea" rows="5" placeholder="Write full article paragraphs..." required></textarea>
+      <label class="field-label">Featured Image</label>
+      <input type="file" id="bg_img" class="field-input" accept="image/*">
+      <button type="submit" id="btnBlog" class="btn-main" style="width:100%;margin-top:8px;">Publish Article to Journal</button>
+    </form>
+  </div>
+</div>
 
-      <form id="formCreateShowcase" onsubmit="handleSaveShowcase(event)">
-        <label class="form-label">Showcase Item Title *</label>
-        <input type="text" id="scTitle" class="form-input" placeholder="e.g. Peacock Zardozi Maggam Blouse" required>
+<!-- MODAL: ADD REVIEW -->
+<div class="modal" id="modalReview">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modalReview')">&times;</button>
+    <h3>Add Customer Review</h3>
+    <p>Publish a verified client testimonial to your homepage.</p>
+    <form id="formReview" onsubmit="submitReview(event)">
+      <div class="grid2">
+        <div>
+          <label class="field-label">Client Name *</label>
+          <input type="text" id="rv_name" class="field-input" placeholder="Priya Sundaram" required>
+        </div>
+        <div>
+          <label class="field-label">Location *</label>
+          <input type="text" id="rv_loc" class="field-input" placeholder="RS Puram, Coimbatore" required>
+        </div>
+      </div>
+      <div class="grid2">
+        <div>
+          <label class="field-label">Rating (1–5) *</label>
+          <select id="rv_rating" class="field-select">
+            <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+            <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+            <option value="3">⭐⭐⭐ 3 Stars</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Work Type</label>
+          <input type="text" id="rv_work" class="field-input" placeholder="Bridal Blouse">
+        </div>
+      </div>
+      <label class="field-label">Review Quote *</label>
+      <textarea id="rv_quote" class="field-textarea" rows="3" placeholder="Write exact customer testimonial..." required></textarea>
+      <button type="submit" class="btn-main" style="width:100%;margin-top:8px;">Publish Review</button>
+    </form>
+  </div>
+</div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-          <div>
-            <label class="form-label">Starting Price (₹ INR) *</label>
-            <input type="number" id="scPrice" class="form-input" placeholder="3800" required>
-          </div>
-          <div>
-            <label class="form-label">Primary Tag *</label>
-            <select id="scTag" class="form-select" required>
-              <option value="Hand Embroidered Blouses">Hand Embroidered Blouses</option>
-              <option value="Machine Embroidered Blouse">Machine Embroidered Blouse</option>
-              <option value="Bridal Blouse & Maggam Work">Bridal Blouse &amp; Maggam Work</option>
-              <option value="Kurtis & Chudidhar">Kurtis &amp; Chudidhar</option>
-              <option value="Lehengas & Festive Couture">Lehengas &amp; Festive Couture</option>
-              <option value="Frocks & Gowns">Frocks &amp; Gowns</option>
-              <option value="Zardozi Work">Zardozi Work</option>
-            </select>
+<script>
+// ─── CONFIGURATION ──────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://qailnqhcocmudqogyudr.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg';
+const ADMIN_EMAIL = 'admin@sreedesigners.com';
+const ADMIN_PASS  = 'SreeAtelier2026!';
+
+// ─── SUPABASE FETCH HELPER (no SDK required) ─────────────────────────────────
+async function sbFetch(table) {
+  try {
+    const res = await Promise.race([
+      fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*`, {
+        headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+      }),
+      new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 3000))
+    ]);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch(e) { return []; }
+}
+
+async function sbInsert(table, data) {
+  try {
+    const res = await Promise.race([
+      fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': `Bearer ${SUPABASE_ANON}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify(data)
+      }),
+      new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 5000))
+    ]);
+    if (!res.ok) return null;
+    const result = await res.json();
+    return result;
+  } catch(e) { return null; }
+}
+
+async function sbDelete(table, id) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+    });
+  } catch(e) {}
+}
+
+// ─── LOCAL STORAGE HELPERS ───────────────────────────────────────────────────
+function lsGet(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
+function lsSet(key, arr) { try { localStorage.setItem(key, JSON.stringify(arr.slice(0, 30))); } catch(e) {} }
+
+// ─── GET ITEMS (Supabase first, then localStorage fallback) ──────────────────
+async function getItems(table, lsKey) {
+  const remote = await sbFetch(table);
+  const local  = lsGet(lsKey);
+  const ids    = new Set(remote.map(r => String(r.id)));
+  const unique = local.filter(l => !ids.has(String(l.id)));
+  return [...unique, ...remote];
+}
+
+// ─── IMAGE COMPRESSION ──────────────────────────────────────────────────────
+function compressImage(file) {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height, max = 900;
+        if (w > max || h > max) {
+          if (w > h) { h = Math.round(h * max / w); w = max; }
+          else       { w = Math.round(w * max / h); h = max; }
+        }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob => {
+          // Try Supabase Storage upload
+          const name = `showcase/${Date.now()}_${Math.random().toString(36).slice(2)}.jpg`;
+          fetch(`${SUPABASE_URL}/storage/v1/object/portfolio/${name}`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'image/jpeg' },
+            body: blob
+          }).then(r => {
+            if (r.ok) resolve(`${SUPABASE_URL}/storage/v1/object/public/portfolio/${name}`);
+            else resolve(canvas.toDataURL('image/jpeg', 0.7));
+          }).catch(() => resolve(canvas.toDataURL('image/jpeg', 0.7)));
+        }, 'image/jpeg', 0.7);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ─── AUTH ────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass  = document.getElementById('adminPassword').value.trim();
+  const err   = document.getElementById('loginErr');
+  if (email !== ADMIN_EMAIL || pass !== ADMIN_PASS) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  localStorage.setItem('sree_admin_logged', 'true');
+  showDash(email);
+}
+
+function doLogout() {
+  localStorage.removeItem('sree_admin_logged');
+  document.getElementById('dashView').style.display = 'none';
+  document.getElementById('loginView').style.display = 'block';
+}
+
+function showDash(email) {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('dashView').style.display  = 'flex';
+  document.getElementById('userEmail').textContent = email || ADMIN_EMAIL;
+  switchTab('showcase');
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'showcase')    renderShowcase();
+  if (name === 'blog')        renderBlog();
+  if (name === 'testimonials') renderTestimonials();
+}
+
+// ─── RENDER SHOWCASE ─────────────────────────────────────────────────────────
+async function renderShowcase() {
+  const el = document.getElementById('listShowcase');
+  el.innerHTML = '<p class="empty-msg">Loading items...</p>';
+  try {
+    const items = await getItems('showcase_items', 'custom_showcase_items');
+    if (!items.length) { el.innerHTML = '<p class="empty-msg">No items yet. Click "+ Add New Showcase Item" to publish your first product.</p>'; return; }
+    el.innerHTML = items.map(item => `
+      <div class="item-card">
+        <img class="item-thumb" src="${item.main_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${item.title}">
+        <div class="item-info">
+          <h4>${item.title}</h4>
+          <div style="margin-top:4px;">
+            <span class="badge">₹${item.starting_price || 2500}</span>
+            <small style="margin-left:8px;">Tag: ${Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General')}</small>
           </div>
         </div>
-
-        <label class="form-label">Artisan Craft Description *</label>
-        <textarea id="scDesc" class="form-textarea" rows="3" placeholder="Describe zardozi wire detailing, neckline options, and lining quality..." required></textarea>
-
-        <label class="form-label">Main Image Upload (Auto-compressed) *</label>
-        <input type="file" id="scMainImgFile" class="form-input" accept="image/*" required>
-
-        <label class="form-label">Additional Angle / Detail Photos (Optional)</label>
-        <input type="file" id="scSubImgFiles" class="form-input" accept="image/*" multiple>
-
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;" id="btnSubmitShowcase">Save &amp; Publish to Showcase</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 2. CREATE BLOG ARTICLE MODAL FORM -->
-  <div class="modal-overlay" id="createBlogModal">
-    <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeModal('createBlogModal')">&times;</button>
-      <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Write New SEO Blog Article</h3>
-      <p style="font-size:0.85rem; color:var(--ink-soft); margin-bottom:24px;">Publish bridal style tips and maggam embroidery guides for Google indexing.</p>
-
-      <form id="formCreateBlog" onsubmit="handleSaveBlog(event)">
-        <label class="form-label">Article Title *</label>
-        <input type="text" id="bgTitle" class="form-input" placeholder="e.g. Top 10 South Indian Bridal Blouse Trends for 2026" required>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-          <div>
-            <label class="form-label">Category *</label>
-            <select id="bgCategory" class="form-select" required>
-              <option value="Bridal Trends">Bridal Trends</option>
-              <option value="Stitching Guide">Stitching Guide</option>
-              <option value="Embroidery Care">Embroidery Care</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">Author Name</label>
-            <input type="text" id="bgAuthor" class="form-input" value="Sree Designers Master Atelier">
-          </div>
+        <div class="item-actions">
+          <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" class="btn-sm btn-preview">Preview</a>
+          <button class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
         </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<p class="empty-msg" style="color:#dc2626;">Error loading items. Please refresh the page.</p>';
+  }
+}
 
-        <label class="form-label">Short Excerpt / Summary *</label>
-        <textarea id="bgExcerpt" class="form-textarea" rows="2" placeholder="Brief summary shown on article cards..." required></textarea>
+async function deleteShowcase(id) {
+  if (!confirm('Delete this showcase item?')) return;
+  const arr = lsGet('custom_showcase_items').filter(i => String(i.id) !== String(id));
+  lsSet('custom_showcase_items', arr);
+  await sbDelete('showcase_items', id);
+  renderShowcase();
+}
 
-        <label class="form-label">Full Article Content (HTML / Paragraphs) *</label>
-        <textarea id="bgContent" class="form-textarea" rows="5" placeholder="Write full article paragraphs, headings, and fitting advice..." required></textarea>
-
-        <label class="form-label">Featured Image Upload *</label>
-        <input type="file" id="bgImgFile" class="form-input" accept="image/*" required>
-
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;" id="btnSubmitBlog">Publish Article to Journal</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 3. CREATE TESTIMONIAL MODAL FORM -->
-  <div class="modal-overlay" id="createReviewModal">
-    <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeModal('createReviewModal')">&times;</button>
-      <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Add Verified Client Review</h3>
-      <p style="font-size:0.85rem; color:var(--ink-soft); margin-bottom:24px;">Publish customer feedback and trial fitting reviews.</p>
-
-      <form id="formCreateReview" onsubmit="handleSaveReview(event)">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-          <div>
-            <label class="form-label">Customer Name *</label>
-            <input type="text" id="rvName" class="form-input" placeholder="e.g. Deepika Ranganathan" required>
-          </div>
-          <div>
-            <label class="form-label">Location / Branch *</label>
-            <input type="text" id="rvLocation" class="form-input" placeholder="e.g. Samalapuram Branch" required>
-          </div>
+// ─── RENDER BLOG ─────────────────────────────────────────────────────────────
+async function renderBlog() {
+  const el = document.getElementById('listBlog');
+  el.innerHTML = '<p class="empty-msg">Loading articles...</p>';
+  try {
+    const posts = await getItems('blog_posts', 'custom_blog_items');
+    if (!posts.length) { el.innerHTML = '<p class="empty-msg">No articles yet. Click "+ Write New Article" to publish your first post.</p>'; return; }
+    el.innerHTML = posts.map(p => `
+      <div class="item-card">
+        <img class="item-thumb" src="${p.featured_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${p.title}">
+        <div class="item-info">
+          <h4>${p.title}</h4>
+          <small>${p.excerpt || ''}</small>
         </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-          <div>
-            <label class="form-label">Star Rating *</label>
-            <select id="rvRating" class="form-select">
-              <option value="5">★★★★★ (5 Stars)</option>
-              <option value="4">★★★★☆ (4 Stars)</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">Garment / Service Type</label>
-            <input type="text" id="rvWorkType" class="form-input" placeholder="e.g. Bridal Maggam Blouse">
-          </div>
+        <div class="item-actions">
+          <button class="btn-sm btn-delete" onclick="deleteBlog('${p.id}')">Delete</button>
         </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<p class="empty-msg" style="color:#dc2626;">Error loading articles. Please refresh.</p>';
+  }
+}
 
-        <label class="form-label">Client Review Quote *</label>
-        <textarea id="rvQuote" class="form-textarea" rows="3" placeholder="Write exact customer testimonial..." required></textarea>
+async function deleteBlog(id) {
+  if (!confirm('Delete this blog article?')) return;
+  const arr = lsGet('custom_blog_items').filter(p => String(p.id) !== String(id));
+  lsSet('custom_blog_items', arr);
+  await sbDelete('blog_posts', id);
+  renderBlog();
+}
 
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;">Publish Review</button>
-      </form>
-    </div>
-  </div>
+// ─── RENDER TESTIMONIALS ─────────────────────────────────────────────────────
+async function renderTestimonials() {
+  const el = document.getElementById('listTestimonials');
+  el.innerHTML = '<p class="empty-msg">Loading reviews...</p>';
+  try {
+    const reviews = await getItems('testimonials', 'custom_review_items');
+    if (!reviews.length) { el.innerHTML = '<p class="empty-msg">No reviews yet.</p>'; return; }
+    el.innerHTML = reviews.map(r => `
+      <div class="item-card">
+        <div class="item-info">
+          <h4>${r.customer_name || r.client_name || 'Client'} — ${'★'.repeat(r.rating || 5)}</h4>
+          <small>${r.location || ''} · ${r.comment || r.quote || ''}</small>
+        </div>
+        <div class="item-actions">
+          <button class="btn-sm btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<p class="empty-msg" style="color:#dc2626;">Error loading reviews. Please refresh.</p>';
+  }
+}
 
-  <!-- MODULE SCRIPTS -->
-  <script src="js/supabaseClient.js"></script>
-  <script src="js/seo.js"></script>
-  <script src="js/admin.js"></script>
+async function deleteReview(id) {
+  if (!confirm('Delete this review?')) return;
+  const arr = lsGet('custom_review_items').filter(r => String(r.id) !== String(id));
+  lsSet('custom_review_items', arr);
+  await sbDelete('testimonials', id);
+  renderTestimonials();
+}
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.AtelierAdmin && typeof window.AtelierAdmin.init === 'function') {
-        window.AtelierAdmin.init();
-      }
+// ─── SUBMIT FORMS ────────────────────────────────────────────────────────────
+async function submitShowcase(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnShowcase');
+  btn.textContent = 'Compressing & Uploading...';
+  btn.disabled = true;
+
+  try {
+    const fileEl = document.getElementById('sc_img');
+    let imgUrl = 'assets/images/service_bridal.png';
+    if (fileEl.files && fileEl.files[0]) {
+      imgUrl = await compressImage(fileEl.files[0]);
+    }
+
+    const newItem = {
+      id: 'item-' + Date.now(),
+      title: document.getElementById('sc_title').value,
+      description: document.getElementById('sc_desc').value,
+      starting_price: parseFloat(document.getElementById('sc_price').value) || 1800,
+      tags: [document.getElementById('sc_tag').value],
+      main_image_url: imgUrl,
+      is_published: true
+    };
+
+    // Save to localStorage immediately
+    const arr = lsGet('custom_showcase_items');
+    arr.unshift(newItem);
+    lsSet('custom_showcase_items', arr);
+
+    // Try Supabase in background
+    sbInsert('showcase_items', {
+      title: newItem.title,
+      slug: newItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      description: newItem.description,
+      starting_price: newItem.starting_price,
+      main_image_url: newItem.main_image_url,
+      is_published: true
     });
 
-    function openCreateShowcaseModal() { document.getElementById('createShowcaseModal').style.display = 'flex'; }
-    function openCreateBlogModal() { document.getElementById('createBlogModal').style.display = 'flex'; }
-    function openCreateReviewModal() { document.getElementById('createReviewModal').style.display = 'flex'; }
-    function openCreateReelModal() { alert('Reel creation ready'); }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    document.getElementById('formShowcase').reset();
+    closeModal('modalShowcase');
+    alert('✅ Showcase item published!');
+    renderShowcase();
+  } catch(err) {
+    alert('❌ Error: ' + err.message);
+  } finally {
+    btn.textContent = 'Save & Publish to Showcase';
+    btn.disabled = false;
+  }
+}
 
-    // Helper: Client-side canvas image compressor & upload fallback
-    async function compressAndUploadFile(file, folder = 'showcase') {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = async () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            const maxDim = 800; // Ultra lightweight 800px resolution
-            if (width > maxDim || height > maxDim) {
-              if (width > height) {
-                height = Math.round((height * maxDim) / width);
-                width = maxDim;
-              } else {
-                width = Math.round((width * maxDim) / height);
-                height = maxDim;
-              }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65); // ~40KB per image
+async function submitBlog(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnBlog');
+  btn.textContent = 'Publishing...';
+  btn.disabled = true;
 
-            // Try Supabase Storage first
-            if (window.supabase) {
-              try {
-                const blob = await (await fetch(compressedDataUrl)).blob();
-                const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
-                const { data, error } = await window.supabase.storage.from('portfolio').upload(fileName, blob, { contentType: 'image/jpeg', upsert: true });
-                if (!error && data) {
-                  const { data: publicUrlData } = window.supabase.storage.from('portfolio').getPublicUrl(fileName);
-                  if (publicUrlData && publicUrlData.publicUrl) {
-                    resolve(publicUrlData.publicUrl);
-                    return;
-                  }
-                }
-              } catch (err) {
-                console.warn('Supabase storage upload fallback:', err);
-              }
-            }
-
-            // Return compressed lightweight DataURL
-            resolve(compressedDataUrl);
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
+  try {
+    const fileEl = document.getElementById('bg_img');
+    let imgUrl = 'assets/images/service_bridal.png';
+    if (fileEl.files && fileEl.files[0]) {
+      imgUrl = await compressImage(fileEl.files[0]);
     }
 
-    // SAVE SHOWCASE ITEM
-    async function handleSaveShowcase(e) {
-      e.preventDefault();
-      const btn = document.getElementById('btnSubmitShowcase');
-      btn.textContent = 'Compressing & Uploading Images...';
-      btn.disabled = true;
+    const newPost = {
+      id: 'blog-' + Date.now(),
+      title: document.getElementById('bg_title').value,
+      category: document.getElementById('bg_cat').value,
+      author_name: document.getElementById('bg_author').value,
+      excerpt: document.getElementById('bg_excerpt').value,
+      content: document.getElementById('bg_content').value,
+      featured_image_url: imgUrl,
+      published_at: new Date().toISOString()
+    };
 
-      try {
-        const fileInput = document.getElementById('scMainImgFile');
-        let mainImgUrl = 'assets/images/service_bridal.png';
-        if (fileInput.files && fileInput.files[0]) {
-          mainImgUrl = await compressAndUploadFile(fileInput.files[0], 'showcase');
-        }
+    const arr = lsGet('custom_blog_items');
+    arr.unshift(newPost);
+    lsSet('custom_blog_items', arr);
 
-        // Additional sub images
-        const subFilesInput = document.getElementById('scSubImgFiles');
-        const subImagesUrls = [];
-        if (subFilesInput && subFilesInput.files && subFilesInput.files.length > 0) {
-          for (let i = 0; i < subFilesInput.files.length; i++) {
-            const subUrl = await compressAndUploadFile(subFilesInput.files[i], 'showcase');
-            subImagesUrls.push(subUrl);
-          }
-        }
+    sbInsert('blog_posts', {
+      title: newPost.title,
+      slug: newPost.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      excerpt: newPost.excerpt,
+      content: newPost.content,
+      featured_image_url: newPost.featured_image_url,
+      author_name: newPost.author_name,
+      category: newPost.category,
+      is_published: true
+    });
 
-        const itemData = {
-          title: document.getElementById('scTitle').value,
-          starting_price: document.getElementById('scPrice').value,
-          tags: [document.getElementById('scTag').value],
-          description: document.getElementById('scDesc').value,
-          main_image_url: mainImgUrl,
-          images: subImagesUrls
-        };
+    document.getElementById('formBlog').reset();
+    closeModal('modalBlog');
+    alert('✅ Blog article published!');
+    renderBlog();
+  } catch(err) {
+    alert('❌ Error: ' + err.message);
+  } finally {
+    btn.textContent = 'Publish Article to Journal';
+    btn.disabled = false;
+  }
+}
 
-        if (window.AtelierDataService && typeof window.AtelierDataService.createShowcaseItem === 'function') {
-          await window.AtelierDataService.createShowcaseItem(itemData);
-        }
+async function submitReview(e) {
+  e.preventDefault();
+  const newRev = {
+    id: 't-' + Date.now(),
+    customer_name: document.getElementById('rv_name').value,
+    location: document.getElementById('rv_loc').value,
+    rating: parseInt(document.getElementById('rv_rating').value) || 5,
+    work_type: document.getElementById('rv_work').value,
+    comment: document.getElementById('rv_quote').value
+  };
 
-        try { document.getElementById('formCreateShowcase').reset(); } catch(e) {}
-        alert('✅ Showcase item successfully saved and published!');
-        closeModal('createShowcaseModal');
-        if (window.AtelierAdmin && typeof window.AtelierAdmin.renderShowcaseManager === 'function') {
-          AtelierAdmin.renderShowcaseManager();
-        }
-      } catch (err) {
-        try { document.getElementById('formCreateShowcase').reset(); } catch(e) {}
-        alert('✅ Showcase item saved successfully!');
-        closeModal('createShowcaseModal');
-      } finally {
-        btn.textContent = 'Save & Publish to Showcase';
-        btn.disabled = false;
-      }
-    }
+  const arr = lsGet('custom_review_items');
+  arr.unshift(newRev);
+  lsSet('custom_review_items', arr);
 
-    // SAVE BLOG ARTICLE
-    async function handleSaveBlog(e) {
-      e.preventDefault();
-      const btn = document.getElementById('btnSubmitBlog');
-      btn.textContent = 'Publishing Article...';
-      btn.disabled = true;
+  sbInsert('testimonials', {
+    client_name: newRev.customer_name,
+    location: newRev.location,
+    rating: newRev.rating,
+    quote: newRev.comment,
+    is_published: true
+  });
 
-      try {
-        const fileInput = document.getElementById('bgImgFile');
-        let imgUrl = 'assets/images/bridal_blouse.jpg';
-        if (fileInput.files && fileInput.files[0]) {
-          imgUrl = await compressAndUploadFile(fileInput.files[0], 'blog');
-        }
+  document.getElementById('formReview').reset();
+  closeModal('modalReview');
+  alert('✅ Review published!');
+  renderTestimonials();
+}
 
-        const blogData = {
-          title: document.getElementById('bgTitle').value,
-          category: document.getElementById('bgCategory').value,
-          author_name: document.getElementById('bgAuthor').value,
-          excerpt: document.getElementById('bgExcerpt').value,
-          content: document.getElementById('bgContent').value,
-          featured_image_url: imgUrl
-        };
+// ─── MODAL HELPERS ───────────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-        if (window.AtelierDataService && typeof window.AtelierDataService.createBlogPost === 'function') {
-          await window.AtelierDataService.createBlogPost(blogData);
-        }
-
-        try { document.getElementById('formCreateBlog').reset(); } catch(e) {}
-        alert('✅ Blog article successfully published to Journal!');
-        closeModal('createBlogModal');
-        if (window.AtelierAdmin && typeof window.AtelierAdmin.renderBlogManager === 'function') {
-          AtelierAdmin.renderBlogManager();
-        }
-      } catch (err) {
-        try { document.getElementById('formCreateBlog').reset(); } catch(e) {}
-        alert('✅ Article published successfully!');
-        closeModal('createBlogModal');
-      } finally {
-        btn.textContent = 'Publish Article to Journal';
-        btn.disabled = false;
-      }
-    }
-
-    // SAVE TESTIMONIAL REVIEW
-    async function handleSaveReview(e) {
-      e.preventDefault();
-      const revData = {
-        client_name: document.getElementById('rvName').value,
-        location: document.getElementById('rvLocation').value,
-        rating: document.getElementById('rvRating').value,
-        work_type: document.getElementById('rvWorkType').value,
-        quote: document.getElementById('rvQuote').value
-      };
-
-      if (window.AtelierDataService && typeof window.AtelierDataService.createTestimonial === 'function') {
-        await window.AtelierDataService.createTestimonial(revData);
-      } else {
-        const stored = JSON.parse(localStorage.getItem('custom_review_items') || '[]');
-        stored.unshift(revData);
-        localStorage.setItem('custom_review_items', JSON.stringify(stored));
-      }
-
-      alert('✅ Review published successfully!');
-      closeModal('createReviewModal');
-      if (window.AtelierAdmin && typeof window.AtelierAdmin.renderTestimonialsManager === 'function') {
-        AtelierAdmin.renderTestimonialsManager();
-      }
-    }
-  </script>
-
+// ─── INIT ────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('sree_admin_logged') === 'true') {
+    showDash(localStorage.getItem('sree_admin_email') || ADMIN_EMAIL);
+  }
+  // Allow Enter key on login
+  document.getElementById('adminPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+</script>
 </body>
 </html>

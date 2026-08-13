@@ -266,6 +266,39 @@
   <script src="js/seo.js"></script>
 
   <script>
+    const SUPABASE_URL  = 'https://qailnqhcocmudqogyudr.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg';
+
+    async function fetchShowcaseByCategory(categoryName) {
+      // 1. Read localStorage items saved by admin
+      let localItems = [];
+      try { localItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+
+      // 2. Try Supabase REST with 3s timeout
+      let remoteItems = [];
+      try {
+        const res = await Promise.race([
+          fetch(`${SUPABASE_URL}/rest/v1/showcase_items?select=*`, {
+            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+          }),
+          new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 3000))
+        ]);
+        if (res.ok) remoteItems = await res.json();
+      } catch(e) {}
+
+      // 3. Merge (local first, deduplicate)
+      const remoteIds = new Set(remoteItems.map(r => String(r.id)));
+      const uniqueLocal = localItems.filter(l => !remoteIds.has(String(l.id)));
+      const all = [...uniqueLocal, ...remoteItems];
+
+      // 4. Filter by category
+      if (!categoryName || categoryName === 'All') return all;
+      return all.filter(item => {
+        const tags = Array.isArray(item.tags) ? item.tags : [item.tags || ''];
+        return tags.some(t => String(t).toLowerCase().includes(categoryName.toLowerCase()));
+      });
+    }
+
     async function loadCategoryProducts() {
       const params = new URLSearchParams(window.location.search);
       const categoryName = params.get('cat') || 'Hand Embroidered Blouses';
@@ -274,11 +307,11 @@
       document.getElementById('catBadge').textContent = `CATEGORY · ${categoryName.toUpperCase()}`;
       document.title = `${categoryName} Collection — Sree Designers & Boutique`;
 
-      if (!window.AtelierDataService) return;
-
-      const items = await window.AtelierDataService.getShowcaseItems(categoryName);
       const container = document.getElementById('catProductsGrid');
-      
+      container.innerHTML = `<div style="grid-column:span 3;text-align:center;padding:40px;"><p style="color:var(--ink-soft);">Loading ${categoryName} products...</p></div>`;
+
+      const items = await fetchShowcaseByCategory(categoryName);
+
       if (!items || items.length === 0) {
         container.innerHTML = `
           <div style="grid-column: span 3; text-align:center; padding:60px 20px; background:var(--white); border-radius:24px; border:1px solid var(--line);">
@@ -292,14 +325,14 @@
 
       container.innerHTML = items.map(item => `
         <div class="cat-product-card">
-          <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="cat-product-img">
+          <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="cat-product-img" onerror="this.src='assets/images/service_bridal.png'">
           <div class="cat-product-body">
             <div>
               <h3 class="cat-product-title">${item.title}</h3>
               <div class="cat-product-price">from ₹${item.starting_price || 2500}</div>
               <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:20px;">${item.description || 'Custom handcrafted South Indian garment.'}</p>
             </div>
-            <a href="product.html?id=${encodeURIComponent(item.id || item.slug || 'demo-1')}" class="btn-view-product">View Product Details →</a>
+            <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">View Product Details →</a>
           </div>
         </div>
       `).join('');

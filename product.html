@@ -708,13 +708,48 @@
       if (main && src) main.src = src;
     }
 
+    // ── INLINE DATA LOADER (no external JS dependency) ─────────────────────
+    const SUPABASE_URL  = 'https://qailnqhcocmudqogyudr.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg';
+
+    async function fetchAllShowcaseItems() {
+      // 1. Read custom items saved by admin panel (localStorage)
+      let localItems = [];
+      try { localItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+
+      // 2. Try Supabase REST (3s timeout)
+      let remoteItems = [];
+      try {
+        const res = await Promise.race([
+          fetch(`${SUPABASE_URL}/rest/v1/showcase_items?select=*`, {
+            headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` }
+          }),
+          new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 3000))
+        ]);
+        if (res.ok) remoteItems = await res.json();
+      } catch(e) {}
+
+      // 3. Merge: local first, then remote (deduplicate by id)
+      const remoteIds = new Set(remoteItems.map(r => String(r.id)));
+      const uniqueLocal = localItems.filter(l => !remoteIds.has(String(l.id)));
+      return [...uniqueLocal, ...remoteItems];
+    }
+
+    async function findItemById(idOrSlug, allItems) {
+      if (!idOrSlug || idOrSlug === 'demo-1') return allItems[0] || null;
+      return allItems.find(i =>
+        String(i.id) === String(idOrSlug) ||
+        (i.slug && i.slug === idOrSlug) ||
+        String(i.id).toLowerCase() === String(idOrSlug).toLowerCase()
+      ) || allItems[0] || null;
+    }
+
     async function loadDynamicProductPage() {
       const params = new URLSearchParams(window.location.search);
-      const productId = params.get('id') || params.get('slug') || 'demo-1';
+      const productId = params.get('id') || params.get('slug') || '';
 
-      if (!window.AtelierDataService) return;
-
-      const item = await window.AtelierDataService.getShowcaseItemById(productId);
+      const allItems = await fetchAllShowcaseItems();
+      const item = await findItemById(productId, allItems);
       if (!item) return;
 
       // 1. DYNAMIC PAGE META & SEO TITLE / DESCRIPTION
@@ -743,12 +778,15 @@
 
       // 4. DYNAMIC IMAGES & GALLERY
       const mainImg = document.getElementById('mainGalleryImg');
-      if (mainImg) mainImg.src = item.main_image_url || 'assets/images/service_bridal.png';
+      if (mainImg) {
+        mainImg.src = item.main_image_url || 'assets/images/service_bridal.png';
+        mainImg.alt = item.title;
+      }
 
       const subList = item.images && item.images.length > 0 ? item.images.map(i => typeof i === 'string' ? i : i.image_url) : [item.main_image_url];
       const sideItems = document.querySelectorAll('.gallery-side-item img');
-      if (sideItems[0] && subList[1]) sideItems[0].src = subList[1];
-      if (sideItems[1] && subList[2]) sideItems[1].src = subList[2];
+      if (sideItems[0]) sideItems[0].src = subList[1] || item.main_image_url || 'assets/images/service_bridal.png';
+      if (sideItems[1]) sideItems[1].src = subList[2] || item.main_image_url || 'assets/images/service_bridal.png';
 
       // 5. DYNAMIC WHATSAPP CTA LINK
       const waBtn = document.getElementById('btnProductWhatsApp');
@@ -756,7 +794,7 @@
         waBtn.href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20enquire%20about%20the%20${encodeURIComponent(item.title)}`;
       }
 
-      // 6. INJECT PRODUCT JSON-LD SCHEMA FOR NIKE-GRADE SEO
+      // 6. INJECT PRODUCT JSON-LD SCHEMA
       const schemaScript = document.createElement('script');
       schemaScript.type = 'application/ld+json';
       schemaScript.text = JSON.stringify({
@@ -778,12 +816,11 @@
       document.head.appendChild(schemaScript);
 
       // 7. DYNAMIC SIMILAR WORKS GRID
-      const allItems = await window.AtelierDataService.getShowcaseItems('All');
       const similarGrid = document.getElementById('relatedGridContainer');
       if (similarGrid) {
         const otherItems = allItems.filter(i => String(i.id) !== String(item.id)).slice(0, 3);
         similarGrid.innerHTML = otherItems.map(sim => `
-          <a href="product.html?id=${encodeURIComponent(sim.id || sim.slug)}" class="related-card">
+          <a href="product.html?id=${encodeURIComponent(sim.id || sim.slug || '')}" class="related-card">
             <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.png'}" alt="${sim.title}" class="related-img">
             <div class="related-info">
               <div>

@@ -177,24 +177,42 @@ const AtelierAdmin = {
     if (!container) return;
     container.innerHTML = '<div class="admin-loading">Loading showcase items...</div>';
 
-    const items = await window.AtelierDataService.getShowcaseItems('All');
+    // Wait up to 3s for AtelierDataService to be available
+    let waited = 0;
+    while (!window.AtelierDataService && waited < 3000) {
+      await new Promise(r => setTimeout(r, 100));
+      waited += 100;
+    }
+
+    if (!window.AtelierDataService) {
+      container.innerHTML = '<p style="color:#dc2626; text-align:center; padding:20px;">⚠️ Data service failed to load. Please hard-refresh the page (Ctrl+Shift+R).</p>';
+      return;
+    }
+
+    let items = [];
+    try {
+      items = await window.AtelierDataService.getShowcaseItems('All');
+    } catch(e) {
+      console.warn('getShowcaseItems error:', e);
+    }
+
     if (!items || items.length === 0) {
-      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No showcase items published yet.</p>';
+      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No showcase items yet. Click "+ Add New Showcase Item" to publish your first product.</p>';
       return;
     }
 
     container.innerHTML = items.map(item => `
       <div class="admin-item-card">
-        <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="admin-item-thumb">
+        <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="admin-item-thumb" onerror="this.src='assets/images/service_bridal.png'">
         <div class="admin-item-info">
           <h4>${item.title}</h4>
           <div class="admin-item-meta" style="margin-top:4px;">
             <span class="admin-badge">from ₹${item.starting_price || 2500}</span>
-            <span style="font-size:0.8rem; color:var(--ink-soft); margin-left:8px;">Category Tag: ${item.tags?.join(', ') || 'General'}</span>
+            <span style="font-size:0.8rem; color:var(--ink-soft); margin-left:8px;">Tag: ${Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General')}</span>
           </div>
         </div>
-        <div style="display:flex; gap:8px;">
-          <a href="product.html?id=${encodeURIComponent(item.id || item.slug)}" target="_blank" class="nav-cta" style="padding:6px 14px; font-size:0.75rem;">Preview</a>
+        <div style="display:flex; gap:8px; flex-shrink:0;">
+          <a href="product.html?id=${encodeURIComponent(item.id || item.slug)}" target="_blank" class="nav-cta" style="padding:6px 14px; font-size:0.75rem; text-decoration:none;">Preview</a>
           <button class="nav-cta" style="padding:6px 14px; font-size:0.75rem; background:#dc2626; border:none; cursor:pointer;" onclick="AtelierAdmin.deleteShowcase('${item.id}')">Delete</button>
         </div>
       </div>
@@ -212,21 +230,24 @@ const AtelierAdmin = {
     const container = document.getElementById('adminBlogList');
     if (!container) return;
     container.innerHTML = '<div class="admin-loading">Loading articles...</div>';
+    if (!window.AtelierDataService) { container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">Data service loading...</p>'; return; }
 
-    const posts = await window.AtelierDataService.getBlogPosts();
+    let posts = [];
+    try { posts = await window.AtelierDataService.getBlogPosts(); } catch(e) {}
+
     if (!posts || posts.length === 0) {
-      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No blog articles published yet.</p>';
+      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No blog articles yet. Click "+ Write New Article" to publish your first post.</p>';
       return;
     }
 
     container.innerHTML = posts.map(post => `
       <div class="admin-item-card">
-        <img src="${post.featured_image_url || 'assets/images/bridal_blouse.jpg'}" alt="${post.title}" class="admin-item-thumb">
+        <img src="${post.featured_image_url || 'assets/images/service_bridal.png'}" alt="${post.title}" class="admin-item-thumb" onerror="this.src='assets/images/service_bridal.png'">
         <div class="admin-item-info">
           <h4>${post.title}</h4>
           <p class="admin-item-desc" style="font-size:0.82rem; color:var(--ink-soft);">${post.excerpt || ''}</p>
         </div>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; gap:8px; flex-shrink:0;">
           <button class="nav-cta" style="padding:6px 14px; font-size:0.75rem; background:#dc2626; border:none; cursor:pointer;" onclick="AtelierAdmin.deleteBlog('${post.id}')">Delete</button>
         </div>
       </div>
@@ -244,8 +265,10 @@ const AtelierAdmin = {
     const container = document.getElementById('adminTestimonialList');
     if (!container) return;
     container.innerHTML = '<div class="admin-loading">Loading testimonials...</div>';
+    if (!window.AtelierDataService) { container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">Data service loading...</p>'; return; }
 
-    const reviews = await window.AtelierDataService.getTestimonials();
+    let reviews = [];
+    try { reviews = await window.AtelierDataService.getTestimonials(); } catch(e) {}
     container.innerHTML = reviews.map(r => `
       <div class="admin-item-card">
         <div class="admin-item-info">
