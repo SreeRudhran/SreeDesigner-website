@@ -541,7 +541,7 @@
       <span>/</span>
       <a href="index.html#services">Collection &amp; Craftsmanship</a>
       <span>/</span>
-      <span>Grand Regal Peacock Maggam Blouse</span>
+      <span id="breadcrumbTitle">Grand Regal Peacock Maggam Blouse</span>
     </div>
 
     <!-- MAIN PRODUCT SHOWCASE HERO (INSPIRED BY REFERENCE IMAGE 1) -->
@@ -552,18 +552,18 @@
         <div class="gallery-main-item">
           <img id="mainGalleryImg" src="assets/images/service_bridal.png" alt="Grand Regal Peacock Maggam Blouse Full Front View">
         </div>
-        <div class="gallery-side-item" onclick="swapImage('assets/images/service_hand_embroidery.png')">
+        <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
           <img src="assets/images/service_hand_embroidery.png" alt="Hand Zardozi Peacock Sleeve Detail">
         </div>
-        <div class="gallery-side-item" onclick="swapImage('assets/images/hero_model.png')">
+        <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
           <img src="assets/images/hero_model.png" alt="Model Trial Fitting Preview">
         </div>
       </div>
 
       <!-- PRODUCT SPECIFICATION & ORDER PANEL -->
       <div class="product-info-panel">
-        <span class="product-category-tag">BRIDAL ATELIER · HAND ZARDOZI</span>
-        <h1 class="product-title">Grand Regal Peacock Maggam Bridal Blouse</h1>
+        <span class="product-category-tag" id="productCategoryTag">BRIDAL ATELIER · HAND ZARDOZI</span>
+        <h1 class="product-title" id="productTitle">Grand Regal Peacock Maggam Bridal Blouse</h1>
         
         <div class="rating-row">
           <span class="stars">★★★★★</span>
@@ -571,12 +571,12 @@
         </div>
 
         <div class="price-wrap">
-          <span class="price-main">₹3,800</span>
+          <span class="price-main" id="productPrice">₹3,800</span>
           <span class="price-original">₹5,500</span>
           <span style="font-size:0.8rem; background:rgba(212,175,55,0.18); color:var(--gold-dark); padding:4px 10px; border-radius:999px; font-weight:600;">SAVE 30%</span>
         </div>
 
-        <p style="color:var(--ink-soft); font-size:0.95rem; margin-bottom:28px; line-height:1.65;">
+        <p id="productDesc" style="color:var(--ink-soft); font-size:0.95rem; margin-bottom:28px; line-height:1.65;">
           Custom South Indian bridal silk blouse featuring hand-stitched gold zardozi wires, ruby kundan stone embellishments, a teardrop back neck cutout, and high-density peacock sleeve motifs. Includes custom padded cup fittings and silk lining.
         </p>
 
@@ -604,14 +604,14 @@
 
         <!-- ACTION BUTTONS -->
         <div class="action-buttons-row">
-          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20order%20the%20Grand%20Regal%20Peacock%20Maggam%20Bridal%20Blouse." target="_blank" class="btn-action-primary">Enquire on WhatsApp →</a>
+          <a id="btnProductWhatsApp" href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20order%20the%20Grand%20Regal%20Peacock%20Maggam%20Bridal%20Blouse." target="_blank" class="btn-action-primary">Enquire on WhatsApp →</a>
           <a href="index.html#enquiry" class="btn-action-outline">Book Fitting Trial</a>
         </div>
       </div>
 
     </section>
 
-    <!-- STORYTELLER EDITORIAL BANNER (INSPIRED BY REFERENCE IMAGE 1 BOTTOM BANNER) -->
+    <!-- STORYTELLER EDITORIAL BANNER -->
     <section class="storyteller-banner">
       <div>
         <span class="product-category-tag">CRAFTSMANSHIP ATELIER</span>
@@ -622,7 +622,7 @@
       </div>
     </section>
 
-    <!-- RATINGS & REVIEWS SECTION (INSPIRED BY REFERENCE IMAGE 2) -->
+    <!-- RATINGS & REVIEWS SECTION -->
     <section class="reviews-section">
       <div class="reviews-head">
         <div>
@@ -645,7 +645,7 @@
           </div>
           <div class="stars" style="margin-bottom:8px;">★★★★★</div>
           <p class="review-text">
-            "I absolutely adore my peacock maggam blouse from Sree Designers! The zardozi work is incredibly dense and intricate. The trial fitting was perfect with comfortable padded support. Every wedding guest praised the craftsmanship!"
+            "I absolutely adore my peacock maggam blouse from Sree Designers! The zardozi work is incredibly dense and intricate. The trial fitting was perfect with comfortable padded support."
           </p>
         </div>
 
@@ -665,17 +665,13 @@
       </div>
     </section>
 
-    <!-- RELATED PRODUCTS / SIMILAR DESIGNS (INSPIRED BY REFERENCE IMAGE 2 BOTTOM CAROUSEL) -->
+    <!-- RELATED PRODUCTS / SIMILAR DESIGNS -->
     <section class="related-section">
       <div class="related-head">
         <h2>Similar Designs &amp; Craftsmanship</h2>
-        <div style="display:flex; gap:10px;">
-          <button class="option-pill" style="padding:8px 14px;">‹</button>
-          <button class="option-pill" style="padding:8px 14px;">›</button>
-        </div>
       </div>
 
-      <div class="related-grid">
+      <div class="related-grid" id="relatedGridContainer">
         <div class="related-card">
           <img src="assets/images/service_machine_embroidery.png" alt="Precision Machine Embroidery Blouse" class="related-img">
           <div class="related-info">
@@ -697,27 +693,115 @@
             <div class="related-price">from ₹2,500</div>
           </div>
         </div>
-
-        <div class="related-card">
-          <img src="assets/images/service_lehenga.png" alt="Opulent Festive Silk Lehenga" class="related-img">
-          <div class="related-info">
-            <div>
-              <div class="related-title">Opulent Silk Festive Lehenga</div>
-              <span style="font-size:0.78rem; color:var(--ink-soft);">Festive Couture</span>
-            </div>
-            <div class="related-price">from ₹4,200</div>
-          </div>
-        </div>
       </div>
     </section>
 
   </main>
 
+  <!-- MODULE SCRIPTS -->
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/seo.js"></script>
+
   <script>
     function swapImage(src) {
       const main = document.getElementById('mainGalleryImg');
-      if (main) main.src = src;
+      if (main && src) main.src = src;
     }
+
+    async function loadDynamicProductPage() {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id') || params.get('slug') || 'demo-1';
+
+      if (!window.AtelierDataService) return;
+
+      const item = await window.AtelierDataService.getShowcaseItemById(productId);
+      if (!item) return;
+
+      // 1. DYNAMIC PAGE META & SEO TITLE / DESCRIPTION
+      document.title = `${item.title} — Sree Designers & Boutique`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', item.description || `Handcrafted ${item.title} tailored at Sree Designers studio in Samalapuram & Karnempettai.`);
+      }
+
+      // 2. DYNAMIC BREADCRUMBS
+      const breadcrumbEl = document.getElementById('breadcrumbTitle');
+      if (breadcrumbEl) breadcrumbEl.textContent = item.title;
+
+      // 3. DYNAMIC PRODUCT DETAILS
+      const tagEl = document.getElementById('productCategoryTag');
+      if (tagEl) tagEl.textContent = (item.tags && item.tags[0]) ? item.tags[0].toUpperCase() : 'BRIDAL ATELIER';
+
+      const titleEl = document.getElementById('productTitle');
+      if (titleEl) titleEl.textContent = item.title;
+
+      const priceEl = document.getElementById('productPrice');
+      if (priceEl) priceEl.textContent = typeof item.starting_price === 'number' ? `₹${item.starting_price.toLocaleString('en-IN')}` : (item.starting_price || '₹3,800');
+
+      const descEl = document.getElementById('productDesc');
+      if (descEl) descEl.textContent = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';
+
+      // 4. DYNAMIC IMAGES & GALLERY
+      const mainImg = document.getElementById('mainGalleryImg');
+      if (mainImg) mainImg.src = item.main_image_url || 'assets/images/service_bridal.png';
+
+      const subList = item.images && item.images.length > 0 ? item.images.map(i => typeof i === 'string' ? i : i.image_url) : [item.main_image_url];
+      const sideItems = document.querySelectorAll('.gallery-side-item img');
+      if (sideItems[0] && subList[1]) sideItems[0].src = subList[1];
+      if (sideItems[1] && subList[2]) sideItems[1].src = subList[2];
+
+      // 5. DYNAMIC WHATSAPP CTA LINK
+      const waBtn = document.getElementById('btnProductWhatsApp');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20enquire%20about%20the%20${encodeURIComponent(item.title)}`;
+      }
+
+      // 6. INJECT PRODUCT JSON-LD SCHEMA FOR NIKE-GRADE SEO
+      const schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.text = JSON.stringify({
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": item.title,
+        "image": [item.main_image_url || 'https://sreedesigners.in/assets/images/service_bridal.png'],
+        "description": item.description,
+        "sku": `SREE-${item.id || 'PRODUCT'}`,
+        "brand": { "@type": "Brand", "name": "Sree Designers & Boutique" },
+        "offers": {
+          "@type": "Offer",
+          "url": window.location.href,
+          "priceCurrency": "INR",
+          "price": item.starting_price || 3800,
+          "availability": "https://schema.org/InStock"
+        }
+      });
+      document.head.appendChild(schemaScript);
+
+      // 7. DYNAMIC SIMILAR WORKS GRID
+      const allItems = await window.AtelierDataService.getShowcaseItems('All');
+      const similarGrid = document.getElementById('relatedGridContainer');
+      if (similarGrid) {
+        const otherItems = allItems.filter(i => String(i.id) !== String(item.id)).slice(0, 3);
+        similarGrid.innerHTML = otherItems.map(sim => `
+          <a href="product.html?id=${encodeURIComponent(sim.id || sim.slug)}" class="related-card">
+            <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.png'}" alt="${sim.title}" class="related-img">
+            <div class="related-info">
+              <div>
+                <div class="related-title">${sim.title}</div>
+                <span style="font-size:0.78rem; color:var(--ink-soft);">${(sim.tags && sim.tags[0]) || 'Bespoke Craft'}</span>
+              </div>
+              <div class="related-price">from ₹${sim.starting_price || 2500}</div>
+            </div>
+          </a>
+        `).join('');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDynamicProductPage();
+    });
   </script>
+</body>
+</html>
 </body>
 </html>

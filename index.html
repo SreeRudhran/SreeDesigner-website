@@ -2940,7 +2940,7 @@
             </div>
             <div class="service-bottom-row">
               <div class="service-price-starting">${priceDisplay}</div>
-              <button onclick="openCustomItemDetail('${encodedItem}')" class="btn-book-service">See More →</button>
+              <a href="product.html?id=${encodeURIComponent(item.id || item.slug || 'demo-1')}" class="btn-book-service">See More →</a>
             </div>
           </div>
         `;

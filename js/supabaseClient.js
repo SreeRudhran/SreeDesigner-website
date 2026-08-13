@@ -249,6 +249,14 @@ const AtelierDataService = {
     return items.filter(item => filterTag === 'All' || (item.tags && item.tags.includes(filterTag)));
   },
 
+  // Fetch Single Showcase Item by ID or Slug
+  async getShowcaseItemById(idOrSlug) {
+    const items = await this.getShowcaseItems('All');
+    if (!idOrSlug) return items[0];
+    const found = items.find(i => String(i.id) === String(idOrSlug) || i.slug === idOrSlug || String(i.id).toLowerCase() === String(idOrSlug).toLowerCase());
+    return found || items[0];
+  },
+
   // Fetch Blog Posts
   async getBlogPosts() {
     let posts = [];
