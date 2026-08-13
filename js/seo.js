@@ -24,59 +24,59 @@ const AtelierSEO = {
       "@type": "Organization",
       "@id": "https://sree-fashion-designers-boutique.vercel.app/#organization",
       "name": "Sree Designers & Boutique",
-      "legalName": "Sree Fashion Designers & Boutique Private Limited",
+      "legalName": "Sree Designers & Boutique",
       "url": "https://sree-fashion-designers-boutique.vercel.app/",
       "logo": "https://sree-fashion-designers-boutique.vercel.app/assets/images/logo.png",
       "foundingDate": "2012",
-      "founders": [
-        { "@type": "Person", "name": "Sree Designers Master Atelier" }
-      ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "R.S. Puram & Cross Cut Road Area",
-        "addressLocality": "Coimbatore",
+        "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
+        "addressLocality": "Somanur",
         "addressRegion": "Tamil Nadu",
-        "postalCode": "641002",
+        "postalCode": "641663",
         "addressCountry": "IN"
       },
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+91-99763-44673",
         "contactType": "customer service",
-        "areaServed": ["Coimbatore", "Tiruppur", "Tamil Nadu", "India"],
+        "areaServed": ["Samalapuram", "Somanur", "Karnempettai", "Coimbatore", "Tiruppur", "Tamil Nadu"],
         "availableLanguage": ["Tamil", "English"]
       },
       "sameAs": [
-        "https://www.instagram.com/",
+        "https://www.instagram.com/sreedesigner_/",
+        "https://www.youtube.com/@SreeDesignerss",
+        "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr",
         "https://wa.me/919976344673"
       ]
     });
   },
 
-  // 2. LocalBusiness Studio Schemas (Coimbatore & Tiruppur)
+  // 2. LocalBusiness Studio Schemas (Samalapuram & Karnempettai)
   injectLocalBusinessSchema() {
     this.setJsonLd('seo-schema-localbusiness', [
       {
         "@context": "https://schema.org",
         "@type": "Boutique",
-        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-coimbatore",
-        "name": "Sree Designers & Boutique — Coimbatore Studio",
+        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-samalapuram",
+        "name": "Sree Designers & Boutique — Samalapuram Branch",
         "image": "https://sree-fashion-designers-boutique.vercel.app/assets/images/hero_model.png",
         "telephone": "+91-99763-44673",
         "priceRange": "₹450 - ₹15,000",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "R.S. Puram / Cross Cut Road Area",
-          "addressLocality": "Coimbatore",
-          "addressRegion": "TN",
-          "postalCode": "641002",
+          "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
+          "addressLocality": "Somanur",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "641663",
           "addressCountry": "IN"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": 11.0168,
-          "longitude": 76.9558
+          "latitude": 11.0825,
+          "longitude": 77.1654
         },
+        "hasMap": "https://maps.app.goo.gl/Q9bF9IHpnFQpJMmTR",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -89,24 +89,19 @@ const AtelierSEO = {
       {
         "@context": "https://schema.org",
         "@type": "Boutique",
-        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-tiruppur",
-        "name": "Sree Designers & Boutique — Tiruppur Studio",
+        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-karnempettai",
+        "name": "Sree Designers & Boutique — Karnempettai Branch",
         "image": "https://sree-fashion-designers-boutique.vercel.app/assets/images/hero_model.png",
         "telephone": "+91-99763-44673",
         "priceRange": "₹450 - ₹15,000",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "PN Road / Avinashi Road Junction",
-          "addressLocality": "Tiruppur",
-          "addressRegion": "TN",
-          "postalCode": "641602",
+          "streetAddress": "AutoStand, Annur Road",
+          "addressLocality": "Karnempettai",
+          "addressRegion": "Tamil Nadu",
           "addressCountry": "IN"
         },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 11.1085,
-          "longitude": 77.3411
-        },
+        "hasMap": "https://maps.app.goo.gl/oh7WH1mDCn5YH6f59",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
