@@ -173,22 +173,35 @@ const AtelierAdmin = {
     if (!container) return;
     container.innerHTML = '<div class="admin-loading">Loading showcase items...</div>';
 
-    const items = await window.AtelierDataService.getShowcaseItems();
+    const items = await window.AtelierDataService.getShowcaseItems('All');
+    if (!items || items.length === 0) {
+      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No showcase items published yet.</p>';
+      return;
+    }
+
     container.innerHTML = items.map(item => `
       <div class="admin-item-card">
-        <img src="${item.main_image_url}" alt="${item.title}" class="admin-item-thumb">
+        <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="admin-item-thumb">
         <div class="admin-item-info">
           <h4>${item.title}</h4>
-          <div class="admin-item-meta">
-            <span class="admin-badge">₹${item.starting_price}</span>
-            <span>Tags: ${item.tags?.join(', ') || 'General'}</span>
+          <div class="admin-item-meta" style="margin-top:4px;">
+            <span class="admin-badge">from ₹${item.starting_price || 2500}</span>
+            <span style="font-size:0.8rem; color:var(--ink-soft); margin-left:8px;">Category Tag: ${item.tags?.join(', ') || 'General'}</span>
           </div>
         </div>
         <div style="display:flex; gap:8px;">
-          <button class="admin-btn-sm" style="background:var(--bg-nude);" onclick="alert('Item details view')">Edit</button>
+          <a href="product.html?id=${encodeURIComponent(item.id || item.slug)}" target="_blank" class="nav-cta" style="padding:6px 14px; font-size:0.75rem;">Preview</a>
+          <button class="nav-cta" style="padding:6px 14px; font-size:0.75rem; background:#dc2626; border:none; cursor:pointer;" onclick="AtelierAdmin.deleteShowcase('${item.id}')">Delete</button>
         </div>
       </div>
     `).join('');
+  },
+
+  async deleteShowcase(id) {
+    if (confirm('Are you sure you want to delete this showcase item?')) {
+      await window.AtelierDataService.deleteShowcaseItem(id);
+      this.renderShowcaseManager();
+    }
   },
 
   async renderBlogManager() {
@@ -197,15 +210,30 @@ const AtelierAdmin = {
     container.innerHTML = '<div class="admin-loading">Loading articles...</div>';
 
     const posts = await window.AtelierDataService.getBlogPosts();
+    if (!posts || posts.length === 0) {
+      container.innerHTML = '<p style="color:var(--ink-soft); text-align:center; padding:20px;">No blog articles published yet.</p>';
+      return;
+    }
+
     container.innerHTML = posts.map(post => `
       <div class="admin-item-card">
-        <img src="${post.featured_image_url}" alt="${post.title}" class="admin-item-thumb">
+        <img src="${post.featured_image_url || 'assets/images/bridal_blouse.jpg'}" alt="${post.title}" class="admin-item-thumb">
         <div class="admin-item-info">
           <h4>${post.title}</h4>
-          <p class="admin-item-desc">${post.excerpt || ''}</p>
+          <p class="admin-item-desc" style="font-size:0.82rem; color:var(--ink-soft);">${post.excerpt || ''}</p>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="nav-cta" style="padding:6px 14px; font-size:0.75rem; background:#dc2626; border:none; cursor:pointer;" onclick="AtelierAdmin.deleteBlog('${post.id}')">Delete</button>
         </div>
       </div>
     `).join('');
+  },
+
+  async deleteBlog(id) {
+    if (confirm('Are you sure you want to delete this blog article?')) {
+      await window.AtelierDataService.deleteBlogPost(id);
+      this.renderBlogManager();
+    }
   },
 
   async renderTestimonialsManager() {
@@ -217,11 +245,21 @@ const AtelierAdmin = {
     container.innerHTML = reviews.map(r => `
       <div class="admin-item-card">
         <div class="admin-item-info">
-          <h4>${r.client_name} (${r.location || 'Client'}) — ${'⭐'.repeat(r.rating || 5)}</h4>
-          <p class="admin-item-desc">"${r.quote}"</p>
+          <h4>${r.customer_name || r.client_name} (${r.location || 'Studio Client'}) — ${'⭐'.repeat(r.rating || 5)}</h4>
+          <p class="admin-item-desc" style="font-size:0.85rem; color:var(--ink-soft);">"${r.comment || r.quote}"</p>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="nav-cta" style="padding:6px 14px; font-size:0.75rem; background:#dc2626; border:none; cursor:pointer;" onclick="AtelierAdmin.deleteTestimonial('${r.id}')">Delete</button>
         </div>
       </div>
     `).join('');
+  },
+
+  async deleteTestimonial(id) {
+    if (confirm('Are you sure you want to delete this testimonial?')) {
+      await window.AtelierDataService.deleteTestimonial(id);
+      this.renderTestimonialsManager();
+    }
   },
 
   async renderSocialManager() {

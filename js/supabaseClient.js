@@ -369,72 +369,69 @@ const AtelierDataService = {
 
   // Create Showcase Item
   async createShowcaseItem(item) {
-    if (supabase) {
-      try {
-        const { data, error } = await supabase.from('showcase_items').insert([{
-          title: item.title,
-          slug: item.slug || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          description: item.description,
-          starting_price: parseFloat(item.starting_price) || 1800,
-          main_image_url: item.main_image_url,
-          main_image_alt: item.title,
-          is_published: true
-        }]).select();
-        if (!error && data && data.length > 0) {
-          const newItem = data[0];
-          if (item.images && item.images.length > 0) {
-            const imgInserts = item.images.map((url, idx) => ({
-              showcase_item_id: newItem.id,
-              image_url: url,
-              sort_order: idx + 1
-            }));
-            await supabase.from('showcase_images').insert(imgInserts);
-          }
-          return newItem;
-        }
-      } catch (err) {
-        console.warn('Supabase insert failed:', err);
-      }
-    }
     const newItem = {
       id: 'item-' + Date.now(),
       title: item.title,
-      slug: item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      slug: item.slug || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       description: item.description,
       starting_price: parseFloat(item.starting_price) || 1800,
       main_image_url: item.main_image_url,
-      tags: item.tags || ['Bridal Work'],
-      images: (item.images || []).map((url, i) => ({ id: 'sub-' + i, image_url: url }))
+      tags: item.tags || ['Hand Embroidered Blouses'],
+      images: (item.images || []).map((url, i) => typeof url === 'string' ? { id: 'sub-' + i, image_url: url } : url)
     };
+
     FALLBACK_SHOWCASE.unshift(newItem);
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
+      stored.unshift(newItem);
+      localStorage.setItem('custom_showcase_items', JSON.stringify(stored.slice(0, 25)));
+    } catch (e) {
+      console.warn('Storage quota safe handling:', e);
+    }
+
+    if (supabase) {
+      try {
+        await supabase.from('showcase_items').insert([{
+          title: item.title,
+          slug: newItem.slug,
+          description: item.description,
+          starting_price: newItem.starting_price,
+          main_image_url: item.main_image_url,
+          main_image_alt: item.title,
+          is_published: true
+        }]);
+      } catch (err) {}
+    }
+
     return newItem;
+  },
+
+  // Delete Showcase Item
+  async deleteShowcaseItem(id) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
+      const filtered = stored.filter(i => String(i.id) !== String(id));
+      localStorage.setItem('custom_showcase_items', JSON.stringify(filtered));
+    } catch(e) {}
+
+    const idx = FALLBACK_SHOWCASE.findIndex(i => String(i.id) === String(id));
+    if (idx !== -1) FALLBACK_SHOWCASE.splice(idx, 1);
+
+    if (supabase) {
+      try {
+        await supabase.from('showcase_items').delete().eq('id', id);
+      } catch(e) {}
+    }
+    return true;
   },
 
   // Create Blog Article
   async createBlogPost(post) {
-    if (supabase) {
-      try {
-        const { data, error } = await supabase.from('blog_posts').insert([{
-          title: post.title,
-          slug: post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          excerpt: post.excerpt,
-          content: post.content,
-          featured_image_url: post.featured_image_url,
-          author_name: post.author_name || 'Sree Designers Master Atelier',
-          seo_title: post.seo_title || post.title,
-          seo_description: post.seo_description || post.excerpt,
-          faq_items: post.faq_items || [],
-          is_published: true
-        }]).select();
-        if (!error && data && data.length > 0) return data[0];
-      } catch (err) {
-        console.warn('Supabase blog insert error:', err);
-      }
-    }
     const newPost = {
       id: 'blog-' + Date.now(),
       title: post.title,
-      slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      slug: post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       excerpt: post.excerpt,
       content: post.content,
       featured_image_url: post.featured_image_url,
@@ -443,24 +440,54 @@ const AtelierDataService = {
       read_time_minutes: 4,
       published_at: new Date().toISOString()
     };
+
     FALLBACK_BLOGS.unshift(newPost);
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_blog_items') || '[]');
+      stored.unshift(newPost);
+      localStorage.setItem('custom_blog_items', JSON.stringify(stored.slice(0, 25)));
+    } catch (e) {}
+
+    if (supabase) {
+      try {
+        await supabase.from('blog_posts').insert([{
+          title: post.title,
+          slug: newPost.slug,
+          excerpt: post.excerpt,
+          content: post.content,
+          featured_image_url: post.featured_image_url,
+          author_name: newPost.author_name,
+          category: newPost.category,
+          is_published: true
+        }]);
+      } catch (err) {}
+    }
+
     return newPost;
+  },
+
+  // Delete Blog Article
+  async deleteBlogPost(id) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_blog_items') || '[]');
+      const filtered = stored.filter(p => String(p.id) !== String(id));
+      localStorage.setItem('custom_blog_items', JSON.stringify(filtered));
+    } catch(e) {}
+
+    const idx = FALLBACK_BLOGS.findIndex(p => String(p.id) === String(id));
+    if (idx !== -1) FALLBACK_BLOGS.splice(idx, 1);
+
+    if (supabase) {
+      try {
+        await supabase.from('blog_posts').delete().eq('id', id);
+      } catch(e) {}
+    }
+    return true;
   },
 
   // Create Testimonial / Review
   async createTestimonial(review) {
-    if (supabase) {
-      try {
-        const { data, error } = await supabase.from('testimonials').insert([{
-          client_name: review.client_name,
-          location: review.location,
-          rating: parseInt(review.rating) || 5,
-          quote: review.quote,
-          is_published: true
-        }]).select();
-        if (!error && data && data.length > 0) return data[0];
-      } catch (err) {}
-    }
     const newRev = {
       id: 't-' + Date.now(),
       customer_name: review.client_name,
@@ -469,24 +496,51 @@ const AtelierDataService = {
       comment: review.quote,
       work_type: review.work_type || 'Bridal Blouse'
     };
+
     FALLBACK_TESTIMONIALS.unshift(newRev);
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_review_items') || '[]');
+      stored.unshift(newRev);
+      localStorage.setItem('custom_review_items', JSON.stringify(stored.slice(0, 25)));
+    } catch (e) {}
+
+    if (supabase) {
+      try {
+        await supabase.from('testimonials').insert([{
+          client_name: review.client_name,
+          location: review.location,
+          rating: parseInt(review.rating) || 5,
+          quote: review.quote,
+          is_published: true
+        }]);
+      } catch (err) {}
+    }
+
     return newRev;
+  },
+
+  // Delete Testimonial
+  async deleteTestimonial(id) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('custom_review_items') || '[]');
+      const filtered = stored.filter(r => String(r.id) !== String(id));
+      localStorage.setItem('custom_review_items', JSON.stringify(filtered));
+    } catch(e) {}
+
+    const idx = FALLBACK_TESTIMONIALS.findIndex(r => String(r.id) === String(id));
+    if (idx !== -1) FALLBACK_TESTIMONIALS.splice(idx, 1);
+
+    if (supabase) {
+      try {
+        await supabase.from('testimonials').delete().eq('id', id);
+      } catch(e) {}
+    }
+    return true;
   },
 
   // Create Instagram Reel
   async createSocialPost(reel) {
-    if (supabase) {
-      try {
-        const { data, error } = await supabase.from('social_posts').insert([{
-          title: reel.title,
-          instagram_url: reel.instagram_url,
-          thumbnail_url: reel.thumbnail_url,
-          caption: reel.caption,
-          is_published: true
-        }]).select();
-        if (!error && data && data.length > 0) return data[0];
-      } catch (err) {}
-    }
     const newReel = {
       id: 'r-' + Date.now(),
       title: reel.title,

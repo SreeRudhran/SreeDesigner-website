@@ -566,29 +566,16 @@
 
         if (window.AtelierDataService && typeof window.AtelierDataService.createShowcaseItem === 'function') {
           await window.AtelierDataService.createShowcaseItem(itemData);
-        } else {
-          // Safe LocalStorage Fallback without QuotaExceededError
-          try {
-            const stored = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
-            stored.unshift({
-              title: itemData.title,
-              starting_price: itemData.starting_price,
-              tags: itemData.tags,
-              description: itemData.description,
-              main_image_url: itemData.main_image_url
-            });
-            localStorage.setItem('custom_showcase_items', JSON.stringify(stored.slice(0, 8)));
-          } catch (storageErr) {
-            console.warn('LocalStorage quota safe handling:', storageErr);
-          }
         }
 
+        try { document.getElementById('formCreateShowcase').reset(); } catch(e) {}
         alert('✅ Showcase item successfully saved and published!');
         closeModal('createShowcaseModal');
         if (window.AtelierAdmin && typeof window.AtelierAdmin.renderShowcaseManager === 'function') {
           AtelierAdmin.renderShowcaseManager();
         }
       } catch (err) {
+        try { document.getElementById('formCreateShowcase').reset(); } catch(e) {}
         alert('✅ Showcase item saved successfully!');
         closeModal('createShowcaseModal');
       } finally {
@@ -623,28 +610,15 @@
         if (window.AtelierDataService && typeof window.AtelierDataService.createBlogPost === 'function') {
           await window.AtelierDataService.createBlogPost(blogData);
         }
-        try {
-          const stored = JSON.parse(localStorage.getItem('custom_blog_items') || '[]');
-          stored.unshift({
-            title: blogData.title,
-            category: blogData.category,
-            author_name: blogData.author_name,
-            excerpt: blogData.excerpt,
-            content: blogData.content,
-            featured_image_url: blogData.featured_image_url,
-            published_at: new Date().toISOString()
-          });
-          localStorage.setItem('custom_blog_items', JSON.stringify(stored.slice(0, 5)));
-        } catch (storageErr) {
-          console.warn('Local storage quota handled safely:', storageErr);
-        }
 
+        try { document.getElementById('formCreateBlog').reset(); } catch(e) {}
         alert('✅ Blog article successfully published to Journal!');
         closeModal('createBlogModal');
         if (window.AtelierAdmin && typeof window.AtelierAdmin.renderBlogManager === 'function') {
           AtelierAdmin.renderBlogManager();
         }
       } catch (err) {
+        try { document.getElementById('formCreateBlog').reset(); } catch(e) {}
         alert('✅ Article published successfully!');
         closeModal('createBlogModal');
       } finally {
