@@ -7,42 +7,34 @@
   
   <!-- Home / Atelier -->
   <url>
-    <loc>https://sree-fashion-designers-boutique.vercel.app/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sreedesigners.in/</loc>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- Portfolio / Craftsmanship -->
+  <!-- Category Showcase -->
   <url>
-    <loc>https://sree-fashion-designers-boutique.vercel.app/#services</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sreedesigners.in/category.html</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Product Details Page -->
+  <url>
+    <loc>https://sreedesigners.in/product.html</loc>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Journal / Blog -->
   <url>
-    <loc>https://sree-fashion-designers-boutique.vercel.app/#blog</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sreedesigners.in/blog.html</loc>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-
-  <!-- Store Studios -->
-  <url>
-    <loc>https://sree-fashion-designers-boutique.vercel.app/#stores</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Online Appointment Fitting -->
-  <url>
-    <loc>https://sree-fashion-designers-boutique.vercel.app/#enquiry</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
 </urlset>

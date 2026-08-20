@@ -440,7 +440,7 @@ function renderShowcase() {
         </div>
       </div>
       <div class="item-actions">
-        <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" class="btn-sm btn-preview">Preview</a>
+        <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
         <button class="btn-sm btn-edit" onclick="openEditShowcase('${item.id}')">Edit</button>
         <button class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
       </div>

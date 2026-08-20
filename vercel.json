@@ -1,5 +1,19 @@
 {
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" }
-  ]
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sreedesigners.in"
+        }
+      ],
+      "destination": "https://sreedesigners.in/:path*",
+      "permanent": true
+    }
+  ],
+  "cleanUrls": true
 }

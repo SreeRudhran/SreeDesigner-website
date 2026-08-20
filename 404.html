@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Sree Designers &amp; Boutique</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://sreedesigners.in/404.html">
+  
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="apple-touch-icon" href="assets/images/logo.png">
+  <link rel="shortcut icon" href="assets/images/logo.png">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-nude: #f5ebe6;
+      --bg-nude-alt: #ebdcd5;
+      --white: #ffffff;
+      --ink: #1c1b18;
+      --ink-soft: #5a564e;
+      --gold: #d4af37;
+      --gold-dark: #b98c14;
+      --line: rgba(28, 27, 24, 0.12);
+      --font-serif: 'Fraunces', serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+      height: 100%;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-nude);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 18px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245, 235, 230, 0.96);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .brand-name span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 60px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .error-code {
+      font-family: var(--font-serif);
+      font-size: clamp(5rem, 15vw, 8rem);
+      font-weight: 700;
+      color: var(--gold-dark);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      margin-bottom: 14px;
+    }
+
+    p {
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .btn-action {
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+    }
+    .btn-whatsapp:hover {
+      background: #128c7e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      border-top: 1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
+      <div class="brand-name">
+        Sree Designers &amp; Boutique
+        <span>Samalapuram &amp; Karnempettai</span>
+      </div>
+    </a>
+    <a href="index.html" style="font-size:0.82rem; font-weight:600; text-transform:uppercase; color:var(--ink); text-decoration:none;">← Return Home</a>
+  </header>
+
+  <main class="container">
+    <div class="error-code">404</div>
+    <h1>Garment or Page Not Found</h1>
+    <p>The boutique collection page you are looking for might have been updated or moved. Explore our bespoke bridal blouse collections or connect directly with our master designers on WhatsApp.</p>
+    
+    <div class="links-row">
+      <a href="index.html" class="btn-action btn-primary">Visit Homepage →</a>
+      <a href="category.html?cat=Hand%20Embroidered%20Blouses" class="btn-action btn-primary">Browse Collections</a>
+      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20need%20help%20finding%20a%20design." target="_blank" rel="noopener noreferrer" class="btn-action btn-whatsapp">💬 Chat on WhatsApp</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Sree Designers &amp; Boutique · South Indian Bespoke Bridal Atelier</p>
+  </footer>
+
+</body>
+</html>

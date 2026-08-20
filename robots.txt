@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
 Disallow: /#admin
 
-Sitemap: https://sree-fashion-designers-boutique.vercel.app/sitemap.xml
+Sitemap: https://sreedesigners.in/sitemap.xml

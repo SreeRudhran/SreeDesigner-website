@@ -3,14 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category Collection — Sree Designers &amp; Boutique</title>
-  <meta name="description" content="Explore custom tailored designer blouses, bridal maggam embroidery, and festive couture in Coimbatore &amp; Tiruppur.">
-  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>Boutique Collections &amp; Categories — Sree Designers &amp; Boutique</title>
+  <meta name="description" content="Explore custom tailored South Indian designer blouses, bridal maggam embroidery, lehengas, and festive couture in Coimbatore &amp; Tiruppur.">
+  
+  <!-- SEO & CANONICAL -->
+  <link rel="canonical" href="https://sreedesigners.in/category.html">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-  <!-- GOOGLE FONTS -->
+  <!-- FAVICONS -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="apple-touch-icon" href="assets/images/logo.png">
+  <link rel="shortcut icon" href="assets/images/logo.png">
+
+  <!-- GOOGLE ANALYTICS (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SREEDESIGN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SREEDESIGN');
+  </script>
+
+  <!-- GOOGLE FONTS — OPTIMIZED -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 
   <style>
     :root {
@@ -412,7 +430,7 @@
       <a href="index.html#categories" class="nav-link">Categories</a>
       <a href="index.html#services" class="nav-link">Craftsmanship</a>
       <a href="index.html#stores" class="nav-link">Our Studios</a>
-      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" class="nav-cta">Book Studio Fitting</a>
+      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="nav-cta">Book Studio Fitting</a>
     </nav>
   </header>
 
@@ -514,7 +532,7 @@
           <div class="bespoke-enquiry-box">
             <h3>Bespoke Custom Tailoring Available</h3>
             <p>Looking for a one-of-a-kind design in <strong>${categoryName}</strong>? Our master artisans craft bespoke blouses, lehengas &amp; bridal wear to your exact measurements.</p>
-            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20looking%20for%20custom%20designs%20under%20${encodeURIComponent(categoryName)}" target="_blank" class="btn-whatsapp-bespoke">
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20looking%20for%20custom%20designs%20under%20${encodeURIComponent(categoryName)}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-bespoke">
               💬 Enquire on WhatsApp →
             </a>
           </div>
