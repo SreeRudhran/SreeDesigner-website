@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sree Designers &amp; Boutique — Bridal Blouses, Aari Maggam Work &amp; Custom Tailoring in Coimbatore &amp; Tiruppur</title>
-  <meta name="description" content="Sree Designers &amp; Boutique specializes in South Indian bridal blouse tailoring, hand zardozi &amp; maggam embroidery, custom lehengas, silk chudidhar, and 48-hour express delivery in Coimbatore and Tiruppur.">
+  <title>Sree Designers — Bridal Blouse &amp; Maggam Work Coimbatore</title>
+  <meta name="description" content="Bespoke South Indian bridal blouse tailoring, hand zardozi &amp; maggam work, lehengas and express 48-hr fitting trials in Coimbatore and Tiruppur.">
   
   <!-- SEO & CANONICALIZATION -->
   <link rel="canonical" href="https://sreedesigners.in/">
@@ -20,16 +20,67 @@
   <!-- OPEN GRAPH / FACEBOOK / WHATSAPP -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sreedesigners.in/">
-  <meta property="og:title" content="Sree Designers &amp; Boutique — Bridal Blouses, Aari Maggam Work &amp; Custom Tailoring">
-  <meta property="og:description" content="South Indian bespoke bridal blouse tailoring, hand zardozi embroidery, lehengas &amp; precision trial fittings in Coimbatore &amp; Tiruppur.">
+  <meta property="og:title" content="Sree Designers — Bridal Blouse &amp; Maggam Work Coimbatore">
+  <meta property="og:description" content="Bespoke South Indian bridal blouse tailoring, hand zardozi &amp; maggam work in Coimbatore &amp; Tiruppur.">
   <meta property="og:image" content="https://sreedesigners.in/assets/images/hero_model.png">
   <meta property="og:locale" content="en_IN">
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sree Designers &amp; Boutique — Bridal Blouses, Aari Maggam Work &amp; Tailoring">
-  <meta name="twitter:description" content="Bespoke bridal blouse tailoring, hand zardozi embroidery &amp; lehengas in Coimbatore &amp; Tiruppur.">
+  <meta name="twitter:title" content="Sree Designers — Bridal Blouse &amp; Maggam Work Coimbatore">
+  <meta name="twitter:description" content="Bespoke bridal blouse tailoring, hand zardozi &amp; maggam work in Coimbatore &amp; Tiruppur.">
   <meta name="twitter:image" content="https://sreedesigners.in/assets/images/hero_model.png">
+
+  <!-- LOCAL BUSINESS & ATELIER SCHEMA (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "Sree Designers & Boutique",
+    "image": "https://sreedesigners.in/assets/images/hero_model.png",
+    "@id": "https://sreedesigners.in/#store",
+    "url": "https://sreedesigners.in/",
+    "telephone": "+919976344673",
+    "priceRange": "₹₹",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, UPI, Credit Card",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
+        "addressLocality": "Somanur, Coimbatore",
+        "addressRegion": "Tamil Nadu",
+        "postalCode": "641663",
+        "addressCountry": "IN"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "AutoStand, Annur Road",
+        "addressLocality": "Karnempettai, Tiruppur",
+        "addressRegion": "Tamil Nadu",
+        "addressCountry": "IN"
+      }
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 11.1271,
+      "longitude": 77.1683
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:30",
+        "closes": "21:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/sreedesigner_/",
+      "https://www.youtube.com/@SreeDesignerss",
+      "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr"
+    ]
+  }
+  </script>
 
   <!-- GOOGLE ANALYTICS (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SREEDESIGN"></script>
@@ -3550,8 +3601,8 @@
         <p style="font-size:0.85rem; color:var(--ink-soft); text-align:center; margin-bottom:24px;">Log in with your Supabase Admin credentials to manage portfolio, blogs &amp; reviews.</p>
         <form id="adminLoginForm" style="display:flex; flex-direction:column; gap:16px;">
           <div id="adminLoginAlert" style="display:none; padding:12px; border-radius:8px; background:#fee2e2; color:#dc2626; font-size:0.82rem;"></div>
-          <input type="email" id="adminEmail" class="form-input" placeholder="Admin Email *" required value="admin@sreedesigners.com">
-          <input type="password" id="adminPassword" class="form-input" placeholder="Password *" required value="password123">
+          <input type="email" id="adminEmail" class="form-input" placeholder="Admin Email *" required>
+          <input type="password" id="adminPassword" class="form-input" placeholder="Password *" required>
           <button type="submit" class="btn-submit-form" style="grid-column:span 1; width:100%;">Sign In to Dashboard</button>
         </form>
       </div>
@@ -3560,7 +3611,7 @@
       <div id="adminDashboardView" class="admin-body" style="display:none;">
         <div class="admin-sidebar">
           <div style="font-size:0.75rem; color:var(--ink-soft); margin-bottom:12px; padding:0 8px;">
-            Logged in as:<br><strong id="adminUserEmail">admin@sreedesigners.com</strong>
+            Logged in as:<br><strong id="adminUserEmail">Studio Admin</strong>
           </div>
           <button class="admin-nav-item active" data-tab="showcase" onclick="AtelierAdmin.switchTab('showcase')">📁 Portfolio Showcase</button>
           <button class="admin-nav-item" data-tab="blog" onclick="AtelierAdmin.switchTab('blog')">✍️ Blog Articles</button>
