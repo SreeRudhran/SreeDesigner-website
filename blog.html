@@ -436,34 +436,40 @@
   </main>
 
   <!-- MODULE SCRIPTS -->
-  <script src="js/supabaseClient.js"></script>
-  <script src="js/seo.js"></script>
+  <script src="js/blogData.js"></script>
 
   <script>
-    async function loadDynamicBlogGrid() {
+    function renderBlogArticles() {
       const container = document.getElementById('articlesGrid');
-      if (!container || !window.AtelierDataService) return;
+      if (!container) return;
 
-      const posts = await window.AtelierDataService.getBlogPosts();
+      const posts = typeof window.getUnifiedBlogs === 'function' ? window.getUnifiedBlogs() : (window.MASTER_BLOGS || []);
       if (!posts || posts.length === 0) return;
 
-      container.innerHTML = posts.map(post => `
-        <article class="article-card" data-category="${post.category || 'Bridal Trends'}" data-title="${post.title}">
-          <img src="${post.featured_image_url || 'assets/images/bridal_blouse.jpg'}" alt="${post.title}" class="article-cover">
-          <div class="article-body">
-            <div>
-              <div class="article-meta">
-                <span class="article-tag">${post.category || 'Bridal Trends'}</span>
-                <span>•</span>
-                <span>${post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : 'Recent'}</span>
+      container.innerHTML = posts.map(post => {
+        const postUrl = post.slug || `blog-post.html?id=${encodeURIComponent(post.id)}`;
+        return `
+          <article class="article-card" data-category="${post.category || 'Bridal Trends'}" data-title="${post.title}">
+            <a href="${postUrl}">
+              <img src="${post.featured_image || 'assets/images/bridal_blouse.jpg'}" alt="${post.title}" class="article-cover" width="600" height="260" loading="lazy" decoding="async">
+            </a>
+            <div class="article-body">
+              <div>
+                <div class="article-meta">
+                  <span class="article-tag">${post.category || 'Bridal Trends'}</span>
+                  <span>•</span>
+                  <span>${post.date || 'Recent'}</span>
+                  <span>•</span>
+                  <span>${post.read_time || '5 min read'}</span>
+                </div>
+                <h3><a href="${postUrl}" style="text-decoration:none; color:inherit;">${post.title}</a></h3>
+                <p>${post.excerpt || 'Read expert bridal blouse tips and maggam embroidery advice from Sree Designers.'}</p>
               </div>
-              <h3>${post.title}</h3>
-              <p>${post.excerpt || 'Read expert fitting tips and maggam embroidery advice from Sree Designers.'}</p>
+              <a href="${postUrl}" class="read-more-link">Read Full Guide →</a>
             </div>
-            <a href="product.html" class="read-more-link">Read Full Guide →</a>
-          </div>
-        </article>
-      `).join('');
+          </article>
+        `;
+      }).join('');
     }
 
     function filterCategory(category, btn) {
@@ -473,7 +479,7 @@
       const cards = document.querySelectorAll('#articlesGrid .article-card');
       cards.forEach(card => {
         const cat = card.getAttribute('data-category');
-        if (category === 'All' || cat === category) {
+        if (category === 'All' || cat === category || cat?.toLowerCase().includes(category.toLowerCase())) {
           card.style.display = 'flex';
         } else {
           card.style.display = 'none';
@@ -485,7 +491,7 @@
       const q = document.getElementById('articleSearchInput').value.toLowerCase();
       const cards = document.querySelectorAll('#articlesGrid .article-card');
       cards.forEach(card => {
-        const title = card.getAttribute('data-title').toLowerCase();
+        const title = (card.getAttribute('data-title') || '').toLowerCase();
         const text = card.innerText.toLowerCase();
         if (title.includes(q) || text.includes(q)) {
           card.style.display = 'flex';
@@ -496,7 +502,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      loadDynamicBlogGrid();
+      renderBlogArticles();
     });
   </script>
 

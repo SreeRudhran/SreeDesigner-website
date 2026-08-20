@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- MASTER DATA MODULES -->
+  <script src="js/catalogData.js"></script>
+  <script src="js/blogData.js"></script>
 
   <style>
     :root {
@@ -269,34 +273,153 @@
 
 <!-- 3. MODAL: ADD BLOG -->
 <div class="modal" id="modalBlog">
-  <div class="modal-box">
+  <div class="modal-box" style="max-width:680px;">
     <button class="modal-close" onclick="closeModal('modalBlog')">&times;</button>
     <h3>Write New SEO Blog Article</h3>
-    <p>Publish bridal style tips and maggam embroidery guides for Google indexing.</p>
+    <p>Publish bridal style tips, Letter to Bride, and structured FAQs with automated Google Schema.</p>
     <form id="formBlog" onsubmit="submitBlog(event)">
       <label class="field-label">Article Title *</label>
       <input type="text" id="bg_title" class="field-input" placeholder="e.g. Top 10 South Indian Bridal Blouse Trends for 2026" required>
+      
       <div class="grid2">
         <div>
           <label class="field-label">Category *</label>
           <select id="bg_cat" class="field-select">
-            <option>Bridal Trends</option>
-            <option>Stitching Guide</option>
-            <option>Embroidery Care</option>
+            <option value="Bridal Trends">Bridal Trends</option>
+            <option value="Stitching Guide">Stitching Guide</option>
+            <option value="Embroidery Care">Embroidery Care</option>
+            <option value="Fabric Selection">Fabric Selection</option>
+            <option value="Custom Fitting">Custom Fitting</option>
           </select>
         </div>
         <div>
-          <label class="field-label">Author Name</label>
-          <input type="text" id="bg_author" class="field-input" value="Sree Designers Master Atelier">
+          <label class="field-label">Read Time</label>
+          <input type="text" id="bg_readtime" class="field-input" value="5 min read">
         </div>
       </div>
+
+      <div class="grid2">
+        <div>
+          <label class="field-label">Author Name (for Schema)</label>
+          <input type="text" id="bg_author" class="field-input" value="Master Artisan & Lead Designer">
+        </div>
+        <div>
+          <label class="field-label">Author Role / Job Title</label>
+          <input type="text" id="bg_author_role" class="field-input" value="Head Couturier">
+        </div>
+      </div>
+
+      <label class="field-label">Short Excerpt (Meta Description & Card Summary) *</label>
+      <textarea id="bg_excerpt" class="field-textarea" rows="2" placeholder="Brief summary (120-160 characters)..." required></textarea>
+
+      <!-- LETTER TO THE BRIDE -->
+      <div style="background:#fbf7f4; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
+        <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--ink);">💌 Letter to the Bride / Atelier Note</h4>
+        <label class="field-label">Letter Title</label>
+        <input type="text" id="bg_letter_title" class="field-input" value="A Letter to the South Indian Bride">
+        <label class="field-label">Letter Message</label>
+        <textarea id="bg_letter_content" class="field-textarea" rows="3" placeholder="Personal note on design philosophy, craftsmanship, or comfort..."></textarea>
+      </div>
+
+      <label class="field-label">Full Article Content (HTML / Paragraphs) *</label>
+      <textarea id="bg_content" class="field-textarea" rows="6" placeholder="Write full article content. You can include <h2> headings and paragraphs..." required></textarea>
+
+      <!-- STRUCTURED FAQ BUILDER -->
+      <div style="background:#f4f7fb; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-size:0.95rem; color:var(--ink);">❓ Frequently Asked Questions (Auto FAQ Schema)</h4>
+          <button type="button" class="btn-sm" onclick="addFaqRow('faqListAdd')" style="background:var(--ink); color:#fff; font-size:0.75rem;">+ Add Question</button>
+        </div>
+        <div id="faqListAdd">
+          <div class="faq-input-group" style="margin-bottom:12px; background:#fff; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+            <input type="text" class="field-input faq-q" placeholder="Question 1 (e.g. How long does bridal embroidery take?)" style="margin-bottom:6px;">
+            <textarea class="field-textarea faq-a" rows="2" placeholder="Answer 1..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <label class="field-label">Featured Cover Image *</label>
+      <input type="file" id="bg_img" class="field-input" accept="image/*" required>
+      <button type="submit" id="btnBlog" class="btn-main" style="width:100%;margin-top:8px;">Publish Article with Full Schema</button>
+    </form>
+  </div>
+</div>
+
+<!-- 3B. MODAL: EDIT BLOG -->
+<div class="modal" id="modalEditBlog">
+  <div class="modal-box" style="max-width:680px;">
+    <button class="modal-close" onclick="closeModal('modalEditBlog')">&times;</button>
+    <h3>Edit Blog Article</h3>
+    <p>Update article content, Letter to Bride, and FAQ schema.</p>
+    <form id="formEditBlog" onsubmit="submitEditBlog(event)">
+      <input type="hidden" id="edit_bg_id">
+      
+      <label class="field-label">Article Title *</label>
+      <input type="text" id="edit_bg_title" class="field-input" required>
+      
+      <div class="grid2">
+        <div>
+          <label class="field-label">Category *</label>
+          <select id="edit_bg_cat" class="field-select">
+            <option value="Bridal Trends">Bridal Trends</option>
+            <option value="Stitching Guide">Stitching Guide</option>
+            <option value="Embroidery Care">Embroidery Care</option>
+            <option value="Fabric Selection">Fabric Selection</option>
+            <option value="Custom Fitting">Custom Fitting</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Read Time</label>
+          <input type="text" id="edit_bg_readtime" class="field-input">
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="field-label">Author Name</label>
+          <input type="text" id="edit_bg_author" class="field-input">
+        </div>
+        <div>
+          <label class="field-label">Author Role</label>
+          <input type="text" id="edit_bg_author_role" class="field-input">
+        </div>
+      </div>
+
       <label class="field-label">Short Excerpt *</label>
-      <textarea id="bg_excerpt" class="field-textarea" rows="2" placeholder="Brief summary shown on article cards..." required></textarea>
+      <textarea id="edit_bg_excerpt" class="field-textarea" rows="2" required></textarea>
+
+      <!-- LETTER TO BRIDE -->
+      <div style="background:#fbf7f4; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
+        <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--ink);">💌 Letter to the Bride / Atelier Note</h4>
+        <label class="field-label">Letter Title</label>
+        <input type="text" id="edit_bg_letter_title" class="field-input">
+        <label class="field-label">Letter Message</label>
+        <textarea id="edit_bg_letter_content" class="field-textarea" rows="3"></textarea>
+      </div>
+
       <label class="field-label">Full Article Content *</label>
-      <textarea id="bg_content" class="field-textarea" rows="5" placeholder="Write full article paragraphs..." required></textarea>
-      <label class="field-label">Featured Image</label>
-      <input type="file" id="bg_img" class="field-input" accept="image/*">
-      <button type="submit" id="btnBlog" class="btn-main" style="width:100%;margin-top:8px;">Publish Article to Journal</button>
+      <textarea id="edit_bg_content" class="field-textarea" rows="6" required></textarea>
+
+      <!-- FAQS -->
+      <div style="background:#f4f7fb; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-size:0.95rem; color:var(--ink);">❓ Frequently Asked Questions</h4>
+          <button type="button" class="btn-sm" onclick="addFaqRow('faqListEdit')" style="background:var(--ink); color:#fff; font-size:0.75rem;">+ Add Question</button>
+        </div>
+        <div id="faqListEdit"></div>
+      </div>
+
+      <div class="current-img-preview" id="edit_bg_preview_box">
+        <img id="edit_bg_img_preview" src="" alt="Current image" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">
+        <div>
+          <strong style="font-size:0.85rem;">Current Cover Image</strong>
+          <small style="display:block;color:var(--soft);">Upload new image below only if you want to replace it.</small>
+        </div>
+      </div>
+
+      <label class="field-label">Replace Cover Image (Optional)</label>
+      <input type="file" id="edit_bg_img" class="field-input" accept="image/*">
+      <button type="submit" id="btnEditBlog" class="btn-main" style="width:100%;margin-top:8px;">Save Article Changes</button>
     </form>
   </div>
 </div>
@@ -555,113 +678,159 @@ function deleteShowcase(id) {
   renderShowcase();
 }
 
+// ─── DYNAMIC FAQ BUILDER HELPERS ──────────────────────────────────────────────
+function addFaqRow(containerId, qVal = '', aVal = '') {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const group = document.createElement('div');
+  group.className = 'faq-input-group';
+  group.style.cssText = 'margin-bottom:12px; background:#fff; padding:10px; border-radius:8px; border:1px solid #e2e8f0; position:relative;';
+  group.innerHTML = `
+    <button type="button" onclick="this.parentElement.remove()" style="position:absolute; right:8px; top:6px; background:none; border:none; color:#dc2626; font-size:1.1rem; cursor:pointer;" title="Remove Question">&times;</button>
+    <input type="text" class="field-input faq-q" placeholder="Question (e.g. How long does embroidery take?)" value="${qVal.replace(/"/g, '&quot;')}" style="margin-bottom:6px; padding-right:24px;">
+    <textarea class="field-textarea faq-a" rows="2" placeholder="Answer...">${aVal}</textarea>
+  `;
+  container.appendChild(group);
+}
+
+function getFaqsFromContainer(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return [];
+  const groups = container.querySelectorAll('.faq-input-group');
+  const faqs = [];
+  groups.forEach(g => {
+    const q = g.querySelector('.faq-q')?.value?.trim();
+    const a = g.querySelector('.faq-a')?.value?.trim();
+    if (q && a) {
+      faqs.push({ q, a });
+    }
+  });
+  return faqs;
+}
+
 // ─── RENDER BLOG ─────────────────────────────────────────────────────────────
 function renderBlog() {
   const el = document.getElementById('listBlog');
-  const posts = lsGet('custom_blog_items');
+  let posts = [];
+  if (typeof window.getUnifiedBlogs === 'function') {
+    posts = window.getUnifiedBlogs();
+  } else {
+    posts = lsGet('custom_blog_items');
+  }
   
   if (!posts.length) {
     el.innerHTML = '<p class="empty-msg">No blog articles yet. Click "+ Write New Article" to publish your first post.</p>';
     return;
   }
   
-  el.innerHTML = posts.map(p => `
-    <div class="item-card">
-      <img class="item-thumb" src="${p.featured_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${p.title}">
-      <div class="item-info">
-        <h4>${p.title}</h4>
-        <small>${p.excerpt || ''}</small>
+  el.innerHTML = posts.map(p => {
+    const previewUrl = p.slug || `blog-post.html?id=${encodeURIComponent(p.id)}`;
+    const faqCount = p.faqs ? p.faqs.length : 0;
+    return `
+      <div class="item-card">
+        <img class="item-thumb" src="${p.featured_image || p.featured_image_url || 'assets/images/bridal_blouse.jpg'}" onerror="this.src='assets/images/bridal_blouse.jpg'" alt="${p.title}">
+        <div class="item-info">
+          <h4>${p.title}</h4>
+          <div>
+            <span class="badge" style="background:#eef2ff; color:#4338ca;">${p.category || 'Bridal Trends'}</span>
+            <small style="display:inline-block; margin-left:8px;">${p.read_time || '5 min read'} · <strong>${faqCount} FAQ Schema Questions</strong></small>
+          </div>
+          <small style="color:var(--soft); display:block; margin-top:4px;">${p.excerpt ? p.excerpt.substring(0, 100) + '...' : ''}</small>
+        </div>
+        <div class="item-actions">
+          <a href="${previewUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+          <button class="btn-sm btn-edit" onclick="openEditBlog('${p.id}')">Edit</button>
+          <button class="btn-sm btn-delete" onclick="deleteBlog('${p.id}')">Delete</button>
+        </div>
       </div>
-      <div class="item-actions">
-        <button class="btn-sm btn-delete" onclick="deleteBlog('${p.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
-function deleteBlog(id) {
-  if (!confirm('Delete this blog article?')) return;
-  const arr = lsGet('custom_blog_items').filter(p => String(p.id) !== String(id));
-  lsSet('custom_blog_items', arr);
-  renderBlog();
-}
+function openEditBlog(id) {
+  let posts = typeof window.getUnifiedBlogs === 'function' ? window.getUnifiedBlogs() : (window.MASTER_BLOGS || []);
+  const post = posts.find(p => String(p.id) === String(id));
+  if (!post) return;
 
-// ─── RENDER TESTIMONIALS ─────────────────────────────────────────────────────
-function renderTestimonials() {
-  const el = document.getElementById('listTestimonials');
-  const reviews = lsGet('custom_review_items');
-  
-  if (!reviews.length) {
-    el.innerHTML = '<p class="empty-msg">No custom reviews yet. Click "+ Add New Review" to publish.</p>';
-    return;
+  document.getElementById('edit_bg_id').value = post.id;
+  document.getElementById('edit_bg_title').value = post.title || '';
+  document.getElementById('edit_bg_cat').value = post.category || 'Bridal Trends';
+  document.getElementById('edit_bg_readtime').value = post.read_time || '5 min read';
+  document.getElementById('edit_bg_author').value = post.author || 'Master Artisan & Lead Designer';
+  document.getElementById('edit_bg_author_role').value = post.author_role || 'Head Couturier';
+  document.getElementById('edit_bg_excerpt').value = post.excerpt || '';
+  document.getElementById('edit_bg_letter_title').value = post.letter_title || 'A Letter to the South Indian Bride';
+  document.getElementById('edit_bg_letter_content').value = post.letter_content || '';
+  document.getElementById('edit_bg_content').value = post.content || '';
+
+  // FAQs
+  const faqListEdit = document.getElementById('faqListEdit');
+  faqListEdit.innerHTML = '';
+  const faqs = post.faqs || [];
+  if (faqs.length > 0) {
+    faqs.forEach(f => addFaqRow('faqListEdit', f.q || f.question, f.a || f.answer));
+  } else {
+    addFaqRow('faqListEdit', '', '');
   }
 
-  el.innerHTML = reviews.map(r => `
-    <div class="item-card">
-      <div class="item-info">
-        <h4>${r.customer_name || r.client_name || 'Client'} — ${'★'.repeat(r.rating || 5)}</h4>
-        <small>${r.location || ''} · ${r.comment || r.quote || ''}</small>
-      </div>
-      <div class="item-actions">
-        <button class="btn-sm btn-delete" onclick="deleteReview('${r.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
+  // Cover image preview
+  const imgPrev = document.getElementById('edit_bg_img_preview');
+  if (imgPrev) imgPrev.src = post.featured_image || post.featured_image_url || 'assets/images/bridal_blouse.jpg';
+
+  openModal('modalEditBlog');
 }
 
-function deleteReview(id) {
-  if (!confirm('Delete this review?')) return;
-  const arr = lsGet('custom_review_items').filter(r => String(r.id) !== String(id));
-  lsSet('custom_review_items', arr);
-  renderTestimonials();
-}
-
-// ─── SUBMIT NEW SHOWCASE ─────────────────────────────────────────────────────
-async function submitShowcase(e) {
+async function submitEditBlog(e) {
   e.preventDefault();
-  const btn = document.getElementById('btnShowcase');
-  btn.textContent = 'Compressing & Uploading...';
+  const id = document.getElementById('edit_bg_id').value;
+  const btn = document.getElementById('btnEditBlog');
+  btn.textContent = 'Saving Changes...';
   btn.disabled = true;
 
   try {
-    const mainFileEl = document.getElementById('sc_img');
-    let mainImgUrl = 'assets/images/service_bridal.png';
-    if (mainFileEl.files && mainFileEl.files[0]) {
-      mainImgUrl = await compressImage(mainFileEl.files[0]);
+    let posts = typeof window.getUnifiedBlogs === 'function' ? window.getUnifiedBlogs() : (window.MASTER_BLOGS || []);
+    const existing = posts.find(p => String(p.id) === String(id)) || {};
+
+    let imgUrl = existing.featured_image || existing.featured_image_url || 'assets/images/bridal_blouse.jpg';
+    const fileEl = document.getElementById('edit_bg_img');
+    if (fileEl.files && fileEl.files[0]) {
+      imgUrl = await compressImage(fileEl.files[0]);
     }
 
-    const subFileEl = document.getElementById('sc_imgs');
-    const subImgUrls = [];
-    if (subFileEl.files && subFileEl.files.length > 0) {
-      for (let i = 0; i < subFileEl.files.length; i++) {
-        const url = await compressImage(subFileEl.files[i]);
-        subImgUrls.push({ id: 'sub-' + Date.now() + '-' + i, image_url: url });
-      }
-    }
-
-    const newItem = {
-      id: 'item-' + Date.now(),
-      title: document.getElementById('sc_title').value,
-      description: document.getElementById('sc_desc').value,
-      starting_price: parseFloat(document.getElementById('sc_price').value) || 1800,
-      tags: [document.getElementById('sc_tag').value],
-      main_image_url: mainImgUrl,
-      images: subImgUrls,
-      is_published: true
+    const updatedBlog = {
+      ...existing,
+      id: id,
+      title: document.getElementById('edit_bg_title').value,
+      category: document.getElementById('edit_bg_cat').value,
+      read_time: document.getElementById('edit_bg_readtime').value,
+      author: document.getElementById('edit_bg_author').value,
+      author_role: document.getElementById('edit_bg_author_role').value,
+      excerpt: document.getElementById('edit_bg_excerpt').value,
+      letter_title: document.getElementById('edit_bg_letter_title').value,
+      letter_content: document.getElementById('edit_bg_letter_content').value,
+      content: document.getElementById('edit_bg_content').value,
+      faqs: getFaqsFromContainer('faqListEdit'),
+      featured_image: imgUrl,
+      featured_image_url: imgUrl,
+      date: existing.date || new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })
     };
 
-    const arr = lsGet('custom_showcase_items');
-    arr.unshift(newItem);
-    lsSet('custom_showcase_items', arr);
+    let custom = lsGet('custom_blog_items');
+    const existingIndex = custom.findIndex(p => String(p.id) === String(id));
+    if (existingIndex !== -1) {
+      custom[existingIndex] = updatedBlog;
+    } else {
+      custom.unshift(updatedBlog);
+    }
+    lsSet('custom_blog_items', custom);
 
-    document.getElementById('formShowcase').reset();
-    closeModal('modalShowcase');
-    alert('✅ Showcase item published successfully!');
-    renderShowcase();
+    closeModal('modalEditBlog');
+    alert('✅ Blog article updated successfully!');
+    renderBlog();
   } catch(err) {
-    alert('❌ Error: ' + err.message);
+    alert('❌ Update error: ' + err.message);
   } finally {
-    btn.textContent = 'Save & Publish to Showcase';
+    btn.textContent = 'Save Article Changes';
     btn.disabled = false;
   }
 }
@@ -669,24 +838,32 @@ async function submitShowcase(e) {
 async function submitBlog(e) {
   e.preventDefault();
   const btn = document.getElementById('btnBlog');
-  btn.textContent = 'Publishing...';
+  btn.textContent = 'Publishing Article...';
   btn.disabled = true;
 
   try {
     const fileEl = document.getElementById('bg_img');
-    let imgUrl = 'assets/images/service_bridal.png';
+    let imgUrl = 'assets/images/bridal_blouse.jpg';
     if (fileEl.files && fileEl.files[0]) {
       imgUrl = await compressImage(fileEl.files[0]);
     }
 
     const newPost = {
       id: 'blog-' + Date.now(),
+      slug: `blog-post.html?id=blog-${Date.now()}`,
       title: document.getElementById('bg_title').value,
       category: document.getElementById('bg_cat').value,
-      author_name: document.getElementById('bg_author').value,
+      read_time: document.getElementById('bg_readtime').value || '5 min read',
+      author: document.getElementById('bg_author').value || 'Master Artisan & Lead Designer',
+      author_role: document.getElementById('bg_author_role').value || 'Head Couturier',
       excerpt: document.getElementById('bg_excerpt').value,
+      letter_title: document.getElementById('bg_letter_title').value,
+      letter_content: document.getElementById('bg_letter_content').value,
       content: document.getElementById('bg_content').value,
+      faqs: getFaqsFromContainer('faqListAdd'),
+      featured_image: imgUrl,
       featured_image_url: imgUrl,
+      date: new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' }),
       published_at: new Date().toISOString()
     };
 
@@ -696,14 +873,27 @@ async function submitBlog(e) {
 
     document.getElementById('formBlog').reset();
     closeModal('modalBlog');
-    alert('✅ Blog article published!');
+    alert('✅ Blog article published with full Schema & FAQ support!');
     renderBlog();
   } catch(err) {
     alert('❌ Error: ' + err.message);
   } finally {
-    btn.textContent = 'Publish Article to Journal';
+    btn.textContent = 'Publish Article with Full Schema';
     btn.disabled = false;
   }
+}
+
+function deleteBlog(id) {
+  if (!confirm('Are you sure you want to delete this blog article?')) return;
+  const arr = lsGet('custom_blog_items').filter(p => String(p.id) !== String(id));
+  lsSet('custom_blog_items', arr);
+
+  if (typeof window.MASTER_BLOGS !== 'undefined') {
+    const idx = window.MASTER_BLOGS.findIndex(p => String(p.id) === String(id));
+    if (idx !== -1) window.MASTER_BLOGS.splice(idx, 1);
+  }
+
+  renderBlog();
 }
 
 async function submitReview(e) {
