@@ -395,6 +395,58 @@
   <script src="js/blogData.js"></script>
 
   <script>
+    function formatArticleContent(raw) {
+      if (!raw) return '';
+      let text = String(raw).trim();
+
+      // If text already has HTML block elements, preserve them while augmenting markdown links & styling
+      const hasBlockHtml = /<\/?(h[1-6]|p|div|ul|ol|li|blockquote|table|section|article)[^>]*>/i.test(text);
+
+      if (!hasBlockHtml) {
+        // 1. Headings:
+        text = text.replace(/^#### (.*?)$/gm, '<h4>$1</h4>');
+        text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+        text = text.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+        text = text.replace(/^# (.*?)$/gm, '<h2>$1</h2>');
+
+        // 2. Blockquotes:
+        text = text.replace(/^> (.*?)$/gm, '<blockquote style="border-left:4px solid var(--gold-dark); padding-left:16px; margin:20px 0; color:var(--ink-soft); font-style:italic;">$1</blockquote>');
+
+        // 3. Unordered Lists:
+        text = text.replace(/^[*-] (.*?)$/gm, '<li>$1</li>');
+
+        // 4. Ordered Lists:
+        text = text.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
+
+        // 5. Links: [text](url) -> <a href="url" target="_blank" rel="noopener noreferrer">text</a>
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // 6. Bold: **text** or __text__
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        text = text.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+        // 7. Italic: *text* or _text_
+        text = text.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+        text = text.replace(/(?<!_)_(?!_)(.*?)(?<!_)_(?!_)/g, '<em>$1</em>');
+
+        // 8. Paragraphs: split double newlines
+        const paragraphs = text.split(/\n{2,}/);
+        text = paragraphs.map(p => {
+          p = p.trim();
+          if (!p) return '';
+          if (/^<(h[1-6]|ul|ol|li|blockquote|div)/i.test(p)) return p;
+          if (p.startsWith('<li>')) return `<ul style="margin:16px 0 24px 28px;">${p}</ul>`;
+          return `<p style="margin-bottom:20px; line-height:1.75;">${p.replace(/\n/g, '<br>')}</p>`;
+        }).join('\n\n');
+      } else {
+        // If it is already HTML, still convert any mixed markdown links or bolding
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      }
+
+      return text;
+    }
+
     function loadBlogPost() {
       const params = new URLSearchParams(window.location.search);
       const articleId = params.get('id') || 'blog-bridal-blouse-designs-2026';
@@ -425,14 +477,14 @@
       // Letter to Bride
       if (post.letter_content) {
         document.getElementById('postLetterTitle').textContent = post.letter_title || 'A Letter from the Atelier';
-        document.getElementById('postLetterContent').innerHTML = post.letter_content;
+        document.getElementById('postLetterContent').innerHTML = formatArticleContent(post.letter_content);
         document.getElementById('postLetterBox').style.display = 'block';
       } else {
         document.getElementById('postLetterBox').style.display = 'none';
       }
 
-      // Main Body
-      document.getElementById('postContent').innerHTML = post.content || `<p>${post.excerpt || ''}</p>`;
+      // Main Body (with robust formatting for H1/H2, bold, italics, links, underline)
+      document.getElementById('postContent').innerHTML = formatArticleContent(post.content || post.excerpt || '');
 
       // FAQs & FAQ Schema Generation
       const faqContainer = document.getElementById('faqContainer');

@@ -321,8 +321,18 @@
         <textarea id="bg_letter_content" class="field-textarea" rows="3" placeholder="Personal note on design philosophy, craftsmanship, or comfort..."></textarea>
       </div>
 
-      <label class="field-label">Full Article Content (HTML / Paragraphs) *</label>
-      <textarea id="bg_content" class="field-textarea" rows="6" placeholder="Write full article content. You can include <h2> headings and paragraphs..." required></textarea>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+        <label class="field-label" style="margin-bottom:0;">Full Article Content (Markdown or HTML from Gemini/Canva) *</label>
+        <div style="display:flex; gap:4px;">
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertTag('bg_content', '## ', '\n')">H2</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertTag('bg_content', '### ', '\n')">H3</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; font-weight:bold;" onclick="insertTag('bg_content', '**', '**')">B</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; font-style:italic;" onclick="insertTag('bg_content', '*', '*')">I</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; text-decoration:underline;" onclick="insertTag('bg_content', '<u>', '</u>')">U</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertLink('bg_content')">🔗 Link</button>
+        </div>
+      </div>
+      <textarea id="bg_content" class="field-textarea" rows="7" placeholder="Paste your formatted text from Gemini or Canva here. Headings (##), bold (**), italic (*), links [text](url), and HTML tags will all be formatted perfectly..." required></textarea>
 
       <!-- STRUCTURED FAQ BUILDER -->
       <div style="background:#f4f7fb; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
@@ -397,8 +407,18 @@
         <textarea id="edit_bg_letter_content" class="field-textarea" rows="3"></textarea>
       </div>
 
-      <label class="field-label">Full Article Content *</label>
-      <textarea id="edit_bg_content" class="field-textarea" rows="6" required></textarea>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+        <label class="field-label" style="margin-bottom:0;">Full Article Content (Markdown or HTML from Gemini/Canva) *</label>
+        <div style="display:flex; gap:4px;">
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertTag('edit_bg_content', '## ', '\n')">H2</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertTag('edit_bg_content', '### ', '\n')">H3</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; font-weight:bold;" onclick="insertTag('edit_bg_content', '**', '**')">B</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; font-style:italic;" onclick="insertTag('edit_bg_content', '*', '*')">I</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem; text-decoration:underline;" onclick="insertTag('edit_bg_content', '<u>', '</u>')">U</button>
+          <button type="button" class="btn-sm" style="background:#e2e8f0; color:#1e293b; padding:2px 8px; font-size:0.75rem;" onclick="insertLink('edit_bg_content')">🔗 Link</button>
+        </div>
+      </div>
+      <textarea id="edit_bg_content" class="field-textarea" rows="7" required></textarea>
 
       <!-- FAQS -->
       <div style="background:#f4f7fb; border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0;">
@@ -501,6 +521,26 @@ function compressImage(file) {
     };
     reader.readAsDataURL(file);
   });
+}
+
+// ─── RICH TEXT / MARKDOWN INSERTION HELPERS ─────────────────────────────────
+function insertTag(textareaId, startTag, endTag) {
+  const el = document.getElementById(textareaId);
+  if (!el) return;
+  const start = el.selectionStart;
+  const end = el.selectionEnd;
+  const selectedText = el.value.substring(start, end);
+  const replacement = startTag + (selectedText || 'text') + endTag;
+  el.value = el.value.substring(0, start) + replacement + el.value.substring(end);
+  el.focus();
+  el.selectionStart = start + startTag.length;
+  el.selectionEnd = start + startTag.length + (selectedText ? selectedText.length : 4);
+}
+
+function insertLink(textareaId) {
+  const url = prompt('Enter the link destination URL (e.g. https://sreedesigners.in/category.html):', 'https://');
+  if (!url) return;
+  insertTag(textareaId, `[`, `](${url})`);
 }
 
 // ─── AUTH ────────────────────────────────────────────────────────────────────
