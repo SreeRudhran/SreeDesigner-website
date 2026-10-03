@@ -3590,12 +3590,12 @@
       </div>
 
       <div class="reels-grid">
-        <div class="reel-card">
-          <img src="assets/images/service_hand_embroidery.webp" alt="Hand Zardozi Crafting Reel" class="reel-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+        <div class="reel-card" style="cursor:pointer;" onclick="const v = this.querySelector('video'); if (v) { v.paused ? v.play() : v.pause(); }">
+          <video class="reel-img" src="assets/videos/b1_studio_reel.mp4" poster="assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg" loop playsinline muted preload="metadata" onplay="this.parentElement.querySelector('.reel-play-btn').textContent='⏸'" onpause="this.parentElement.querySelector('.reel-play-btn').textContent='▶'"></video>
           <div class="reel-overlay">
             <div class="reel-play-btn">▶</div>
-            <div class="reel-title">Peacock Zardozi Stitching</div>
-            <div class="reel-caption">Hand-stitching ruby kundan stones &amp; gold wire on pure silk.</div>
+            <div class="reel-title">Heirloom Hand Maggam Crafting</div>
+            <div class="reel-caption">Watch master artisans stitching pure Kanchipuram zari borders &amp; bridal cutwork in our studio.</div>
           </div>
         </div>
 
@@ -3765,7 +3765,7 @@
   </div>
 
   <!-- MODULE SCRIPTS (NON-RENDER-BLOCKING) -->
-  <script src="js/catalogData.js?v=20261003_v5"></script>
+  <script src="js/catalogData.js?v=20261004_v1"></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/seo.js" defer></script>
 

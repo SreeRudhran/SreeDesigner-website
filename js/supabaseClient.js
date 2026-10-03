@@ -195,11 +195,20 @@ const FALLBACK_TESTIMONIALS = [
 
 const FALLBACK_REELS = [
   {
+    id: 'r-real-studio-1',
+    title: 'Heirloom Hand Maggam Blouse Stitching & Finishing',
+    caption: 'Exclusive studio craftsmanship: Watch our master artisans stitching pure Kanchipuram zari borders, scalloped necklines, and bridal fittings.',
+    instagram_url: 'https://instagram.com/sreedesigners',
+    video_url: 'assets/videos/b1_studio_reel.mp4',
+    thumbnail_url: 'assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg',
+    media_type: 'video'
+  },
+  {
     id: 'r-1',
     title: 'Hand Zardozi Peacock Border Crafting Process',
     caption: 'Watch master artisan hand-stitching ruby kundan stones & gold zardozi wires on pure silk.',
     instagram_url: 'https://instagram.com',
-    thumbnail_url: 'assets/images/service_hand_embroidery.png',
+    thumbnail_url: 'assets/images/service_hand_embroidery.webp',
     media_type: 'reel'
   },
   {
@@ -207,7 +216,7 @@ const FALLBACK_REELS = [
     title: 'Bridal Blouse Fitting & Transformation',
     caption: 'Before vs After custom padded fitting for our RS Puram studio bride.',
     instagram_url: 'https://instagram.com',
-    thumbnail_url: 'assets/images/service_bridal.png',
+    thumbnail_url: 'assets/images/service_bridal.webp',
     media_type: 'reel'
   }
 ];

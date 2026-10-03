@@ -5,6 +5,181 @@
  */
 
 const MASTER_CATALOG = [
+  // 🌟 NEW REAL ATELIER HANDCRAFTED BLOUSE COLLECTION
+  {
+      "id": "prod-real-bridal-kanchipuram-red",
+      "is_featured": true,
+      "title": "Bridal Red Kanchipuram Border Blouse Designs | Scallop Cutwork Maggam Work",
+      "slug": "bridal-red-kanchipuram-border-blouse-designs",
+      "description": "A bridal masterpiece crafted in vermilion red pure silk, distinguished by heirloom Kanchipuram pure golden zari borders along the elbow sleeves. Features a scalloped sweetheart front neckline and cutout back framed with dense golden zardozi wires, delicate French knot floral aari work, and sparkling kundan stone embellishments. Hand-tailored with premium canvas padding and comfortable lining for South Indian muhurtham ceremonies.",
+      "starting_price": 4500,
+      "main_image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg",
+      "tags": [
+          "Bridal Blouse & Maggam Work",
+          "Hand Embroidered Blouses",
+          "Zardozi Work"
+      ],
+      "images": [
+          {
+              "id": "sub-bkr-1",
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg"
+          },
+          {
+              "id": "sub-bkr-2",
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_back.jpg"
+          },
+          {
+              "id": "sub-bkr-3",
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_front.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-wine-purple-puff-sleeve",
+      "is_featured": true,
+      "title": "Wine Purple Puff Sleeve Blouse Designs | Contrast Turquoise Kundan Maggam Work",
+      "slug": "wine-purple-puff-sleeve-blouse-designs",
+      "description": "A regal deep wine purple raw silk blouse pairing traditional South Indian puffed sleeves with contemporary maggam craftsmanship. Elaborate contrast turquoise blue kundan stones and antique gold zardozi vines enrich the neckline and sleeve cuffs, complemented by genuine Kanchipuram brocade zari pleats. Perfect for wedding receptions, engagement sarees, and festive celebrations.",
+      "starting_price": 3800,
+      "main_image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.jpg",
+      "tags": [
+          "Bridal Blouse & Maggam Work",
+          "Hand Embroidered Blouses"
+      ],
+      "images": [
+          {
+              "id": "sub-wpp-1",
+              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.jpg"
+          },
+          {
+              "id": "sub-wpp-2",
+              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_detail.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-rani-pink-french-knot",
+      "is_featured": false,
+      "title": "Rani Pink French Knot Blouse Designs | Turquoise Floral Aari Maggam Work",
+      "slug": "rani-pink-french-knot-blouse-designs",
+      "description": "An eye-catching vibrant Rani pink raw silk blouse celebrated for its handcrafted turquoise blue French knot flower rosettes and golden zardozi vines. The ornate elbow-length sleeves feature clustered floral maggam motifs interspersed with micro golden beads and delicate scattered bootis across the body. Designed for silk saree pairing with customized bust padding and trial fitting assurance.",
+      "starting_price": 3600,
+      "main_image_url": "assets/images/blouse_rani_pink_french_knot_front.jpg",
+      "tags": [
+          "Hand Embroidered Blouses",
+          "Bridal Blouse & Maggam Work"
+      ],
+      "images": [
+          {
+              "id": "sub-rpf-1",
+              "image_url": "assets/images/blouse_rani_pink_french_knot_front.jpg"
+          },
+          {
+              "id": "sub-rpf-2",
+              "image_url": "assets/images/blouse_rani_pink_french_knot_angle.jpg"
+          },
+          {
+              "id": "sub-rpf-3",
+              "image_url": "assets/images/blouse_rani_pink_french_knot_back.jpg"
+          },
+          {
+              "id": "sub-rpf-4",
+              "image_url": "assets/images/blouse_rani_pink_french_knot_closeup.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-crimson-red-tissue-scallop",
+      "is_featured": false,
+      "title": "Red Tissue Sleeve Blouse Designs | Scalloped Border Golden Vine Aari Work",
+      "slug": "red-tissue-sleeve-blouse-designs",
+      "description": "Sophisticated crimson red silk blouse highlighted by luminous metallic golden tissue elbow sleeves with fine scalloped embroidery borders. The deep U-cut back neckline and sleeve junctions are embroidered with graceful floral aari vine patterns, micro cutdana beads, and subtle sequin highlights. A lightweight yet opulent design ideal for bride sisters and reception sarees.",
+      "starting_price": 3400,
+      "main_image_url": "assets/images/blouse_red_tissue_scallop_back.jpg",
+      "tags": [
+          "Hand Embroidered Blouses",
+          "Bridal Blouse & Maggam Work"
+      ],
+      "images": [
+          {
+              "id": "sub-rts-1",
+              "image_url": "assets/images/blouse_red_tissue_scallop_back.jpg"
+          },
+          {
+              "id": "sub-rts-2",
+              "image_url": "assets/images/blouse_red_tissue_scallop_sleeve.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-silver-grey-purple-keyhole",
+      "is_featured": false,
+      "title": "Silver Grey Keyhole Back Blouse Designs | Contrast Purple Kundan Maggam Work",
+      "slug": "silver-grey-keyhole-back-blouse-designs",
+      "description": "Chic metallic silver-grey silk blouse featuring a geometric contrast royal purple sleeve band and an exquisite circular keyhole back neck. Outlined with two-tier golden kundan stone borders, cutdana beadwork, and square mirror-style stone buttas scattered across the back. Offers modern elegance with classic artisanal embroidery for cocktail sarees and evening receptions.",
+      "starting_price": 3500,
+      "main_image_url": "assets/images/blouse_silver_grey_keyhole_back.jpg",
+      "tags": [
+          "Hand Embroidered Blouses",
+          "Bridal Blouse & Maggam Work"
+      ],
+      "images": [
+          {
+              "id": "sub-sgp-1",
+              "image_url": "assets/images/blouse_silver_grey_keyhole_back.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-magenta-emerald-kundan",
+      "is_featured": false,
+      "title": "Magenta Pink Teardrop Blouse Designs | Emerald Green Kundan Maggam Work",
+      "slug": "magenta-pink-teardrop-blouse-designs",
+      "description": "Graceful magenta pink pure silk blouse featuring an elegant teardrop keyhole back neck bordered with vivid emerald green kundan stone leaves and antique golden beads. The matching elbow-length sleeves carry the coordinated emerald vine motif, enriched by subtle golden buttas throughout. Designed with structured seams and breathable pure cotton lining.",
+      "starting_price": 3200,
+      "main_image_url": "assets/images/blouse_magenta_emerald_kundan_back.jpg",
+      "tags": [
+          "Hand Embroidered Blouses",
+          "Bridal Blouse & Maggam Work"
+      ],
+      "images": [
+          {
+              "id": "sub-mek-1",
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_back.jpg"
+          },
+          {
+              "id": "sub-mek-2",
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_sleeve.jpg"
+          },
+          {
+              "id": "sub-mek-3",
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_angle.jpg"
+          }
+      ]
+  },
+  {
+      "id": "prod-real-rani-pink-jacquard-floral",
+      "is_featured": false,
+      "title": "Rani Pink Jacquard Blouse Designs | Turquoise French Knot Floral Border",
+      "slug": "rani-pink-jacquard-blouse-designs",
+      "description": "Tailored in self-textured chevron jacquard silk in radiant Rani pink, framed by an enchanting turquoise and antique golden French knot floral garland border along the U-neckline and sleeve hems. A versatile, timeless piece suited for both temple visits, festive occasions, and lightweight designer sarees.",
+      "starting_price": 2800,
+      "main_image_url": "assets/images/blouse_rani_pink_jacquard_back.jpg",
+      "tags": [
+          "Hand Embroidered Blouses",
+          "Machine Embroidery Blouses"
+      ],
+      "images": [
+          {
+              "id": "sub-rpj-1",
+              "image_url": "assets/images/blouse_rani_pink_jacquard_back.jpg"
+          },
+          {
+              "id": "sub-rpj-2",
+              "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.jpg"
+          }
+      ]
+  },
   // 🌟 REAL ATELIER SIGNATURE SHOWCASE (Added from live workshop)
   {
     id: 'prod-real-crimson-red-maggam',

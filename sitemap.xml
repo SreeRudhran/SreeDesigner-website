@@ -133,4 +133,349 @@
     <priority>0.85</priority>
   </url>
 
+
+  <!-- ========================================== -->
+  <!-- INDIVIDUAL PRODUCT SHOWCASE & E-COMMERCE URLS -->
+  <!-- ========================================== -->
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-bridal-kanchipuram-red</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg</image:loc>
+      <image:title>Bridal Red Kanchipuram Border Blouse Designs | Scallop Cutwork Maggam Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-wine-purple-puff-sleeve</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_wine_purple_puff_sleeve_front.jpg</image:loc>
+      <image:title>Wine Purple Puff Sleeve Blouse Designs | Contrast Turquoise Kundan Maggam Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-rani-pink-french-knot</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_rani_pink_french_knot_front.jpg</image:loc>
+      <image:title>Rani Pink French Knot Blouse Designs | Turquoise Floral Aari Maggam Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-crimson-red-tissue-scallop</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_red_tissue_scallop_back.jpg</image:loc>
+      <image:title>Red Tissue Sleeve Blouse Designs | Scalloped Border Golden Vine Aari Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-silver-grey-purple-keyhole</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_silver_grey_keyhole_back.jpg</image:loc>
+      <image:title>Silver Grey Keyhole Back Blouse Designs | Contrast Purple Kundan Maggam Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-magenta-emerald-kundan</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_magenta_emerald_kundan_back.jpg</image:loc>
+      <image:title>Magenta Pink Teardrop Blouse Designs | Emerald Green Kundan Maggam Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-rani-pink-jacquard-floral</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_rani_pink_jacquard_back.jpg</image:loc>
+      <image:title>Rani Pink Jacquard Blouse Designs | Turquoise French Knot Floral Border</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-crimson-red-maggam</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.jpg</image:loc>
+      <image:title>Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-bottle-green-zigzag</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_bottle_green_zigzag_net_back.jpg</image:loc>
+      <image:title>Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-purple-contrast-net</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_royal_purple_illusion_net_back.jpg</image:loc>
+      <image:title>Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-rani-pink-tissue</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_rani_pink_flatlay.jpg</image:loc>
+      <image:title>Rani Pink Scallop Net Sleeve Blouse Designs | Sheer Back Aari Work Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-real-peacock-green-v-neck</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blouse_peacock_green_v_neck_back.jpg</image:loc>
+      <image:title>Peacock Green V Neck Net Blouse Designs | Floral Aari Work Bridal Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-he-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_hand_embroidery.png</image:loc>
+      <image:title>Peacock Zardozi Hand Embroidered Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-he-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Royal Magenta Zari Embroidered Silk Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-he-3</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_hand_embroidery.png</image:loc>
+      <image:title>Floral Lotus Aari Hand Needlework Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-he-4</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Temple Border Elephant Motif Handwork Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-me-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_machine_embroidery.png</image:loc>
+      <image:title>Dark Brown Silk Embroidered Blouse with Scallop Sleeves</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-me-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_machine_embroidery.png</image:loc>
+      <image:title>Geometric Mirror Work Machine Embroidered Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-me-3</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_machine_embroidery.png</image:loc>
+      <image:title>Intricate Vine &amp; Jaal Pattern Machine Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-me-4</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_machine_embroidery.png</image:loc>
+      <image:title>Neckline Butti Machine Embroidered Saree Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-br-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Grand Regal Peacock Maggam Bridal Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-br-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Heritage Lakshmi Kasu Maggam Bridal Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-br-3</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Cutwork Neckline Heavy Maggam Bridal Blouse</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-br-4</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_bridal.png</image:loc>
+      <image:title>Full Back Floral Bridal Maggam Embroidery</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-kc-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_salwar.png</image:loc>
+      <image:title>Designer Pure Silk Chudidhar &amp; Patterned Salwar Suit</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-kc-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_salwar.png</image:loc>
+      <image:title>Straight Cut Festive Silk Kurti with Zari Yoke</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-kc-3</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_salwar.png</image:loc>
+      <image:title>Anarkali Style Flared Festive Kurti</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-lh-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_lehenga.png</image:loc>
+      <image:title>Opulent Silk Festive Lehenga Choli Set</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-lh-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_lehenga.png</image:loc>
+      <image:title>Bridal Velvet &amp; Raw Silk Zardozi Lehenga</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-lh-3</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_lehenga.png</image:loc>
+      <image:title>Floral Organza Lightweight Festive Lehenga</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-fg-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_lehenga.png</image:loc>
+      <image:title>Indo-Western Silk Evening Gala Gown</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-fg-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_lehenga.png</image:loc>
+      <image:title>Princess Cut Birthday &amp; Reception Festive Frock</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-zw-1</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_hand_embroidery.png</image:loc>
+      <image:title>Artisanal Metallic Wire Hand Zardozi Work</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/product.html?id=prod-zw-2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/service_hand_embroidery.png</image:loc>
+      <image:title>Antique Copper Wire Floral Zardozi Sleeves</image:title>
+    </image:image>
+  </url>
+
 </urlset>
