@@ -198,10 +198,30 @@
 
 <!-- 1. MODAL: ADD SHOWCASE ITEM -->
 <div class="modal" id="modalShowcase">
-  <div class="modal-box">
+  <div class="modal-box" style="max-width:640px;">
     <button class="modal-close" onclick="closeModal('modalShowcase')">&times;</button>
     <h3>Add New Portfolio Showcase Item</h3>
-    <p>Upload images and specify starting price &amp; category tags.</p>
+    <p>Upload real blouse photos and use our AI Assistant to generate high-converting details instantly.</p>
+    
+    <!-- ✨ AI AUTO-FILL ASSISTANT CARD -->
+    <div style="background: linear-gradient(135deg, #fdf8f6 0%, #fff7ed 100%); border: 1.5px dashed #C59B27; border-radius: 12px; padding: 16px; margin: 16px 0 20px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+        <div style="font-weight: 700; color: #9A7718; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+          ✨ AI Product Copywriter
+        </div>
+        <span style="font-size: 0.72rem; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-weight: 600;">1-Click Auto-Fill</span>
+      </div>
+      <p style="font-size: 0.8rem; color: #5C5850; margin-bottom: 10px; line-height: 1.4;">
+        Type your quick notes below (e.g. <em>"rani pink tissue raw silk, net sleeve scallop, zardozi flower work on back"</em>). Click <strong>Auto-Fill</strong>, and AI will instantly write the luxury title, select the right category, estimate the starting price, and craft high-converting selling highlights!
+      </p>
+      <div style="display:flex; gap: 8px;">
+        <input type="text" id="ai_quick_notes" class="field-input" placeholder="e.g. Rani pink tissue raw silk, net sleeve scallop, zardozi handwork..." style="margin-bottom:0; font-size:0.85rem; flex:1;">
+        <button type="button" id="btnAiAutoFill" class="btn-main" onclick="runAiAutoFill()" style="white-space:nowrap; padding: 8px 16px; font-size:0.85rem; background:linear-gradient(135deg, #C59B27, #9A7718);">
+          ✨ Auto-Fill Details
+        </button>
+      </div>
+    </div>
+
     <form id="formShowcase" onsubmit="submitShowcase(event)">
       <label class="field-label">Title *</label>
       <input type="text" id="sc_title" class="field-input" placeholder="e.g. Peacock Zardozi Maggam Blouse" required>
