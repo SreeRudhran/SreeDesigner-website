@@ -5,6 +5,81 @@
 
 const MASTER_BLOGS = [
   {
+    id: "blog-bridal-blouse-stitching-coimbatore-tiruppur",
+    slug: "blog-bridal-blouse-stitching-coimbatore-tiruppur.html",
+    title: "Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur: 2026 Price Guide, Designs & Express Fitting",
+    category: "Bridal Stitching & Price Guide",
+    author: "Master Artisan & Lead Couturier",
+    author_role: "Head of Bridal Tailoring",
+    date: "October 3, 2026",
+    read_time: "8 min read",
+    featured_image: "assets/images/service_bridal.png",
+    excerpt: "Comprehensive 2026 guide to bridal blouse stitching, authentic Aari maggam work rates, Kanchipuram silk saree necklines, padded cup trial fittings, and 48-hr express wedding tailoring in Coimbatore, Tiruppur, Samalapuram & Annur.",
+    letter_title: "A Letter to the South Indian Bride-to-Be",
+    letter_content: "When you drape your auspicious 9-yard or 6-yard Kanchipuram silk saree for your Muhurtham, all eyes naturally gravitate toward your bridal blouse. Whether you are walking into a grand mandapam in Coimbatore, a reception hall in Tiruppur, or celebrating close family rituals in Annur, Avinashi, or Erode, your wedding blouse carries deep sentiment, craftsmanship, and timeless grace. At Sree Designers & Boutique, our philosophy is simple: grandeur must never sacrifice comfort. Every stitch of gold wire, cut glass bead, and kundan stone is balanced with soft inner silk linings and precision padded cups so you feel confident, regal, and effortless all day long.",
+    content: `
+      <h2>1. 2026 Bridal Blouse Stitching & Aari Work Price Breakdown in Coimbatore & Tiruppur</h2>
+      <p>Pricing for wedding blouses varies depending on whether you choose hand zardozi needlework, computerized machine embroidery, kundan stone density, and lining quality. Here is our transparent atelier pricing breakdown for 2026 weddings:</p>
+      <ul>
+        <li><strong>Minimalist Aari Work Blouse:</strong> ₹1,000 – ₹1,800 (Dainty back neck border, micro gold beads, French knots, pure cotton lining).</li>
+        <li><strong>Classic Hand Zardozi Maggam Blouse:</strong> ₹2,500 – ₹4,200 (Elbow-length sleeve border, metallic spring coils, kundan stones, teardrop back cutout).</li>
+        <li><strong>Royal Heavy 3D Bridal Muhurtham Blouse:</strong> ₹4,500 – ₹8,500+ (Full elbow dense sleeves, 3D embossed peacocks or temple gopurams, seed pearls, custom padded cups).</li>
+        <li><strong>Computerized Machine Embroidered Blouse:</strong> ₹1,500 – ₹2,800 (High-precision Japanese multi-head embroidery, floral symmetry, lightweight comfortable wear).</li>
+        <li><strong>Bespoke Bridal Lehenga & Choli:</strong> ₹4,200 – ₹12,000 (Flared silk skirt with heavy can-can netting, structured waist canvas, padded bustier blouse).</li>
+        <li><strong>48-Hour Rapid Express Fitting & Alteration:</strong> From ₹450 (Priority atelier queue, precision armhole adjustments, cup repositioning, 24–48 hr delivery).</li>
+      </ul>
+
+      <h2>2. Hand Aari Work vs. Computerized Machine Embroidery</h2>
+      <p>One of the most frequent questions from brides across Coimbatore and Tiruppur is whether to choose traditional hand needlework or computerized machine work. Hand Aari and Zardozi work utilizes genuine metallic gold wire, 3D pearl clusters, and kundan stones hand-stitched for unmatched grandeur on Muhurtham silk sarees. Machine embroidery offers high-speed precision, lightweight wear, and budget-friendly pricing ideal for sangeet and reception blouses.</p>
+
+      <h2>3. Top Trending Bridal Blouse Neckline Designs for Kanchipuram Silk Sarees</h2>
+      <p>In 2026, brides across Tamil Nadu are embracing clean architectural cuts that highlight their temple jewelry and neckline while ensuring unhindered mobility:</p>
+      <ul>
+        <li><strong>Deep Teardrop & Geometric Keyhole Backs:</strong> Structured cutouts bordered with dense zardozi beads and dangling micro-pearl latkans.</li>
+        <li><strong>Royal Sweetheart Neckline with Micro Kundan Framing:</strong> Accentuates antique temple chokers and modern layered polki necklaces.</li>
+        <li><strong>Elbow-Length Sleeves with Sacred Temple Gopuram & Peacock Motifs:</strong> Full elbow-length sleeves remain the undisputed favorite for Kanchipuram silk sarees.</li>
+        <li><strong>Boat Neck with Sheer Organza Cutwork:</strong> Adds an ethereal, royal touch for pastel or lightweight tissue silk sarees.</li>
+      </ul>
+
+      <h2>4. The Sree Designers Precision 3-Stage Fitting Protocol</h2>
+      <p>Most commercial tailors attach padded cups directly to the outer silk fabric without factoring in body curvature. At Sree Designers, we anchor premium breathable foam cups inside a pre-washed cotton canvas lining—independent of the outer silk. Before final hook and tassel attachment, brides attend an in-person trial fitting at our Samalapuram or Karnempettai studio to guarantee total comfort.</p>
+
+      <h2>5. Visit Our Studios in Coimbatore & Tiruppur Region</h2>
+      <p>Sree Designers & Boutique operates two accessible atelier branches:</p>
+      <ul>
+        <li><strong>Samalapuram Atelier Studio:</strong> Opposite to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Road, Somanur, Tamil Nadu 641663.</li>
+        <li><strong>Karnempettai Bridal Studio:</strong> AutoStand, Annur Road, Karnempettai, Tamil Nadu.</li>
+      </ul>
+      <p>We actively cater to brides across Coimbatore, Tiruppur, Annur, Avinashi, Palladam, and Erode.</p>
+    `,
+    faqs: [
+      {
+        q: "What is the average cost of bridal blouse stitching and Aari work in Coimbatore and Tiruppur?",
+        a: "In Coimbatore and Tiruppur, basic blouse stitching starts from ₹600 to ₹1,200. Simple thread and bead Aari work starts from ₹1,000 to ₹1,800. Heavy bridal maggam embroidery featuring hand zardozi, kundan stones, and embossed peacock or temple borders ranges from ₹2,500 to ₹6,500+. Computerized machine embroidered bridal blouses range between ₹1,500 and ₹2,800."
+      },
+      {
+        q: "How fast can Sree Designers deliver an urgent bridal blouse in Coimbatore or Tiruppur?",
+        a: "For brides on tight schedules, Sree Designers offers a dedicated 48-Hour Rapid Express Fitting & Delivery service at our Samalapuram and Karnempettai studios. Machine embroidered blouses and urgent alterations can often be completed within 24 to 48 hours."
+      },
+      {
+        q: "Why is a trial fitting with padded cups crucial for a bridal silk blouse?",
+        a: "Bridal silk sarees like Kanchipuram are heavy and require structured bust support. Sree Designers incorporates built-in anatomical padded cups and pre-shrunk cotton canvas inner linings. A trial fitting ensures proper armhole movement, back neck flat lay, and eliminates hook gaping during long hours of Muhurtham rituals."
+      },
+      {
+        q: "Where are Sree Designers studios located in Coimbatore & Tiruppur?",
+        a: "Sree Designers operates two accessible atelier branches: 1) Samalapuram Studio: Opposite IDBI Bank, Annur-Avinashi-Mettupalayam Road, Somanur, Tamil Nadu 641663. 2) Karnempettai Studio: AutoStand, Annur Road, Karnempettai. We actively cater to brides across Coimbatore, Tiruppur, Annur, Avinashi, Palladam, and Erode."
+      },
+      {
+        q: "How much pure silk fabric should I purchase for an intricate bridal maggam blouse?",
+        a: "For standard elbow-length sleeves with dense maggam embroidery and deep back neck cutouts, 1 meter of pure silk fabric is recommended. If you desire trendy puff sleeves, double frills, or full-length sleeve embroidery, 1.25 meters is ideal."
+      },
+      {
+        q: "Can I consult online via WhatsApp before visiting the boutique?",
+        a: "Yes! Brides can share pictures of their wedding saree, border details, and design inspirations via WhatsApp (+91 99763 44673). Our master designers provide free neckline recommendations, color contrast ideas, and instant price estimates before your studio visit."
+      }
+    ]
+  },
+  {
     id: "blog-bridal-blouse-designs-2026",
     slug: "blog-bridal-blouse-designs-2026.html",
     title: "Top 10 South Indian Bridal Blouse Designs & Maggam Work Trends for 2026",
