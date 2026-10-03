@@ -10,11 +10,24 @@
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bespoke Bridal Blouse &amp; Custom Tailoring — Sree Designers</title>
-  <meta name="description" content="Handcrafted bridal blouse with gold zardozi maggam work, ruby kundan stones, and custom padded fit in Coimbatore &amp; Tiruppur.">
+  <title>Custom Bridal Blouse &amp; Aari Work Tailoring | Sree Designers Coimbatore</title>
+  <meta name="description" content="Handcrafted bridal blouse tailoring with zardozi maggam work, kundan stones, and padded trial fitting in Coimbatore &amp; Tiruppur. 48-hr express delivery available.">
   
   <!-- SEO & CANONICAL -->
-  <link rel="canonical" href="https://sreedesigners.in/product.html">
+  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/product.html">
+  <script>
+    (function(){
+      try {
+        var sp = new URLSearchParams(window.location.search);
+        var id = sp.get('id');
+        if (id) {
+          var clean = encodeURIComponent(id);
+          var c = document.getElementById('pageCanonical');
+          if (c) c.setAttribute('href', 'https://sreedesigners.in/product.html?id=' + clean);
+        }
+      } catch(e) {}
+    })();
+  </script>
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- FAVICONS -->

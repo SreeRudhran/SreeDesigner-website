@@ -15,6 +15,19 @@
   
   <!-- SEO & CANONICAL -->
   <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/blog-post.html">
+  <script>
+    (function(){
+      try {
+        var sp = new URLSearchParams(window.location.search);
+        var id = sp.get('id');
+        if (id) {
+          var clean = encodeURIComponent(id);
+          var c = document.getElementById('pageCanonical');
+          if (c) c.setAttribute('href', 'https://sreedesigners.in/blog-post.html?id=' + clean);
+        }
+      } catch(e) {}
+    })();
+  </script>
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- OPEN GRAPH / SOCIAL -->
