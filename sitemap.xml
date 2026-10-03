@@ -77,4 +77,60 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Blog Article 6: Hand vs Machine Embroidery -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-hand-vs-machine-embroidery</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 7: Top 15 Color Contrast Combinations -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-color-contrast-combinations-2026</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 8: Preserving Zardozi Work -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-preserve-zardozi-silk-blouse</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 9: Boat Neck & High Collar Saree Blouses -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-boat-neck-bridal-blouses-2026</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 10: Ultimate Bridal Trousseau Checklist -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-bridal-trousseau-checklist-timeline</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 11: Plus Size Saree Blouse Fitting Guide -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-plus-size-saree-blouse-fitting-guide</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog Article 12: Bespoke Salwar Suits for Post-Wedding Rituals -->
+  <url>
+    <loc>https://sreedesigners.in/blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
 </urlset>

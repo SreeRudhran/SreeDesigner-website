@@ -13,7 +13,7 @@ const MASTER_BLOGS = [
     author_role: "Head of Bridal Tailoring",
     date: "October 3, 2026",
     read_time: "8 min read",
-    featured_image: "assets/images/service_bridal.png",
+    featured_image: "assets/images/blog_coimbatore_guide.jpg",
     excerpt: "Comprehensive 2026 guide to bridal blouse stitching, authentic Aari maggam work rates, Kanchipuram silk saree necklines, padded cup trial fittings, and 48-hr express wedding tailoring in Coimbatore, Tiruppur, Samalapuram & Annur.",
     letter_title: "A Letter to the South Indian Bride-to-Be",
     letter_content: "When you drape your auspicious 9-yard or 6-yard Kanchipuram silk saree for your Muhurtham, all eyes naturally gravitate toward your bridal blouse. Whether you are walking into a grand mandapam in Coimbatore, a reception hall in Tiruppur, or celebrating close family rituals in Annur, Avinashi, or Erode, your wedding blouse carries deep sentiment, craftsmanship, and timeless grace. At Sree Designers & Boutique, our philosophy is simple: grandeur must never sacrifice comfort. Every stitch of gold wire, cut glass bead, and kundan stone is balanced with soft inner silk linings and precision padded cups so you feel confident, regal, and effortless all day long.",
@@ -226,7 +226,7 @@ const MASTER_BLOGS = [
     author_role: "Head Couturier",
     date: "August 20, 2026",
     read_time: "7 min read",
-    featured_image: "assets/images/bridal_blouse.jpg",
+    featured_image: "assets/images/blog_trends_2026.jpg",
     excerpt: "Discover hand zardozi peacock motifs, elbow-length dense maggam sleeves, teardrop back cutouts, and built-in cup fitting techniques for Kanchipuram silk sarees.",
     letter_title: "A Letter to the South Indian Bride",
     letter_content: "Your wedding saree represents generations of heritage, but your bridal blouse is the crown that brings your entire wedding look to life. In South Indian weddings across Coimbatore, Tiruppur, and Erode, a bride sits through long hours of sacred rituals—from the auspicious Muhurtham to the lively reception. At Sree Designers & Boutique, our philosophy is simple: grandeur must never sacrifice comfort. Every stitch of gold wire, cut glass bead, and kundan stone is balanced with soft inner silk linings and precision padded cups so you feel confident, regal, and effortless all day long.",
@@ -278,7 +278,7 @@ const MASTER_BLOGS = [
     author_role: "Master Artisan",
     date: "August 18, 2026",
     read_time: "5 min read",
-    featured_image: "assets/images/hero_bg.jpg",
+    featured_image: "assets/images/blog_hand_machine.jpg",
     excerpt: "Comparing turnaround speed, metallic wire intricacy, kundan stone durability, and price differences for bespoke bridal and reception wear.",
     letter_title: "Understanding Needlework Artistry",
     letter_content: "Choosing between hand needlework and digital machine embroidery often comes down to your event timeline, budget, and the specific weight of your saree fabric. Here is our master guide to making the right choice.",
@@ -300,6 +300,46 @@ const MASTER_BLOGS = [
     ]
   },
   {
+    id: "blog-color-contrast-combinations-2026",
+    slug: "blog-post.html?id=blog-color-contrast-combinations-2026",
+    title: "Top 15 Bridal Blouse Color Contrast Combinations for Kanchipuram Silk Sarees in 2026",
+    category: "Bridal Trends",
+    author: "Master Artisan & Lead Couturier",
+    author_role: "Lead Color & Fabric Specialist",
+    date: "August 15, 2026",
+    read_time: "7 min read",
+    featured_image: "assets/images/blog_color_contrast.jpg",
+    excerpt: "Elevate your Muhurtham silk saree with striking contrast styling—from mustard yellow paired with royal violet to bottle green with crimson zardozi embroidery.",
+    letter_title: "The Magic of Sacred Wedding Color Contrasts",
+    letter_content: "In South Indian culture, colors carry sacred vibrations. In 2026, brides are moving beyond single-tone bridal styling to embrace vibrant dual-tone contrasts that photograph magnificently under both sunny morning mandapam lighting and evening banquet chandeliers. At Sree Designers, our atelier masters examine the subtle undertones of your saree zari—whether antique copper, warm matte gold, or gleaming silver—to select the exact complementary silk blouse contrast shade.",
+    content: `
+      <h2>1. Mustard Mango Yellow Saree with Imperial Royal Purple Blouse</h2>
+      <p>The #1 viral combination for morning Muhurthams in Coimbatore and Chennai. The warmth of pure turmeric and mango yellow Kanchipuram silk is elevated by a deep violet or royal purple raw silk blouse outlined with 3D gold bullion zardozi and emerald green kundan stones.</p>
+
+      <h2>2. Heritage Crimson Red Saree with Forest Bottle Green Blouse</h2>
+      <p>The most auspicious classic duo in South Indian bridal history. Bottle green elbow-length sleeves framed with Goddess Lakshmi coin borders (*kasu malai*) ground the fiery radiance of crimson bridal silk.</p>
+
+      <h2>3. Pastel Mint Green & Powder Blue Saree with Rose Gold Peach Blouse</h2>
+      <p>Modern summer brides are choosing soft pastel tissue silks. Pairing mint green with a dusty peach or rose gold silk blouse embellished with micro cut-beads creates an ethereal, modern royal silhouette.</p>
+
+      <h2>4. Royal Peacock Blue Saree with Bright Rani Pink Blouse</h2>
+      <p>A lively, joyful contrast ideal for the evening Sangeet or post-wedding reception. Rani pink blouse sleeves with floral jaal embroidery make deep ocean peacock blue sarees pop in flash photography.</p>
+
+      <h2>5. How Sree Designers Curates Custom Contrast Swatches</h2>
+      <p>Unsure which blouse shade elevates your wedding saree? Bring your saree to our studios in Samalapuram or Karnempettai. We swatch pure mulberry silk swatches against your saree pallu in natural daylight to ensure 100% color harmony before needlework begins.</p>
+    `,
+    faqs: [
+      {
+        q: "Should the blouse color match the saree body or the saree border?",
+        a: "Traditional etiquette matches the blouse to the saree border or pallu color. However, 2026 modern styling pairs a distinct third contrasting jewel tone that complements both the body and border for maximum visual dimension."
+      },
+      {
+        q: "Can Sree Designers dye raw silk fabric to match an exact custom Pantone shade?",
+        a: "Yes! We offer in-house bespoke pure silk fabric dyeing in Coimbatore and Tiruppur to achieve precise color matches for bridal party and reception wear."
+      }
+    ]
+  },
+  {
     id: "blog-preserve-zardozi-silk-blouse",
     slug: "blog-post.html?id=blog-preserve-zardozi-silk-blouse",
     title: "How to Preserve Metallic Zardozi & Kundan Embroidery for Decades",
@@ -308,7 +348,7 @@ const MASTER_BLOGS = [
     author_role: "Textile Conservator",
     date: "August 10, 2026",
     read_time: "4 min read",
-    featured_image: "assets/images/service_hand_embroidery.png",
+    featured_image: "assets/images/blog_preserve_zardozi.jpg",
     excerpt: "Essential advice on dry cleaning, muslin cloth wrapping, preventing metallic tarnish, and storing padded silk blouses safely in humid climates.",
     letter_title: "Preserving Your Wedding Memories",
     letter_content: "Your bridal blouse carries emotional value that will be treasured for years. With simple preservation habits, you can keep the metallic zari radiant without tarnishing.",
@@ -322,6 +362,148 @@ const MASTER_BLOGS = [
       {
         q: "How often should an embroidered bridal blouse be dry cleaned?",
         a: "Only dry clean when visibly soiled. For routine post-wedding storage, air-dry in shade for 2 hours before wrapping in cotton."
+      }
+    ]
+  },
+  {
+    id: "blog-boat-neck-bridal-blouses-2026",
+    slug: "blog-post.html?id=blog-boat-neck-bridal-blouses-2026",
+    title: "Boat Neck & High Collar Saree Blouses: 2026 Modern Bridal Styling Guide",
+    category: "Bridal Trends",
+    author: "Master Artisan & Lead Designer",
+    author_role: "Head Couturier",
+    date: "August 02, 2026",
+    read_time: "6 min read",
+    featured_image: "assets/images/blog_boat_neck.jpg",
+    excerpt: "Why modern South Indian brides are trading traditional round necklines for royal boat necks, jeweled choker collars, and sheer organza illusion yokes.",
+    letter_title: "Modern Elegance Meets Heritage Weaves",
+    letter_content: "The boat neckline has emerged as the defining silhouette for contemporary South Indian brides. By gently framing the collarbone and shoulders, boat necks provide a dignified canvas that balances heavy Kanchipuram silk pleats without feeling overwhelming.",
+    content: `
+      <h2>1. Sheer Organza Illusion Boat Necks with Micro-Pearls</h2>
+      <p>By blending fine skin-tone sheer organza with delicate freshwater pearl embroidery along the collar line, this modern neckline creates the breathtaking illusion of pearls floating along your collarbone.</p>
+
+      <h2>2. Jeweled Closed Collar with Scalloped Zardozi Trims</h2>
+      <p>High collar bridal blouses eliminate the need for heavy necklaces, shifting the grandeur to an embroidered jewel neckline. This style is especially flattering for slender necklines and reception silk sarees.</p>
+
+      <h2>3. Pairing Boat Necks with Long Temple Harams</h2>
+      <p>While deep round necklines pair with short chokers, boat neck blouses are ideal for long South Indian temple necklaces (Manga Malai and Kasu Malai), creating an elongated, regal royal posture.</p>
+    `,
+    faqs: [
+      {
+        q: "Are boat neck blouses comfortable for long wedding rituals?",
+        a: "Yes! At Sree Designers, we curve our boat neck cuts according to your natural clavicle slope and line the inner neckline with soft bias silk tape to prevent chafing."
+      },
+      {
+        q: "Does a boat neck blouse look good on broad shoulders?",
+        a: "Yes, our masters angle the neckline width slightly inward to soften broad shoulders while accentuating collarbone elegance."
+      }
+    ]
+  },
+  {
+    id: "blog-bridal-trousseau-checklist-timeline",
+    slug: "blog-post.html?id=blog-bridal-trousseau-checklist-timeline",
+    title: "The Ultimate South Indian Bridal Trousseau Checklist: Outfits, Stitching Timelines & Fabric Planning",
+    category: "Stitching Guide",
+    author: "Sree Designers Atelier Master",
+    author_role: "Senior Bridal Wardrobe Consultant",
+    date: "July 22, 2026",
+    read_time: "8 min read",
+    featured_image: "assets/images/blog_trousseau_check.jpg",
+    excerpt: "A complete step-by-step master plan for South Indian brides—how many blouses you need for Muhurtham, Nalangu, Sangeet & Reception, yardage guides, and trial fitting deadlines.",
+    letter_title: "Planning Your Wedding Wardrobe Without Stress",
+    letter_content: "Between wedding hall bookings and jewelry trials, trousseau tailoring is often left to the last minute. This master checklist ensures every blouse, lehenga, and salwar suit is planned, measured, and trial-fitted with plenty of breathing room.",
+    content: `
+      <h2>1. The 5-Outfit South Indian Wedding Wardrobe Matrix</h2>
+      <ul>
+        <li><strong>Muhurtham Silk Saree:</strong> Heavy 3D hand zardozi peacock/temple elbow-length blouse with built-in padded cups.</li>
+        <li><strong>Engagement / Nalangu:</strong> Minimalist floral Aari work or contrast boat neck blouse.</li>
+        <li><strong>Sangeet / Mehendi:</strong> Flared lightweight silk lehenga with canvas waistband and padded choli.</li>
+        <li><strong>Wedding Reception:</strong> Grand raw silk reception lehenga or modern organza cutwork blouse.</li>
+        <li><strong>Post-Wedding Temple Visits (Maruvidu):</strong> 2 to 3 tailored silk salwar suits and boat-neck kurti sets.</li>
+      </ul>
+
+      <h2>2. Fabric Yardage Guide for Every Silhouette</h2>
+      <p>Always purchase 1 meter for elbow-length heavy embroidered blouses. For puff sleeves or double layers, buy 1.25 meters. For 16-kali flared lehengas, purchase 5 to 6 meters of raw silk.</p>
+
+      <h2>3. The Ideal 6-Week Tailoring Timeline</h2>
+      <p>Book your initial measurement 6 weeks before your wedding date. Schedule trial fittings 3 weeks before, leaving 2 weeks of buffer for final hook sealing and peace of mind.</p>
+    `,
+    faqs: [
+      {
+        q: "When should I submit my wedding sarees for tailoring?",
+        a: "We recommend bringing your sarees 4 to 6 weeks before your wedding to allow adequate time for intricate hand embroidery and a stress-free 48-hour trial fitting."
+      },
+      {
+        q: "Can Sree Designers handle last-minute additions to my trousseau?",
+        a: "Yes! With our dedicated 48-Hour Rapid Express Atelier service in Samalapuram and Karnempettai, we can stitch and alter additional partywear blouses on short notice."
+      }
+    ]
+  },
+  {
+    id: "blog-plus-size-saree-blouse-fitting-guide",
+    slug: "blog-post.html?id=blog-plus-size-saree-blouse-fitting-guide",
+    title: "Flattering Saree Blouse Fitting for Plus Size & Broad Shoulders: Master Atelier Secrets",
+    category: "Stitching Guide",
+    author: "Sree Designers Atelier Master",
+    author_role: "Master Patternmaker & Couturier",
+    date: "July 10, 2026",
+    read_time: "6 min read",
+    featured_image: "assets/images/blog_plus_fitting.jpg",
+    excerpt: "Empowering styling and tailoring techniques for curvy brides—armhole ease, bust dart placement, slimming vertical maggam embroidery, and padded cup balance.",
+    letter_title: "Confidence, Contour & Flawless Comfort",
+    letter_content: "Every woman's body is magnificent, yet standard commercial tailoring often treats larger bust sizes with stiff, unflattering box cuts. At Sree Designers, our cutting philosophy celebrates curves through precision-sculpted waist darts, seamless cup support, and strategic vertical embroidery that flatters your posture effortlessly.",
+    content: `
+      <h2>1. The Power of Vertical Maggam Embroidery Lines</h2>
+      <p>Horizontal embroidery bands can visually widen the arms and torso. Our artisans utilize vertical floral vine creepers, tapering temple borders, and elongated sleeve motifs that create a streamlined, statuesque silhouette.</p>
+
+      <h2>2. Anatomical Armhole Ease & Underarm Gussets</h2>
+      <p>Pinching underarm seams are the #1 complaint of curvy brides. We draft custom contoured armholes with reinforced bias taping that provide full freedom of arm movement without pulling the front neckline.</p>
+
+      <h2>3. Built-In Multi-Layer Padded Cups with Inner Canvas Boning</h2>
+      <p>Forget uncomfortable underwire bras. We integrate soft, high-density breathable foam cups anchored to a tailored inner cotton canvas frame that provides firm, natural bust lift and prevents back strap digging.</p>
+    `,
+    faqs: [
+      {
+        q: "Do built-in padded cups add unwanted bulk for larger bust sizes?",
+        a: "No! For fuller busts, we use ultra-thin, molded shaping cups that provide contour, smooth nipple concealment, and firm lift without adding volume."
+      },
+      {
+        q: "What neckline is most flattering for broad shoulders and fuller arms?",
+        a: "Sweetheart necklines and curved V-necks create an elongating vertical line that softens shoulder width, especially when paired with elbow-length sleeves."
+      }
+    ]
+  },
+  {
+    id: "blog-salwar-chudidhar-post-wedding-rituals",
+    slug: "blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals",
+    title: "Bespoke Salwar Suits, Chudidhars & Kurtis for South Indian Post-Wedding Rituals (Maruvidu)",
+    category: "Festive Couture",
+    author: "Sree Designers Atelier Master",
+    author_role: "Lead Tailor for Everyday & Party Couture",
+    date: "June 28, 2026",
+    read_time: "5 min read",
+    featured_image: "assets/images/blog_salwar_couture.jpg",
+    excerpt: "Comfort meets couture for newlywed celebrations—custom tailored Anarkalis, straight-cut silk chudidhars, boat-neck kurtis, and organza dupattas for family visits.",
+    letter_title: "Effortless Post-Wedding Grace",
+    letter_content: "After weeks of wearing heavy 9-yard silk sarees and elaborate bridal jewelry, newlywed brides look forward to comfortable yet elegant festive wear for Maruvidu (home visits) and temple outings. Our custom tailored salwar suits deliver royal comfort with bespoke fit.",
+    content: `
+      <h2>1. Flared Silk Anarkalis with Zari Thread Edging</h2>
+      <p>Floor-length and calf-length pure silk Anarkalis in pastel blush, mint, and mustard offer royal presence with total mobility for hosting guests and family dinners.</p>
+
+      <h2>2. Straight-Cut Cigarette Pants with Boat-Neck Tops</h2>
+      <p>A crisp, modern alternative to traditional pleated salwars. Straight-cut silk pants paired with a thigh-length side-slit kurti create a chic, flattering silhouette.</p>
+
+      <h2>3. Custom Sheer Organza & Chanderi Dupattas</h2>
+      <p>We hand-finish every dupatta with scalloped zardozi borders, fabric latkans, and micro-pearl trims that coordinate effortlessly with your new jewelry gifts.</p>
+    `,
+    faqs: [
+      {
+        q: "What is the starting price for custom salwar suit and kurti stitching?",
+        a: "Custom daily and partywear salwar suit stitching starts from ₹1,200, including lining attachment, custom neck piping, and trial fitting."
+      },
+      {
+        q: "How fast can Sree Designers stitch post-wedding kurti sets?",
+        a: "Standard turnaround is 3 to 5 days. For newlywed travel schedules, our 48-Hour Rapid Express service can deliver your sets within 2 days."
       }
     ]
   }
