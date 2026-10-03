@@ -8,6 +8,7 @@ const MASTER_CATALOG = [
   // 🌟 REAL ATELIER SIGNATURE SHOWCASE (Added from live workshop)
   {
     id: 'prod-real-crimson-red-maggam',
+    is_featured: true,
     title: 'Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse',
     slug: 'bridal-red-heavy-maggam-work-blouse-designs',
     description: 'Showstopper bridal crimson red pure silk blouse featuring an ornate scalloped cutout back neck with illusion sheer net, heavy floral maggam elbow sleeves adorned with antique gold zardozi wires, emerald green thread rosettes, and hanging emerald crystal drop latkan beads.',
@@ -21,6 +22,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-real-bottle-green-zigzag',
+    is_featured: true,
     title: 'Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse',
     slug: 'bottle-green-zigzag-net-blouse-designs',
     description: 'Unique bottle green raw silk blouse featuring a multi-tiered chevron zigzag embroidered sheer net back neck with teardrop keyhole cut, crimson red floral rosettes, and matching elbow-length sleeves with ruby crystal drop latkan hangings.',
@@ -34,6 +36,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-real-purple-contrast-net',
+    is_featured: true,
     title: 'Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse',
     slug: 'purple-illusion-net-blouse-designs',
     description: 'Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.',
@@ -124,6 +127,7 @@ const MASTER_CATALOG = [
   // 2. Machine Embroidered Blouse
   {
     id: 'prod-me-1',
+    is_featured: true,
     title: 'Dark Brown Silk Embroidered Blouse with Scallop Sleeves',
     slug: 'dark-brown-silk-embroidered-blouse-scallop-sleeves',
     description: 'High-density computerized floral border embroidery crafted with color-matched Japanese silk threads on pure silk material with scallop sleeve finish.',
@@ -136,6 +140,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-me-2',
+    is_featured: true,
     title: 'Geometric Mirror Work Machine Embroidered Blouse',
     slug: 'geometric-mirror-work-machine-embroidered-blouse',
     description: 'Crisp computerized embroidery incorporating foil mirrors, dual-tone resham threadwork, and padded bridal bustier lining.',
@@ -146,6 +151,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-me-3',
+    is_featured: true,
     title: 'Intricate Vine & Jaal Pattern Machine Blouse',
     slug: 'intricate-vine-jaal-pattern-machine-blouse',
     description: 'All-over back jaal vine embroidery with delicate florets, tailored for Kanchipuram silk sarees with 48-hour delivery guarantee.',
@@ -213,6 +219,7 @@ const MASTER_CATALOG = [
   // 4. Kurtis & Chudidhar
   {
     id: 'prod-kc-1',
+    is_featured: true,
     title: 'Designer Pure Silk Chudidhar & Patterned Salwar Suit',
     slug: 'designer-pure-silk-chudidhar-salwar-suit',
     description: 'Custom fitted silk salwar suit with bespoke yoke neckline embroidery, designer palazzo/chudidhar pants, and lightweight dupatta.',
@@ -225,6 +232,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-kc-2',
+    is_featured: true,
     title: 'Straight Cut Festive Silk Kurti with Zari Yoke',
     slug: 'straight-cut-festive-silk-kurti-zari-yoke',
     description: 'Tailored straight-cut festive kurti with gold threadwork on yoke, side slit piping, and breathable cotton lining.',
@@ -235,6 +243,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-kc-3',
+    is_featured: true,
     title: 'Anarkali Style Flared Festive Kurti',
     slug: 'anarkali-style-flared-festive-kurti',
     description: '16-kali flared floor length anarkali kurti crafted with micro pleating, gold lace borders, and custom sleeve styling.',
@@ -247,6 +256,7 @@ const MASTER_CATALOG = [
   // 5. Lehengas & Festive Couture
   {
     id: 'prod-lh-1',
+    is_featured: true,
     title: 'Opulent Silk Festive Lehenga Choli Set',
     slug: 'opulent-silk-festive-lehenga-choli-set',
     description: 'Custom stitched silk lehenga with waist canvas structuring, handcrafted tassel latkans, and heavy festive skirt pleating.',
@@ -259,6 +269,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-lh-2',
+    is_featured: true,
     title: 'Bridal Velvet & Raw Silk Zardozi Lehenga',
     slug: 'bridal-velvet-raw-silk-zardozi-lehenga',
     description: 'Double flare bridal lehenga featuring 24 kali panels, antique zardozi borders, and custom padded sweetheart choli.',
@@ -269,6 +280,7 @@ const MASTER_CATALOG = [
   },
   {
     id: 'prod-lh-3',
+    is_featured: true,
     title: 'Floral Organza Lightweight Festive Lehenga',
     slug: 'floral-organza-lightweight-festive-lehenga',
     description: 'Airy printed organza lehenga with satin lining, ruffled cancan base, and contemporary sleeveless crop top.',
@@ -340,4 +352,131 @@ function getUnifiedCatalog() {
 if (typeof window !== 'undefined') {
   window.MASTER_CATALOG = MASTER_CATALOG;
   window.getUnifiedCatalog = getUnifiedCatalog;
+}
+
+
+// ─── SHOWCASE SECTIONS DEFINITIONS ───────────────────────────────────────────
+const SHOWCASE_SECTIONS = [
+  {
+    id: 'hand-embroidery',
+    title: 'Hand Embroidered & Bridal Maggam Blouses',
+    icon: '🪡',
+    description: 'Bespoke hand-sewn metallic wires, cut beads, zardozi & kundan stones.',
+    catParam: 'Hand%20Embroidered%20Blouses',
+    tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work', 'Bridal Work']
+  },
+  {
+    id: 'machine-embroidery',
+    title: 'Precision Machine Embroidered Blouses',
+    icon: '⚙️',
+    description: 'High-density computerized floral & geometric repeats with 48-hour express delivery.',
+    catParam: 'Machine%20Embroidered%20Blouse',
+    tags: ['Machine Embroidered Blouse']
+  },
+  {
+    id: 'lehengas',
+    title: 'Bridal Lehengas & Festive Couture',
+    icon: '👗',
+    description: 'Double-flare festive skirts, waist canvas structuring, and sweetheart crop tops.',
+    catParam: 'Lehengas%20%26%20Festive%20Couture',
+    tags: ['Lehengas & Festive Couture', 'Frocks & Gowns']
+  },
+  {
+    id: 'salwar',
+    title: 'Kurtis, Salwar & Chudidhar',
+    icon: '🌸',
+    description: 'Comfort-fit daily & partywear salwar suit stitching, boat-neck tops & pants.',
+    catParam: 'Kurtis%20%26%20Chudidhar',
+    tags: ['Kurtis & Chudidhar']
+  }
+];
+
+function getProductSectionId(item) {
+  if (!item || !item.tags) return 'hand-embroidery';
+  const tags = Array.isArray(item.tags) ? item.tags : [item.tags];
+  const tagStr = tags.join(' ').toLowerCase();
+
+  if (tagStr.includes('machine')) return 'machine-embroidery';
+  if (tagStr.includes('lehenga') || tagStr.includes('frock') || tagStr.includes('gown')) return 'lehengas';
+  if (tagStr.includes('kurti') || tagStr.includes('salwar') || tagStr.includes('chudidhar')) return 'salwar';
+  return 'hand-embroidery';
+}
+
+function getFeaturedOverrides() {
+  try {
+    return JSON.parse(localStorage.getItem('sree_featured_products') || '{}');
+  } catch(e) {
+    return {};
+  }
+}
+
+function isItemFeatured(item) {
+  const overrides = getFeaturedOverrides();
+  if (typeof overrides[item.id] !== 'undefined') {
+    return !!overrides[item.id];
+  }
+  return !!item.is_featured;
+}
+
+function toggleFeaturedItem(id) {
+  const allItems = getUnifiedCatalog();
+  const item = allItems.find(i => String(i.id) === String(id));
+  if (!item) return { success: false, message: 'Item not found' };
+
+  const sectionId = getProductSectionId(item);
+  const overrides = getFeaturedOverrides();
+  const currentlyFeatured = isItemFeatured(item);
+
+  if (!currentlyFeatured) {
+    // Check how many are currently featured in this section
+    const sectionItems = allItems.filter(i => getProductSectionId(i) === sectionId);
+    const activeCount = sectionItems.filter(i => isItemFeatured(i)).length;
+    if (activeCount >= 3) {
+      return {
+        success: false,
+        message: 'Maximum 3 featured products reached for this section on the homepage. Please uncheck another item first!'
+      };
+    }
+    overrides[id] = true;
+  } else {
+    overrides[id] = false;
+  }
+
+  try {
+    localStorage.setItem('sree_featured_products', JSON.stringify(overrides));
+  } catch(e) {}
+
+  return { success: true, is_featured: !currentlyFeatured, sectionId: sectionId };
+}
+
+function getFeaturedProductsForSection(sectionId) {
+  const allItems = getUnifiedCatalog();
+  const sectionItems = allItems.filter(i => getProductSectionId(i) === sectionId);
+  const featured = sectionItems.filter(i => isItemFeatured(i));
+  if (featured.length >= 3) return featured.slice(0, 3);
+  // If fewer than 3 are explicitly marked, backfill with top section items
+  const nonFeatured = sectionItems.filter(i => !isItemFeatured(i));
+  return [...featured, ...nonFeatured].slice(0, 3);
+}
+
+if (typeof window !== 'undefined') {
+  window.MASTER_CATALOG = MASTER_CATALOG;
+  window.SHOWCASE_SECTIONS = SHOWCASE_SECTIONS;
+  window.getUnifiedCatalog = getUnifiedCatalog;
+  window.getProductSectionId = getProductSectionId;
+  window.isItemFeatured = isItemFeatured;
+  window.toggleFeaturedItem = toggleFeaturedItem;
+  window.getFeaturedProductsForSection = getFeaturedProductsForSection;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    MASTER_CATALOG,
+    SHOWCASE_SECTIONS,
+    getUnifiedCatalog,
+    getProductSectionId,
+    isItemFeatured,
+    toggleFeaturedItem,
+    getFeaturedProductsForSection
+  };
 }

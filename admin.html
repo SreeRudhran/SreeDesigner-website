@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- MASTER DATA MODULES -->
-  <script src="js/catalogData.js?v=20261003_v3"></script>
+  <script src="js/catalogData.js?v=20261003_v4"></script>
   <script src="js/blogData.js?v=2"></script>
 
   <style>
@@ -103,6 +103,24 @@
       .item-actions { width:100%; justify-content:flex-end; }
       .grid2 { grid-template-columns:1fr; }
     }
+
+    /* SHOWCASE SECTIONS & FEATURED CONTROLS */
+    .section-filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; background: var(--bg2); padding: 6px; border-radius: 14px; }
+    .filter-pill { padding: 8px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--soft); transition: all .2s; }
+    .filter-pill:hover, .filter-pill.active { background: var(--white); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    
+    .showcase-section-block { background: #faf6f3; border: 1px solid var(--line); border-radius: 20px; padding: 24px; margin-bottom: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
+    .section-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(28,27,24,0.08); flex-wrap: wrap; gap: 12px; }
+    .section-block-title { display: flex; align-items: center; gap: 12px; }
+    .section-block-title h4 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 2px; }
+    .section-block-title p { font-size: 0.82rem; color: var(--soft); }
+    .section-badge-counter { padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: var(--white); border: 1px solid #d4af37; color: #92400e; display: flex; align-items: center; gap: 6px; }
+    .section-badge-counter.full { background: #fef3c7; color: #92400e; border-color: #f59e0b; }
+    
+    .btn-featured { background: transparent; border: 1.5px solid var(--line); color: var(--soft); font-weight: 600; }
+    .btn-featured:hover { border-color: var(--gold); color: var(--gold); background: rgba(185,140,20,0.05); }
+    .btn-featured.active { background: linear-gradient(135deg, #b98c14, #d4af37); color: #fff; border-color: #b98c14; box-shadow: 0 3px 10px rgba(185,140,20,0.35); font-weight: 700; }
+
   </style>
 </head>
 <body>
@@ -149,11 +167,21 @@
       <div class="tab-pane active" id="tab-showcase">
         <div class="tab-header">
           <div>
-            <h3>Service Portfolio Showcase</h3>
-            <p>Full CRUD: Add, edit, update, preview &amp; delete collection items.</p>
+            <h3>Service Portfolio Showcase &amp; Homepage Featured</h3>
+            <p>Segregated sections for each category. Select any 3 items per section as featured on the main page.</p>
           </div>
           <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
         </div>
+
+        <!-- CATEGORY SECTION FILTER TABS -->
+        <div class="section-filter-bar" id="showcaseFilterBar">
+          <button class="filter-pill active" onclick="setShowcaseFilter('all')">All Sections</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('hand-embroidery')">🪡 Hand Embroidery &amp; Maggam</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('machine-embroidery')">⚙️ Machine Embroidery</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('lehengas')">👗 Lehengas &amp; Festive</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('salwar')">🌸 Kurtis &amp; Salwar</button>
+        </div>
+
         <div id="listShowcase"><p class="empty-msg">Loading items...</p></div>
       </div>
 
@@ -612,7 +640,32 @@ function switchTab(name) {
   if (name === 'testimonials') renderTestimonials();
 }
 
-// ─── RENDER SHOWCASE (FULL CRUD: CREATE, PREVIEW, EDIT, DELETE) ──────────────
+// ─── SHOWCASE SECTIONS & HOMEPAGE FEATURED SELECTOR ─────────────────────────
+let currentShowcaseFilter = 'all';
+
+function setShowcaseFilter(filterId) {
+  currentShowcaseFilter = filterId;
+  document.querySelectorAll('#showcaseFilterBar .filter-pill').forEach(btn => {
+    const isTarget = (filterId === 'all' && btn.textContent.includes('All')) ||
+                     (btn.getAttribute('onclick') || '').includes(filterId);
+    btn.classList.toggle('active', isTarget);
+  });
+  renderShowcase();
+}
+
+function handleToggleFeatured(id) {
+  if (typeof window.toggleFeaturedItem !== 'function') {
+    alert('Catalog helper not loaded. Please refresh the page.');
+    return;
+  }
+  const res = window.toggleFeaturedItem(id);
+  if (!res.success) {
+    alert(res.message);
+    return;
+  }
+  renderShowcase();
+}
+
 function renderShowcase() {
   const el = document.getElementById('listShowcase');
   const items = getShowcaseItems();
@@ -622,23 +675,75 @@ function renderShowcase() {
     return;
   }
 
-  el.innerHTML = items.map(item => `
-    <div class="item-card">
-      <img class="item-thumb" src="${item.main_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${item.title}">
-      <div class="item-info">
-        <h4>${item.title}</h4>
-        <div>
-          <span class="badge">₹${item.starting_price || 2500}</span>
-          <small style="display:inline-block; margin-left:8px;">Category: <strong>${Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General')}</strong></small>
+  const sections = window.SHOWCASE_SECTIONS || [
+    { id: 'hand-embroidery', title: 'Hand Embroidered & Bridal Maggam Blouses', icon: '🪡', description: 'Bespoke hand-sewn metallic wires, cut beads, zardozi & kundan stones.' },
+    { id: 'machine-embroidery', title: 'Precision Machine Embroidered Blouses', icon: '⚙️', description: 'High-density computerized floral & geometric repeats with 48-hour delivery.' },
+    { id: 'lehengas', title: 'Bridal Lehengas & Festive Couture', icon: '👗', description: 'Double-flare festive skirts, waist canvas structuring, and sweetheart crop tops.' },
+    { id: 'salwar', title: 'Kurtis, Salwar & Chudidhar', icon: '🌸', description: 'Comfort-fit daily & partywear salwar suit stitching, boat-neck tops & pants.' }
+  ];
+
+  const filteredSections = currentShowcaseFilter === 'all'
+    ? sections
+    : sections.filter(s => s.id === currentShowcaseFilter);
+
+  let html = '';
+
+  filteredSections.forEach(sec => {
+    const secItems = items.filter(item => {
+      if (typeof window.getProductSectionId === 'function') {
+        return window.getProductSectionId(item) === sec.id;
+      }
+      return true;
+    });
+
+    const featuredCount = secItems.filter(item => {
+      return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : false;
+    }).length;
+
+    html += `
+      <div class="showcase-section-block">
+        <div class="section-block-header">
+          <div class="section-block-title">
+            <span style="font-size:1.8rem;">${sec.icon}</span>
+            <div>
+              <h4>${sec.title}</h4>
+              <p>${sec.description} (${secItems.length} items in collection)</p>
+            </div>
+          </div>
+          <div class="section-badge-counter ${featuredCount === 3 ? 'full' : ''}">
+            ⭐ Main Page Featured: <strong>${featuredCount} / 3 Selected</strong>
+          </div>
+        </div>
+        <div class="section-items-list">
+          ${secItems.length === 0 ? '<p class="empty-msg" style="padding:20px;">No items in this section yet. Upload items with matching category tags above.</p>' : secItems.map(item => {
+            const isFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : false;
+            return `
+              <div class="item-card" style="margin-bottom:12px; background:var(--white);">
+                <img class="item-thumb" src="${item.main_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${item.title}">
+                <div class="item-info">
+                  <h4>${item.title}</h4>
+                  <div>
+                    <span class="badge">₹${item.starting_price || 2500}</span>
+                    <small style="display:inline-block; margin-left:8px;">Category: <strong>${Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General')}</strong></small>
+                  </div>
+                </div>
+                <div class="item-actions">
+                  <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${item.id}')" title="${isFeatured ? 'Featured on Main Page (Click to unfeature)' : 'Feature on Main Page (Max 3)'}">
+                    ${isFeatured ? '⭐ Featured on Home' : '☆ Feature on Home'}
+                  </button>
+                  <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+                  <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${item.id}')">Edit</button>
+                  <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
-      <div class="item-actions">
-        <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
-        <button class="btn-sm btn-edit" onclick="openEditShowcase('${item.id}')">Edit</button>
-        <button class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  });
+
+  el.innerHTML = html;
 }
 
 
