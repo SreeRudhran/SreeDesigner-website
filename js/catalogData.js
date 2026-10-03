@@ -20,6 +20,32 @@ const MASTER_CATALOG = [
     ]
   },
   {
+    id: 'prod-real-bottle-green-zigzag',
+    title: 'Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse',
+    slug: 'bottle-green-zigzag-net-blouse-designs',
+    description: 'Unique bottle green raw silk blouse featuring a multi-tiered chevron zigzag embroidered sheer net back neck with teardrop keyhole cut, crimson red floral rosettes, and matching elbow-length sleeves with ruby crystal drop latkan hangings.',
+    starting_price: 3600,
+    main_image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.jpg',
+    tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
+    images: [
+      { id: 'sub-bg-1', image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.jpg' },
+      { id: 'sub-bg-2', image_url: 'assets/images/blouse_bottle_green_zigzag_sleeve.jpg' }
+    ]
+  },
+  {
+    id: 'prod-real-purple-contrast-net',
+    title: 'Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse',
+    slug: 'purple-illusion-net-blouse-designs',
+    description: 'Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.',
+    starting_price: 3400,
+    main_image_url: 'assets/images/blouse_royal_purple_illusion_net_back.jpg',
+    tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
+    images: [
+      { id: 'sub-pr-1', image_url: 'assets/images/blouse_royal_purple_illusion_net_back.jpg' },
+      { id: 'sub-pr-2', image_url: 'assets/images/blouse_royal_purple_floral_sleeve.jpg' }
+    ]
+  },
+  {
     id: 'prod-real-rani-pink-tissue',
     title: 'Rani Pink Scallop Net Sleeve Blouse Designs | Sheer Back Aari Work Blouse',
     slug: 'rani-pink-scallop-net-sleeve-blouse-designs',
