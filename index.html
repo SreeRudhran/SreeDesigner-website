@@ -9,6 +9,11 @@
   
   <!-- SEO & CANONICALIZATION -->
   <link rel="canonical" href="https://sreedesigners.in/">
+  <script>
+    if (window.location.hostname === 'www.sreedesigners.in') {
+      window.location.replace('https://sreedesigners.in' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  </script>
   <meta name="keywords" content="bridal blouse tailoring coimbatore, aari work blouse, maggam work blouse tiruppur, hand zardozi embroidery, lehenga stitching coimbatore, custom blouse fitting, south indian boutique, kanchipuram silk blouse designer">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
@@ -94,10 +99,14 @@
     gtag('config', 'G-SREEDESIGN');
   </script>
 
-  <!-- GOOGLE FONTS — OPTIMIZED & NON-BLOCKING -->
+  <!-- GOOGLE FONTS — OPTIMIZED & NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </noscript>
 
 
   <style>
@@ -352,7 +361,7 @@
       max-height: 980px;
       overflow: hidden;
       /* Silk texture background */
-      background: url('assets/images/hero_bg.jpg') center center / cover no-repeat;
+      background: url('assets/images/hero_bg.webp') center center / cover no-repeat;
     }
 
     /* Subtle warm vignette overlay so text stays readable */
@@ -2623,7 +2632,7 @@
   <header>
     <nav class="wrap">
       <a href="#" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers &amp; Boutique Logo"
+        <img src="assets/images/logo.webp" alt="Sree Designers &amp; Boutique Logo" width="54" height="54"
           style="height:54px; width:54px; object-fit:contain; border-radius:12px; background:#f5ebe6; padding:4px; display:block; flex-shrink:0;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
@@ -2666,62 +2675,62 @@
     </nav>
   </header>
 
-  <!-- CIRCULAR STORY CATEGORIES BAR (MAYBELL INSPIRED) -->
+  <!-- CIRCULAR STORY CATEGORIES BAR (OPTIMIZED SIZES & RETINA RATIO) -->
   <section class="story-categories-section">
     <div class="wrap">
       <div class="story-categories-bar">
         <a href="category.html?cat=Hand%20Embroidered%20Blouses" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_hand_embroidery.png" alt="Hand Zardozi Blouse Embroidery" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_hand_embroidery.webp" alt="Hand Zardozi Blouse Embroidery" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Hand Zardozi</span>
         </a>
 
         <a href="category.html?cat=Machine%20Embroidered%20Blouse" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_machine_embroidery.png" alt="Machine Embroidery Saree Blouse" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_machine_embroidery.webp" alt="Machine Embroidery Saree Blouse" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Machine Work</span>
         </a>
 
         <a href="category.html?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_bridal.png" alt="Bridal Maggam Blouse Work" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_bridal.webp" alt="Bridal Maggam Blouse Work" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Bridal Maggam</span>
         </a>
 
         <a href="category.html?cat=Kurtis%20%26%20Chudidhar" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_salwar.png" alt="Designer Kurtis and Salwar Tailoring" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_salwar.webp" alt="Designer Kurtis and Salwar Tailoring" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Kurtis &amp; Sets</span>
         </a>
 
         <a href="category.html?cat=Lehengas%20%26%20Festive%20Couture" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_lehenga.png" alt="Silk Lehengas and Festive Choli" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_lehenga.webp" alt="Silk Lehengas and Festive Choli" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Lehengas</span>
         </a>
 
         <a href="category.html?cat=Frocks%20%26%20Gowns" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/hero_model.png" alt="Bespoke Party Gowns and Frocks" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_hero_model.webp" alt="Bespoke Party Gowns and Frocks" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Gowns</span>
         </a>
 
         <a href="category.html?cat=Zardozi%20Work" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_hand_embroidery.png" alt="Artisanal Zardozi Metallic Needlework" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_hand_embroidery.webp" alt="Artisanal Zardozi Metallic Needlework" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Zardozi Art</span>
         </a>
 
         <a href="category.html?cat=Hand%20Embroidered%20Blouses" class="story-item">
           <div class="story-avatar-wrap">
-            <img src="assets/images/service_bridal.png" alt="Bridal Trial Fitting Coimbatore" width="62" height="62" loading="lazy" decoding="async" class="story-img">
+            <img src="assets/images/story_bridal.webp" alt="Bridal Trial Fitting Coimbatore" width="62" height="62" loading="lazy" decoding="async" class="story-img">
           </div>
           <span class="story-label">Bridal Trial</span>
         </a>
@@ -2731,14 +2740,15 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <!-- Visible Semantic Keyword H1 for Search Engines & Users -->
+    <!-- Visible Semantic Keyword H1 & H2 for Search Engines & Users -->
     <div class="hero-title-wrap">
       <h1 class="hero-title" id="heroTitle" aria-label="Sree Designers — South Indian Bridal Blouse &amp; Maggam Work Atelier in Coimbatore &amp; Tiruppur">sree designers</h1>
+      <h2 class="hero-tagline-seo" style="text-align:center; font-size:1.05rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dark); margin:12px auto 0; max-width:860px;">Bespoke South Indian Bridal Blouse &amp; Maggam Work Atelier in Coimbatore &amp; Tiruppur</h2>
     </div>
 
-    <!-- Model cutout — bottom-anchored center -->
+    <!-- Model cutout — bottom-anchored center (896:1200 natural aspect ratio = 680x911) -->
     <div class="hero-model">
-      <img src="assets/images/hero_model.png" alt="Sree Designers model wearing bridal blouse and silk half saree" id="heroModelImg" width="680" height="980" fetchpriority="high">
+      <img src="assets/images/hero_model.webp" alt="Sree Designers model wearing bridal blouse and silk half saree" id="heroModelImg" width="680" height="911" fetchpriority="high">
     </div>
 
     <!-- Bottom bar -->
@@ -2761,7 +2771,7 @@
           <div class="arch-motif-tag">
             <span>✨</span> CELEBRATE WEDDINGS IN STYLE
           </div>
-          <h2>From Serene Vows to Sparkling Nights</h2>
+          <h2>Bridal Silk Blouse Craftsmanship &amp; Hand Zardozi Artistry</h2>
           <p>Handcrafted Kanchipuram silk blouses, 3D peacock zardozi wires, and opulent bridal lehenga ensembles tailored exclusively at our Coimbatore &amp; Tiruppur ateliers.</p>
           <a href="category.html?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-royal-gold">
             Explore Bridal Couture →
@@ -2769,7 +2779,7 @@
         </div>
         <div class="royal-arch-visual">
           <div class="arch-frame-shape"></div>
-          <img src="assets/images/service_bridal.png" alt="Royal Indian Bridal Silk Blouse Couture">
+          <img src="assets/images/service_bridal.webp" alt="Royal Indian Bridal Silk Blouse Couture" width="480" height="640" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -2780,7 +2790,7 @@
     <div class="wrap">
       <div class="section-head" style="text-align:center; max-width:680px; margin:0 auto 48px;">
         <span class="eyebrow">Atelier Collections</span>
-        <h2 style="font-size:2.4rem; margin:8px 0 12px;">Shop By Categories</h2>
+        <h2 style="font-size:2.4rem; margin:8px 0 12px;">Bridal Blouses, Aari Maggam Work &amp; Festive Couture</h2>
         <p style="color:var(--ink-soft); font-size:1rem;">Handcrafted South Indian couture tailored to your exact measurements.</p>
       </div>
 
@@ -2796,7 +2806,7 @@
         <div class="shelf-products-grid">
           <a href="product.html?id=prod-he-1" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_hand_embroidery.png" alt="Peacock Zardozi Blouse" class="shelf-card-img">
+              <img src="assets/images/service_hand_embroidery.webp" alt="Peacock Zardozi Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2805,16 +2815,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹3,800</span>
                   <span class="shelf-price-mrp">₹5,429</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-he-2" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Royal Magenta Zari Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Royal Magenta Zari Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2823,16 +2833,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹3,200</span>
                   <span class="shelf-price-mrp">₹4,571</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-he-3" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_hand_embroidery.png" alt="Floral Lotus Blouse" class="shelf-card-img">
+              <img src="assets/images/service_hand_embroidery.webp" alt="Floral Lotus Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2841,16 +2851,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹2,800</span>
                   <span class="shelf-price-mrp">₹4,000</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-he-4" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Temple Border Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Temple Border Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2859,10 +2869,10 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹3,500</span>
                   <span class="shelf-price-mrp">₹5,000</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
         </div>
@@ -2885,7 +2895,7 @@
         <div class="shelf-products-grid">
           <a href="product.html?id=prod-me-1" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery.png" alt="Dark Brown Silk Blouse" class="shelf-card-img">
+              <img src="assets/images/service_machine_embroidery.webp" alt="Dark Brown Silk Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2894,16 +2904,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹1,800</span>
                   <span class="shelf-price-mrp">₹2,571</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-me-2" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery.png" alt="Mirror Work Blouse" class="shelf-card-img">
+              <img src="assets/images/service_machine_embroidery.webp" alt="Mirror Work Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2912,16 +2922,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹1,600</span>
                   <span class="shelf-price-mrp">₹2,286</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-me-3" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery.png" alt="Vine Jaal Blouse" class="shelf-card-img">
+              <img src="assets/images/service_machine_embroidery.webp" alt="Vine Jaal Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2930,16 +2940,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹1,950</span>
                   <span class="shelf-price-mrp">₹2,786</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-me-4" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery.png" alt="Neckline Butti Blouse" class="shelf-card-img">
+              <img src="assets/images/service_machine_embroidery.webp" alt="Neckline Butti Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2948,10 +2958,10 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹1,400</span>
                   <span class="shelf-price-mrp">₹2,000</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
         </div>
@@ -2974,7 +2984,7 @@
         <div class="shelf-products-grid">
           <a href="product.html?id=prod-br-1" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Grand Regal Peacock Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Grand Regal Peacock Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -2983,16 +2993,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹4,500</span>
                   <span class="shelf-price-mrp">₹6,429</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-br-2" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Heritage Lakshmi Kasu Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Heritage Lakshmi Kasu Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3001,16 +3011,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹4,200</span>
                   <span class="shelf-price-mrp">₹6,000</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-br-3" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Cutwork Neckline Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Cutwork Neckline Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3019,16 +3029,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹4,800</span>
                   <span class="shelf-price-mrp">₹6,857</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-br-4" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_bridal.png" alt="Full Back Floral Blouse" class="shelf-card-img">
+              <img src="assets/images/service_bridal.webp" alt="Full Back Floral Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3037,10 +3047,10 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹5,200</span>
                   <span class="shelf-price-mrp">₹7,429</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Blouse →</span>
             </div>
           </a>
         </div>
@@ -3063,7 +3073,7 @@
         <div class="shelf-products-grid">
           <a href="product.html?id=prod-lh-1" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga.png" alt="Silk Festive Lehenga" class="shelf-card-img">
+              <img src="assets/images/service_lehenga.webp" alt="Silk Festive Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3072,16 +3082,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹4,200</span>
                   <span class="shelf-price-mrp">₹6,000</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Lehenga →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-lh-2" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga.png" alt="Bridal Velvet Lehenga" class="shelf-card-img">
+              <img src="assets/images/service_lehenga.webp" alt="Bridal Velvet Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3090,16 +3100,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹6,500</span>
                   <span class="shelf-price-mrp">₹9,286</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Lehenga →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-lh-3" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga.png" alt="Organza Festive Lehenga" class="shelf-card-img">
+              <img src="assets/images/service_lehenga.webp" alt="Organza Festive Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3108,16 +3118,16 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹3,400</span>
                   <span class="shelf-price-mrp">₹4,857</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Lehenga →</span>
             </div>
           </a>
 
           <a href="product.html?id=prod-kc-1" class="shelf-card">
             <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_salwar.png" alt="Pure Silk Chudidhar" class="shelf-card-img">
+              <img src="assets/images/service_salwar.webp" alt="Pure Silk Chudidhar" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
               <span class="shelf-discount-badge">30% OFF</span>
             </div>
             <div class="shelf-card-body">
@@ -3126,10 +3136,10 @@
                 <div class="shelf-price-row">
                   <span class="shelf-price-sale">₹1,200</span>
                   <span class="shelf-price-mrp">₹1,714</span>
-                  <span class="shelf-price-save">SAVE 30%</span>
+                  <span class="shelf-price-save">30% Off</span>
                 </div>
               </div>
-              <span class="shelf-btn-view">View Details →</span>
+              <span class="shelf-btn-view">Explore Suit →</span>
             </div>
           </a>
         </div>
@@ -3411,6 +3421,10 @@
     function lerp(a, b, t) { return a + (b - a) * t; }
 
     function tick() {
+      if (isNaN(cx)) cx = 50;
+      if (isNaN(cy)) cy = 50;
+      if (isNaN(tx)) tx = 50;
+      if (isNaN(ty)) ty = 50;
       cx = lerp(cx, tx, 0.07);
       cy = lerp(cy, ty, 0.07);
 
@@ -3433,6 +3447,7 @@
       hero.addEventListener('mousemove', e => {
         if (!titleEl) return;
         const r = titleEl.getBoundingClientRect();
+        if (!r.width || !r.height) return;
         /* Clamp to 0-100%, allow slight overflow for edge glow */
         tx = Math.max(-5, Math.min(105, ((e.clientX - r.left) / r.width) * 100));
         ty = Math.max(-5, Math.min(105, ((e.clientY - r.top)  / r.height) * 100));
@@ -3461,7 +3476,8 @@
 
     document.getElementById('btnBookEstimate')?.addEventListener('click', () => {
       const msg = document.getElementById('fmsg');
-      if (msg) msg.value = `Requested Quote: ${calcPriceVal?.textContent} for ${calcGarment?.options[calcGarment.selectedIndex]?.text}`;
+      const selectedOption = calcGarment?.options?.[calcGarment?.selectedIndex]?.text || 'Bridal Blouse Tailoring';
+      if (msg) msg.value = `Requested Quote: ${calcPriceVal?.textContent || '₹2,500'} for ${selectedOption}`;
       const enq = document.getElementById('enquiry');
       if (enq) enq.scrollIntoView({ behavior: 'smooth' });
     });
@@ -3472,7 +3488,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Bridal Journal &amp; Style Guides</span>
-        <h2>South Indian Fashion &amp; Embroidery Articles</h2>
+        <h2>Bridal Blouse Designs &amp; Aari Embroidery Journal</h2>
         <p>Expert tips, maggam embroidery trends, and fabric care guides curated by our master artisans.</p>
       </div>
 
@@ -3480,7 +3496,7 @@
         <!-- Blog post 1 -->
         <article class="blog-card">
           <a href="blog-bridal-blouse-designs-2026.html">
-            <img src="assets/images/bridal_blouse.jpg" alt="Top 10 South Indian Bridal Blouse Trends" class="blog-cover-img" width="600" height="260" loading="lazy">
+            <img src="assets/images/blog_trends_2026.webp" alt="Top 10 South Indian Bridal Blouse Trends" class="blog-cover-img" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
           </a>
           <div class="blog-content">
             <div>
@@ -3497,16 +3513,18 @@
 
         <!-- Blog post 2 -->
         <article class="blog-card">
-          <img src="assets/images/hero_bg.jpg" alt="Hand Embroidery versus Machine Embroidery Guide" class="blog-cover-img">
+          <a href="blog-post.html?id=blog-hand-vs-machine-embroidery">
+            <img src="assets/images/blog_hand_machine.webp" alt="Hand Zardozi versus Machine Embroidery Guide" class="blog-cover-img" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
+          </a>
           <div class="blog-content">
             <div>
               <span class="blog-badge">Stitching Guide</span>
-              <h3>Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide</h3>
+              <h3><a href="blog-post.html?id=blog-hand-vs-machine-embroidery" style="text-decoration:none; color:inherit;">Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide</a></h3>
               <p>Comparing turn-around speed, intricacy, metallic thread durability, and pricing for bespoke bridal wear.</p>
             </div>
             <div class="blog-meta">
-              <span>4 min read</span>
-              <a href="#blog" style="color:var(--gold-dark); font-weight:600;">Read Article →</a>
+              <span>9 min read</span>
+              <a href="blog-post.html?id=blog-hand-vs-machine-embroidery" style="color:var(--gold-dark); font-weight:600;">Read Full Guide →</a>
             </div>
           </div>
         </article>
@@ -3525,7 +3543,7 @@
 
       <div class="reels-grid">
         <div class="reel-card">
-          <img src="assets/images/service_hand_embroidery.png" alt="Hand Zardozi Crafting Reel" class="reel-img">
+          <img src="assets/images/service_hand_embroidery.webp" alt="Hand Zardozi Crafting Reel" class="reel-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="reel-overlay">
             <div class="reel-play-btn">▶</div>
             <div class="reel-title">Peacock Zardozi Stitching</div>
@@ -3534,7 +3552,7 @@
         </div>
 
         <div class="reel-card">
-          <img src="assets/images/service_bridal.png" alt="Bridal Blouse Fitting Reel" class="reel-img">
+          <img src="assets/images/service_bridal.webp" alt="Bridal Blouse Fitting Reel" class="reel-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="reel-overlay">
             <div class="reel-play-btn">▶</div>
             <div class="reel-title">Custom Padded Trial</div>
@@ -3543,7 +3561,7 @@
         </div>
 
         <div class="reel-card">
-          <img src="assets/images/service_machine_embroidery.png" alt="Machine Embroidery Video" class="reel-img">
+          <img src="assets/images/service_machine_embroidery.webp" alt="Machine Embroidery Video" class="reel-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="reel-overlay">
             <div class="reel-play-btn">▶</div>
             <div class="reel-title">Digital Machine Precision</div>
@@ -3552,7 +3570,7 @@
         </div>
 
         <div class="reel-card">
-          <img src="assets/images/service_lehenga.png" alt="Lehenga Drape Transformation" class="reel-img">
+          <img src="assets/images/service_lehenga.webp" alt="Lehenga Drape Transformation" class="reel-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="reel-overlay">
             <div class="reel-play-btn">▶</div>
             <div class="reel-title">Festive Lehenga Pleating</div>
@@ -3673,7 +3691,7 @@
       <div style="padding: 28px; overflow-y: auto;">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:32px;">
           <div>
-            <img id="showcaseDetailMainImg" src="assets/images/service_bridal.png" alt="Showcase Item" style="width:100%; height:320px; object-fit:cover; border-radius:16px; border:1px solid var(--line);">
+            <img id="showcaseDetailMainImg" src="assets/images/service_bridal.webp" alt="Showcase Item" width="480" height="320" style="width:100%; height:320px; object-fit:cover; border-radius:16px; border:1px solid var(--line);">
             <div id="showcaseThumbs" style="display:flex; gap:10px; margin-top:12px; overflow-x:auto;"></div>
           </div>
           <div style="display:flex; flex-direction:column; justify-content:space-between;">
@@ -3698,10 +3716,9 @@
     </div>
   </div>
 
-  <!-- MODULE SCRIPTS -->
-  <script src="js/supabaseClient.js"></script>
-  <script src="js/seo.js"></script>
-  <script src="js/admin.js"></script>
+  <!-- MODULE SCRIPTS (NON-RENDER-BLOCKING) -->
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/seo.js" defer></script>
 
   <script>
     // Demo Portfolio Items for Immediate Interactivity
@@ -3709,48 +3726,48 @@
       'demo-1': {
         title: 'Bridal Blouse Tailoring & Maggam Work',
         tag: 'Bridal Work',
-        img: 'assets/images/service_bridal.png',
-        subImgs: ['assets/images/service_bridal.png', 'assets/images/service_hand_embroidery.png', 'assets/images/hero_model.png'],
+        img: 'assets/images/service_bridal.webp',
+        subImgs: ['assets/images/service_bridal.webp', 'assets/images/service_hand_embroidery.webp', 'assets/images/hero_model.webp'],
         price: 'from ₹3,800',
         desc: 'Custom Kanchipuram bridal silk blouse stitching featuring dense elbow zardozi peacocks, ruby kundan stones, back neck teardrop cutout, and double padded cups.'
       },
       'demo-2': {
         title: 'Precision Machine Embroidery',
         tag: 'Machine Embroidery',
-        img: 'assets/images/service_machine_embroidery.png',
-        subImgs: ['assets/images/service_machine_embroidery.png', 'assets/images/service_salwar.png'],
+        img: 'assets/images/service_machine_embroidery.webp',
+        subImgs: ['assets/images/service_machine_embroidery.webp', 'assets/images/service_salwar.webp'],
         price: 'from ₹1,800',
         desc: 'Computerized high-density floral borders and geometric zardozi thread simulation executed on Japanese multi-head embroidery machines.'
       },
       'demo-3': {
         title: 'Hand Embroidery & Zardozi',
         tag: 'Hand Embroidery',
-        img: 'assets/images/service_hand_embroidery.png',
-        subImgs: ['assets/images/service_hand_embroidery.png', 'assets/images/service_bridal.png'],
+        img: 'assets/images/service_hand_embroidery.webp',
+        subImgs: ['assets/images/service_hand_embroidery.webp', 'assets/images/service_bridal.webp'],
         price: 'from ₹2,500',
         desc: 'Master artisan hand-stitched gold metallic wire (zardozi), cut glass beads, pearl clusters, and subtle antique copper highlights.'
       },
       'demo-4': {
         title: 'Opulent Lehenga & Festive Couture',
         tag: 'Lehenga Couture',
-        img: 'assets/images/service_lehenga.png',
-        subImgs: ['assets/images/service_lehenga.png', 'assets/images/hero_model.png'],
+        img: 'assets/images/service_lehenga.webp',
+        subImgs: ['assets/images/service_lehenga.webp', 'assets/images/hero_model.webp'],
         price: 'from ₹4,200',
         desc: 'Full-flared silk lehenga stitching with stiff canvas waistlining, handcrafted tassel latkans, padded blouse, and double dupatta pleating.'
       },
       'demo-5': {
         title: 'Chudidhar & Salwar Tailoring',
         tag: 'Salwar & Chudidhar',
-        img: 'assets/images/service_salwar.png',
-        subImgs: ['assets/images/service_salwar.png', 'assets/images/service_alterations.png'],
+        img: 'assets/images/service_salwar.webp',
+        subImgs: ['assets/images/service_salwar.webp', 'assets/images/service_alterations.webp'],
         price: 'from ₹1,200',
         desc: 'Comfort-fit daily & partywear salwar suit stitching, boat-neck tops, straight pants, and organza dupatta border edging.'
       },
       'demo-6': {
         title: 'Garment Alterations & Re-fitting',
         tag: 'Garment Alterations',
-        img: 'assets/images/service_alterations.png',
-        subImgs: ['assets/images/service_alterations.png', 'assets/images/service_salwar.png'],
+        img: 'assets/images/service_alterations.webp',
+        subImgs: ['assets/images/service_alterations.webp', 'assets/images/service_salwar.webp'],
         price: 'from ₹450',
         desc: 'Resizing bridal blouses, waist adjustments, armhole reshaping, zipper replacements, and custom cup insertions.'
       }
@@ -3770,7 +3787,7 @@
         return `
           <div class="service-card-luxury" data-tags="${(item.tags || []).join(',')}">
             <div class="service-img-container">
-              <img src="${item.main_image_url || 'assets/images/service_bridal.png'}" alt="${item.title}" class="service-png-img">
+              <img src="${item.main_image_url || 'assets/images/service_bridal.webp'}" alt="${item.title}" class="service-png-img" width="300" height="400" loading="lazy" decoding="async">
             </div>
             <div class="service-info">
               <span class="service-tag-badge">${primaryTag}</span>
@@ -3800,7 +3817,7 @@
         document.getElementById('showcaseDetailTag').textContent = (item.tags && item.tags[0]) || 'Bespoke Atelier';
         document.getElementById('showcaseDetailDesc').textContent = item.description || 'Bespoke hand zardozi and custom fitting atelier service.';
         document.getElementById('showcaseDetailPrice').textContent = typeof item.starting_price === 'number' ? `from ₹${item.starting_price}` : (item.starting_price || 'from ₹2,500');
-        document.getElementById('showcaseDetailMainImg').src = item.main_image_url || 'assets/images/service_bridal.png';
+        document.getElementById('showcaseDetailMainImg').src = item.main_image_url || 'assets/images/service_bridal.webp';
         document.getElementById('showcaseDetailWaBtn').href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20${encodeURIComponent(item.title)}`;
 
         // Thumbs

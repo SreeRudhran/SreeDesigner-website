@@ -41,10 +41,13 @@
     gtag('config', 'G-SREEDESIGN');
   </script>
 
-  <!-- GOOGLE FONTS — OPTIMIZED -->
+  <!-- GOOGLE FONTS — NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
   <!-- ARTICLE & AUTHOR SCHEMA (JSON-LD) -->
   <script type="application/ld+json">
@@ -446,7 +449,7 @@
   <header>
     <div class="header-nav">
       <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
           <span>Samalapuram &amp; Karnempettai</span>
@@ -481,7 +484,7 @@
     </div>
 
     <!-- HERO IMAGE -->
-    <img src="assets/images/blog_trends_2026.jpg" alt="South Indian Bridal Blouse with Dense Peacock Zardozi Maggam Work" width="860" height="480" fetchpriority="high" style="margin-bottom:36px;">
+    <img src="assets/images/blog_trends_2026.webp" alt="South Indian Bridal Blouse with Dense Peacock Zardozi Maggam Work" width="860" height="484" fetchpriority="high" style="margin-bottom:36px; aspect-ratio:16/9; width:100%; height:auto; object-fit:cover;">
 
     <!-- LETTER TO THE BRIDE -->
     <div class="letter-box">
@@ -519,7 +522,7 @@
 
       <!-- FEATURED PRODUCT CALLOUT -->
       <div class="featured-card-box">
-        <img src="assets/images/service_bridal.png" alt="Bridal Maggam Blouse Sample" width="140" height="140" loading="lazy" decoding="async">
+        <img src="assets/images/service_bridal.webp" alt="Bridal Maggam Blouse Sample" width="140" height="187" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
         <div>
           <h4 style="font-family:var(--font-serif); font-size:1.2rem; margin-bottom:6px;">Need Bespoke Muhurtham Embroidery?</h4>
           <p style="font-size:0.92rem; color:var(--ink-soft); margin-bottom:12px;">Our master artisans in Samalapuram craft tailored necklines to match your exact saree border width.</p>

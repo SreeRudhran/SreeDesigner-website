@@ -25,9 +25,13 @@
   </script>
 
   <!-- GOOGLE FONTS — OPTIMIZED -->
+  <!-- GOOGLE FONTS — NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
 
   <style>
@@ -538,7 +542,7 @@
   <header>
     <nav class="wrap">
       <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="48" height="48" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
           <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
@@ -574,13 +578,13 @@
       <!-- ASYMMETRIC MULTI-IMAGE GALLERY -->
       <div class="gallery-container">
         <div class="gallery-main-item">
-          <img id="mainGalleryImg" src="assets/images/service_bridal.png" alt="Grand Regal Peacock Maggam Blouse Full Front View" width="600" height="600">
+          <img id="mainGalleryImg" src="assets/images/service_bridal.webp" alt="Grand Regal Peacock Maggam Blouse Full Front View" width="600" height="800" style="aspect-ratio:3/4; object-fit:cover;">
         </div>
         <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img id="gallerySubImg1" src="assets/images/service_hand_embroidery.png" alt="Detail View" width="300" height="300" loading="lazy" decoding="async">
+          <img id="gallerySubImg1" src="assets/images/service_hand_embroidery.webp" alt="Detail View" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
         </div>
         <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img id="gallerySubImg2" src="assets/images/hero_model.png" alt="Fitting Preview" width="300" height="300" loading="lazy" decoding="async">
+          <img id="gallerySubImg2" src="assets/images/hero_model.webp" alt="Fitting Preview" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
         </div>
       </div>
 
@@ -639,7 +643,7 @@
       <div class="reviews-grid">
         <div class="review-card">
           <div class="review-user-row">
-            <img src="assets/images/hero_model.png" alt="Priya Sundaram" class="review-avatar">
+            <img src="assets/images/story_hero_model.webp" alt="Priya Sundaram" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
             <div>
               <div class="review-name">Priya Sundaram</div>
               <div class="review-date">Coimbatore Bride · 2 days ago</div>
@@ -653,7 +657,7 @@
 
         <div class="review-card">
           <div class="review-user-row">
-            <img src="assets/images/service_bridal.png" alt="Kavitha Ramachandran" class="review-avatar">
+            <img src="assets/images/story_bridal.webp" alt="Kavitha Ramachandran" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
             <div>
               <div class="review-name">Kavitha Ramachandran</div>
               <div class="review-date">Tiruppur · 5 days ago</div>
@@ -675,7 +679,7 @@
 
       <div class="related-grid" id="relatedGridContainer">
         <div class="related-card">
-          <img src="assets/images/service_machine_embroidery.png" alt="Precision Machine Embroidery Blouse" class="related-img">
+          <img src="assets/images/service_machine_embroidery.webp" alt="Precision Machine Embroidery Blouse" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="related-info">
             <div>
               <div class="related-title">Precision Machine Embroidery</div>
@@ -686,7 +690,7 @@
         </div>
 
         <div class="related-card">
-          <img src="assets/images/service_hand_embroidery.png" alt="Hand Zardozi Sleeve Blouse" class="related-img">
+          <img src="assets/images/service_hand_embroidery.webp" alt="Hand Zardozi Sleeve Blouse" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
           <div class="related-info">
             <div>
               <div class="related-title">Hand Zardozi &amp; Kundan Work</div>
@@ -833,7 +837,7 @@
         const otherItems = allItems.filter(i => String(i.id) !== String(item.id)).slice(0, 3);
         similarGrid.innerHTML = otherItems.map(sim => `
           <a href="product.html?id=${encodeURIComponent(sim.id || sim.slug || '')}" class="related-card">
-            <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.png'}" alt="${sim.title}" class="related-img">
+            <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.webp'}" alt="${sim.title}" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
             <div class="related-info">
               <div>
                 <div class="related-title">${sim.title}</div>

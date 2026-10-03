@@ -24,10 +24,13 @@
     gtag('config', 'G-SREEDESIGN');
   </script>
 
-  <!-- GOOGLE FONTS — OPTIMIZED -->
+  <!-- GOOGLE FONTS — NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
 
   <style>
@@ -418,7 +421,7 @@
   <!-- HEADER -->
   <header>
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+      <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="44" height="44" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
       <div class="brand-name">
         Sree Designers &amp; Boutique
         <span>Samalapuram &amp; Karnempettai</span>
@@ -543,12 +546,12 @@
       container.innerHTML = items.map(item => {
         const salePrice = parseFloat(item.starting_price) || 2500;
         const mrpPrice = Math.round(salePrice / 0.7); // 30% discount
-        const imgUrl = item.main_image_url || 'assets/images/service_bridal.png';
+        const imgUrl = item.main_image_url || 'assets/images/service_bridal.webp';
 
         return `
           <div class="cat-product-card">
             <div class="cat-product-img-wrap">
-              <img src="${imgUrl}" alt="${item.title}" class="cat-product-img" onerror="this.src='assets/images/service_bridal.png'">
+              <img src="${imgUrl}" alt="${item.title}" class="cat-product-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;" onerror="this.src='assets/images/service_bridal.webp'">
               <span class="discount-tag">30% OFF</span>
             </div>
             <div class="cat-product-body">
@@ -557,11 +560,11 @@
                 <div class="price-row">
                   <span class="price-sale">₹${salePrice.toLocaleString('en-IN')}</span>
                   <span class="price-mrp">₹${mrpPrice.toLocaleString('en-IN')}</span>
-                  <span class="price-badge">SAVE 30%</span>
+                  <span class="price-badge">30% Off</span>
                 </div>
                 <p class="cat-product-desc">${item.description || 'Handcrafted bespoke garment tailored to perfection.'}</p>
               </div>
-              <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">View Details →</a>
+              <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">Explore Design →</a>
             </div>
           </div>
         `;

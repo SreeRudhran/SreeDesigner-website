@@ -41,10 +41,13 @@
     gtag('config', 'G-SREEDESIGN');
   </script>
 
-  <!-- GOOGLE FONTS — OPTIMIZED -->
+  <!-- GOOGLE FONTS — NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
   <!-- DYNAMIC SCHEMAS INJECTED VIA JAVASCRIPT -->
   <script id="schemaArticle" type="application/ld+json">{}</script>
@@ -410,7 +413,7 @@
   <header>
     <div class="header-nav">
       <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
           <span>Samalapuram &amp; Karnempettai</span>
@@ -445,7 +448,7 @@
     </div>
 
     <!-- HERO IMAGE -->
-    <img id="postHeroImg" src="assets/images/bridal_blouse.jpg" alt="Article Cover" width="860" height="480" fetchpriority="high" style="margin-bottom:36px;">
+    <img id="postHeroImg" src="assets/images/bridal_blouse.webp" alt="Article Cover" width="860" height="484" fetchpriority="high" style="margin-bottom:36px; aspect-ratio:16/9; width:100%; height:auto; object-fit:cover;">
 
     <!-- LETTER TO THE BRIDE -->
     <div class="letter-box" id="postLetterBox">
@@ -574,7 +577,7 @@
       document.getElementById('postAuthor').textContent = post.author || 'Master Artisan';
       document.getElementById('postDate').textContent = post.date || 'Recent';
       document.getElementById('postReadTime').textContent = post.read_time || '5 Min Read';
-      document.getElementById('postHeroImg').src = post.featured_image || 'assets/images/bridal_blouse.jpg';
+      document.getElementById('postHeroImg').src = post.featured_image || 'assets/images/bridal_blouse.webp';
       document.getElementById('postHeroImg').alt = post.title;
 
       // Letter to Bride

@@ -57,10 +57,13 @@
     gtag('config', 'G-SREEDESIGN');
   </script>
 
-  <!-- GOOGLE FONTS — OPTIMIZED -->
+  <!-- GOOGLE FONTS — NON-RENDER-BLOCKING -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
 
   <style>
@@ -279,7 +282,8 @@
 
     .article-cover {
       width: 100%;
-      height: 260px;
+      aspect-ratio: 16 / 9;
+      height: auto;
       object-fit: cover;
     }
 
@@ -348,7 +352,7 @@
   <header>
     <nav class="wrap">
       <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="48" height="48" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
           <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
@@ -398,7 +402,7 @@
       <!-- Featured New Article: Coimbatore & Tiruppur Price Guide -->
       <article class="article-card" data-category="Bridal Stitching & Price Guide" data-title="Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur 2026 Price Guide">
         <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">
-          <img src="assets/images/blog_coimbatore_guide.jpg" alt="Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_coimbatore_guide.webp" alt="Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -419,7 +423,7 @@
       <!-- Article: Trending Back Neck Designs 2026 -->
       <article class="article-card" data-category="Bridal Trends" data-title="25+ Trending Bridal Blouse Back Neck Designs 2026">
         <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">
-          <img src="assets/images/blog_back_neck.jpg" alt="Trending Bridal Blouse Back Neck Designs 2026" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_back_neck.webp" alt="Trending Bridal Blouse Back Neck Designs 2026" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -440,7 +444,7 @@
       <!-- Article: 48-Hour Rapid Express Bridal Stitching -->
       <article class="article-card" data-category="Stitching Guide" data-title="48-Hour Rapid Express Bridal Blouse Stitching in Coimbatore & Tiruppur">
         <a href="blog-post.html?id=blog-express-bridal-stitching-coimbatore">
-          <img src="assets/images/blog_express_stitching.jpg" alt="48-Hour Rapid Express Bridal Stitching" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_express_stitching.webp" alt="48-Hour Rapid Express Bridal Stitching" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -461,7 +465,7 @@
       <!-- Article: South Indian Bridal Lehengas -->
       <article class="article-card" data-category="Festive Couture" data-title="South Indian Bridal Lehengas for Reception & Sangeet 2026">
         <a href="blog-post.html?id=blog-south-indian-bridal-lehengas-2026">
-          <img src="assets/images/blog_bridal_lehenga.jpg" alt="South Indian Bridal Lehengas for Reception & Sangeet" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_bridal_lehenga.webp" alt="South Indian Bridal Lehengas for Reception & Sangeet" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -482,7 +486,7 @@
       <!-- Article 1: 2026 Trends -->
       <article class="article-card" data-category="Bridal Trends" data-title="Top 10 South Indian Bridal Blouse Trends">
         <a href="blog-bridal-blouse-designs-2026.html">
-          <img src="assets/images/blog_trends_2026.jpg" alt="Top 10 South Indian Bridal Blouse Trends" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_trends_2026.webp" alt="Top 10 South Indian Bridal Blouse Trends" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -503,7 +507,7 @@
       <!-- Article 2: Hand vs Machine -->
       <article class="article-card" data-category="Stitching Guide" data-title="Hand Zardozi vs Machine Embroidery">
         <a href="blog-post.html?id=blog-hand-vs-machine-embroidery">
-          <img src="assets/images/blog_hand_machine.jpg" alt="Hand Zardozi vs Machine Embroidery" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_hand_machine.webp" alt="Hand Zardozi vs Machine Embroidery" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -524,7 +528,7 @@
       <!-- Article: Color Contrast Combinations -->
       <article class="article-card" data-category="Bridal Trends" data-title="Top 15 Bridal Blouse Color Contrast Combinations 2026">
         <a href="blog-post.html?id=blog-color-contrast-combinations-2026">
-          <img src="assets/images/blog_color_contrast.jpg" alt="Top 15 Bridal Blouse Color Contrast Combinations" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_color_contrast.webp" alt="Top 15 Bridal Blouse Color Contrast Combinations" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -545,7 +549,7 @@
       <!-- Article 3: Preserve Zardozi -->
       <article class="article-card" data-category="Embroidery Care" data-title="How to Preserve Bridal Silk Blouse Zardozi Work">
         <a href="blog-post.html?id=blog-preserve-zardozi-silk-blouse">
-          <img src="assets/images/blog_preserve_zardozi.jpg" alt="Preserving Zardozi Work" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_preserve_zardozi.webp" alt="Preserving Zardozi Work" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -566,7 +570,7 @@
       <!-- Article: Boat Neck & High Collar Saree Blouses -->
       <article class="article-card" data-category="Bridal Trends" data-title="Boat Neck & High Collar Saree Blouses 2026">
         <a href="blog-post.html?id=blog-boat-neck-bridal-blouses-2026">
-          <img src="assets/images/blog_boat_neck.jpg" alt="Boat Neck & High Collar Saree Blouses" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_boat_neck.webp" alt="Boat Neck & High Collar Saree Blouses" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -587,7 +591,7 @@
       <!-- Article: Bridal Trousseau Checklist -->
       <article class="article-card" data-category="Stitching Guide" data-title="The Ultimate South Indian Bridal Trousseau Checklist">
         <a href="blog-post.html?id=blog-bridal-trousseau-checklist-timeline">
-          <img src="assets/images/blog_trousseau_check.jpg" alt="South Indian Bridal Trousseau Checklist" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_trousseau_check.webp" alt="South Indian Bridal Trousseau Checklist" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -608,7 +612,7 @@
       <!-- Article: Plus Size Saree Blouse Fitting -->
       <article class="article-card" data-category="Stitching Guide" data-title="Flattering Saree Blouse Fitting for Plus Size & Broad Shoulders">
         <a href="blog-post.html?id=blog-plus-size-saree-blouse-fitting-guide">
-          <img src="assets/images/blog_plus_fitting.jpg" alt="Flattering Saree Blouse Fitting for Plus Size" class="article-cover" width="600" height="260" loading="lazy">
+          <img src="assets/images/blog_plus_fitting.webp" alt="Flattering Saree Blouse Fitting for Plus Size" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -628,8 +632,8 @@
 
       <!-- Article: Salwar Suits & Chudidhars -->
       <article class="article-card" data-category="Festive Couture" data-title="Bespoke Salwar Suits, Chudidhars & Kurtis for Post-Wedding Rituals">
-        <a href="blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals">
-          <img src="assets/images/blog_salwar_couture.jpg" alt="Bespoke Salwar Suits and Chudidhars" class="article-cover" width="600" height="260" loading="lazy">
+        <a href="blog-salwar-chudidhar-post-wedding-rituals.html">
+          <img src="assets/images/blog_salwar_couture.webp" alt="Bespoke Salwar Suits and Chudidhars" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
         </a>
         <div class="article-body">
           <div>
@@ -667,7 +671,7 @@
         return `
           <article class="article-card" data-category="${post.category || 'Bridal Trends'}" data-title="${post.title}">
             <a href="${postUrl}">
-              <img src="${post.featured_image || 'assets/images/bridal_blouse.jpg'}" alt="${post.title}" class="article-cover" width="600" height="260" loading="lazy" decoding="async">
+              <img src="${post.featured_image || 'assets/images/bridal_blouse.webp'}" alt="${post.title}" class="article-cover" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
             </a>
             <div class="article-body">
               <div>
