@@ -622,6 +622,190 @@ function renderShowcase() {
   `).join('');
 }
 
+
+// ─── ✨ AI SMART PRODUCT ASSISTANT ───────────────────────────────────────────
+function runAiAutoFill() {
+  const notes = (document.getElementById('ai_quick_notes')?.value || '').trim();
+  const descEl = document.getElementById('sc_desc');
+  const titleEl = document.getElementById('sc_title');
+  const priceEl = document.getElementById('sc_price');
+  const tagEl = document.getElementById('sc_tag');
+  const btnAi = document.getElementById('btnAiAutoFill');
+
+  if (!notes && !descEl.value.trim()) {
+    alert('Please type a few quick notes in the box (e.g. "rani pink tissue silk, net sleeve scallop, zardozi work") or in the description box.');
+    document.getElementById('ai_quick_notes').focus();
+    return;
+  }
+
+  const raw = (notes + ' ' + descEl.value).toLowerCase();
+  btnAi.textContent = '✨ Generating...';
+  btnAi.disabled = true;
+
+  setTimeout(() => {
+    try {
+      // 1. Color Extraction
+      const colors = [
+        { key: 'rani pink', label: 'Rani Pink' },
+        { key: 'pink', label: 'Rani Pink' },
+        { key: 'magenta', label: 'Royal Magenta' },
+        { key: 'bottle green', label: 'Bottle Green' },
+        { key: 'peacock green', label: 'Peacock Green' },
+        { key: 'green', label: 'Emerald Green' },
+        { key: 'royal blue', label: 'Royal Blue' },
+        { key: 'navy blue', label: 'Navy Blue' },
+        { key: 'blue', label: 'Royal Blue' },
+        { key: 'red', label: 'Bridal Crimson Red' },
+        { key: 'maroon', label: 'Deep Wine Maroon' },
+        { key: 'yellow', label: 'Haldi Mustard Yellow' },
+        { key: 'purple', label: 'Aubergine Purple' },
+        { key: 'gold', label: 'Antique Metallic Gold' },
+        { key: 'black', label: 'Midnight Black' },
+        { key: 'white', label: 'Ivory Pearl' }
+      ];
+      let foundColor = 'Custom Couture';
+      for (const c of colors) {
+        if (raw.includes(c.key)) { foundColor = c.label; break; }
+      }
+
+      // 2. Fabric Extraction
+      let foundFabric = 'Raw Silk';
+      if (raw.includes('tissue')) foundFabric = 'Shimmer Tissue Silk';
+      else if (raw.includes('velvet')) foundFabric = 'Royal Micro Velvet';
+      else if (raw.includes('organza')) foundFabric = 'Pure Sheer Organza';
+      else if (raw.includes('banarasi')) foundFabric = 'Handwoven Banarasi Brocade';
+      else if (raw.includes('kanchipuram') || raw.includes('pattu')) foundFabric = 'Kanchipuram Pure Silk';
+
+      // 3. Sleeve & Neck Details
+      let sleeveHighlight = 'Tailored Comfort Fit';
+      if (raw.includes('net') || raw.includes('sheer')) {
+        sleeveHighlight = raw.includes('scallop') ? 'Scalloped Sheer Net Sleeves' : 'Sheer Illusion Net Sleeves';
+      } else if (raw.includes('scallop')) {
+        sleeveHighlight = 'Scalloped Border Sleeves';
+      } else if (raw.includes('elbow')) {
+        sleeveHighlight = 'Elbow-Length Maggam Sleeves';
+      } else if (raw.includes('cap')) {
+        sleeveHighlight = 'Designer Cap Sleeves';
+      }
+
+      // 4. Embroidery Work Type
+      let workHighlight = 'Hand Embroidery';
+      let estPrice = 2800;
+      let category = 'Hand Embroidered Blouses';
+
+      if (raw.includes('zardozi')) {
+        workHighlight = 'Handcrafted Zardozi Wirework';
+        estPrice = 3400;
+        category = 'Bridal Blouse & Maggam Work';
+      } else if (raw.includes('maggam')) {
+        workHighlight = 'Heavy Bridal Maggam Embroidery';
+        estPrice = 3800;
+        category = 'Bridal Blouse & Maggam Work';
+      } else if (raw.includes('aari')) {
+        workHighlight = 'Fine Hand Aari Needlework';
+        estPrice = 2600;
+        category = 'Hand Embroidered Blouses';
+      } else if (raw.includes('machine') || raw.includes('computer')) {
+        workHighlight = 'High-Precision Machine Embroidery';
+        estPrice = 1800;
+        category = 'Machine Embroidered Blouse';
+      } else if (raw.includes('lehenga')) {
+        workHighlight = 'Bridal Lehenga Couture Embroidery';
+        estPrice = 8500;
+        category = 'Lehengas & Festive Couture';
+      }
+
+      // 5. Generate Luxury Title
+      const generatedTitle = `${foundColor} ${foundFabric} Blouse with ${sleeveHighlight} & ${workHighlight}`;
+      titleEl.value = generatedTitle;
+
+      // 6. Set Category
+      if (tagEl) {
+        for (let opt of tagEl.options) {
+          if (opt.value === category) { opt.selected = true; break; }
+        }
+      }
+
+      // 7. Set Suggested Price
+      priceEl.value = estPrice;
+
+      // 8. Generate Luxury Bullet Description
+      const sellingHighlights = 
+`• Silhouette & Cut: Bespoke South Indian bridal cut with tailored bust support and deep sheer illusion back neckline.
+• Artisanal Needlework: ${workHighlight} featuring micro-bead bootis, antique metallic highlights, and relief embroidery.
+• Signature Sleeve Cut: Contemporary ${sleeveHighlight} finished with fine scalloped hand-stitched borders.
+• Atelier Quality Guarantee: Incorporates built-in anatomical padded cups, pre-shrunk cotton inner lining, and 1-on-1 trial fitting.`;
+
+      descEl.value = sellingHighlights;
+
+      alert('✨ AI successfully filled Title, Category, Suggested Price & Selling Highlights! Review and click Save & Publish.');
+    } catch(err) {
+      alert('Error during AI auto-fill: ' + err.message);
+    } finally {
+      btnAi.textContent = '✨ Auto-Fill Details';
+      btnAi.disabled = false;
+    }
+  }, 400);
+}
+
+// ─── SUBMIT SHOWCASE PRODUCT (CREATE) ────────────────────────────────────────
+async function submitShowcase(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnShowcase');
+  btn.textContent = 'Compressing & Publishing...';
+  btn.disabled = true;
+
+  try {
+    const mainFileEl = document.getElementById('sc_img');
+    if (!mainFileEl.files || !mainFileEl.files[0]) {
+      throw new Error('Please select a main photo for the blouse.');
+    }
+    const mainImgUrl = await compressImage(mainFileEl.files[0]);
+
+    let subImgUrls = [];
+    const subFileEl = document.getElementById('sc_imgs');
+    if (subFileEl.files && subFileEl.files.length > 0) {
+      for (let i = 0; i < subFileEl.files.length; i++) {
+        const url = await compressImage(subFileEl.files[i]);
+        subImgUrls.push({ id: 'sub-' + Date.now() + '-' + i, image_url: url });
+      }
+    }
+
+    const title = document.getElementById('sc_title').value.trim();
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    const newItem = {
+      id: 'prod-' + Date.now(),
+      title: title,
+      slug: slug,
+      description: document.getElementById('sc_desc').value.trim(),
+      starting_price: parseFloat(document.getElementById('sc_price').value) || 2800,
+      tags: [document.getElementById('sc_tag').value],
+      main_image_url: mainImgUrl,
+      images: subImgUrls,
+      is_published: true,
+      created_at: new Date().toISOString()
+    };
+
+    const arr = lsGet('custom_showcase_items');
+    arr.unshift(newItem);
+    lsSet('custom_showcase_items', arr);
+
+    document.getElementById('formShowcase').reset();
+    const quickNotes = document.getElementById('ai_quick_notes');
+    if (quickNotes) quickNotes.value = '';
+
+    closeModal('modalShowcase');
+    alert('✅ Product published successfully to your showcase portfolio!');
+    renderShowcase();
+  } catch(err) {
+    alert('❌ Error: ' + err.message);
+  } finally {
+    btn.textContent = 'Save & Publish to Showcase';
+    btn.disabled = false;
+  }
+}
+
 // ─── EDIT SHOWCASE MODAL ─────────────────────────────────────────────────────
 let currentEditingItem = null;
 

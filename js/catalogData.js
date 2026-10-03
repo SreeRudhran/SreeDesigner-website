@@ -5,6 +5,21 @@
  */
 
 const MASTER_CATALOG = [
+  // 🌟 REAL ATELIER SIGNATURE SHOWCASE (Added from live workshop)
+  {
+    id: 'prod-real-rani-pink-tissue',
+    title: 'Rani Pink Shimmer Tissue Blouse with Scalloped Sheer Net Sleeves & Hand Embroidery',
+    slug: 'rani-pink-shimmer-tissue-blouse-scallop-net-sleeves',
+    description: 'Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.',
+    starting_price: 3400,
+    main_image_url: 'assets/images/blouse_rani_pink_flatlay.jpg',
+    tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
+    images: [
+      { id: 'sub-rp-1', image_url: 'assets/images/blouse_rani_pink_flatlay.jpg' },
+      { id: 'sub-rp-2', image_url: 'assets/images/blouse_rani_pink_sleeve.jpg' },
+      { id: 'sub-rp-3', image_url: 'assets/images/blouse_rani_pink_neckline.jpg' }
+    ]
+  },
   // 1. Hand Embroidered Blouses
   {
     id: 'prod-he-1',
