@@ -736,7 +736,12 @@ function runAiAutoFill() {
       }
 
       // 5. Generate Luxury Title
-      const generatedTitle = `${foundColor} ${foundFabric} Blouse with ${sleeveHighlight} & ${workHighlight}`;
+      // High-Search-Volume SEO Pattern: [Color] [Pattern/Feature] Blouse Designs | [Work Type]
+      let searchKeyword = 'Blouse Designs';
+      if (raw.includes('lehenga')) searchKeyword = 'Bridal Lehenga Designs';
+      else if (raw.includes('kurti') || raw.includes('salwar')) searchKeyword = 'Designer Salwar Suit';
+      
+      const generatedTitle = `${foundColor} ${sleeveHighlight.replace(' Sleeves', '')} ${searchKeyword} | ${workHighlight}`;
       titleEl.value = generatedTitle;
 
       // 6. Set Category

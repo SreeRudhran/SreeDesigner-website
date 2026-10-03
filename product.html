@@ -825,8 +825,14 @@
       // Fallback: if no sub-images, show main image in side slots
       const sub1 = document.getElementById('gallerySubImg1');
       const sub2 = document.getElementById('gallerySubImg2');
-      if (sub1) sub1.src = subImgs[0] || item.main_image_url || 'assets/images/service_bridal.png';
-      if (sub2) sub2.src = subImgs[1] || item.main_image_url || 'assets/images/service_bridal.png';
+      if (sub1) {
+        sub1.src = subImgs[0] || item.main_image_url || 'assets/images/service_bridal.webp';
+        sub1.alt = `${item.title} - Sleeve Embroidery & Cutwork Detail`;
+      }
+      if (sub2) {
+        sub2.src = subImgs[1] || item.main_image_url || 'assets/images/service_bridal.webp';
+        sub2.alt = `${item.title} - Back Neckline & Handcrafted Stone Work`;
+      }
 
       // 5. DYNAMIC WHATSAPP CTA LINK
       const waBtn = document.getElementById('btnProductWhatsApp');

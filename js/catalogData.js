@@ -8,8 +8,8 @@ const MASTER_CATALOG = [
   // 🌟 REAL ATELIER SIGNATURE SHOWCASE (Added from live workshop)
   {
     id: 'prod-real-rani-pink-tissue',
-    title: 'Rani Pink Shimmer Tissue Blouse with Scalloped Sheer Net Sleeves & Hand Embroidery',
-    slug: 'rani-pink-shimmer-tissue-blouse-scallop-net-sleeves',
+    title: 'Rani Pink Scallop Net Sleeve Blouse Designs | Sheer Back Aari Work Blouse',
+    slug: 'rani-pink-scallop-net-sleeve-blouse-designs',
     description: 'Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.',
     starting_price: 3400,
     main_image_url: 'assets/images/blouse_rani_pink_flatlay.jpg',
