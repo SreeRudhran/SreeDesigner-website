@@ -1,4 +1,4 @@
-# Sree Designers & Boutique — South Indian Fashion Atelier
+﻿# Sree Designers & Boutique — South Indian Fashion Atelier
 
 > Sree Designers & Boutique is a premier bespoke tailoring and bridal embroidery atelier based in Coimbatore and Tiruppur (Tamil Nadu, India). We specialize in hand zardozi embroidery, bridal maggam work, computerized machine embroidery, custom silk lehengas, kurtis, salwar suits, and 48-hour express fitting trials.
 
@@ -33,19 +33,19 @@
 
 ## Core Links
 - Homepage: https://sreedesigners.in/
-- Category Collections: https://sreedesigners.in/category.html
-- Bridal Journal & Guides: https://sreedesigners.in/blog.html
-- 2026 Bridal Blouse Trends Guide: https://sreedesigners.in/blog-bridal-blouse-designs-2026.html
-- Coimbatore & Tiruppur Bridal Stitching & Aari Work Price Guide: https://sreedesigners.in/blog-bridal-blouse-stitching-coimbatore-tiruppur.html
-- 20+ Trending Bridal Sleeve Designs 2026: https://sreedesigners.in/blog-post.html?id=blog-trending-bridal-sleeve-designs-2026
-- Bridal Blouse Front Neck Designs & Temple Jewelry Harmony: https://sreedesigners.in/blog-post.html?id=blog-front-neck-designs-jewelry-guide-2026
-- 25+ Trending Bridal Back Neck Designs 2026: https://sreedesigners.in/blog-post.html?id=blog-trending-back-neck-designs-2026
-- 48-Hour Rapid Express Bridal Stitching: https://sreedesigners.in/blog-post.html?id=blog-express-bridal-stitching-coimbatore
-- South Indian Bridal Lehengas for Reception & Sangeet: https://sreedesigners.in/blog-post.html?id=blog-south-indian-bridal-lehengas-2026
-- Top 15 Bridal Blouse Color Contrast Combinations: https://sreedesigners.in/blog-post.html?id=blog-color-contrast-combinations-2026
-- Boat Neck & High Collar Saree Blouses Guide: https://sreedesigners.in/blog-post.html?id=blog-boat-neck-bridal-blouses-2026
-- Ultimate South Indian Bridal Trousseau Checklist: https://sreedesigners.in/blog-post.html?id=blog-bridal-trousseau-checklist-timeline
-- Plus Size Saree Blouse Fitting Guide: https://sreedesigners.in/blog-post.html?id=blog-plus-size-saree-blouse-fitting-guide
-- Bespoke Salwar Suits & Chudidhars for Post-Wedding Rituals: https://sreedesigners.in/blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals
-- Product Details: https://sreedesigners.in/product.html
+- Category Collections: https://sreedesigners.in/category
+- Bridal Journal & Guides: https://sreedesigners.in/blog
+- 2026 Bridal Blouse Trends Guide: https://sreedesigners.in/blog-bridal-blouse-designs-2026
+- Coimbatore & Tiruppur Bridal Stitching & Aari Work Price Guide: https://sreedesigners.in/blog-bridal-blouse-stitching-coimbatore-tiruppur
+- 20+ Trending Bridal Sleeve Designs 2026: https://sreedesigners.in/blog-post?id=blog-trending-bridal-sleeve-designs-2026
+- Bridal Blouse Front Neck Designs & Temple Jewelry Harmony: https://sreedesigners.in/blog-post?id=blog-front-neck-designs-jewelry-guide-2026
+- 25+ Trending Bridal Back Neck Designs 2026: https://sreedesigners.in/blog-post?id=blog-trending-back-neck-designs-2026
+- 48-Hour Rapid Express Bridal Stitching: https://sreedesigners.in/blog-post?id=blog-express-bridal-stitching-coimbatore
+- South Indian Bridal Lehengas for Reception & Sangeet: https://sreedesigners.in/blog-post?id=blog-south-indian-bridal-lehengas-2026
+- Top 15 Bridal Blouse Color Contrast Combinations: https://sreedesigners.in/blog-post?id=blog-color-contrast-combinations-2026
+- Boat Neck & High Collar Saree Blouses Guide: https://sreedesigners.in/blog-post?id=blog-boat-neck-bridal-blouses-2026
+- Ultimate South Indian Bridal Trousseau Checklist: https://sreedesigners.in/blog-post?id=blog-bridal-trousseau-checklist-timeline
+- Plus Size Saree Blouse Fitting Guide: https://sreedesigners.in/blog-post?id=blog-plus-size-saree-blouse-fitting-guide
+- Bespoke Salwar Suits & Chudidhars for Post-Wedding Rituals: https://sreedesigners.in/blog-post?id=blog-salwar-chudidhar-post-wedding-rituals
+- Product Details: https://sreedesigners.in/product
 - Direct WhatsApp Enquiry: https://wa.me/919976344673

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sree Designers & Boutique — Master Blog & Journal Dataset
  * Contains 14 in-depth, authoritative bridal guides with structured FAQs, Letter to Bride,
  * internal links, authoritative external citations, and rich JSON-LD schema fields.
@@ -7,7 +7,7 @@
 const MASTER_BLOGS = [
   {
     id: "blog-trending-bridal-sleeve-designs-2026",
-    slug: "blog-post.html?id=blog-trending-bridal-sleeve-designs-2026",
+    slug: "blog-post?id=blog-trending-bridal-sleeve-designs-2026",
     title: "20+ Trending Bridal Blouse Sleeve Designs for 2026: Royal Puff, Elbow-Length, Sheer Organza & 3D Maggam Work",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Couturier",
@@ -101,7 +101,7 @@ const MASTER_BLOGS = [
 
       <div class="post-callout">
         <h4>Explore Bespoke Bridal Tailoring in Coimbatore & Tiruppur</h4>
-        <p>Planning your dream bridal blouse? Explore our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> or view our <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">25+ Trending Back Neck Designs</a>. Connect with our master designers directly via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
+        <p>Planning your dream bridal blouse? Explore our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> or view our <a href="blog-post?id=blog-trending-back-neck-designs-2026">25+ Trending Back Neck Designs</a>. Connect with our master designers directly via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
       </div>
     `,
     faqs: [
@@ -133,7 +133,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-front-neck-designs-jewelry-guide-2026",
-    slug: "blog-post.html?id=blog-front-neck-designs-jewelry-guide-2026",
+    slug: "blog-post?id=blog-front-neck-designs-jewelry-guide-2026",
     title: "Bridal Blouse Front Neck Designs & Temple Jewelry Harmony: Sweetheart, Paan, Scoop & U-Neck Master Guide 2026",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -227,7 +227,7 @@ const MASTER_BLOGS = [
 
       <div class="post-callout">
         <h4>Schedule a Complimentary Jewelry & Neckline Consultation</h4>
-        <p>Bring your wedding jewelry and saree to Sree Designers in Samalapuram or Karnempettai. Our master stylists will draft your neckline on sample canvas to match your exact necklaces. Learn more in our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> or reach us via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
+        <p>Bring your wedding jewelry and saree to Sree Designers in Samalapuram or Karnempettai. Our master stylists will draft your neckline on sample canvas to match your exact necklaces. Learn more in our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> or reach us via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
       </div>
     `,
     faqs: [
@@ -259,7 +259,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-blouse-stitching-coimbatore-tiruppur",
-    slug: "blog-bridal-blouse-stitching-coimbatore-tiruppur.html",
+    slug: "blog-bridal-blouse-stitching-coimbatore-tiruppur",
     title: "Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur: 2026 Price Guide, Designs & Express Fitting",
     category: "Bridal Stitching & Price Guide",
     author: "Master Artisan & Lead Couturier",
@@ -325,15 +325,15 @@ const MASTER_BLOGS = [
 
       <h2>2. Hand Aari Needlework vs. Computerized Machine Embroidery</h2>
       <p>One of the most frequent questions from brides visiting our <a href="index.html#stores">Samalapuram and Karnempettai studios</a> is whether to choose traditional hand needlework or computerized machine work. Hand Aari and Zardozi work utilizes genuine metallic gold wire, 3D pearl clusters, and kundan stones hand-stitched on wooden slate frames (<a href="https://craftscouncilofindia.org/" target="_blank" rel="noopener noreferrer">Crafts Council of India</a>). This creates unmatched tactile depth for pure <a href="https://en.wikipedia.org/wiki/Kanchipuram_silk_sari" target="_blank" rel="noopener noreferrer">Kanchipuram silk sarees</a> certified under the <a href="http://silkmarkindia.com/" target="_blank" rel="noopener noreferrer">Silk Mark Organisation of India</a>.</p>
-      <p>In contrast, computerized machine embroidery offers surgical symmetry, lightweight wear, and budget-friendly pricing ideal for lightweight silk sarees and sangeet celebrations. For an in-depth comparison, read our dedicated guide on <a href="blog-post.html?id=blog-hand-vs-machine-embroidery">Hand Zardozi vs. Machine Embroidery</a>.</p>
+      <p>In contrast, computerized machine embroidery offers surgical symmetry, lightweight wear, and budget-friendly pricing ideal for lightweight silk sarees and sangeet celebrations. For an in-depth comparison, read our dedicated guide on <a href="blog-post?id=blog-hand-vs-machine-embroidery">Hand Zardozi vs. Machine Embroidery</a>.</p>
 
       <h2>3. Top Trending Bridal Blouse Neckline Designs for Kanchipuram Silk Sarees</h2>
       <p>In 2026, brides across Tamil Nadu are embracing clean architectural cuts that highlight their temple jewelry while ensuring total mobility:</p>
       <ul>
-        <li><strong>Deep Teardrop & Geometric Keyhole Backs:</strong> Structured cutouts bordered with dense zardozi beads and dangling micro-pearl latkans. Explore our full gallery of <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">25+ Trending Bridal Back Neck Designs</a>.</li>
+        <li><strong>Deep Teardrop & Geometric Keyhole Backs:</strong> Structured cutouts bordered with dense zardozi beads and dangling micro-pearl latkans. Explore our full gallery of <a href="blog-post?id=blog-trending-back-neck-designs-2026">25+ Trending Bridal Back Neck Designs</a>.</li>
         <li><strong>Royal Sweetheart Neckline with Micro Kundan Framing:</strong> Accentuates antique temple chokers and modern layered polki necklaces without crowding the collarbone.</li>
         <li><strong>Elbow-Length Sleeves with Sacred Temple Gopuram & Peacock Motifs:</strong> Full elbow-length sleeves remain the undisputed favorite for traditional silk sarees.</li>
-        <li><strong>Boat Neck with Sheer Organza Cutwork:</strong> Adds an ethereal, royal touch for pastel or lightweight tissue silk sarees. See our <a href="blog-post.html?id=blog-boat-neck-bridal-blouses-2026">Boat Neck & High Collar Saree Blouse Guide</a>.</li>
+        <li><strong>Boat Neck with Sheer Organza Cutwork:</strong> Adds an ethereal, royal touch for pastel or lightweight tissue silk sarees. See our <a href="blog-post?id=blog-boat-neck-bridal-blouses-2026">Boat Neck & High Collar Saree Blouse Guide</a>.</li>
       </ul>
 
       <blockquote>
@@ -350,7 +350,7 @@ const MASTER_BLOGS = [
 
       <div class="post-callout">
         <h4>Need Emergency Bridal Tailoring in Coimbatore or Tiruppur?</h4>
-        <p>If your wedding date is approaching and you need an urgent blouse stitched or altered, Sree Designers offers guaranteed 48-hour delivery. Learn more in our <a href="blog-post.html?id=blog-express-bridal-stitching-coimbatore">48-Hour Rapid Express Bridal Tailoring Guide</a> or chat with our master couturier directly via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
+        <p>If your wedding date is approaching and you need an urgent blouse stitched or altered, Sree Designers offers guaranteed 48-hour delivery. Learn more in our <a href="blog-post?id=blog-express-bridal-stitching-coimbatore">48-Hour Rapid Express Bridal Tailoring Guide</a> or chat with our master couturier directly via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
       </div>
     `,
     faqs: [
@@ -382,7 +382,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-trending-back-neck-designs-2026",
-    slug: "blog-post.html?id=blog-trending-back-neck-designs-2026",
+    slug: "blog-post?id=blog-trending-back-neck-designs-2026",
     title: "25+ Trending Bridal Blouse Back Neck Designs for South Indian Silk Sarees in 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -452,7 +452,7 @@ const MASTER_BLOGS = [
         <li><strong>Underbust Anchor Band:</strong> A structured 2-inch inner waist canvas band that secures the blouse firmly against your ribcage.</li>
       </ul>
 
-      <p>Explore our complete <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> or view our <a href="category.html?cat=Bridal%20Blouse%20%26%20Maggam%20Work">Bridal Blouse Collection</a>.</p>
+      <p>Explore our complete <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> or view our <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work">Bridal Blouse Collection</a>.</p>
     `,
     faqs: [
       {
@@ -479,7 +479,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-express-bridal-stitching-coimbatore",
-    slug: "blog-post.html?id=blog-express-bridal-stitching-coimbatore",
+    slug: "blog-post?id=blog-express-bridal-stitching-coimbatore",
     title: "48-Hour Rapid Express Bridal Blouse Stitching in Coimbatore & Tiruppur: Emergency Tailoring Guide",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -497,7 +497,7 @@ const MASTER_BLOGS = [
       <h2>2. Which Embroidery Styles Qualify for 48-Hour Turnaround?</h2>
       <p>While heavy multi-week zardozi bridal blouses require detailed hand coiling, several stunning options are perfected within 24 to 48 hours:</p>
       <ul>
-        <li><strong>Computerized Japanese Multi-Head Machine Embroidery:</strong> High-precision peacock, floral creeper, and temple borders with zero delay. Read our <a href="blog-post.html?id=blog-hand-vs-machine-embroidery">Machine vs. Hand Zardozi Guide</a>.</li>
+        <li><strong>Computerized Japanese Multi-Head Machine Embroidery:</strong> High-precision peacock, floral creeper, and temple borders with zero delay. Read our <a href="blog-post?id=blog-hand-vs-machine-embroidery">Machine vs. Hand Zardozi Guide</a>.</li>
         <li><strong>Minimalist Hand Aari Neckline Borders:</strong> Dainty French knot outlines and micro-bead borders on pure raw silk.</li>
         <li><strong>Designer Padded Silk Blouses:</strong> Clean architectural cuts with luxury built-in padded cups, cotton canvas lining, and contrast piping.</li>
       </ul>
@@ -529,7 +529,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-south-indian-bridal-lehengas-2026",
-    slug: "blog-post.html?id=blog-south-indian-bridal-lehengas-2026",
+    slug: "blog-post?id=blog-south-indian-bridal-lehengas-2026",
     title: "South Indian Bridal Lehengas for Reception & Sangeet: 2026 Fabrics, Flair & Custom Choli Guide",
     category: "Festive Couture",
     author: "Sree Designers Atelier Master",
@@ -548,10 +548,10 @@ const MASTER_BLOGS = [
       <p>A grand lehenga skirt must hold its voluminous umbrella shape effortlessly without feeling heavy or stiff. At Sree Designers, we construct a hidden inner canvas petticoat layered with collapsible soft horsehair braid and double-layer micro-can-can netting, ensuring breath-taking 360-degree flares in reception videos.</p>
 
       <h2>3. Sweetheart & Corset-Style Choli Tops with Built-in Bustier Cups</h2>
-      <p>Forget uncomfortable push-up bras or slipping straps. Our bridal cholis are tailored with interior boning and custom molded foam cups that sculpt the silhouette while allowing you to dance through your sangeet night in total ease. Pair your choli with ideas from our <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</p>
+      <p>Forget uncomfortable push-up bras or slipping straps. Our bridal cholis are tailored with interior boning and custom molded foam cups that sculpt the silhouette while allowing you to dance through your sangeet night in total ease. Pair your choli with ideas from our <a href="blog-post?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</p>
 
       <h2>4. Transforming Vintage Heirloom Silk Sarees into Bespoke Lehengas</h2>
-      <p>Do you have a cherished mother's or grandmother's vintage Kanchipuram silk saree that you want to wear on your wedding week? Sree Designers specializes in heritage saree upcycling—transforming family heirloom sarees into 16-kali flared lehenga skirts with matching embroidered crop blouses. Explore our <a href="category.html?cat=Bridal%20Lehenga%20%26%20Choli">Bridal Lehenga Collection</a>.</p>
+      <p>Do you have a cherished mother's or grandmother's vintage Kanchipuram silk saree that you want to wear on your wedding week? Sree Designers specializes in heritage saree upcycling—transforming family heirloom sarees into 16-kali flared lehenga skirts with matching embroidered crop blouses. Explore our <a href="category?cat=Bridal%20Lehenga%20%26%20Choli">Bridal Lehenga Collection</a>.</p>
     `,
     faqs: [
       {
@@ -570,7 +570,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-blouse-designs-2026",
-    slug: "blog-bridal-blouse-designs-2026.html",
+    slug: "blog-bridal-blouse-designs-2026",
     title: "Top 10 South Indian Bridal Blouse Designs & Maggam Work Trends for 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -589,13 +589,13 @@ const MASTER_BLOGS = [
       <p>Traditional temple jewelry motifs, featuring intricately embroidered Goddess Lakshmi coins (*kasu malai*), miniature temple gopurams, and floral creepers, continue to dominate morning Muhurtham ceremonies on authentic <a href="http://silkmarkindia.com/" target="_blank" rel="noopener noreferrer">Silk Mark</a> certified weaves.</p>
 
       <h2>3. Hand Aari Work vs. Computerized Machine Embroidery</h2>
-      <p>Hand Aari work offers unmatched depth and authentic heritage wirework. Machine embroidery provides surgical symmetry and lightweight comfort for sangeet and reception wear. Read our complete comparison: <a href="blog-post.html?id=blog-hand-vs-machine-embroidery">Hand vs. Machine Embroidery</a>.</p>
+      <p>Hand Aari work offers unmatched depth and authentic heritage wirework. Machine embroidery provides surgical symmetry and lightweight comfort for sangeet and reception wear. Read our complete comparison: <a href="blog-post?id=blog-hand-vs-machine-embroidery">Hand vs. Machine Embroidery</a>.</p>
 
       <h2>4. Deep Keyhole & Teardrop Back Cutouts</h2>
-      <p>Back neck designs are taking center stage with geometric keyholes, teardrop cutouts, and handcrafted tassel latkans. View our curated gallery of <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">25+ Trending Bridal Back Neck Designs</a>.</p>
+      <p>Back neck designs are taking center stage with geometric keyholes, teardrop cutouts, and handcrafted tassel latkans. View our curated gallery of <a href="blog-post?id=blog-trending-back-neck-designs-2026">25+ Trending Bridal Back Neck Designs</a>.</p>
 
       <h2>5. Precision Padded Cups & 48-Hour Trial Fittings</h2>
-      <p>A great blouse is only as good as its fit. At Sree Designers, every bridal order goes through an initial canvas fitting stage before hooks are attached. Learn how our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> helps you plan your bridal budget.</p>
+      <p>A great blouse is only as good as its fit. At Sree Designers, every bridal order goes through an initial canvas fitting stage before hooks are attached. Learn how our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> helps you plan your bridal budget.</p>
     `,
     faqs: [
       {
@@ -622,7 +622,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-hand-vs-machine-embroidery",
-    slug: "blog-post.html?id=blog-hand-vs-machine-embroidery",
+    slug: "blog-post?id=blog-hand-vs-machine-embroidery",
     title: "Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -696,7 +696,7 @@ const MASTER_BLOGS = [
       <h2>5. The Sree Designers Hybrid Approach: Best of Both Worlds</h2>
       <p>For modern brides seeking royal grandeur without exceeding their budget, Sree Designers offers a signature <em>Hybrid Blouse Protocol</em>: we execute dense background symmetry using computerized Japanese embroidery, and then our master craftsmen hand-stitch 3D zardozi peacocks, river pearls, and kundan stones along the neckline and cuffs. This cuts turnaround time in half while delivering 100% royal luxury!</p>
       
-      <p>Read our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> or explore our <a href="blog-post.html?id=blog-preserve-zardozi-silk-blouse">Zardozi Preservation Guide</a>.</p>
+      <p>Read our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> or explore our <a href="blog-post?id=blog-preserve-zardozi-silk-blouse">Zardozi Preservation Guide</a>.</p>
     `,
     faqs: [
       {
@@ -723,7 +723,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-color-contrast-combinations-2026",
-    slug: "blog-post.html?id=blog-color-contrast-combinations-2026",
+    slug: "blog-post?id=blog-color-contrast-combinations-2026",
     title: "Top 15 Bridal Blouse Color Contrast Combinations for Kanchipuram Silk Sarees in 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Couturier",
@@ -862,7 +862,7 @@ const MASTER_BLOGS = [
       <p>Before commissioning an expensive embroidered blouse, our master couturiers check these three critical design rules:</p>
       <ul>
         <li><strong>Match Blouse Undertone to Saree Zari:</strong> If your saree features antique copper zari, pairing it with bright yellow gold embroidery creates visual discord. Always match the metallic wire color to the saree's authentic zari weave (<a href="http://silkmarkindia.com/" target="_blank" rel="noopener noreferrer">Silk Mark Certified Silk Guidance</a>).</li>
-        <li><strong>Respect Saree Border Width:</strong> If your Kanchipuram saree has a massive 9-inch temple border, avoid a heavy high-neck blouse that fights for attention. Choose a boat neck or deep sweetheart neckline from our <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</li>
+        <li><strong>Respect Saree Border Width:</strong> If your Kanchipuram saree has a massive 9-inch temple border, avoid a heavy high-neck blouse that fights for attention. Choose a boat neck or deep sweetheart neckline from our <a href="blog-post?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</li>
         <li><strong>Bridge the Colors with Kundan & Beads:</strong> Use stone colors in the blouse that reflect the saree body. For example, on an imperial purple blouse paired with a yellow saree, embed yellow topaz or gold kundan stones to unify the ensemble.</li>
       </ul>
 
@@ -894,7 +894,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-preserve-zardozi-silk-blouse",
-    slug: "blog-post.html?id=blog-preserve-zardozi-silk-blouse",
+    slug: "blog-post?id=blog-preserve-zardozi-silk-blouse",
     title: "How to Preserve Metallic Zardozi & Kundan Embroidery for Decades",
     category: "Embroidery Care",
     author: "Sree Designers Fabric Care Team",
@@ -960,7 +960,7 @@ const MASTER_BLOGS = [
 
       <div class="post-callout">
         <h4>Need Expert Blouse Refurbishment or Fitting Adjustments?</h4>
-        <p>If your heirloom blouse needs stone re-anchoring, lining replacement, or resizing for an anniversary celebration, bring it to Sree Designers in Samalapuram or Karnempettai. Learn more about our atelier standards in our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a>.</p>
+        <p>If your heirloom blouse needs stone re-anchoring, lining replacement, or resizing for an anniversary celebration, bring it to Sree Designers in Samalapuram or Karnempettai. Learn more about our atelier standards in our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a>.</p>
       </div>
     `,
     faqs: [
@@ -988,7 +988,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-boat-neck-bridal-blouses-2026",
-    slug: "blog-post.html?id=blog-boat-neck-bridal-blouses-2026",
+    slug: "blog-post?id=blog-boat-neck-bridal-blouses-2026",
     title: "Boat Neck & High Collar Saree Blouses: 2026 Modern Bridal Styling Guide",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -1059,7 +1059,7 @@ const MASTER_BLOGS = [
         <li><strong>Re-Calibrated Padded Cup Apex:</strong> When the neckline rises, standard cup placement looks unnatural. We position ultra-thin molded cups exactly at the natural bust apex, anchored to internal cotton canvas boning.</li>
       </ul>
 
-      <p>Check out our <a href="blog-post.html?id=blog-color-contrast-combinations-2026">15 Bridal Blouse Color Contrasts</a> or schedule an atelier trial fitting via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
+      <p>Check out our <a href="blog-post?id=blog-color-contrast-combinations-2026">15 Bridal Blouse Color Contrasts</a> or schedule an atelier trial fitting via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp Consultation (+91 99763 44673)</a>.</p>
     `,
     faqs: [
       {
@@ -1086,7 +1086,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-trousseau-checklist-timeline",
-    slug: "blog-post.html?id=blog-bridal-trousseau-checklist-timeline",
+    slug: "blog-post?id=blog-bridal-trousseau-checklist-timeline",
     title: "The Ultimate South Indian Bridal Trousseau Checklist: Outfits, Stitching Timelines & Fabric Planning",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -1143,11 +1143,11 @@ const MASTER_BLOGS = [
       <ul>
         <li><strong>1. Sacred Muhurtham Ceremony:</strong> Pure 9-yard or 6-yard Kanchipuram silk saree (<a href="http://silkmarkindia.com/" target="_blank" rel="noopener noreferrer">Silk Mark India</a>) paired with a heavy 3D hand zardozi peacock or temple gopuram elbow-length blouse with built-in padded cups.</li>
         <li><strong>2. Nalangu & Haldi Rituals:</strong> Lightweight mango yellow or turmeric soft silk saree paired with a vibrant contrast boat-neck blouse featuring French knots and micro gold beads.</li>
-        <li><strong>3. Mehendi & Sangeet Night:</strong> High-energy flared twirl lehenga in raw silk or brocade with double can-can netting and a padded bustier choli. Explore our <a href="blog-post.html?id=blog-south-indian-bridal-lehengas-2026">Bridal Lehenga Guide</a>.</li>
+        <li><strong>3. Mehendi & Sangeet Night:</strong> High-energy flared twirl lehenga in raw silk or brocade with double can-can netting and a padded bustier choli. Explore our <a href="blog-post?id=blog-south-indian-bridal-lehengas-2026">Bridal Lehenga Guide</a>.</li>
         <li><strong>4. Grand Wedding Reception:</strong> Opulent raw silk lehenga or contemporary tissue silk saree with a cutwork organza blouse adorned with polki stones and Swarovski crystals.</li>
-        <li><strong>5. Oonjal (Swing Ceremony):</strong> Auspicious dual-tone silk saree with a traditional U-neck blouse featuring handcrafted pearl latkans. See our <a href="blog-post.html?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</li>
+        <li><strong>5. Oonjal (Swing Ceremony):</strong> Auspicious dual-tone silk saree with a traditional U-neck blouse featuring handcrafted pearl latkans. See our <a href="blog-post?id=blog-trending-back-neck-designs-2026">Back Neck Designs Guide</a>.</li>
         <li><strong>6. Post-Wedding Temple Visits:</strong> 2 to 3 tailored pure silk salwar suits or straight-cut chudidhars for comfortable temple walking.</li>
-        <li><strong>7. Maruvidu / Virundhu Family Visits:</strong> Flowy raw silk or Chanderi Anarkali sets with scalloped organza dupattas. Read our <a href="blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals">Salwar Suits & Maruvidu Guide</a>.</li>
+        <li><strong>7. Maruvidu / Virundhu Family Visits:</strong> Flowy raw silk or Chanderi Anarkali sets with scalloped organza dupattas. Read our <a href="blog-post?id=blog-salwar-chudidhar-post-wedding-rituals">Salwar Suits & Maruvidu Guide</a>.</li>
       </ul>
 
       <h2>3. Fabric Yardage Guide: How Many Meters to Buy</h2>
@@ -1191,7 +1191,7 @@ const MASTER_BLOGS = [
 
       <div class="post-callout">
         <h4>Need Emergency Wardrobe Additions in Coimbatore or Tiruppur?</h4>
-        <p>If wedding dates moved up or last-minute ceremonies were added, don't worry. Our <a href="blog-post.html?id=blog-express-bridal-stitching-coimbatore">48-Hour Rapid Express Bridal Atelier</a> in Samalapuram and Karnempettai handles emergency orders with complete trial fittings.</p>
+        <p>If wedding dates moved up or last-minute ceremonies were added, don't worry. Our <a href="blog-post?id=blog-express-bridal-stitching-coimbatore">48-Hour Rapid Express Bridal Atelier</a> in Samalapuram and Karnempettai handles emergency orders with complete trial fittings.</p>
       </div>
     `,
     faqs: [
@@ -1219,7 +1219,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-plus-size-saree-blouse-fitting-guide",
-    slug: "blog-post.html?id=blog-plus-size-saree-blouse-fitting-guide",
+    slug: "blog-post?id=blog-plus-size-saree-blouse-fitting-guide",
     title: "Flattering Saree Blouse Fitting for Plus Size & Broad Shoulders: Master Atelier Secrets",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -1290,7 +1290,7 @@ const MASTER_BLOGS = [
         <li><strong>Opt for Micro-Kundan & Seed Pearls:</strong> Massive 3D chunky stones add bulk; micro cut-glass beads, dabka wire, and seed pearls provide dazzling shimmer while keeping the blouse sleek.</li>
       </ul>
 
-      <p>Learn more about our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur.html">Coimbatore & Tiruppur Price Guide</a> or explore our <a href="blog-post.html?id=blog-color-contrast-combinations-2026">Color Contrast Guide</a>.</p>
+      <p>Learn more about our <a href="blog-bridal-blouse-stitching-coimbatore-tiruppur">Coimbatore & Tiruppur Price Guide</a> or explore our <a href="blog-post?id=blog-color-contrast-combinations-2026">Color Contrast Guide</a>.</p>
     `,
     faqs: [
       {
@@ -1317,7 +1317,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-salwar-chudidhar-post-wedding-rituals",
-    slug: "blog-post.html?id=blog-salwar-chudidhar-post-wedding-rituals",
+    slug: "blog-post?id=blog-salwar-chudidhar-post-wedding-rituals",
     title: "Bespoke Salwar Suits, Chudidhars & Kurtis for South Indian Post-Wedding Rituals (Maruvidu)",
     category: "Festive Couture",
     author: "Sree Designers Atelier Master",
@@ -1381,7 +1381,7 @@ const MASTER_BLOGS = [
       <h2>4. Styling with Newlywed Jewelry & Mangalsutra</h2>
       <p>Our couturiers design the necklines of post-wedding kurtis with special consideration for your new bridal jewelry: boat necks and shallow V-necks frame your gold Thali chain and diamond studs without catching on delicate chains.</p>
 
-      <p>Explore our complete <a href="category.html?cat=Salwar%20Suits%20%26%20Kurtis">Salwar Suits & Kurtis Collection</a> or book your post-wedding wardrobe fitting via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp (+91 99763 44673)</a>.</p>
+      <p>Explore our complete <a href="category?cat=Salwar%20Suits%20%26%20Kurtis">Salwar Suits & Kurtis Collection</a> or book your post-wedding wardrobe fitting via <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp (+91 99763 44673)</a>.</p>
     `,
     faqs: [
       {

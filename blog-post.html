@@ -14,7 +14,7 @@
   <meta id="pageMetaDesc" name="description" content="Explore South Indian bridal blouse trends, aari maggam embroidery guides, and custom tailoring tips.">
   
   <!-- SEO & CANONICAL -->
-  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/blog-post.html">
+  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/blog-post">
   <script>
     (function(){
       try {
@@ -23,7 +23,7 @@
         if (id) {
           var clean = encodeURIComponent(id);
           var c = document.getElementById('pageCanonical');
-          if (c) c.setAttribute('href', 'https://sreedesigners.in/blog-post.html?id=' + clean);
+          if (c) c.setAttribute('href', 'https://sreedesigners.in/blog-post?id=' + clean);
         }
       } catch(e) {}
     })();
@@ -39,7 +39,7 @@
   <meta id="ogImage" property="og:image" content="https://sreedesigners.in/assets/images/service_bridal.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="675">
-  <meta id="ogUrl" property="og:url" content="https://sreedesigners.in/blog-post.html">
+  <meta id="ogUrl" property="og:url" content="https://sreedesigners.in/blog-post">
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
@@ -436,7 +436,7 @@
   <!-- HEADER -->
   <header>
     <div class="header-nav">
-      <a href="index.html" class="brand">
+      <a href="/" class="brand">
         <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="42" height="42" style="border-radius:8px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
@@ -452,9 +452,9 @@
     <!-- ARTICLE HEADER -->
     <div class="article-header">
       <div class="breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
         <span>/</span>
-        <a href="blog.html">Journal</a>
+        <a href="/blog">Journal</a>
         <span>/</span>
         <span id="postBreadcrumb">Article</span>
       </div>
@@ -586,7 +586,7 @@
         const ogDesc = document.getElementById('ogDesc'); if (ogDesc) ogDesc.setAttribute('content', post.excerpt);
         const twDesc = document.getElementById('twDesc'); if (twDesc) twDesc.setAttribute('content', post.excerpt);
       }
-      const canonicalUrl = `https://sreedesigners.in/blog-post.html?id=${encodeURIComponent(post.id)}`;
+      const canonicalUrl = `https://sreedesigners.in/blog-post?id=${encodeURIComponent(post.id)}`;
       document.getElementById('pageCanonical').setAttribute('href', canonicalUrl);
       const ogTitle = document.getElementById('ogTitle'); if (ogTitle) ogTitle.setAttribute('content', fullTitle);
       const twTitle = document.getElementById('twTitle'); if (twTitle) twTitle.setAttribute('content', fullTitle);
@@ -654,7 +654,7 @@
         "@type": "BlogPosting",
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://sreedesigners.in/blog-post.html?id=${encodeURIComponent(post.id)}`
+          "@id": `https://sreedesigners.in/blog-post?id=${encodeURIComponent(post.id)}`
         },
         "headline": post.title,
         "description": post.excerpt || post.title,

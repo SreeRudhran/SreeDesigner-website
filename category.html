@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
@@ -14,7 +14,7 @@
   <meta name="description" content="Browse 50+ bridal blouse &amp; maggam work designs, neck patterns, and wedding lehengas in Coimbatore &amp; Tiruppur. Starting Rs. 1,200 with trial fitting guarantee.">
   
   <!-- SEO & CANONICAL -->
-  <link rel="canonical" href="https://sreedesigners.in/category.html">
+  <link rel="canonical" href="https://sreedesigners.in/category">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- FAVICONS -->
@@ -431,7 +431,7 @@
 
   <!-- HEADER -->
   <header>
-    <a href="index.html" class="brand">
+    <a href="/" class="brand">
       <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="44" height="44" style="height:44px; width:44px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
       <div class="brand-name">
         Sree Designers &amp; Boutique
@@ -440,10 +440,10 @@
     </a>
 
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="index.html#categories" class="nav-link">Categories</a>
-      <a href="index.html#services" class="nav-link">Craftsmanship</a>
-      <a href="index.html#stores" class="nav-link">Our Studios</a>
+      <a href="/" class="nav-link">Home</a>
+      <a href="/#categories" class="nav-link">Categories</a>
+      <a href="/#services" class="nav-link">Craftsmanship</a>
+      <a href="/#stores" class="nav-link">Our Studios</a>
       <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="nav-cta">Book Studio Fitting</a>
     </nav>
   </header>
@@ -451,9 +451,9 @@
   <!-- CATEGORY HERO BANNER -->
   <div class="cat-hero">
     <div class="breadcrumb">
-      <a href="index.html">Home</a>
+      <a href="/">Home</a>
       <span>/</span>
-      <a href="index.html#categories">Collections</a>
+      <a href="/#categories">Collections</a>
       <span>/</span>
       <span id="breadcrumbCat">Hand Embroidered Blouses</span>
     </div>
@@ -575,7 +575,7 @@
                 </div>
                 <p class="cat-product-desc">${item.description || 'Handcrafted bespoke garment tailored to perfection.'}</p>
               </div>
-              <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">Explore Design →</a>
+              <a href="product?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">Explore Design →</a>
             </div>
           </div>
         `;

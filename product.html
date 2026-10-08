@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
@@ -14,7 +14,7 @@
   <meta name="description" content="Handcrafted bridal blouse tailoring with zardozi maggam work, kundan stones, and padded trial fitting in Coimbatore &amp; Tiruppur. 48-hr express delivery available.">
   
   <!-- SEO & CANONICAL -->
-  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/product.html">
+  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/product">
   <script>
     (function(){
       try {
@@ -23,7 +23,7 @@
         if (id) {
           var clean = encodeURIComponent(id);
           var c = document.getElementById('pageCanonical');
-          if (c) c.setAttribute('href', 'https://sreedesigners.in/product.html?id=' + clean);
+          if (c) c.setAttribute('href', 'https://sreedesigners.in/product?id=' + clean);
         }
       } catch(e) {}
     })();
@@ -565,7 +565,7 @@
   <!-- HEADER NAVIGATION -->
   <header>
     <nav class="wrap">
-      <a href="index.html" class="brand">
+      <a href="/" class="brand">
         <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="48" height="48" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
@@ -576,7 +576,7 @@
       <div class="nav-links">
         <a href="index.html#services">Collection &amp; Craftsmanship</a>
         <a href="index.html#process">How It Works</a>
-        <a href="blog.html">Journal</a>
+        <a href="/blog">Journal</a>
         <a href="index.html#reels">Reels</a>
         <a href="index.html#stores">Stores</a>
       </div>
@@ -589,7 +589,7 @@
 
     <!-- BREADCRUMBS -->
     <div class="breadcrumbs">
-      <a href="index.html">Home</a>
+      <a href="/">Home</a>
       <span>/</span>
       <a href="index.html#services">Collection &amp; Craftsmanship</a>
       <span>/</span>
@@ -866,7 +866,7 @@
       if (similarGrid) {
         const otherItems = allItems.filter(i => String(i.id) !== String(item.id)).slice(0, 3);
         similarGrid.innerHTML = otherItems.map(sim => `
-          <a href="product.html?id=${encodeURIComponent(sim.id || sim.slug || '')}" class="related-card">
+          <a href="product?id=${encodeURIComponent(sim.id || sim.slug || '')}" class="related-card">
             <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.webp'}" alt="${sim.title}" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
             <div class="related-info">
               <div>
