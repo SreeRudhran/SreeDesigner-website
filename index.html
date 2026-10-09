@@ -531,31 +531,48 @@
       transition: transform 6s ease-out;
     }
 
+    /* Shift background models to opposite side of text for perfect editorial separation */
+    .hero-slide[data-index="0"] .hero-slide-bg { object-position: 18% top; } /* Model left, text right */
+    .hero-slide[data-index="1"] .hero-slide-bg { object-position: 82% top; } /* Model right, text left */
+    .hero-slide[data-index="2"] .hero-slide-bg { object-position: 85% top; } /* Model right, text left */
+    .hero-slide[data-index="3"] .hero-slide-bg { object-position: 15% top; } /* Model left, text right */
+
     .hero-slide.active .hero-slide-bg {
       transform: scale(1.02);
     }
 
-    /* Soft warm vignette & dark gradient overlays for luxury typography clarity */
-    .hero-slide-overlay {
+    /* Asymmetric dark gradient overlays so text pops over open wall space */
+    .hero-slide-content.content-right ~ .hero-slide-overlay,
+    .hero-slide:has(.content-right) .hero-slide-overlay {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(15, 14, 13, 0.35) 0%, rgba(15, 14, 13, 0.15) 45%, rgba(15, 14, 13, 0.65) 100%),
-        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 100%);
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(15, 12, 10, 0.3) 45%, rgba(15, 12, 10, 0.82) 100%),
+        linear-gradient(180deg, rgba(15, 12, 10, 0.25) 0%, transparent 40%, rgba(15, 12, 10, 0.65) 100%);
       z-index: 2;
     }
 
-    /* Editorial Text Content Positioners */
+    .hero-slide-content.content-left ~ .hero-slide-overlay,
+    .hero-slide:has(.content-left) .hero-slide-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(15, 12, 10, 0.82) 0%, rgba(15, 12, 10, 0.3) 55%, rgba(0, 0, 0, 0.05) 100%),
+        linear-gradient(180deg, rgba(15, 12, 10, 0.25) 0%, transparent 40%, rgba(15, 12, 10, 0.65) 100%);
+      z-index: 2;
+    }
+
+    /* Editorial Text Content Positioners - Strictly Off-Center to avoid model face */
     .hero-slide-content {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      inset: 0;
       z-index: 10;
       width: 100%;
-      max-width: 1380px;
-      padding: 0 clamp(24px, 5vw, 84px);
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(24px, 6vw, 100px);
       display: flex;
+      align-items: center;
     }
 
     .hero-slide-content.content-right {
@@ -567,8 +584,10 @@
     }
 
     .hero-text-box {
-      max-width: 600px;
+      width: 100%;
+      max-width: 490px;
       color: #ffffff;
+      z-index: 10;
     }
 
     .hero-eyebrow {
