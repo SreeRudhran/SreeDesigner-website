@@ -22,11 +22,11 @@ const AtelierSEO = {
     this.setJsonLd('seo-schema-org', {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "@id": "https://sree-fashion-designers-boutique.vercel.app/#organization",
+      "@id": "https://sreedesigners.in/#organization",
       "name": "Sree Designers & Boutique",
       "legalName": "Sree Designers & Boutique",
-      "url": "https://sree-fashion-designers-boutique.vercel.app/",
-      "logo": "https://sree-fashion-designers-boutique.vercel.app/assets/images/logo.png",
+      "url": "https://sreedesigners.in/",
+      "logo": "https://sreedesigners.in/assets/images/logo.png",
       "foundingDate": "2012",
       "address": {
         "@type": "PostalAddress",
@@ -58,9 +58,9 @@ const AtelierSEO = {
       {
         "@context": "https://schema.org",
         "@type": "Boutique",
-        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-samalapuram",
+        "@id": "https://sreedesigners.in/#studio-samalapuram",
         "name": "Sree Designers & Boutique — Samalapuram Branch",
-        "image": "https://sree-fashion-designers-boutique.vercel.app/assets/images/hero_model.png",
+        "image": "https://sreedesigners.in/assets/images/hero_model.png",
         "telephone": "+91-99763-44673",
         "priceRange": "₹450 - ₹15,000",
         "address": {
@@ -89,9 +89,9 @@ const AtelierSEO = {
       {
         "@context": "https://schema.org",
         "@type": "Boutique",
-        "@id": "https://sree-fashion-designers-boutique.vercel.app/#studio-karnempettai",
+        "@id": "https://sreedesigners.in/#studio-karnempettai",
         "name": "Sree Designers & Boutique — Karnempettai Branch",
-        "image": "https://sree-fashion-designers-boutique.vercel.app/assets/images/hero_model.png",
+        "image": "https://sreedesigners.in/assets/images/hero_model.png",
         "telephone": "+91-99763-44673",
         "priceRange": "₹450 - ₹15,000",
         "address": {
@@ -119,12 +119,12 @@ const AtelierSEO = {
     this.setJsonLd('seo-schema-website', {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "url": "https://sree-fashion-designers-boutique.vercel.app/",
+      "url": "https://sreedesigners.in/",
       "name": "Sree Designers & Boutique",
-      "publisher": { "@id": "https://sree-fashion-designers-boutique.vercel.app/#organization" },
+      "publisher": { "@id": "https://sreedesigners.in/#organization" },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://sree-fashion-designers-boutique.vercel.app/?q={search_term_string}",
+        "target": "https://sreedesigners.in/?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     });
@@ -137,12 +137,12 @@ const AtelierSEO = {
     const allImages = [
       showcaseItem.main_image_url,
       ...(showcaseItem.images?.map(img => img.image_url) || [])
-    ].map(url => url.startsWith('http') ? url : `https://sree-fashion-designers-boutique.vercel.app/${url}`);
+    ].map(url => url.startsWith('http') ? url : `https://sreedesigners.in/${url}`);
 
     this.setJsonLd('seo-schema-product', {
       "@context": "https://schema.org",
       "@type": "Product",
-      "@id": `https://sree-fashion-designers-boutique.vercel.app/#product-${showcaseItem.id}`,
+      "@id": `https://sreedesigners.in/#product-${showcaseItem.id}`,
       "name": showcaseItem.title,
       "description": showcaseItem.description,
       "image": allImages,
@@ -179,7 +179,7 @@ const AtelierSEO = {
 
     const fullImageUrl = blogPost.featured_image_url.startsWith('http')
       ? blogPost.featured_image_url
-      : `https://sree-fashion-designers-boutique.vercel.app/${blogPost.featured_image_url}`;
+      : `https://sreedesigners.in/${blogPost.featured_image_url}`;
 
     // Article Schema
     this.setJsonLd('seo-schema-blog', {
@@ -194,19 +194,19 @@ const AtelierSEO = {
         "@type": "Person",
         "name": blogPost.author_name || "Sree Designers Master Atelier",
         "jobTitle": "Master Embroidery Specialist",
-        "worksFor": { "@id": "https://sree-fashion-designers-boutique.vercel.app/#organization" }
+        "worksFor": { "@id": "https://sreedesigners.in/#organization" }
       },
       "publisher": {
         "@type": "Organization",
         "name": "Sree Designers & Boutique",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://sree-fashion-designers-boutique.vercel.app/assets/images/logo.png"
+          "url": "https://sreedesigners.in/assets/images/logo.png"
         }
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://sree-fashion-designers-boutique.vercel.app/#blog-${blogPost.slug}`
+        "@id": `https://sreedesigners.in/#blog-${blogPost.slug}`
       }
     });
 

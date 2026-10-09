@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -731,7 +731,7 @@ function renderShowcase() {
                   <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${item.id}')" title="${isFeatured ? 'Featured on Main Page (Click to unfeature)' : 'Feature on Main Page (Max 3)'}">
                     ${isFeatured ? '⭐ Featured on Home' : '☆ Feature on Home'}
                   </button>
-                  <a href="product.html?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+                  <a href="product?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
                   <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${item.id}')">Edit</button>
                   <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
                 </div>
@@ -1088,7 +1088,7 @@ function renderBlog() {
   }
   
   el.innerHTML = posts.map(p => {
-    const previewUrl = p.slug || `blog-post.html?id=${encodeURIComponent(p.id)}`;
+    const previewUrl = p.slug || `blog-post?id=${encodeURIComponent(p.id)}`;
     const faqCount = p.faqs ? p.faqs.length : 0;
     return `
       <div class="item-card">
@@ -1214,7 +1214,7 @@ async function submitBlog(e) {
 
     const newPost = {
       id: 'blog-' + Date.now(),
-      slug: `blog-post.html?id=blog-${Date.now()}`,
+      slug: `blog-post?id=blog-${Date.now()}`,
       title: document.getElementById('bg_title').value,
       category: document.getElementById('bg_cat').value,
       read_time: document.getElementById('bg_readtime').value || '5 min read',
