@@ -251,146 +251,199 @@
       color: var(--ink);
     }
 
-    /* ============ HEADER NAV ============ */
-    header {
+    /* =============================================
+       MINIMAL LUXURY TOP NAVIGATION HEADER (DIVA STYLE)
+    ============================================= */
+    header.diva-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(245, 235, 230, 0.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
-      transition: all 0.3s ease;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
+      padding: 10px 0 14px;
     }
 
-    nav.wrap {
-      display: flex;
+    .diva-header-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 3vw, 48px);
+      display: grid;
+      grid-template-columns: 240px 1fr 240px;
       align-items: center;
-      justify-content: space-between;
-      height: 84px;
-      max-width: 1400px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .brand-name {
-      font-family: 'Fraunces', serif;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-weight: 600;
-    }
-
-    .brand-name span {
-      display: block;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-top: 2px;
-      font-weight: 500;
-    }
-
-    .nav-links {
-      display: flex;
       gap: 16px;
-      align-items: center;
-      flex-wrap: nowrap;
     }
 
-    .nav-links a {
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 500;
+    /* Left: Minimal Search Bar */
+    .diva-search-box {
       position: relative;
-      padding: 4px 0;
-      color: var(--ink);
-      white-space: nowrap;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1.5px;
-      background: var(--gold);
-      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .nav-links a:hover::after {
+      display: flex;
+      align-items: center;
       width: 100%;
+      max-width: 220px;
     }
 
-    .nav-actions {
+    .diva-search-box svg {
+      position: absolute;
+      left: 12px;
+      width: 15px;
+      height: 15px;
+      color: #777777;
+      pointer-events: none;
+    }
+
+    .diva-search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px 0 34px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      color: #333333;
+      background: #fafafa;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .diva-search-input:focus {
+      border-color: #d81b60;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.08);
+    }
+
+    /* Center Column: Logo + Categories */
+    .diva-header-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .diva-brand-logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-shrink: 0;
+      text-decoration: none;
     }
 
-    .nav-icon-btn {
-      width: 40px;
+    .diva-brand-logo img {
       height: 40px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
+      width: 40px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .diva-logo-text {
+      font-family: 'Fraunces', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .diva-logo-text span {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: #c59b27;
+      margin-top: 3px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Center Nav Links (DIVA Style) */
+    .diva-categories-nav {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--ink);
-      transition: all 0.3s ease;
+      gap: clamp(10px, 1.6vw, 22px);
+      flex-wrap: nowrap;
+      margin-top: 4px;
+    }
+
+    .diva-categories-nav a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #222222;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+    }
+
+    .diva-categories-nav a:hover {
+      color: #d81b60;
+    }
+
+    .diva-categories-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1.5px;
+      background: #d81b60;
+      transition: width 0.25s ease;
+    }
+
+    .diva-categories-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Right Side Icons */
+    .diva-header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .diva-icon-btn {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222222;
+      text-decoration: none;
+      border-radius: 50%;
+      transition: all 0.25s ease;
+      background: transparent;
+      border: none;
       cursor: pointer;
       position: relative;
     }
 
-    .nav-icon-btn:hover {
-      background: var(--ink);
-      color: var(--bg-nude);
-      border-color: var(--ink);
+    .diva-icon-btn:hover {
+      color: #d81b60;
+      background: rgba(216, 27, 96, 0.06);
     }
 
-    .cart-badge {
+    .diva-cart-count {
       position: absolute;
-      top: -2px;
-      right: -2px;
-      background: var(--gold-dark);
-      color: #fff;
+      top: 4px;
+      right: 4px;
+      width: 15px;
+      height: 15px;
+      background: #d81b60;
+      color: #ffffff;
       font-size: 0.6rem;
       font-weight: 700;
-      width: 16px;
-      height: 16px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .nav-cta {
-      padding: 12px 26px;
-      border: 1px solid var(--ink);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .nav-cta:hover {
-      background: var(--ink);
-      color: var(--bg-nude);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.3);
     }
 
     /* Mobile Menu Toggle */
@@ -399,16 +452,35 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 8px;
+      padding: 6px;
     }
 
     .menu-btn span {
       display: block;
-      width: 24px;
+      width: 22px;
       height: 2px;
-      background: var(--ink);
-      margin: 5px 0;
+      background: #222222;
+      margin: 4px 0;
       transition: 0.3s;
+    }
+
+    @media (max-width: 992px) {
+      .diva-header-container {
+        grid-template-columns: auto 1fr auto;
+        padding: 8px 16px;
+      }
+      .diva-search-box {
+        display: none;
+      }
+      .diva-categories-nav {
+        display: none;
+      }
+      .diva-logo-text {
+        font-size: 1.2rem;
+      }
+      .menu-btn {
+        display: block;
+      }
     }
 
     /* =============================================
@@ -2355,51 +2427,68 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <!-- NAVIGATION HEADER -->
-  <header>
-    <nav class="wrap">
-      <a href="#" class="brand">
-        <img src="assets/images/logo.webp" alt="Sree Designers &amp; Boutique Logo" width="54" height="54"
-          style="height:54px; width:54px; object-fit:contain; border-radius:12px; background:#f5ebe6; padding:4px; display:block; flex-shrink:0;">
-        <div class="brand-name">
-          Sree Designers &amp; Boutique
-          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
-        </div>
-      </a>
-
-      <div class="nav-links">
-        <a href="#services">Collection &amp; Craftsmanship</a>
-        <a href="#process">How It Works</a>
-        <a href="blog">Journal</a>
-        <a href="#reels">Reels</a>
-        <a href="#stores">Stores</a>
-        <a href="#enquiry">Fitting</a>
+  <!-- MINIMAL LUXURY TOP NAVIGATION HEADER (DIVA STYLE) -->
+  <header class="diva-header">
+    <div class="diva-header-container">
+      <!-- Left Column: Search Bar -->
+      <div class="diva-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="diva-search-input" placeholder="Search..." id="headerSearchInput" aria-label="Search collection">
       </div>
 
-      <div class="nav-actions">
-        <!-- Instagram Profile Icon -->
-        <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="nav-icon-btn" aria-label="Instagram Profile" title="Follow on Instagram">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      <!-- Center Column: Logo & Categories -->
+      <div class="diva-header-center">
+        <a href="#" class="diva-brand-logo" aria-label="Sree Designers Home">
+          <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="40" height="40">
+          <div class="diva-logo-text">
+            SREE DESIGNERS
+            <span>FASHION ATELIER</span>
+          </div>
+        </a>
+
+        <!-- DIVA Minimal Category Navigation Bar -->
+        <nav class="diva-categories-nav" aria-label="Category navigation">
+          <a href="category?cat=Hand%20Embroidered%20Blouses">NEW</a>
+          <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work">SAREES</a>
+          <a href="category?cat=Lehengas%20%26%20Festive%20Couture">LEHENGAS</a>
+          <a href="category?cat=Frocks%20%26%20Gowns">GOWNS</a>
+          <a href="category?cat=Kurtis%20%26%20Chudidhar">SALWAR SUITS</a>
+          <a href="category?cat=Zardozi%20Work">INDO WESTERN</a>
+          <a href="#services">CELEBRATIONS</a>
+          <a href="#reels">CURATED PICKS</a>
+        </nav>
+      </div>
+
+      <!-- Right Column: User Account, Shopping Bag, WhatsApp & Mobile Menu -->
+      <div class="diva-header-right">
+        <!-- Account / User Icon -->
+        <a href="#enquiry" class="diva-icon-btn" aria-label="User Fitting Account" title="Book Fitting / Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
           </svg>
         </a>
 
-        <!-- WhatsApp Atelier Chat Icon -->
-        <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer" class="nav-icon-btn" aria-label="WhatsApp Atelier" title="Chat on WhatsApp" style="color:var(--whatsapp-dark);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        <!-- Shopping Bag / Cart Icon -->
+        <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener noreferrer" class="diva-icon-btn" aria-label="Shopping Bag" title="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
           </svg>
+          <span class="diva-cart-count">0</span>
         </a>
 
-        <a href="#enquiry" class="nav-cta">Book Fitting</a>
+        <!-- Mobile Menu Toggle Button -->
         <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
           <span></span>
           <span></span>
         </button>
       </div>
-    </nav>
+    </div>
   </header>
 
   <!-- MOBILE NAVIGATION DRAWER & BACKDROP -->
@@ -3766,6 +3855,18 @@
       initHeroCarousel();
       loadDynamicShowcaseGrid('All');
       renderHomepageFeaturedShelves();
+
+      const searchInput = document.getElementById('headerSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+              window.location.href = `category?search=${encodeURIComponent(query)}`;
+            }
+          }
+        });
+      }
 
       const menuBtn = document.getElementById('menuBtn');
       if (menuBtn) {
