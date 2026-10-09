@@ -545,6 +545,11 @@
 
     /* RESPONSIVE MOBILE MEDIA QUERIES */
     @media (max-width: 900px) {
+      header nav.wrap { height: auto; padding: 10px 14px; }
+      .brand { gap: 8px; flex: 1; min-width: 0; overflow: hidden; }
+      .brand-name { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .brand-name span { font-size: 0.55rem; letter-spacing: 0.08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+      .nav-links { display: none; }
       .product-hero-grid { grid-template-columns: 1fr; gap: 32px; }
       .gallery-container { grid-template-columns: 1fr; }
       .gallery-main-item { height: 380px; }
@@ -553,6 +558,9 @@
       .related-grid { grid-template-columns: 1fr; }
       .storyteller-banner { grid-template-columns: 1fr; padding: 32px; }
       .action-buttons-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .brand-name span { display: none; }
     }
   </style>
 </head>
