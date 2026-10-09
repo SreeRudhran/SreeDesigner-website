@@ -412,762 +412,252 @@
     }
 
     /* =============================================
-       HERO — Clean Layer System
+       MINIMAL EDITORIAL HERO CAROUSEL (DIVA LUXURY STYLE)
     ============================================= */
-    .hero {
+    .minimal-hero-carousel {
       position: relative;
-      height: 90vh;
-      min-height: 660px;
-      max-height: 980px;
+      width: 100%;
+      height: clamp(520px, 80vh, 840px);
       overflow: hidden;
-      /* Silk texture background */
-      background: url('assets/images/hero_bg.webp') center center / cover no-repeat;
+      background: #0f0e0d;
+      user-select: none;
     }
 
-    /* Subtle warm vignette overlay so text stays readable */
-    .hero::before {
-      content: '';
+    .hero-slides-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+
+    .hero-slide-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.05);
+      transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-slide.active .hero-slide-bg {
+      transform: scale(1);
+    }
+
+    /* Soft warm vignette & dark gradient overlays for luxury typography clarity */
+    .hero-slide-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 70% at 20% 60%, rgba(245,235,230,0.45) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 80% 50%, rgba(245,235,230,0.3) 0%, transparent 65%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ── Giant text wrapper — perfectly centered ── */
-    .hero-title-wrap {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-      padding: 0 16px;
-    }
-
-    /* The BASE dark text */
-    .hero-title {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(5.5rem, 17vw, 18rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      text-transform: lowercase;
-      color: rgba(28, 27, 24, 0.92);
-      white-space: nowrap;
-      display: block;
-      position: relative;
-    }
-
-    /* Gold sheen overlay — ::after on the SAME element,
-       guarantees pixel-perfect alignment with the base text */
-    .hero-title::after {
-      content: 'sree designers';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* JS sets --sheen custom property on this element's style */
-      background: var(--sheen, radial-gradient(300px circle at 50% 50%, rgba(212,175,55,0) 0%, transparent 100%));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      pointer-events: none;
-      will-change: background;
-    }
-
-    /* ── Model — bottom-anchored center cutout ── */
-    .hero-model {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 93%;
-      z-index: 10;
-      display: flex;
-      align-items: flex-end;
-      pointer-events: none;
-    }
-
-    .hero-model img {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 24px 36px rgba(28,27,24,0.18));
-      -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
-      transition: filter 0.4s ease;
-    }
-
-    /* ── Left minimal editorial info ── */
-    .hero-left {
-      position: absolute;
-      left: clamp(28px, 4.5vw, 72px);
-      top: 50%;
-      transform: translateY(-38%);
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 250px;
-    }
-
-    .hero-label {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      color: var(--gold-dark);
-    }
-
-    .hero-price {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      color: var(--ink-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .hero-price strong {
-      font-family: 'Jost', sans-serif;
-      font-size: 1.85rem;
-      font-weight: 400;
-      color: var(--ink);
-      display: block;
-      line-height: 1.1;
-    }
-
-    .hero-tagline {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.92rem;
-      line-height: 1.65;
-      color: var(--ink-soft);
-      font-weight: 300;
-      font-style: italic;
-      max-width: 24ch;
-      margin-top: 4px;
-    }
-
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      border-bottom: 1px solid rgba(28,27,24,0.4);
-      padding-bottom: 2px;
-      margin-top: 8px;
-      width: fit-content;
-      transition: color 0.3s ease, border-color 0.3s ease, gap 0.3s ease;
-    }
-
-    .hero-link:hover {
-      color: var(--gold-dark);
-      border-color: var(--gold-dark);
-      gap: 12px;
-    }
-
-    /* ── Bottom bar ── */
-    .hero-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px clamp(28px, 4.5vw, 72px);
-      border-top: 1px solid rgba(28,27,24,0.1);
-      font-size: 0.76rem;
-      letter-spacing: 0.05em;
-      color: var(--ink-soft);
-      background: rgba(235, 220, 212, 0.55);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-bar-count {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--ink);
-    }
-
-    .hero-bar-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1px solid rgba(28,27,24,0.2);
-      background: transparent;
-      cursor: pointer;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s ease;
-      line-height: 1;
-    }
-
-    .hero-bar-btn:hover {
-      background: var(--ink);
-      color: #fff;
-    }
-
-    /* Sparkle icon in bar */
-    .hero-bar-sparkle {
-      color: var(--gold-dark);
-      display: inline-block;
-      animation: twinkle 2.5s ease-in-out infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
-    }
-
-    /* ── Layer 1: Backdrop Giant Typography ── */
-    .hero-backdrop-text {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      user-select: none;
-      z-index: 1;
-    }
-
-    .hero-backdrop-text span {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(6rem, 17.5vw, 19rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      text-transform: lowercase;
-      color: #1C1B18;
-      white-space: nowrap;
-      display: block;
-      /* Soft fill: a second layer painted via JS inline style */
-      position: relative;
-    }
-
-    /* The animated gold sheen overlay — lives on top of the text character layer */
-    .hero-sheen {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        linear-gradient(180deg, rgba(15, 14, 13, 0.35) 0%, rgba(15, 14, 13, 0.15) 45%, rgba(15, 14, 13, 0.65) 100%),
+        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 100%);
       z-index: 2;
-      pointer-events: none;
-      user-select: none;
-      overflow: hidden;
     }
 
-    .hero-sheen span {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(6rem, 17.5vw, 19rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      text-transform: lowercase;
-      white-space: nowrap;
-      display: block;
-      background: radial-gradient(
-        380px circle at var(--mx) var(--my),
-        rgba(212, 175, 55, 0.6) 0%,
-        rgba(154, 119, 24, 0.3) 45%,
-        transparent 72%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      transition: background 0.08s linear;
-    }
-
-    /* ── Layer 3: Central Model Cutout ── */
-    .hero-model {
+    /* Editorial Text Content Positioners */
+    .hero-slide-content {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 92%;
-      z-index: 10;
-      display: flex;
-      align-items: flex-end;
-      pointer-events: none;
-    }
-
-    .hero-model img {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 30px 40px rgba(28,27,24,0.14));
-      transition: transform 0.2s cubic-bezier(0.25,1,0.5,1);
-      will-change: transform;
-      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    }
-
-    /* ── Layer 4: Left Editorial Text — floats in left space ── */
-    .hero-left {
-      position: absolute;
-      left: clamp(24px, 4vw, 60px);
-      bottom: 18%;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-width: 280px;
-    }
-
-    .hero-from {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--ink-soft);
-    }
-
-    .hero-price {
-      font-family: 'Jost', sans-serif;
-      font-size: 2.1rem;
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1;
-    }
-
-    .hero-desc {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.98rem;
-      line-height: 1.6;
-      color: var(--ink-soft);
-      font-weight: 300;
-      font-style: italic;
-      max-width: 26ch;
-    }
-
-    .hero-explore {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--ink);
-      border-bottom: 1px solid currentColor;
-      padding-bottom: 3px;
-      width: fit-content;
-      margin-top: 6px;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-
-    .hero-explore:hover {
-      color: var(--gold-dark);
-      transform: translateX(5px);
-    }
-
-    /* ── Layer 5: Right Badge — floats in right space ── */
-    .hero-right {
-      position: absolute;
-      right: clamp(24px, 4vw, 60px);
       top: 50%;
-      transform: translateY(-50%);
-      z-index: 20;
-      text-align: right;
-      max-width: 200px;
-    }
-
-    .hero-badge-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .hero-badge-desc {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      line-height: 1.5;
-      font-weight: 300;
-    }
-
-    /* sparkle */
-    .hero-sparkle {
-      position: absolute;
-      right: clamp(24px, 4vw, 60px);
-      bottom: 22%;
-      z-index: 20;
-      color: var(--gold-dark);
-      font-size: 1.4rem;
-      animation: spinSparkle 4s infinite linear;
-    }
-
-    @keyframes spinSparkle {
-      0%   { transform: rotate(0deg) scale(1);   opacity: 0.7; }
-      50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
-      100% { transform: rotate(360deg) scale(1);  opacity: 0.7; }
-    }
-
-    /* ── Bottom Bar ── */
-    .hero-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 20;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: 100%;
+      max-width: 1380px;
+      padding: 0 clamp(24px, 5vw, 84px);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px clamp(24px, 4vw, 60px);
-      border-top: 1px solid var(--line);
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      color: var(--ink-soft);
-      background: rgba(245, 235, 230, 0.7);
-      backdrop-filter: blur(8px);
     }
 
-    .hero-bar-center {
-      letter-spacing: 0.08em;
-      font-weight: 400;
-      font-size: 0.78rem;
+    .hero-slide-content.content-right {
+      justify-content: flex-end;
     }
 
-    .hero-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--ink);
+    .hero-slide-content.content-left {
+      justify-content: flex-start;
     }
 
-    .hero-arr {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .hero-text-box {
+      max-width: 600px;
+      color: #ffffff;
     }
 
-    .hero-arr button {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: transparent;
-      cursor: pointer;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s ease;
-    }
-
-    .hero-arr button:hover {
-      background: var(--ink);
-      color: var(--bg-nude);
-      border-color: var(--ink);
-    }
-
-    /* Eyebrow label in hero */
     .hero-eyebrow {
       font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.82rem;
       font-weight: 600;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--gold-dark);
-      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 14px;
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
     }
 
-
-
-    .hero-typography-backdrop h1 {
+    .hero-title-diva {
       font-family: 'Fraunces', serif;
-      font-size: clamp(5.5rem, 17vw, 18.5rem);
-      font-weight: 900;
-      line-height: 0.82;
-      letter-spacing: -0.04em;
-      text-transform: lowercase;
-      color: #1C1B18;
-      white-space: nowrap;
-      margin: 0;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    /* Interactive Soft Fill Animation Overlay on Backdrop Text */
-    .hero-typography-backdrop h1::after {
-      content: 'sree designers';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      background: radial-gradient(
-        420px circle at var(--mouse-x) var(--mouse-y),
-        #D4AF37 0%,
-        #9A7718 45%,
-        transparent 75%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.95;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    /* Hero Central Layout Container */
-    .hero-main-container {
-      position: relative;
-      z-index: 10;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr 0.8fr;
-      align-items: center;
-      gap: 30px;
-      height: 100%;
-      padding-top: 10px;
-    }
-
-    /* Central Model PNG Cutout Container - Full Length */
-    .hero-model-wrap {
-      grid-column: 2;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 720px;
-      perspective: 1000px;
-      z-index: 5;
-    }
-
-    .hero-model-img {
-      height: 100%;
-      max-height: 740px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 25px 35px rgba(28, 27, 24, 0.16));
-      transition: transform 0.15s ease-out;
-      transform-style: preserve-3d;
-      will-change: transform;
-      mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    }
-
-    /* Left Editorial Content Block (UNBOXED - MATCHES REFERENCE) */
-    .hero-content-left {
-      grid-column: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      padding-left: 10px;
-      z-index: 15;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-    }
-
-    .hero-price-tag {
-      font-family: 'Jost', sans-serif;
-      font-size: 1.25rem;
+      font-size: clamp(2.4rem, 4.6vw, 4.3rem);
       font-weight: 400;
-      color: var(--ink);
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
 
-    .hero-price-tag span {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink-soft);
-    }
-
-    .hero-price-val {
-      font-family: 'Jost', sans-serif;
-      font-size: 2rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .hero-quote {
-      font-family: 'Jost', sans-serif;
-      font-size: 1.1rem;
-      line-height: 1.55;
-      color: var(--ink-soft);
-      max-width: 32ch;
-      font-style: italic;
+    .hero-desc-diva {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
       font-weight: 300;
-      border-left: none;
-      padding-left: 0;
+      font-style: italic;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      max-width: 500px;
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease 0.45s, transform 0.7s ease 0.45s;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
     }
 
-    .hero-cta-btn {
+    .hero-pill-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      padding: 14px 34px;
+      background: #d81b60;
+      background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+      color: #ffffff;
+      border-radius: 999px;
       font-family: 'Jost', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 4px;
-      width: fit-content;
-      margin-top: 6px;
-      transition: all 0.3s ease;
-    }
-
-    .hero-cta-btn:hover {
-      color: var(--gold-dark);
-      border-color: var(--gold-dark);
-      transform: translateX(6px);
-    }
-
-    .hero-cta-btn svg {
-      transition: transform 0.3s ease;
-    }
-
-    .hero-cta-btn:hover svg {
-      transform: translateX(4px);
-    }
-
-    /* Right Editorial Highlights Block (UNBOXED) */
-    .hero-content-right {
-      grid-column: 3;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: flex-end;
-      text-align: right;
-      z-index: 15;
-    }
-
-    .hero-feature-badge {
-      background: transparent;
-      padding: 0;
-      border-radius: 0;
-      border: none;
-      max-width: 240px;
-      box-shadow: none;
-    }
-      max-width: 240px;
-      box-shadow: 0 10px 25px -10px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .hero-feature-badge:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .hero-feature-badge strong {
-      display: block;
-      font-family: 'Fraunces', serif;
-      font-size: 1.05rem;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .hero-feature-badge p {
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      line-height: 1.4;
-    }
-
-    /* Bottom Information Status Bar */
-    .hero-bottom-bar {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
       font-size: 0.82rem;
-      letter-spacing: 0.04em;
-      color: var(--ink-soft);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(233, 30, 99, 0.45);
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s, background 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hero-bottom-left {
+    .hero-pill-btn:hover {
+      background: linear-gradient(135deg, #ff2a75 0%, #e91e63 100%);
+      box-shadow: 0 12px 32px rgba(233, 30, 99, 0.65);
+      transform: translateY(-2px) !important;
+    }
+
+    .hero-slide.active .hero-eyebrow,
+    .hero-slide.active .hero-title-diva,
+    .hero-slide.active .hero-desc-diva,
+    .hero-slide.active .hero-pill-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Bottom Minimal Indicator Dots Container */
+    .hero-dots-nav {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      padding: 7px 16px;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
-    .sparkle-icon {
-      color: var(--gold-dark);
-      animation: pulseSparkle 2s infinite ease-in-out;
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      border: none;
+      padding: 0;
     }
 
-    @keyframes pulseSparkle {
-      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
-      50% { transform: scale(1.25) rotate(15deg); opacity: 1; }
+    .hero-dot.active {
+      width: 30px;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
     }
 
-    .hero-bottom-center {
-      text-transform: lowercase;
-      letter-spacing: 0.06em;
-      font-weight: 500;
-    }
-
-    .hero-bottom-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .hero-slider-arrows {
-      display: flex;
-      gap: 8px;
-    }
-
-    .slider-btn {
-      width: 28px;
-      height: 28px;
+    /* Minimal Side Navigation Arrows */
+    .hero-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      border: 1px solid var(--line);
-      background: transparent;
+      background: rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+      line-height: 1;
     }
 
-    .slider-btn:hover {
-      background: var(--ink);
-      color: var(--bg-nude);
-      border-color: var(--ink);
+    .hero-nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      transform: translateY(-50%) scale(1.08);
     }
+
+    .hero-nav-prev { left: 24px; }
+    .hero-nav-next { right: 24px; }
+
+    @media (max-width: 768px) {
+      .minimal-hero-carousel {
+        height: clamp(480px, 72vh, 600px);
+      }
+      .hero-slide-content.content-right,
+      .hero-slide-content.content-left {
+        justify-content: center;
+        text-align: center;
+      }
+      .hero-desc-diva {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-nav-arrow {
+        display: none;
+      }
+    }
+
 
     /* ============ SECTION HEADINGS ============ */
     section {
@@ -3001,28 +2491,76 @@
     </div>
   </section>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <!-- Visible Semantic Keyword H1 & H2 for Search Engines & Users -->
-    <div class="hero-title-wrap">
-      <h1 class="hero-title" id="heroTitle" aria-label="Sree Designers — South Indian Bridal Blouse &amp; Maggam Work Atelier in Coimbatore &amp; Tiruppur">sree designers</h1>
-      <h2 class="hero-tagline-seo" style="text-align:center; font-size:1.05rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dark); margin:12px auto 0; max-width:860px;">Bespoke South Indian Bridal Blouse &amp; Maggam Work Atelier in Coimbatore &amp; Tiruppur</h2>
-    </div>
-
-    <!-- Model cutout — bottom-anchored center (896:1200 natural aspect ratio = 680x911) -->
-    <div class="hero-model">
-      <img src="assets/images/hero_model.webp" alt="Sree Designers model wearing bridal blouse and silk half saree" id="heroModelImg" width="680" height="911" fetchpriority="high">
-    </div>
-
-    <!-- Bottom bar -->
-    <div class="hero-bar">
-      <span><span class="hero-bar-sparkle">✦</span>&nbsp; 48-Hour Rapid Delivery in TN &nbsp;·&nbsp; Master Trial Fittings</span>
-      <span>Sree Designers — South Indian Fashion Atelier since 2012</span>
-      <div class="hero-bar-count">
-        <span>01 / 06</span>
-        <button class="hero-bar-btn" aria-label="Previous">‹</button>
-        <button class="hero-bar-btn" aria-label="Next">›</button>
+  <!-- MINIMAL LUXURY HERO CAROUSEL (DIVA EDITORIAL STYLE) -->
+  <section class="minimal-hero-carousel" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier Hero Carousel">
+    <div class="hero-slides-wrapper" id="heroSlidesWrapper">
+      <!-- Slide 1: South Indian Bridal Edit -->
+      <div class="hero-slide active" data-index="0">
+        <img src="assets/images/hero_slide_bridal.png" alt="Sree Designers Bridal Blouse Atelier Drape" class="hero-slide-bg" loading="eager" decoding="async">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content content-right">
+          <div class="hero-text-box">
+            <div class="hero-eyebrow">THE BRIDAL EDIT</div>
+            <h1 class="hero-title-diva">Wear Your Story, Wear Your Sree</h1>
+            <p class="hero-desc-diva">Heirloom silks and hand-finished maggam drapes, made for the vows you'll always remember.</p>
+            <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="hero-pill-btn">SHOP THE BRIDAL EDIT</a>
+          </div>
+        </div>
       </div>
+
+      <!-- Slide 2: Evening Radiance & Zardozi -->
+      <div class="hero-slide" data-index="1">
+        <img src="assets/images/hero_slide_crimson.png" alt="Hand Embroidered Crimson Silk Blouses" class="hero-slide-bg" loading="lazy" decoding="async">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content content-left">
+          <div class="hero-text-box">
+            <div class="hero-eyebrow">EVENING RADIANCE</div>
+            <h2 class="hero-title-diva">Crimson Velvet, Cut for the Evening</h2>
+            <p class="hero-desc-diva">Hand-embroidered blouses and gowns in deep crimson, for candlelit celebrations.</p>
+            <a href="category?cat=Hand%20Embroidered%20Blouses" class="hero-pill-btn">EXPLORE EVENING WEAR</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Bespoke Lehengas -->
+      <div class="hero-slide" data-index="2">
+        <img src="assets/images/hero_slide_lehenga.png" alt="Bridal Silk Lehenga Couture" class="hero-slide-bg" loading="lazy" decoding="async">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content content-right">
+          <div class="hero-text-box">
+            <div class="hero-eyebrow">ROYAL HERITAGE</div>
+            <h2 class="hero-title-diva">Bespoke Lehengas &amp; Hand Zardozi</h2>
+            <p class="hero-desc-diva">Structured padded fittings, 3D peacock wire work, and padded cholis built to perfection.</p>
+            <a href="category?cat=Lehengas%20%26%20Festive%20Couture" class="hero-pill-btn">DISCOVER LEHENGAS</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Atelier Express 48-Hour Fitting -->
+      <div class="hero-slide" data-index="3">
+        <img src="assets/images/service_bridal.webp" alt="48-Hour Rapid Trial Fitting Coimbatore Tiruppur" class="hero-slide-bg" loading="lazy" decoding="async">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content content-left">
+          <div class="hero-text-box">
+            <div class="hero-eyebrow">ATELIER EXPRESS</div>
+            <h2 class="hero-title-diva">48-Hour Rapid Fitting &amp; Delivery</h2>
+            <p class="hero-desc-diva">Urgent wedding timeline? Schedule a master trial fitting with guaranteed zero back-neck gaping.</p>
+            <a href="#enquiry" class="hero-pill-btn">BOOK STUDIO FITTING</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimal Arrow Navigation -->
+    <button class="hero-nav-arrow hero-nav-prev" id="heroPrevBtn" aria-label="Previous Slide">‹</button>
+    <button class="hero-nav-arrow hero-nav-next" id="heroNextBtn" aria-label="Next Slide">›</button>
+
+    <!-- Centered Minimal Dots Indicator Bar -->
+    <div class="hero-dots-nav" id="heroDotsNav" aria-label="Carousel pagination">
+      <button class="hero-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+      <button class="hero-dot" data-slide="1" aria-label="Go to slide 2"></button>
+      <button class="hero-dot" data-slide="2" aria-label="Go to slide 3"></button>
+      <button class="hero-dot" data-slide="3" aria-label="Go to slide 4"></button>
     </div>
   </section>
 
@@ -4135,7 +3673,95 @@
       document.body.style.overflow = '';
     }
 
+    // ─── MINIMAL HERO CAROUSEL CONTROLLER (DIVA STYLE) ───
+    function initHeroCarousel() {
+      const carousel = document.querySelector('.minimal-hero-carousel');
+      if (!carousel) return;
+      const slides = carousel.querySelectorAll('.hero-slide');
+      const dots = carousel.querySelectorAll('.hero-dot');
+      const prevBtn = document.getElementById('heroPrevBtn');
+      const nextBtn = document.getElementById('heroNextBtn');
+      if (!slides || slides.length === 0) return;
+
+      let currentSlide = 0;
+      let slideTimer = null;
+
+      function goToSlide(index) {
+        if (index === currentSlide) return;
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+        currentSlide = (index + slides.length) % slides.length;
+
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentSlide - 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        slideTimer = setInterval(nextSlide, 5500);
+      }
+
+      function stopAutoPlay() {
+        if (slideTimer) clearInterval(slideTimer);
+      }
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          goToSlide(idx);
+          startAutoPlay();
+        });
+      });
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          prevSlide();
+          startAutoPlay();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          nextSlide();
+          startAutoPlay();
+        });
+      }
+
+      carousel.addEventListener('mouseenter', stopAutoPlay);
+      carousel.addEventListener('mouseleave', startAutoPlay);
+
+      // Touch Swiping for Mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 40) {
+          nextSlide();
+        } else if (touchEndX - touchStartX > 40) {
+          prevSlide();
+        }
+        startAutoPlay();
+      }, { passive: true });
+
+      startAutoPlay();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      initHeroCarousel();
       loadDynamicShowcaseGrid('All');
       renderHomepageFeaturedShelves();
 
