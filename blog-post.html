@@ -69,9 +69,94 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap">
   </noscript>
 
-  <!-- DYNAMIC SCHEMAS INJECTED VIA JAVASCRIPT -->
-  <script id="schemaArticle" type="application/ld+json">{}</script>
-  <script id="schemaFAQ" type="application/ld+json">{}</script>
+  <!-- STATIC DEFAULT SCHEMAS (VALID JSON-LD FOR SEARCH CRAWLERS & VALIDATORS) -->
+  <script id="schemaArticle" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://sreedesigners.in/blog-why-luxury-bridal-blouses-cost-5000-to-25000"
+    },
+    "headline": "Why Luxury Bridal Blouses Cost ₹5,000 to ₹25,000: The 2026 Master Craftsmanship, Hand Zardozi & Fitting Investment Guide",
+    "description": "Discover why discerning South Indian brides invest in bespoke handcrafted bridal blouses over budget tailoring.",
+    "image": "https://sreedesigners.in/assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Sree Designers Master Couturier",
+      "jobTitle": "Principal Bridal Pattern Master",
+      "worksFor": {
+        "@type": "ClothingStore",
+        "name": "Sree Designers & Boutique",
+        "url": "https://sreedesigners.in/"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Sree Designers & Boutique",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sreedesigners.in/assets/images/logo.png"
+      }
+    },
+    "datePublished": "2026-10-12T10:00:00+05:30",
+    "dateModified": "2026-10-12T10:00:00+05:30",
+    "articleSection": "Luxury Bridal Guide",
+    "inLanguage": "en-IN"
+  }
+  </script>
+
+  <script id="schemaBreadcrumb" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://sreedesigners.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Bridal Journal",
+        "item": "https://sreedesigners.in/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Why Luxury Bridal Blouses Cost ₹5,000 to ₹25,000",
+        "item": "https://sreedesigners.in/blog-why-luxury-bridal-blouses-cost-5000-to-25000"
+      }
+    ]
+  }
+  </script>
+
+  <script id="schemaFAQ" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do luxury bridal blouses cost ₹5,000 to ₹25,000 compared to ₹800 budget tailoring?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "True luxury bridal blouses require 40 to 120 artisan man-hours of intricate hand maggam and zardozi needlework, genuine metallic French bullion wire, unpolished river seed pearls, dual pre-shrunk cotton interlinings, and anatomical bust contour cup engineering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book my bridal blouse order at Sree Designers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For weddings and major receptions, booking 4 to 8 weeks in advance is recommended to accommodate customized hand sketches, master embroidery framing, and interim trial fittings."
+        }
+      }
+    ]
+  }
+  </script>
 
   <style>
     :root {
@@ -616,6 +701,16 @@
       // Main Body (with robust formatting for H1/H2, bold, italics, links, underline)
       document.getElementById('postContent').innerHTML = formatArticleContent(post.content || post.excerpt || '');
 
+      function injectOrUpdateSchema(id, schemaObj) {
+        let el = document.getElementById(id);
+        if (el) el.remove();
+        el = document.createElement('script');
+        el.id = id;
+        el.type = 'application/ld+json';
+        el.textContent = JSON.stringify(schemaObj);
+        document.head.appendChild(el);
+      }
+
       // FAQs & FAQ Schema Generation
       const faqContainer = document.getElementById('faqContainer');
       faqContainer.innerHTML = '';
@@ -643,22 +738,29 @@
             }
           }))
         };
-        document.getElementById('schemaFAQ').textContent = JSON.stringify(faqSchema);
+        injectOrUpdateSchema('schemaFAQ', faqSchema);
       } else {
         document.getElementById('postFaqSection').style.display = 'none';
       }
 
-      // Inject BlogPosting & Author Schema (JSON-LD)
+      // Inject BlogPosting & Breadcrumb Schema (JSON-LD)
+      const canonicalArticleUrl = `https://sreedesigners.in/${post.id}`;
       const articleSchema = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+        "@id": `${canonicalArticleUrl}#article`,
+        "isPartOf": {
+          "@type": "Blog",
+          "@id": "https://sreedesigners.in/blog#blog",
+          "name": "Sree Designers Bridal Journal"
+        },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://sreedesigners.in/blog-post?id=${encodeURIComponent(post.id)}`
+          "@id": canonicalArticleUrl
         },
         "headline": post.title,
         "description": post.excerpt || post.title,
-        "image": post.featured_image || "https://sreedesigners.in/assets/images/bridal_blouse.jpg",
+        "image": [post.featured_image ? `https://sreedesigners.in/${post.featured_image}` : "https://sreedesigners.in/assets/images/bridal_blouse.jpg"],
         "author": {
           "@type": "Person",
           "name": post.author || "Master Artisan & Lead Designer",
@@ -677,13 +779,46 @@
             "url": "https://sreedesigners.in/assets/images/logo.png"
           }
         },
-        "datePublished": "2026-08-20T10:00:00+05:30",
-        "dateModified": "2026-08-20T10:00:00+05:30"
+        "datePublished": "2026-10-12T10:00:00+05:30",
+        "dateModified": "2026-10-12T10:00:00+05:30",
+        "articleSection": post.category || "Bridal Couture",
+        "inLanguage": "en-IN"
       };
-      document.getElementById('schemaArticle').textContent = JSON.stringify(articleSchema);
+      injectOrUpdateSchema('schemaArticle', articleSchema);
+
+      const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://sreedesigners.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Bridal Journal",
+            "item": "https://sreedesigners.in/blog"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": post.title,
+            "item": canonicalArticleUrl
+          }
+        ]
+      };
+      injectOrUpdateSchema('schemaBreadcrumb', breadcrumbSchema);
 
       // WhatsApp CTA
       document.getElementById('btnWaCta').href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20the%20article:%20${encodeURIComponent(post.title)}`;
+
+      // Seamless redirect to clean URL if accessed with ?id=
+      if (params.get('id') && post && post.id && window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
+        window.location.replace(`/${encodeURIComponent(post.id)}`);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', loadBlogPost);
