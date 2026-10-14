@@ -1088,7 +1088,7 @@ function renderBlog() {
   }
   
   el.innerHTML = posts.map(p => {
-    const previewUrl = p.slug || `blog-post?id=${encodeURIComponent(p.id)}`;
+    const previewUrl = p.slug || (p.id ? ('/blog/' + p.id.replace(/^blog-/, '')) : '/blog');
     const faqCount = p.faqs ? p.faqs.length : 0;
     return `
       <div class="item-card">
@@ -1212,9 +1212,10 @@ async function submitBlog(e) {
       imgUrl = await compressImage(fileEl.files[0]);
     }
 
+    const newId = 'blog-' + Date.now();
     const newPost = {
-      id: 'blog-' + Date.now(),
-      slug: `blog-post?id=blog-${Date.now()}`,
+      id: newId,
+      slug: `/blog/${newId.replace(/^blog-/, '')}`,
       title: document.getElementById('bg_title').value,
       category: document.getElementById('bg_cat').value,
       read_time: document.getElementById('bg_readtime').value || '5 min read',

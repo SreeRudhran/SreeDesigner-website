@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/admin", "destination": "/admin.html" }
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
   ],
   "redirects": [
     {
@@ -12,6 +15,108 @@
         }
       ],
       "destination": "https://sreedesigners.in/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-post",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "blog-(?<slug>.*)"
+        }
+      ],
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/blog-post",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/blog-:slug",
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/blog-why-luxury-bridal-blouses-cost-5000-to-25000",
+      "destination": "/blog/why-luxury-bridal-blouses-cost-5000-to-25000",
+      "permanent": true
+    },
+    {
+      "source": "/blog-trending-bridal-sleeve-designs-2026",
+      "destination": "/blog/trending-bridal-sleeve-designs-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-front-neck-designs-jewelry-guide-2026",
+      "destination": "/blog/front-neck-designs-jewelry-guide-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-bridal-blouse-stitching-coimbatore-tiruppur",
+      "destination": "/blog/bridal-blouse-stitching-coimbatore-tiruppur",
+      "permanent": true
+    },
+    {
+      "source": "/blog-trending-back-neck-designs-2026",
+      "destination": "/blog/trending-back-neck-designs-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-express-bridal-stitching-coimbatore",
+      "destination": "/blog/express-bridal-stitching-coimbatore",
+      "permanent": true
+    },
+    {
+      "source": "/blog-south-indian-bridal-lehengas-2026",
+      "destination": "/blog/south-indian-bridal-lehengas-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-bridal-blouse-designs-2026",
+      "destination": "/blog/bridal-blouse-designs-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-hand-vs-machine-embroidery",
+      "destination": "/blog/hand-vs-machine-embroidery",
+      "permanent": true
+    },
+    {
+      "source": "/blog-color-contrast-combinations-2026",
+      "destination": "/blog/color-contrast-combinations-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-preserve-zardozi-silk-blouse",
+      "destination": "/blog/preserve-zardozi-silk-blouse",
+      "permanent": true
+    },
+    {
+      "source": "/blog-boat-neck-bridal-blouses-2026",
+      "destination": "/blog/boat-neck-bridal-blouses-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-bridal-trousseau-checklist-timeline",
+      "destination": "/blog/bridal-trousseau-checklist-timeline",
+      "permanent": true
+    },
+    {
+      "source": "/blog-plus-size-saree-blouse-fitting-guide",
+      "destination": "/blog/plus-size-saree-blouse-fitting-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blog-salwar-chudidhar-post-wedding-rituals",
+      "destination": "/blog/salwar-chudidhar-post-wedding-rituals",
       "permanent": true
     }
   ],

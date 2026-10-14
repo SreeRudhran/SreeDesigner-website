@@ -76,7 +76,7 @@
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://sreedesigners.in/blog-why-luxury-bridal-blouses-cost-5000-to-25000"
+      "@id": "https://sreedesigners.in/blog/why-luxury-bridal-blouses-cost-5000-to-25000"
     },
     "headline": "Why Luxury Bridal Blouses Cost ₹5,000 to ₹25,000: The 2026 Master Craftsmanship, Hand Zardozi & Fitting Investment Guide",
     "description": "Discover why discerning South Indian brides invest in bespoke handcrafted bridal blouses over budget tailoring.",
@@ -127,7 +127,7 @@
         "@type": "ListItem",
         "position": 3,
         "name": "Why Luxury Bridal Blouses Cost ₹5,000 to ₹25,000",
-        "item": "https://sreedesigners.in/blog-why-luxury-bridal-blouses-cost-5000-to-25000"
+        "item": "https://sreedesigners.in/blog/why-luxury-bridal-blouses-cost-5000-to-25000"
       }
     ]
   }
@@ -744,7 +744,8 @@
       }
 
       // Inject BlogPosting & Breadcrumb Schema (JSON-LD)
-      const canonicalArticleUrl = `https://sreedesigners.in/${post.id}`;
+      const cleanPostSlug = post.slug ? post.slug.replace(/^\/?blog\//, '') : post.id.replace(/^blog-/, '');
+      const canonicalArticleUrl = `https://sreedesigners.in/blog/${cleanPostSlug}`;
       const articleSchema = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -760,7 +761,7 @@
         },
         "headline": post.title,
         "description": post.excerpt || post.title,
-        "image": [post.featured_image ? `https://sreedesigners.in/${post.featured_image}` : "https://sreedesigners.in/assets/images/bridal_blouse.jpg"],
+        "image": [post.featured_image ? `https://sreedesigners.in/${post.featured_image.replace(/^\//, '')}` : "https://sreedesigners.in/assets/images/bridal_blouse.jpg"],
         "author": {
           "@type": "Person",
           "name": post.author || "Master Artisan & Lead Designer",
@@ -817,7 +818,7 @@
 
       // Seamless redirect to clean URL if accessed with ?id=
       if (params.get('id') && post && post.id && window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
-        window.location.replace(`/${encodeURIComponent(post.id)}`);
+        window.location.replace(`/blog/${encodeURIComponent(cleanPostSlug)}`);
       }
     }
 

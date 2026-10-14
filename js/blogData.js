@@ -7,7 +7,7 @@
 const MASTER_BLOGS = [
   {
     id: "blog-why-luxury-bridal-blouses-cost-5000-to-25000",
-    slug: "blog-why-luxury-bridal-blouses-cost-5000-to-25000",
+    slug: "/blog/why-luxury-bridal-blouses-cost-5000-to-25000",
     title: "Why Luxury Bridal Blouses Cost ₹5,000 to ₹25,000: The 2026 Master Craftsmanship, Hand Zardozi & Fitting Investment Guide",
     category: "Luxury Bridal Guide",
     author: "Sree Designers Master Couturier",
@@ -157,7 +157,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-trending-bridal-sleeve-designs-2026",
-    slug: "blog-trending-bridal-sleeve-designs-2026",
+    slug: "/blog/trending-bridal-sleeve-designs-2026",
     title: "20+ Trending Bridal Blouse Sleeve Designs for 2026: Royal Puff, Elbow-Length, Sheer Organza & 3D Maggam Work",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Couturier",
@@ -283,7 +283,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-front-neck-designs-jewelry-guide-2026",
-    slug: "blog-front-neck-designs-jewelry-guide-2026",
+    slug: "/blog/front-neck-designs-jewelry-guide-2026",
     title: "Bridal Blouse Front Neck Designs & Temple Jewelry Harmony: Sweetheart, Paan, Scoop & U-Neck Master Guide 2026",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -409,7 +409,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-blouse-stitching-coimbatore-tiruppur",
-    slug: "blog-bridal-blouse-stitching-coimbatore-tiruppur",
+    slug: "/blog/bridal-blouse-stitching-coimbatore-tiruppur",
     title: "Best Bridal Blouse Stitching & Aari Work in Coimbatore & Tiruppur: 2026 Price Guide, Designs & Express Fitting",
     category: "Bridal Stitching & Price Guide",
     author: "Master Artisan & Lead Couturier",
@@ -532,7 +532,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-trending-back-neck-designs-2026",
-    slug: "blog-trending-back-neck-designs-2026",
+    slug: "/blog/trending-back-neck-designs-2026",
     title: "25+ Trending Bridal Blouse Back Neck Designs for South Indian Silk Sarees in 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -629,7 +629,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-express-bridal-stitching-coimbatore",
-    slug: "blog-express-bridal-stitching-coimbatore",
+    slug: "/blog/express-bridal-stitching-coimbatore",
     title: "48-Hour Rapid Express Bridal Blouse Stitching in Coimbatore & Tiruppur: Emergency Tailoring Guide",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -679,7 +679,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-south-indian-bridal-lehengas-2026",
-    slug: "blog-south-indian-bridal-lehengas-2026",
+    slug: "/blog/south-indian-bridal-lehengas-2026",
     title: "South Indian Bridal Lehengas for Reception & Sangeet: 2026 Fabrics, Flair & Custom Choli Guide",
     category: "Festive Couture",
     author: "Sree Designers Atelier Master",
@@ -720,7 +720,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-blouse-designs-2026",
-    slug: "blog-bridal-blouse-designs-2026",
+    slug: "/blog/bridal-blouse-designs-2026",
     title: "Top 10 South Indian Bridal Blouse Designs & Maggam Work Trends for 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -772,7 +772,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-hand-vs-machine-embroidery",
-    slug: "blog-hand-vs-machine-embroidery",
+    slug: "/blog/hand-vs-machine-embroidery",
     title: "Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -873,7 +873,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-color-contrast-combinations-2026",
-    slug: "blog-color-contrast-combinations-2026",
+    slug: "/blog/color-contrast-combinations-2026",
     title: "Top 15 Bridal Blouse Color Contrast Combinations for Kanchipuram Silk Sarees in 2026",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Couturier",
@@ -1044,7 +1044,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-preserve-zardozi-silk-blouse",
-    slug: "blog-preserve-zardozi-silk-blouse",
+    slug: "/blog/preserve-zardozi-silk-blouse",
     title: "How to Preserve Metallic Zardozi & Kundan Embroidery for Decades",
     category: "Embroidery Care",
     author: "Sree Designers Fabric Care Team",
@@ -1138,7 +1138,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-boat-neck-bridal-blouses-2026",
-    slug: "blog-boat-neck-bridal-blouses-2026",
+    slug: "/blog/boat-neck-bridal-blouses-2026",
     title: "Boat Neck & High Collar Saree Blouses: 2026 Modern Bridal Styling Guide",
     category: "Bridal Trends",
     author: "Master Artisan & Lead Designer",
@@ -1236,7 +1236,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-bridal-trousseau-checklist-timeline",
-    slug: "blog-bridal-trousseau-checklist-timeline",
+    slug: "/blog/bridal-trousseau-checklist-timeline",
     title: "The Ultimate South Indian Bridal Trousseau Checklist: Outfits, Stitching Timelines & Fabric Planning",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -1369,7 +1369,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-plus-size-saree-blouse-fitting-guide",
-    slug: "blog-plus-size-saree-blouse-fitting-guide",
+    slug: "/blog/plus-size-saree-blouse-fitting-guide",
     title: "Flattering Saree Blouse Fitting for Plus Size & Broad Shoulders: Master Atelier Secrets",
     category: "Stitching Guide",
     author: "Sree Designers Atelier Master",
@@ -1467,7 +1467,7 @@ const MASTER_BLOGS = [
   },
   {
     id: "blog-salwar-chudidhar-post-wedding-rituals",
-    slug: "blog-salwar-chudidhar-post-wedding-rituals",
+    slug: "/blog/salwar-chudidhar-post-wedding-rituals",
     title: "Bespoke Salwar Suits, Chudidhars & Kurtis for South Indian Post-Wedding Rituals (Maruvidu)",
     category: "Festive Couture",
     author: "Sree Designers Atelier Master",
