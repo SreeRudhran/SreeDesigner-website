@@ -13,7 +13,7 @@ const MASTER_CATALOG = [
       "slug": "bridal-red-kanchipuram-border-blouse-designs",
       "description": "A bridal masterpiece crafted in vermilion red pure silk, distinguished by heirloom Kanchipuram pure golden zari borders along the elbow sleeves. Features a scalloped sweetheart front neckline and cutout back framed with dense golden zardozi wires, delicate French knot floral aari work, and sparkling kundan stone embellishments. Hand-tailored with premium canvas padding and comfortable lining for South Indian muhurtham ceremonies.",
       "starting_price": 4500,
-      "main_image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg",
+      "main_image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.webp",
       "tags": [
           "Bridal Blouse & Maggam Work",
           "Hand Embroidered Blouses",
@@ -22,15 +22,15 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-bkr-1",
-              "image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg"
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_flatlay.webp"
           },
           {
               "id": "sub-bkr-2",
-              "image_url": "assets/images/blouse_bridal_kanchipuram_red_back.jpg"
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_back.webp"
           },
           {
               "id": "sub-bkr-3",
-              "image_url": "assets/images/blouse_bridal_kanchipuram_red_front.jpg"
+              "image_url": "assets/images/blouse_bridal_kanchipuram_red_front.webp"
           }
       ]
   },
@@ -41,7 +41,7 @@ const MASTER_CATALOG = [
       "slug": "wine-purple-puff-sleeve-blouse-designs",
       "description": "A regal deep wine purple raw silk blouse pairing traditional South Indian puffed sleeves with contemporary maggam craftsmanship. Elaborate contrast turquoise blue kundan stones and antique gold zardozi vines enrich the neckline and sleeve cuffs, complemented by genuine Kanchipuram brocade zari pleats. Perfect for wedding receptions, engagement sarees, and festive celebrations.",
       "starting_price": 3800,
-      "main_image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.jpg",
+      "main_image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.webp",
       "tags": [
           "Bridal Blouse & Maggam Work",
           "Hand Embroidered Blouses"
@@ -49,11 +49,11 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-wpp-1",
-              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.jpg"
+              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.webp"
           },
           {
               "id": "sub-wpp-2",
-              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_detail.jpg"
+              "image_url": "assets/images/blouse_wine_purple_puff_sleeve_detail.webp"
           }
       ]
   },
@@ -64,7 +64,7 @@ const MASTER_CATALOG = [
       "slug": "rani-pink-french-knot-blouse-designs",
       "description": "An eye-catching vibrant Rani pink raw silk blouse celebrated for its handcrafted turquoise blue French knot flower rosettes and golden zardozi vines. The ornate elbow-length sleeves feature clustered floral maggam motifs interspersed with micro golden beads and delicate scattered bootis across the body. Designed for silk saree pairing with customized bust padding and trial fitting assurance.",
       "starting_price": 3600,
-      "main_image_url": "assets/images/blouse_rani_pink_french_knot_front.jpg",
+      "main_image_url": "assets/images/blouse_rani_pink_french_knot_front.webp",
       "tags": [
           "Hand Embroidered Blouses",
           "Bridal Blouse & Maggam Work"
@@ -72,19 +72,19 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-rpf-1",
-              "image_url": "assets/images/blouse_rani_pink_french_knot_front.jpg"
+              "image_url": "assets/images/blouse_rani_pink_french_knot_front.webp"
           },
           {
               "id": "sub-rpf-2",
-              "image_url": "assets/images/blouse_rani_pink_french_knot_angle.jpg"
+              "image_url": "assets/images/blouse_rani_pink_french_knot_angle.webp"
           },
           {
               "id": "sub-rpf-3",
-              "image_url": "assets/images/blouse_rani_pink_french_knot_back.jpg"
+              "image_url": "assets/images/blouse_rani_pink_french_knot_back.webp"
           },
           {
               "id": "sub-rpf-4",
-              "image_url": "assets/images/blouse_rani_pink_french_knot_closeup.jpg"
+              "image_url": "assets/images/blouse_rani_pink_french_knot_closeup.webp"
           }
       ]
   },
@@ -95,7 +95,7 @@ const MASTER_CATALOG = [
       "slug": "red-tissue-sleeve-blouse-designs",
       "description": "Sophisticated crimson red silk blouse highlighted by luminous metallic golden tissue elbow sleeves with fine scalloped embroidery borders. The deep U-cut back neckline and sleeve junctions are embroidered with graceful floral aari vine patterns, micro cutdana beads, and subtle sequin highlights. A lightweight yet opulent design ideal for bride sisters and reception sarees.",
       "starting_price": 3400,
-      "main_image_url": "assets/images/blouse_red_tissue_scallop_back.jpg",
+      "main_image_url": "assets/images/blouse_red_tissue_scallop_back.webp",
       "tags": [
           "Hand Embroidered Blouses",
           "Bridal Blouse & Maggam Work"
@@ -103,11 +103,11 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-rts-1",
-              "image_url": "assets/images/blouse_red_tissue_scallop_back.jpg"
+              "image_url": "assets/images/blouse_red_tissue_scallop_back.webp"
           },
           {
               "id": "sub-rts-2",
-              "image_url": "assets/images/blouse_red_tissue_scallop_sleeve.jpg"
+              "image_url": "assets/images/blouse_red_tissue_scallop_sleeve.webp"
           }
       ]
   },
@@ -118,7 +118,7 @@ const MASTER_CATALOG = [
       "slug": "silver-grey-keyhole-back-blouse-designs",
       "description": "Chic metallic silver-grey silk blouse featuring a geometric contrast royal purple sleeve band and an exquisite circular keyhole back neck. Outlined with two-tier golden kundan stone borders, cutdana beadwork, and square mirror-style stone buttas scattered across the back. Offers modern elegance with classic artisanal embroidery for cocktail sarees and evening receptions.",
       "starting_price": 3500,
-      "main_image_url": "assets/images/blouse_silver_grey_keyhole_back.jpg",
+      "main_image_url": "assets/images/blouse_silver_grey_keyhole_back.webp",
       "tags": [
           "Hand Embroidered Blouses",
           "Bridal Blouse & Maggam Work"
@@ -126,7 +126,7 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-sgp-1",
-              "image_url": "assets/images/blouse_silver_grey_keyhole_back.jpg"
+              "image_url": "assets/images/blouse_silver_grey_keyhole_back.webp"
           }
       ]
   },
@@ -137,7 +137,7 @@ const MASTER_CATALOG = [
       "slug": "magenta-pink-teardrop-blouse-designs",
       "description": "Graceful magenta pink pure silk blouse featuring an elegant teardrop keyhole back neck bordered with vivid emerald green kundan stone leaves and antique golden beads. The matching elbow-length sleeves carry the coordinated emerald vine motif, enriched by subtle golden buttas throughout. Designed with structured seams and breathable pure cotton lining.",
       "starting_price": 3200,
-      "main_image_url": "assets/images/blouse_magenta_emerald_kundan_back.jpg",
+      "main_image_url": "assets/images/blouse_magenta_emerald_kundan_back.webp",
       "tags": [
           "Hand Embroidered Blouses",
           "Bridal Blouse & Maggam Work"
@@ -145,15 +145,15 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-mek-1",
-              "image_url": "assets/images/blouse_magenta_emerald_kundan_back.jpg"
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_back.webp"
           },
           {
               "id": "sub-mek-2",
-              "image_url": "assets/images/blouse_magenta_emerald_kundan_sleeve.jpg"
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_sleeve.webp"
           },
           {
               "id": "sub-mek-3",
-              "image_url": "assets/images/blouse_magenta_emerald_kundan_angle.jpg"
+              "image_url": "assets/images/blouse_magenta_emerald_kundan_angle.webp"
           }
       ]
   },
@@ -164,7 +164,7 @@ const MASTER_CATALOG = [
       "slug": "rani-pink-jacquard-blouse-designs",
       "description": "Tailored in self-textured chevron jacquard silk in radiant Rani pink, framed by an enchanting turquoise and antique golden French knot floral garland border along the U-neckline and sleeve hems. A versatile, timeless piece suited for both temple visits, festive occasions, and lightweight designer sarees.",
       "starting_price": 2800,
-      "main_image_url": "assets/images/blouse_rani_pink_jacquard_back.jpg",
+      "main_image_url": "assets/images/blouse_rani_pink_jacquard_back.webp",
       "tags": [
           "Hand Embroidered Blouses",
           "Machine Embroidery Blouses"
@@ -172,11 +172,11 @@ const MASTER_CATALOG = [
       "images": [
           {
               "id": "sub-rpj-1",
-              "image_url": "assets/images/blouse_rani_pink_jacquard_back.jpg"
+              "image_url": "assets/images/blouse_rani_pink_jacquard_back.webp"
           },
           {
               "id": "sub-rpj-2",
-              "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.jpg"
+              "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp"
           }
       ]
   },
@@ -188,11 +188,11 @@ const MASTER_CATALOG = [
     slug: 'bridal-red-heavy-maggam-work-blouse-designs',
     description: 'Showstopper bridal crimson red pure silk blouse featuring an ornate scalloped cutout back neck with illusion sheer net, heavy floral maggam elbow sleeves adorned with antique gold zardozi wires, emerald green thread rosettes, and hanging emerald crystal drop latkan beads.',
     starting_price: 4800,
-    main_image_url: 'assets/images/blouse_bridal_red_maggam_back.jpg',
+    main_image_url: 'assets/images/blouse_bridal_red_maggam_back.webp',
     tags: ['Bridal Blouse & Maggam Work', 'Hand Embroidered Blouses', 'Zardozi Work'],
     images: [
-      { id: 'sub-rd-1', image_url: 'assets/images/blouse_bridal_red_maggam_back.jpg' },
-      { id: 'sub-rd-2', image_url: 'assets/images/blouse_bridal_red_heavy_sleeve.jpg' }
+      { id: 'sub-rd-1', image_url: 'assets/images/blouse_bridal_red_maggam_back.webp' },
+      { id: 'sub-rd-2', image_url: 'assets/images/blouse_bridal_red_heavy_sleeve.webp' }
     ]
   },
   {
@@ -202,11 +202,11 @@ const MASTER_CATALOG = [
     slug: 'bottle-green-zigzag-net-blouse-designs',
     description: 'Unique bottle green raw silk blouse featuring a multi-tiered chevron zigzag embroidered sheer net back neck with teardrop keyhole cut, crimson red floral rosettes, and matching elbow-length sleeves with ruby crystal drop latkan hangings.',
     starting_price: 3600,
-    main_image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.jpg',
+    main_image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
     images: [
-      { id: 'sub-bg-1', image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.jpg' },
-      { id: 'sub-bg-2', image_url: 'assets/images/blouse_bottle_green_zigzag_sleeve.jpg' }
+      { id: 'sub-bg-1', image_url: 'assets/images/blouse_bottle_green_zigzag_net_back.webp' },
+      { id: 'sub-bg-2', image_url: 'assets/images/blouse_bottle_green_zigzag_sleeve.webp' }
     ]
   },
   {
@@ -216,11 +216,11 @@ const MASTER_CATALOG = [
     slug: 'purple-illusion-net-blouse-designs',
     description: 'Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.',
     starting_price: 3400,
-    main_image_url: 'assets/images/blouse_royal_purple_illusion_net_back.jpg',
+    main_image_url: 'assets/images/blouse_royal_purple_illusion_net_back.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
     images: [
-      { id: 'sub-pr-1', image_url: 'assets/images/blouse_royal_purple_illusion_net_back.jpg' },
-      { id: 'sub-pr-2', image_url: 'assets/images/blouse_royal_purple_floral_sleeve.jpg' }
+      { id: 'sub-pr-1', image_url: 'assets/images/blouse_royal_purple_illusion_net_back.webp' },
+      { id: 'sub-pr-2', image_url: 'assets/images/blouse_royal_purple_floral_sleeve.webp' }
     ]
   },
   {
@@ -229,12 +229,12 @@ const MASTER_CATALOG = [
     slug: 'rani-pink-scallop-net-sleeve-blouse-designs',
     description: 'Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.',
     starting_price: 3400,
-    main_image_url: 'assets/images/blouse_rani_pink_flatlay.jpg',
+    main_image_url: 'assets/images/blouse_rani_pink_flatlay.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
     images: [
-      { id: 'sub-rp-1', image_url: 'assets/images/blouse_rani_pink_flatlay.jpg' },
-      { id: 'sub-rp-2', image_url: 'assets/images/blouse_rani_pink_sleeve.jpg' },
-      { id: 'sub-rp-3', image_url: 'assets/images/blouse_rani_pink_neckline.jpg' }
+      { id: 'sub-rp-1', image_url: 'assets/images/blouse_rani_pink_flatlay.webp' },
+      { id: 'sub-rp-2', image_url: 'assets/images/blouse_rani_pink_sleeve.webp' },
+      { id: 'sub-rp-3', image_url: 'assets/images/blouse_rani_pink_neckline.webp' }
     ]
   },
   {
@@ -243,12 +243,12 @@ const MASTER_CATALOG = [
     slug: 'peacock-green-v-neck-net-blouse-designs',
     description: 'Bespoke Peacock Green silk blouse featuring a deep V-neck illusion sheer yellow net back with micro-bead bootis, hand-embroidered floral Aari borders, royal elbow-length sleeves with matching cuffs, and built-in padded cup trial fitting guarantee.',
     starting_price: 3200,
-    main_image_url: 'assets/images/blouse_peacock_green_v_neck_back.jpg',
+    main_image_url: 'assets/images/blouse_peacock_green_v_neck_back.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Blouse & Maggam Work', 'Zardozi Work'],
     images: [
-      { id: 'sub-pg-1', image_url: 'assets/images/blouse_peacock_green_v_neck_back.jpg' },
-      { id: 'sub-pg-2', image_url: 'assets/images/blouse_peacock_green_sleeve_detail.jpg' },
-      { id: 'sub-pg-3', image_url: 'assets/images/blouse_peacock_green_front_neck.jpg' }
+      { id: 'sub-pg-1', image_url: 'assets/images/blouse_peacock_green_v_neck_back.webp' },
+      { id: 'sub-pg-2', image_url: 'assets/images/blouse_peacock_green_sleeve_detail.webp' },
+      { id: 'sub-pg-3', image_url: 'assets/images/blouse_peacock_green_front_neck.webp' }
     ]
   },
   // 1. Hand Embroidered Blouses
@@ -258,11 +258,11 @@ const MASTER_CATALOG = [
     slug: 'peacock-zardozi-hand-embroidered-blouse',
     description: 'Opulent South Indian bridal blouse featuring hand-stitched gold zardozi wires, ruby kundan stones, and high-density peacock embroidery motifs on pure silk.',
     starting_price: 3800,
-    main_image_url: 'assets/images/service_hand_embroidery.png',
+    main_image_url: 'assets/images/service_hand_embroidery.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Work', 'Zardozi Work'],
     images: [
-      { id: 'sub-he-1a', image_url: 'assets/images/service_hand_embroidery.png' },
-      { id: 'sub-he-1b', image_url: 'assets/images/service_bridal.png' }
+      { id: 'sub-he-1a', image_url: 'assets/images/service_hand_embroidery.webp' },
+      { id: 'sub-he-1b', image_url: 'assets/images/service_bridal.webp' }
     ]
   },
   {
@@ -271,11 +271,11 @@ const MASTER_CATALOG = [
     slug: 'royal-magenta-zari-embroidered-silk-blouse',
     description: 'Bespoke hand embroidery created by master artisans featuring intricate cut beads, metallic thread highlights, and padded velvet border detailing.',
     starting_price: 3200,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Work'],
     images: [
-      { id: 'sub-he-2a', image_url: 'assets/images/service_bridal.png' },
-      { id: 'sub-he-2b', image_url: 'assets/images/service_hand_embroidery.png' }
+      { id: 'sub-he-2a', image_url: 'assets/images/service_bridal.webp' },
+      { id: 'sub-he-2b', image_url: 'assets/images/service_hand_embroidery.webp' }
     ]
   },
   {
@@ -284,7 +284,7 @@ const MASTER_CATALOG = [
     slug: 'floral-lotus-aari-hand-needlework-blouse',
     description: 'Handcrafted lotus petal border embroidery with antique gold dabka wires, seed pearls, and custom elbow-length sleeve tailoring.',
     starting_price: 2800,
-    main_image_url: 'assets/images/service_hand_embroidery.png',
+    main_image_url: 'assets/images/service_hand_embroidery.webp',
     tags: ['Hand Embroidered Blouses'],
     images: []
   },
@@ -294,7 +294,7 @@ const MASTER_CATALOG = [
     slug: 'temple-border-elephant-motif-handwork-blouse',
     description: 'Traditional temple gopuram arch embroidery with miniature elephant motifs, pearl chain accents, and deep U-neck structuring.',
     starting_price: 3500,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Hand Embroidered Blouses', 'Bridal Work'],
     images: []
   },
@@ -307,10 +307,10 @@ const MASTER_CATALOG = [
     slug: 'dark-brown-silk-embroidered-blouse-scallop-sleeves',
     description: 'High-density computerized floral border embroidery crafted with color-matched Japanese silk threads on pure silk material with scallop sleeve finish.',
     starting_price: 1800,
-    main_image_url: 'assets/images/service_machine_embroidery.png',
+    main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: [
-      { id: 'sub-me-1a', image_url: 'assets/images/service_machine_embroidery.png' }
+      { id: 'sub-me-1a', image_url: 'assets/images/service_machine_embroidery.webp' }
     ]
   },
   {
@@ -320,7 +320,7 @@ const MASTER_CATALOG = [
     slug: 'geometric-mirror-work-machine-embroidered-blouse',
     description: 'Crisp computerized embroidery incorporating foil mirrors, dual-tone resham threadwork, and padded bridal bustier lining.',
     starting_price: 1600,
-    main_image_url: 'assets/images/service_machine_embroidery.png',
+    main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []
   },
@@ -331,7 +331,7 @@ const MASTER_CATALOG = [
     slug: 'intricate-vine-jaal-pattern-machine-blouse',
     description: 'All-over back jaal vine embroidery with delicate florets, tailored for Kanchipuram silk sarees with 48-hour delivery guarantee.',
     starting_price: 1950,
-    main_image_url: 'assets/images/service_machine_embroidery.png',
+    main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []
   },
@@ -341,7 +341,7 @@ const MASTER_CATALOG = [
     slug: 'neckline-butti-machine-embroidered-saree-blouse',
     description: 'Minimalist elegant scatter butti pattern with concentrated neckline thread embroidery for festive family functions.',
     starting_price: 1400,
-    main_image_url: 'assets/images/service_machine_embroidery.png',
+    main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []
   },
@@ -353,11 +353,11 @@ const MASTER_CATALOG = [
     slug: 'grand-regal-peacock-maggam-bridal-blouse',
     description: 'Showstopper bridal masterpiece with 3D embossed zardozi peacocks, authentic ruby kundan stones, and hand-dyed cotton inner lining.',
     starting_price: 4500,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Bridal Blouse & Maggam Work', 'Hand Embroidered Blouses'],
     images: [
-      { id: 'sub-br-1a', image_url: 'assets/images/service_bridal.png' },
-      { id: 'sub-br-1b', image_url: 'assets/images/service_hand_embroidery.png' }
+      { id: 'sub-br-1a', image_url: 'assets/images/service_bridal.webp' },
+      { id: 'sub-br-1b', image_url: 'assets/images/service_hand_embroidery.webp' }
     ]
   },
   {
@@ -366,7 +366,7 @@ const MASTER_CATALOG = [
     slug: 'heritage-lakshmi-kasu-maggam-bridal-blouse',
     description: 'Traditional gold Kasu coin detailing interwoven with emerald green stone cutwork and dense bridal sleeve borders.',
     starting_price: 4200,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Bridal Blouse & Maggam Work'],
     images: []
   },
@@ -376,7 +376,7 @@ const MASTER_CATALOG = [
     slug: 'cutwork-neckline-heavy-maggam-bridal-blouse',
     description: 'Bespoke scalloped cutwork along back neckline with hanging latkan pearls and French-knot silk thread fillings.',
     starting_price: 4800,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Bridal Blouse & Maggam Work'],
     images: []
   },
@@ -386,7 +386,7 @@ const MASTER_CATALOG = [
     slug: 'full-back-floral-bridal-maggam-embroidery',
     description: 'Grand full-coverage bridal back design with radiant sun medallion and matching elbow border embroidery.',
     starting_price: 5200,
-    main_image_url: 'assets/images/service_bridal.png',
+    main_image_url: 'assets/images/service_bridal.webp',
     tags: ['Bridal Blouse & Maggam Work'],
     images: []
   },
@@ -399,10 +399,10 @@ const MASTER_CATALOG = [
     slug: 'designer-pure-silk-chudidhar-salwar-suit',
     description: 'Custom fitted silk salwar suit with bespoke yoke neckline embroidery, designer palazzo/chudidhar pants, and lightweight dupatta.',
     starting_price: 1200,
-    main_image_url: 'assets/images/service_salwar.png',
+    main_image_url: 'assets/images/service_salwar.webp',
     tags: ['Kurtis & Chudidhar'],
     images: [
-      { id: 'sub-kc-1a', image_url: 'assets/images/service_salwar.png' }
+      { id: 'sub-kc-1a', image_url: 'assets/images/service_salwar.webp' }
     ]
   },
   {
@@ -412,7 +412,7 @@ const MASTER_CATALOG = [
     slug: 'straight-cut-festive-silk-kurti-zari-yoke',
     description: 'Tailored straight-cut festive kurti with gold threadwork on yoke, side slit piping, and breathable cotton lining.',
     starting_price: 950,
-    main_image_url: 'assets/images/service_salwar.png',
+    main_image_url: 'assets/images/service_salwar.webp',
     tags: ['Kurtis & Chudidhar'],
     images: []
   },
@@ -423,7 +423,7 @@ const MASTER_CATALOG = [
     slug: 'anarkali-style-flared-festive-kurti',
     description: '16-kali flared floor length anarkali kurti crafted with micro pleating, gold lace borders, and custom sleeve styling.',
     starting_price: 1800,
-    main_image_url: 'assets/images/service_salwar.png',
+    main_image_url: 'assets/images/service_salwar.webp',
     tags: ['Kurtis & Chudidhar'],
     images: []
   },
@@ -436,10 +436,10 @@ const MASTER_CATALOG = [
     slug: 'opulent-silk-festive-lehenga-choli-set',
     description: 'Custom stitched silk lehenga with waist canvas structuring, handcrafted tassel latkans, and heavy festive skirt pleating.',
     starting_price: 4200,
-    main_image_url: 'assets/images/service_lehenga.png',
+    main_image_url: 'assets/images/service_lehenga.webp',
     tags: ['Lehengas & Festive Couture', 'Bridal Work'],
     images: [
-      { id: 'sub-lh-1a', image_url: 'assets/images/service_lehenga.png' }
+      { id: 'sub-lh-1a', image_url: 'assets/images/service_lehenga.webp' }
     ]
   },
   {
@@ -449,7 +449,7 @@ const MASTER_CATALOG = [
     slug: 'bridal-velvet-raw-silk-zardozi-lehenga',
     description: 'Double flare bridal lehenga featuring 24 kali panels, antique zardozi borders, and custom padded sweetheart choli.',
     starting_price: 6500,
-    main_image_url: 'assets/images/service_lehenga.png',
+    main_image_url: 'assets/images/service_lehenga.webp',
     tags: ['Lehengas & Festive Couture', 'Bridal Work'],
     images: []
   },
@@ -460,7 +460,7 @@ const MASTER_CATALOG = [
     slug: 'floral-organza-lightweight-festive-lehenga',
     description: 'Airy printed organza lehenga with satin lining, ruffled cancan base, and contemporary sleeveless crop top.',
     starting_price: 3400,
-    main_image_url: 'assets/images/service_lehenga.png',
+    main_image_url: 'assets/images/service_lehenga.webp',
     tags: ['Lehengas & Festive Couture'],
     images: []
   },
@@ -472,7 +472,7 @@ const MASTER_CATALOG = [
     slug: 'indo-western-silk-evening-gala-gown',
     description: 'Floor-length flared designer gown with pleated bodice, hand-embellished waist belt, and premium crepe lining.',
     starting_price: 2800,
-    main_image_url: 'assets/images/service_lehenga.png',
+    main_image_url: 'assets/images/service_lehenga.webp',
     tags: ['Frocks & Gowns'],
     images: []
   },
@@ -482,7 +482,7 @@ const MASTER_CATALOG = [
     slug: 'princess-cut-birthday-reception-festive-frock',
     description: 'Multi-tiered flared tulle and silk party frock with back bow, pearl neckline, and soft cotton comfort underskirt.',
     starting_price: 2200,
-    main_image_url: 'assets/images/service_lehenga.png',
+    main_image_url: 'assets/images/service_lehenga.webp',
     tags: ['Frocks & Gowns'],
     images: []
   },
@@ -494,7 +494,7 @@ const MASTER_CATALOG = [
     slug: 'artisanal-metallic-wire-hand-zardozi-work',
     description: 'Bespoke hand embroidery created by master artisans featuring intricate cut beads, metallic thread highlights, and padded velvet border detailing.',
     starting_price: 2500,
-    main_image_url: 'assets/images/service_hand_embroidery.png',
+    main_image_url: 'assets/images/service_hand_embroidery.webp',
     tags: ['Zardozi Work', 'Hand Embroidered Blouses'],
     images: []
   },
@@ -504,7 +504,7 @@ const MASTER_CATALOG = [
     slug: 'antique-copper-wire-floral-zardozi-sleeves',
     description: 'Dull gold and copper wire hand-embroidery on sleeve borders with sequin centers and relief padding.',
     starting_price: 2900,
-    main_image_url: 'assets/images/service_hand_embroidery.png',
+    main_image_url: 'assets/images/service_hand_embroidery.webp',
     tags: ['Zardozi Work'],
     images: []
   }

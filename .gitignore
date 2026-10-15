@@ -4,3 +4,6 @@ node_modules/
 Thumbs.db
 .vercel
 raw_uploads/
+package.json
+package-lock.json
+
