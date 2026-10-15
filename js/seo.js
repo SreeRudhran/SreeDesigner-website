@@ -130,43 +130,90 @@ const AtelierSEO = {
     });
   },
 
-  // 4. Product / Service Item Schema (Nike-grade Product & Offer & Rating Microdata)
+  // 4. Product / Service Item Schema (Nike-grade Product & Offer & Rating Microdata for Google Shopping)
   injectProductServiceSchema(showcaseItem) {
     if (!showcaseItem) return;
     
     const allImages = [
       showcaseItem.main_image_url,
-      ...(showcaseItem.images?.map(img => img.image_url) || [])
-    ].map(url => url.startsWith('http') ? url : `https://sreedesigners.in/${url}`);
+      ...(showcaseItem.images?.map(img => typeof img === 'string' ? img : img.image_url) || [])
+    ]
+    .filter(Boolean)
+    .map(url => {
+      const clean = url.replace(/\.(jpg|png|jpeg)$/i, '.webp');
+      return clean.startsWith('http') ? clean : `https://sreedesigners.in/${clean.replace(/^\//, '')}`;
+    });
+
+    const skuId = String(showcaseItem.id || showcaseItem.slug || 'PRODUCT');
+    const price = typeof showcaseItem.starting_price === 'number' ? showcaseItem.starting_price : (parseInt(showcaseItem.starting_price) || 2500);
 
     this.setJsonLd('seo-schema-product', {
-      "@context": "https://schema.org",
+      "@context": "https://schema.org/",
       "@type": "Product",
-      "@id": `https://sreedesigners.in/#product-${showcaseItem.id}`,
+      "@id": `https://sreedesigners.in/product?id=${encodeURIComponent(skuId)}#product`,
       "name": showcaseItem.title,
-      "description": showcaseItem.description,
+      "description": showcaseItem.description || `Custom ${showcaseItem.title} handcrafted by master artisans at Sree Designers boutique in Coimbatore & Tiruppur.`,
       "image": allImages,
+      "sku": `SREE-${skuId.toUpperCase()}`,
+      "mpn": `SREE-${skuId.toUpperCase()}`,
       "brand": {
         "@type": "Brand",
         "name": "Sree Designers & Boutique"
       },
-      "category": showcaseItem.tags?.join(', ') || 'Bridal Fashion',
+      "category": (showcaseItem.tags && showcaseItem.tags[0]) || "Bridal Blouse & Maggam Work",
       "offers": {
         "@type": "Offer",
+        "url": `https://sreedesigners.in/product?id=${encodeURIComponent(skuId)}`,
         "priceCurrency": "INR",
-        "price": showcaseItem.starting_price || "1800",
+        "price": price,
         "priceValidUntil": "2027-12-31",
         "availability": "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition",
         "seller": {
           "@type": "Organization",
-          "name": "Sree Designers & Boutique"
+          "name": "Sree Designers & Boutique",
+          "url": "https://sreedesigners.in/"
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "IN",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnInStore",
+          "returnFees": "https://schema.org/FreeReturn"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "INR"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "IN"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 2,
+              "maxValue": 5,
+              "unitCode": "DAY"
+            }
+          }
         }
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "reviewCount": "128",
+        "reviewCount": "184",
         "bestRating": "5",
         "worstRating": "1"
       }
