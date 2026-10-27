@@ -633,4 +633,48 @@
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
+  <url>
+    <loc>https://sreedesigners.in/blog/aari-work-blouse-designs-muhurtham-silk-sarees</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blog_muhurtham_aari.webp</image:loc>
+      <image:title>Muhurtham Aari Work Blouse Designs for Kanchipuram Sarees 2026</image:title>
+      <image:caption>Divine Muhurtham Aari work blouse with pure gold zari and temple motifs by Sree Designers.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/blog/how-to-take-blouse-measurements-perfect-fitting-guide</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blog_blouse_measurement.webp</image:loc>
+      <image:title>How to Take Saree Blouse Measurements for Zero-Gap Fitting</image:title>
+      <image:caption>Master tailor guide to taking precise saree blouse measurements for local and NRI brides.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/blog/best-fabrics-for-aari-maggam-embroidery-blouses</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blog_embroidery_fabrics.webp</image:loc>
+      <image:title>Best Fabrics for Aari and Maggam Work Blouses 2026</image:title>
+      <image:caption>Comprehensive guide comparing pure raw silk, brocade, organza, and velvet for heavy hand embroidery.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sreedesigners.in/blog/mom-daughter-matching-outfits-pattu-pavadai-guide</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sreedesigners.in/assets/images/blog_mom_daughter_pattu.webp</image:loc>
+      <image:title>Mom and Daughter Matching Outfits and Kids Pattu Pavadai Guide 2026</image:title>
+      <image:caption>Royal Mom and Daughter twinning outfits and handcrafted kids Pattu Pavadai by Sree Designers.</image:caption>
+    </image:image>
+  </url>
 </urlset>

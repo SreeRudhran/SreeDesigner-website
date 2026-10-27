@@ -1556,6 +1556,59 @@ const MASTER_BLOGS = [
       }
     ]
   }
+,
+
+  {
+    "id": "blog-aari-work-blouse-designs-muhurtham-silk-sarees",
+    "slug": "/blog/aari-work-blouse-designs-muhurtham-silk-sarees",
+    "title": "25+ Muhurtham Aari Work Blouse Designs for Kanchipuram Sarees in 2026: Pure Zari, Sacred Motifs & Wedding Ritual Styling",
+    "category": "Bridal Trends",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Principal Bridal Pattern Master",
+    "date": "October 27, 2026",
+    "read_time": "9 min read",
+    "featured_image": "assets/images/blog_muhurtham_aari_card.webp",
+    "excerpt": "Explore 25+ divine Muhurtham Aari work blouse designs for Kanchipuram silk sarees in 2026. Master guide on sacred temple motifs, kasu coin necklines, pooja homam comfort, padded cup architecture, and wedding blouse stitching in Coimbatore & Tiruppur."
+  },
+
+  {
+    "id": "blog-how-to-take-blouse-measurements-perfect-fitting-guide",
+    "slug": "/blog/how-to-take-blouse-measurements-perfect-fitting-guide",
+    "title": "How to Take Saree Blouse Measurements for Zero-Gap Fitting: Step-by-Step Master Tailor Guide for Local & NRI Brides (2026)",
+    "category": "Stitching Guide",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Principal Bridal Pattern Master",
+    "date": "October 27, 2026",
+    "read_time": "10 min read",
+    "featured_image": "assets/images/blog_blouse_measurement_card.webp",
+    "excerpt": "Master guide to taking exact saree blouse measurements for zero back gaping, no falling shoulders, and flawless padded cup lift. Detailed 14-point measurement chart, armhole calculation, and WhatsApp video measurement instructions for NRI brides worldwide."
+  },
+
+  {
+    "id": "blog-best-fabrics-for-aari-maggam-embroidery-blouses",
+    "slug": "/blog/best-fabrics-for-aari-maggam-embroidery-blouses",
+    "title": "Best Fabrics for Aari & Maggam Work Blouses: Raw Silk, Brocade, Organza & Velvet Compared (2026 Guide)",
+    "category": "Embroidery Care",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Principal Bridal Pattern Master",
+    "date": "October 27, 2026",
+    "read_time": "8 min read",
+    "featured_image": "assets/images/blog_embroidery_fabrics_card.webp",
+    "excerpt": "Discover the best blouse fabrics for heavy Aari and Maggam embroidery in 2026. Comprehensive analysis of pure raw silk, Kanchipuram brocade, sheer organza, micro-velvet, cambric cotton lining, and needle puncture durability by Sree Designers."
+  },
+
+  {
+    "id": "blog-mom-daughter-matching-outfits-pattu-pavadai-guide",
+    "slug": "/blog/mom-daughter-matching-outfits-pattu-pavadai-guide",
+    "title": "Mom & Daughter Matching Outfits & Kids Pattu Pavadai Guide: South Indian Festive Couture Trends 2026",
+    "category": "Festive Couture",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Children's Couture Specialist",
+    "date": "October 27, 2026",
+    "read_time": "9 min read",
+    "featured_image": "assets/images/blog_mom_daughter_pattu_card.webp",
+    "excerpt": "Discover royal Mom & Daughter matching outfits and handcrafted kids Pattu Pavadai designs in 2026. Explore pure Kanchipuram silk skirts, baby-safe soft cotton linings, zero-itch seams, and custom festive family couture by Sree Designers."
+  }
 ];
 
 // Helper to get unified list of blogs (Master + Custom Admin uploaded blogs)
