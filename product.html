@@ -710,9 +710,7 @@
         </div>
 
         <div class="price-wrap">
-          <span class="price-main" id="productPrice">₹3,800</span>
-          <span class="price-original" id="productMRP" style="text-decoration:line-through; color:var(--ink-soft);">₹5,500</span>
-          <span id="productDiscount" style="font-size:0.8rem; background:rgba(212,175,55,0.18); color:var(--gold-dark); padding:4px 10px; border-radius:999px; font-weight:600;">SAVE 30%</span>
+          <span class="price-main" id="productPrice">Starting from ₹1,800</span>
         </div>
 
         <p id="productDesc" style="color:var(--ink-soft); font-size:0.95rem; margin-bottom:28px; line-height:1.65;">
@@ -890,18 +888,13 @@
       if (titleEl) titleEl.textContent = item.title;
 
       // 4b. DYNAMIC PRICE — MRP is calculated as price / 0.7 (30% off)
-      const salePrice  = parseFloat(item.starting_price) || 3800;
-      const DISCOUNT   = 30; // default 30% off
-      const mrpPrice   = Math.round(salePrice / (1 - DISCOUNT / 100));
-
+      const salePrice  = parseFloat(item.starting_price) || 1800;
       const priceEl = document.getElementById('productPrice');
-      if (priceEl) priceEl.textContent = `₹${salePrice.toLocaleString('en-IN')}`;
-
+      if (priceEl) priceEl.textContent = `Starting from ₹${salePrice.toLocaleString('en-IN')}`;
       const mrpEl = document.getElementById('productMRP');
-      if (mrpEl) mrpEl.textContent = `₹${mrpPrice.toLocaleString('en-IN')}`;
-
+      if (mrpEl) mrpEl.style.display = 'none';
       const discEl = document.getElementById('productDiscount');
-      if (discEl) discEl.textContent = `SAVE ${DISCOUNT}%`;
+      if (discEl) discEl.style.display = 'none';
 
       const descEl = document.getElementById('productDesc');
       if (descEl) descEl.textContent = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';

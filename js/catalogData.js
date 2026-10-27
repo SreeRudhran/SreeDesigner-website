@@ -306,8 +306,7 @@ const MASTER_CATALOG = [
     title: 'Dark Brown Silk Embroidered Blouse with Scallop Sleeves',
     slug: 'dark-brown-silk-embroidered-blouse-scallop-sleeves',
     description: 'High-density computerized floral border embroidery crafted with color-matched Japanese silk threads on pure silk material with scallop sleeve finish.',
-    starting_price: 1800,
-    main_image_url: 'assets/images/service_machine_embroidery.webp',
+    starting_price: 1200, main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: [
       { id: 'sub-me-1a', image_url: 'assets/images/service_machine_embroidery.webp' }
@@ -319,7 +318,7 @@ const MASTER_CATALOG = [
     title: 'Geometric Mirror Work Machine Embroidered Blouse',
     slug: 'geometric-mirror-work-machine-embroidered-blouse',
     description: 'Crisp computerized embroidery incorporating foil mirrors, dual-tone resham threadwork, and padded bridal bustier lining.',
-    starting_price: 1600,
+    starting_price: 1200,
     main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []
@@ -329,8 +328,8 @@ const MASTER_CATALOG = [
     is_featured: true,
     title: 'Intricate Vine & Jaal Pattern Machine Blouse',
     slug: 'intricate-vine-jaal-pattern-machine-blouse',
-    description: 'All-over back jaal vine embroidery with delicate florets, tailored for Kanchipuram silk sarees with 48-hour delivery guarantee.',
-    starting_price: 1950,
+    description: 'All-over back jaal vine embroidery with delicate florets, tailored for Kanchipuram silk sarees with 48-hour express delivery.',
+    starting_price: 1200,
     main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []
@@ -340,7 +339,7 @@ const MASTER_CATALOG = [
     title: 'Neckline Butti Machine Embroidered Saree Blouse',
     slug: 'neckline-butti-machine-embroidered-saree-blouse',
     description: 'Minimalist elegant scatter butti pattern with concentrated neckline thread embroidery for festive family functions.',
-    starting_price: 1400,
+    starting_price: 1200,
     main_image_url: 'assets/images/service_machine_embroidery.webp',
     tags: ['Machine Embroidered Blouse'],
     images: []

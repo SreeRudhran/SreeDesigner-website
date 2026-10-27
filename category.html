@@ -562,23 +562,19 @@
       }
 
       container.innerHTML = items.map(item => {
-        const salePrice = parseFloat(item.starting_price) || 2500;
-        const mrpPrice = Math.round(salePrice / 0.7); // 30% discount
+        const salePrice = parseFloat(item.starting_price) || 1800;
         const imgUrl = item.main_image_url || 'assets/images/service_bridal.webp';
 
         return `
           <div class="cat-product-card">
             <div class="cat-product-img-wrap">
               <img src="${imgUrl}" alt="${item.title}" class="cat-product-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;" onerror="this.src='assets/images/service_bridal.webp'">
-              <span class="discount-tag">30% OFF</span>
             </div>
             <div class="cat-product-body">
               <div>
                 <h3 class="cat-product-title">${item.title}</h3>
                 <div class="price-row">
-                  <span class="price-sale">₹${salePrice.toLocaleString('en-IN')}</span>
-                  <span class="price-mrp">₹${mrpPrice.toLocaleString('en-IN')}</span>
-                  <span class="price-badge">30% Off</span>
+                  <span class="price-sale">Starting from ₹${salePrice.toLocaleString('en-IN')}</span>
                 </div>
                 <p class="cat-product-desc">${item.description || 'Handcrafted bespoke garment tailored to perfection.'}</p>
               </div>
