@@ -3271,6 +3271,286 @@
       }
     }
 
+  
+    /* =============================================
+       SIMPLIFIED MOBILE-FIRST SECTIONS & HEADER STYLES
+    ============================================= */
+    .diva-header-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 0 16px !important;
+      height: 64px !important;
+    }
+    .diva-header-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      margin-left: auto !important;
+    }
+    .header-book-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 44px !important;
+      min-width: 68px !important;
+      padding: 0 16px !important;
+      border-radius: 999px !important;
+      background: var(--ink) !important;
+      color: #ffffff !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      text-decoration: none !important;
+    }
+    .menu-btn {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 44px !important;
+      min-width: 44px !important;
+      padding: 8px !important;
+      background: none !important;
+      border: none !important;
+      cursor: pointer !important;
+    }
+    .menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #222222;
+      margin: 4px 0;
+      transition: 0.3s;
+    }
+
+    .mobile-menu-drawer.open,
+    .mobile-menu-drawer.active {
+      transform: translateX(0) !important;
+      visibility: visible !important;
+    }
+    .mobile-menu-backdrop.open,
+    .mobile-menu-backdrop.active {
+      display: block !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* SECTION 3: TRUST STRIP */
+    .trust-strip-section {
+      padding: 12px 0;
+      background: #fdfbf9;
+      border-bottom: 1px solid var(--line);
+    }
+    .trust-chips-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #ffffff;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: #3d3d3d;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .trust-chip svg {
+      color: var(--gold-dark);
+      flex-shrink: 0;
+    }
+    @media (max-width: 390px) {
+      .trust-chips-row {
+        gap: 6px;
+      }
+      .trust-chip {
+        padding: 5px 8px;
+        font-size: 0.72rem;
+        gap: 4px;
+      }
+    }
+
+    /* SECTION 4: OUR WORK HORIZONTALLY SWIPEABLE ROW */
+    #our-work {
+      padding: 48px 0;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .our-work-scroll-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 4px 18px;
+      scrollbar-width: none;
+    }
+    .our-work-scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+    .our-work-card {
+      flex: 0 0 200px;
+      scroll-snap-align: start;
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    @media (min-width: 768px) {
+      .our-work-card {
+        flex: 0 0 240px;
+      }
+    }
+    .our-work-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .our-work-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #f5ebe6;
+    }
+    .our-work-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .our-work-body {
+      padding: 12px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .our-work-title {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a1512;
+      margin: 0 0 6px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .our-work-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+    .our-work-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 44px;
+    }
+
+    /* SECTION 7: COMPACT VERTICAL PROCESS LIST */
+    #process {
+      padding: 48px 0;
+    }
+    @media (max-width: 768px) {
+      #process {
+        padding: 36px 0;
+      }
+      .process-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-top: 24px !important;
+      }
+      .process-card {
+        padding: 16px 18px !important;
+        border-radius: 12px !important;
+      }
+      .process-card h3 {
+        font-size: 1.1rem !important;
+        margin: 8px 0 4px !important;
+      }
+      .process-card p {
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* SECTION 10: CLEAN FOOTER */
+    footer {
+      background: #181412;
+      color: #ffffff;
+      padding: 44px 0 32px;
+    }
+    .footer-wrap {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .footer-brand-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px 22px;
+      margin-bottom: 24px;
+    }
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .footer-links a:hover {
+      color: var(--gold-light);
+    }
+    .footer-copy {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
   </style>
 
   <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
@@ -3379,54 +3659,22 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <!-- MINIMAL LUXURY TOP NAVIGATION HEADER (DIVA STYLE) -->
+  <!-- SECTION 1: HEADER (LOGO, HAMBURGER MENU, "BOOK" BUTTON, ONE MENU ONLY) -->
   <header class="diva-header">
     <div class="diva-header-container">
-      <!-- Left Column: Search Bar -->
-      <div class="diva-search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <input type="text" class="diva-search-input" placeholder="Search..." id="headerSearchInput" aria-label="Search collection">
-      </div>
+      <!-- Logo -->
+      <a href="/" class="diva-brand-logo" aria-label="Sree Designers &amp; Boutique Home">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="40" height="40">
+        <div class="diva-logo-text">
+          SREE DESIGNERS &amp; BOUTIQUE
+          <span>FASHION ATELIER</span>
+        </div>
+      </a>
 
-      <!-- Center Column: Logo & Categories -->
-      <div class="diva-header-center">
-        <a href="#" class="diva-brand-logo" aria-label="Sree Designers Home">
-          <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="40" height="40">
-          <div class="diva-logo-text">
-            SREE DESIGNERS &amp; BOUTIQUE
-            <span>FASHION ATELIER</span>
-          </div>
-        </a>
-
-        <!-- DIVA Minimal Category Navigation Bar -->
-        <nav class="diva-categories-nav" aria-label="Category navigation">
-          <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work">Bridal Blouse</a>
-          <a href="category?cat=Hand%20Embroidered%20Blouses">Aari &amp; Maggam Work</a>
-          <a href="category?cat=Machine%20Embroidered%20Blouse">Machine Embroidery</a>
-          <a href="category?cat=Lehengas%20%26%20Festive%20Couture">Lehengas</a>
-          <a href="#enquiry" onclick="selectFittingService('Alterations &amp; Re-fitting')">Alterations</a>
-          <a href="#enquiry">Book Fitting</a>
-        </nav>
-      </div>
-
-      <!-- Right Column: Slim Book Button & Mobile Menu -->
+      <!-- Right: Book Button + Hamburger Menu -->
       <div class="diva-header-right">
-        <!-- Slim Mobile Book Button -->
         <a href="#enquiry" class="header-book-btn">Book</a>
-
-        <!-- Account / User Icon (Desktop) -->
-        <a href="#enquiry" class="diva-icon-btn header-account-icon" aria-label="User Fitting Account" title="Book Fitting / Account">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </a>
-
-        <!-- Mobile Menu Toggle Button -->
-        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobileMenuDrawer">
           <span></span>
           <span></span>
         </button>
@@ -3434,7 +3682,7 @@
     </div>
   </header>
 
-  <!-- MOBILE NAVIGATION DRAWER & BACKDROP -->
+  <!-- ONE MENU ONLY (HAMBURGER DRAWER WITH 6 EXACT LINKS) -->
   <div class="mobile-menu-drawer" id="mobileMenuDrawer" aria-hidden="true">
     <div class="mobile-menu-header">
       <div class="brand">
@@ -3448,851 +3696,146 @@
     </div>
     <nav class="mobile-menu-links">
       <a href="#hero" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
-      <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="mobile-nav-link" onclick="closeMobileMenu()">Bridal Blouse</a>
-      <a href="category?cat=Hand%20Embroidered%20Blouses" class="mobile-nav-link" onclick="closeMobileMenu()">Aari &amp; Maggam Work</a>
-      <a href="category?cat=Machine%20Embroidered%20Blouse" class="mobile-nav-link" onclick="closeMobileMenu()">Machine Embroidery</a>
-      <a href="category?cat=Lehengas%20%26%20Festive%20Couture" class="mobile-nav-link" onclick="closeMobileMenu()">Lehengas</a>
-      <a href="#enquiry" class="mobile-nav-link" onclick="closeMobileMenu(); selectFittingService('Alterations &amp; Re-fitting');">Alterations</a>
-      <a href="#enquiry" class="mobile-nav-link" onclick="closeMobileMenu()">Book Fitting</a>
-      <a href="/blog" class="mobile-nav-link" onclick="closeMobileMenu()">Bridal Style Journal</a>
-      <a href="#reels" class="mobile-nav-link" onclick="closeMobileMenu()">Atelier Reels</a>
-      <a href="#stores" class="mobile-nav-link" onclick="closeMobileMenu()">Our Studios</a>
-      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-menu-cta">💬 Book Studio Fitting on WhatsApp</a>
+      <a href="#our-work" class="mobile-nav-link" onclick="closeMobileMenu()">Our Work</a>
+      <a href="#reels" class="mobile-nav-link" onclick="closeMobileMenu()">Reels</a>
+      <a href="#process" class="mobile-nav-link" onclick="closeMobileMenu()">How It Works</a>
+      <a href="#stores" class="mobile-nav-link" onclick="closeMobileMenu()">Visit Us</a>
+      <a href="#enquiry" class="mobile-nav-link mobile-nav-btn" onclick="closeMobileMenu()">Book Fitting</a>
     </nav>
   </div>
   <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
 
-  <!-- MINIMAL LUXURY HERO CAROUSEL (DIVA EDITORIAL STYLE) -->
-  <section class="minimal-hero-carousel" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier Hero Carousel">
+  <!-- SECTION 2: HERO (ONLY FIRST BRIDAL SLIDE, ONE BUTTON: "Book Fitting on WhatsApp") -->
+  <section class="minimal-hero-carousel" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier Hero">
     <div class="hero-slides-wrapper" id="heroSlidesWrapper">
-      <!-- Slide 1: The Bridal Edit (Exact Replica of Attachment 3) -->
       <div class="hero-slide active" data-index="0">
         <img src="assets/images/hero_slide_bridal_exact.webp" srcset="assets/images/hero_slide_bridal_exact-mobile.webp 600w, assets/images/hero_slide_bridal_exact.webp 1024w" sizes="100vw" width="1024" height="441" alt="Sree Designers Bridal Blouse Atelier Drape" class="hero-slide-bg" loading="eager" fetchpriority="high" decoding="async">
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-content content-right">
           <div class="hero-text-box">
             <div class="hero-eyebrow">THE BRIDAL EDIT</div>
-            <h1 class="hero-title-diva">Wear Your Story, Wear Your Sree</h1>
+            <h1 class="hero-title-diva" id="heroTitle">Wear Your Story, Wear Your Sree</h1>
             <p class="hero-tamil-tagline">"உங்கள் கனவு ப்ளவுஸ், எங்கள் கைவண்ணத்தில்"</p>
             <p class="hero-desc-diva">Heirloom silks and hand-finished maggam drapes, made for the vows you'll always remember.</p>
-            <a href="#enquiry" class="hero-pill-btn">Book Your Fitting</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 2: Two Palettes (Exact Replica of Attachment 2) -->
-      <div class="hero-slide" data-index="1">
-        <img src="assets/images/hero_slide_express.webp" srcset="assets/images/hero_slide_express-mobile.webp 600w, assets/images/hero_slide_express.webp 1024w" sizes="100vw" width="1024" height="1024" alt="Sky Blue and Fuchsia Silk Sets" class="hero-slide-bg" loading="lazy" decoding="async">
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content content-left">
-          <div class="hero-text-box">
-            <div class="hero-eyebrow">JUST IN</div>
-            <h2 class="hero-title-diva">Two Palettes, One Sree Moment</h2>
-            <p class="hero-desc-diva">Sky blue and fuchsia silk sets, styled for festive gatherings.</p>
-            <a href="#enquiry" class="hero-pill-btn">Book Your Fitting</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3: Evening Radiance & Crimson Velvet -->
-      <div class="hero-slide" data-index="2">
-        <img src="assets/images/hero_slide_crimson.webp" srcset="assets/images/hero_slide_crimson-mobile.webp 600w, assets/images/hero_slide_crimson.webp 1024w" sizes="100vw" width="1024" height="1024" alt="Hand Embroidered Crimson Silk Blouses" class="hero-slide-bg" loading="lazy" decoding="async">
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content content-left">
-          <div class="hero-text-box">
-            <div class="hero-eyebrow">EVENING RADIANCE</div>
-            <h2 class="hero-title-diva">Crimson Velvet, Cut for the Evening</h2>
-            <p class="hero-desc-diva">Hand-embroidered blouses and gowns in deep crimson, for candlelit celebrations.</p>
-            <a href="category?cat=Hand%20Embroidered%20Blouses" class="hero-pill-btn">EXPLORE EVENING WEAR</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 4: Bespoke Lehengas -->
-      <div class="hero-slide" data-index="3">
-        <img src="assets/images/hero_slide_lehenga.webp" srcset="assets/images/hero_slide_lehenga-mobile.webp 600w, assets/images/hero_slide_lehenga.webp 1024w" sizes="100vw" width="1024" height="1024" alt="Bridal Silk Lehenga Couture" class="hero-slide-bg" loading="lazy" decoding="async">
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content content-right">
-          <div class="hero-text-box">
-            <div class="hero-eyebrow">ROYAL HERITAGE</div>
-            <h2 class="hero-title-diva">Bespoke Lehengas &amp; Hand Zardozi</h2>
-            <p class="hero-desc-diva">Structured padded fittings, 3D peacock wire work, and padded cholis built to perfection.</p>
-            <a href="category?cat=Lehengas%20%26%20Festive%20Couture" class="hero-pill-btn">DISCOVER LEHENGAS</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Minimal Arrow Navigation -->
-    <button class="hero-nav-arrow hero-nav-prev" id="heroPrevBtn" aria-label="Previous Slide">‹</button>
-    <button class="hero-nav-arrow hero-nav-next" id="heroNextBtn" aria-label="Next Slide">›</button>
-
-    <!-- Centered Minimal Dots Indicator Bar -->
-    <div class="hero-dots-nav" id="heroDotsNav" aria-label="Carousel pagination">
-      <button class="hero-dot active" data-slide="0" aria-label="Go to slide 1"></button>
-      <button class="hero-dot" data-slide="1" aria-label="Go to slide 2"></button>
-      <button class="hero-dot" data-slide="2" aria-label="Go to slide 3"></button>
-      <button class="hero-dot" data-slide="3" aria-label="Go to slide 4"></button>
-    </div>
-  </section>
-
-  <!-- ROYAL ARCH INDIAN PALACE FESTIVE COUTURE BANNER -->
-  <section class="royal-festive-section">
-    <div class="wrap">
-      <div class="royal-arch-banner">
-        <div class="royal-arch-content">
-          <div class="arch-motif-tag">
-            <span>✨</span> CELEBRATE WEDDINGS IN STYLE
-          </div>
-          <h2>Bridal Silk Blouse Craftsmanship &amp; Hand Zardozi Artistry</h2>
-          <p>Handcrafted Kanchipuram silk blouses, 3D peacock zardozi wires, and opulent bridal lehenga ensembles tailored exclusively at our Coimbatore &amp; Tiruppur ateliers.</p>
-          <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-royal-gold">
-            Explore Bridal Couture →
-          </a>
-        </div>
-        <div class="royal-arch-visual">
-          <div class="arch-frame-shape"></div>
-          <img src="assets/images/blouse_bridal_kanchipuram_red_arch.webp" alt="Royal South Indian Bridal Silk Blouse Couture" width="480" height="640" loading="lazy" decoding="async" style="object-fit:cover; object-position:center top; aspect-ratio:3/4;">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STRUCTURED "SHOP BY CATEGORIES" SECTION (FASHION4WORLD INSPIRED) -->
-  <section class="shop-by-categories-section" id="categories">
-    <div class="wrap">
-      <div class="section-head" style="text-align:center; max-width:680px; margin:0 auto 48px;">
-        <span class="eyebrow">Atelier Collections</span>
-        <h2 style="font-size:2.4rem; margin:8px 0 12px;">Bridal Blouses, Aari Maggam Work &amp; Festive Couture</h2>
-        <p style="color:var(--ink-soft); font-size:1rem;">Handcrafted South Indian couture tailored to your exact measurements.</p>
-      </div>
-
-      <!-- SHELF 1: HAND EMBROIDERED BLOUSES -->
-      <div class="category-shelf">
-
-        <div class="category-shelf-header">
-          <div>
-            <h3>Hand Embroidered Silk Blouses</h3>
-            <p>Bespoke hand-sewn metallic wires, cut beads &amp; kundan stones.</p>
-          </div>
-          <a href="category?cat=Hand%20Embroidered%20Blouses" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; color:var(--gold-dark); letter-spacing:0.06em;">View All →</a>
-        </div>
-        <div class="shelf-products-grid" id="shelf-grid-hand-embroidery">
-          <a href="product?id=prod-real-crimson-red-maggam" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/blouse_bridal_red_maggam_back.webp" alt="Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,800</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-real-bottle-green-zigzag" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/blouse_bottle_green_zigzag_net_back.webp" alt="Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,800</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-real-purple-contrast-net" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/blouse_royal_purple_illusion_net_back.webp" alt="Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,800</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-        </div>
-        <div class="shelf-center-cta">
-          <a href="category?cat=Hand%20Embroidered%20Blouses" class="btn-view-all-pill">
-            View All Hand Embroidery (12+) →
-          </a>
-        </div>
-      </div>
-
-      <!-- SHELF 2: MACHINE EMBROIDERED BLOUSE -->
-      <div class="category-shelf">
-
-        <div class="category-shelf-header">
-          <div>
-            <h3>Precision Machine Embroidered Blouses</h3>
-            <p>High-density computerized floral &amp; geometric repeats with 48-hour delivery.</p>
-          </div>
-          <a href="category?cat=Machine%20Embroidered%20Blouse" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; color:var(--gold-dark); letter-spacing:0.06em;">View All →</a>
-        </div>
-        <div class="shelf-products-grid" id="shelf-grid-machine-embroidery">
-          <a href="product?id=prod-me-1" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery_card.webp" alt="Dark Brown Silk Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Dark Brown Silk Embroidered Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,200</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-me-2" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery_card.webp" alt="Mirror Work Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Geometric Mirror Work Machine Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,200</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-me-3" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery_card.webp" alt="Vine Jaal Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Intricate Vine &amp; Jaal Pattern Machine Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,200</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-me-4" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_machine_embroidery_card.webp" alt="Neckline Butti Blouse" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Neckline Butti Machine Saree Blouse</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,200</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Blouse →</span>
-            </div>
-          </a>
-        </div>
-        <div class="shelf-center-cta">
-          <a href="category?cat=Machine%20Embroidered%20Blouse" class="btn-view-all-pill">
-            View All Machine Embroidery (8+) →
-          </a>
-        </div>
-      </div>
-
-      <!-- SHELF 3: LEHENGAS & FESTIVE COUTURE -->
-      <div class="category-shelf">
-        <div class="category-shelf-header">
-          <div>
-            <h3>Opulent Lehengas &amp; Festive Couture</h3>
-            <p>Double-flare festive skirts, waist canvas structuring, and sweetheart crop tops.</p>
-          </div>
-          <a href="category?cat=Lehengas%20%26%20Festive%20Couture" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; color:var(--gold-dark); letter-spacing:0.06em;">View All →</a>
-        </div>
-        <div class="shelf-products-grid" id="shelf-grid-lehengas">
-          <a href="product?id=prod-lh-1" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga_card.webp" alt="Silk Festive Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Opulent Silk Festive Lehenga Choli Set</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹3,500</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Lehenga →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-lh-2" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga_card.webp" alt="Bridal Velvet Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Bridal Velvet &amp; Raw Silk Zardozi Lehenga</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹6,500</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Lehenga →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-lh-3" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_lehenga_card.webp" alt="Organza Festive Lehenga" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Floral Organza Lightweight Festive Lehenga</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,800</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Lehenga →</span>
-            </div>
-          </a>
-        </div>
-        <div class="shelf-center-cta">
-          <a href="category?cat=Lehengas%20%26%20Festive%20Couture" class="btn-view-all-pill">
-            View All Festive Couture →
-          </a>
-        </div>
-      </div>
-
-      <!-- SHELF 4: KURTIS, SALWAR & CHUDIDHAR -->
-      <div class="category-shelf">
-        <div class="category-shelf-header">
-          <div>
-            <h3>Designer Kurtis, Salwar &amp; Chudidhar</h3>
-            <p>Comfort-fit daily &amp; partywear salwar suit stitching, boat-neck tops &amp; pants.</p>
-          </div>
-          <a href="category?cat=Kurtis%20%26%20Chudidhar" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; color:var(--gold-dark); letter-spacing:0.06em;">View All →</a>
-        </div>
-        <div class="shelf-products-grid" id="shelf-grid-salwar">
-          <a href="product?id=prod-kc-1" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_salwar_card.webp" alt="Pure Silk Chudidhar" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Designer Pure Silk Chudidhar &amp; Patterned Salwar Suit</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,100</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Suit →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-kc-2" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_salwar_card.webp" alt="Straight Cut Kurti" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Straight Cut Festive Silk Kurti with Zari Yoke</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,100</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Kurti →</span>
-            </div>
-          </a>
-
-          <a href="product?id=prod-kc-3" class="shelf-card">
-            <div class="shelf-card-img-wrap">
-              <img src="assets/images/service_salwar_card.webp" alt="Anarkali Flared Kurti" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-              </div>
-            <div class="shelf-card-body">
-              <div>
-                <h4 class="shelf-card-title">Anarkali Style Flared Festive Kurti</h4>
-                <div class="shelf-price-row"><span class="shelf-price-sale">Starting from ₹1,650</span></div>
-              </div>
-              <span class="shelf-btn-view">Explore Kurti →</span>
-            </div>
-          </a>
-        </div>
-        <div class="shelf-center-cta">
-          <a href="category?cat=Kurtis%20%26%20Chudidhar" class="btn-view-all-pill">
-            View All Kurtis &amp; Salwar →
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- TRUST ASSURANCE BADGES ROW -->
-  <section class="trust-badges-bar">
-    <div class="wrap">
-      <div class="trust-grid">
-        <div class="trust-item">
-          <div class="trust-icon">⚡</div>
-          <div class="trust-text">
-            <h4>48-Hour Rapid Delivery</h4>
-            <p>Emergency bridal blouse turnaround across Coimbatore &amp; Tiruppur.</p>
-          </div>
-        </div>
-
-        <div class="trust-item">
-          <div class="trust-icon">🧵</div>
-          <div class="trust-text">
-            <h4>100% Pure Silk &amp; Zari</h4>
-            <p>Authentic metallic wires, kundan gems &amp; silk linings.</p>
-          </div>
-        </div>
-
-        <div class="trust-item">
-          <div class="trust-icon">✂️</div>
-          <div class="trust-text">
-            <h4>Precision Trial Fitting</h4>
-            <p>Bespoke padded cups and zero-adjustment precision fit on trial.</p>
-          </div>
-        </div>
-
-        <div class="trust-item">
-          <div class="trust-icon">💬</div>
-          <div class="trust-text">
-            <h4>Master Artisan Support</h4>
-            <p>Direct 1-on-1 WhatsApp consultation with boutique head designers.</p>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="hero-pill-btn">Book Fitting on WhatsApp</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS — SERVICE BOUTIQUE PROCESS -->
-  <section class="section-alt" id="process" style="padding: 90px 0;">
+  <!-- SECTION 3: TRUST STRIP (3 SMALL CHIPS IN ONE ROW) -->
+  <section class="trust-strip-section" id="trust-strip" aria-label="Why Choose Sree Designers">
     <div class="wrap">
-      <div class="section-head" style="text-align: center; max-width: 680px; margin: 0 auto 40px;">
-        <span class="eyebrow">Service Boutique Journey</span>
-        <h2 style="font-size: 2.3rem; margin: 8px 0 12px;">How Bespoke Tailoring &amp; Embroidery Works</h2>
-        <p style="color: var(--ink-soft); font-size: 1rem;">A seamless 4-step artisan experience from fabric drop-off to precision trial fitting and delivery.</p>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-card">
-          <div class="process-card-header">
-            <span class="process-badge">STEP 01</span>
-            <div class="process-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            </div>
-          </div>
-          <h3>Bring Your Fabric</h3>
-          <p>Bring your saree blouse material, silk cloth, or lehenga fabric to our Coimbatore or Tiruppur studio.</p>
+      <div class="trust-chips-row">
+        <div class="trust-chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>48-Hr Delivery</span>
         </div>
-
-        <div class="process-card">
-          <div class="process-card-header">
-            <span class="process-badge">STEP 02</span>
-            <div class="process-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            </div>
-          </div>
-          <h3>Design &amp; Measurements</h3>
-          <p>Consult with our master designers for necklines, hand zardozi motifs, Aari sketching, and precision fit.</p>
+        <div class="trust-chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+          <span>Trial Fitting</span>
         </div>
-
-        <div class="process-card">
-          <div class="process-card-header">
-            <span class="process-badge">STEP 03</span>
-            <div class="process-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
-            </div>
-          </div>
-          <h3>Artisanal Crafting</h3>
-          <p>Our master artisans hand-stitch gold zardozi wires or execute high-density Japanese machine embroidery.</p>
-        </div>
-
-        <div class="process-card">
-          <div class="process-card-header">
-            <span class="process-badge">STEP 04</span>
-            <div class="process-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            </div>
-          </div>
-          <h3>Trial &amp; Perfect Pickup</h3>
-          <p>Experience your custom trial fitting with built-in padding and take home your flawless bridal garment.</p>
+        <div class="trust-chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>2 Branches</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INTERACTIVE TAILORING COST ESTIMATOR -->
-  <section id="estimator">
+  <!-- SECTION 4: "OUR WORK" (ONE HORIZONTALLY SWIPEABLE ROW OF 6 BEST BLOUSE CARDS) -->
+  <section class="section" id="our-work">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Instant Calculator</span>
-        <h2>Tailoring &amp; Embroidery Estimator</h2>
-        <p>Select your garment specifications for a transparent instant cost estimate.</p>
+      <div class="section-head" style="text-align: center; max-width: 680px; margin: 0 auto 24px;">
+        <span class="eyebrow">Atelier Creations</span>
+        <h2 style="margin: 8px 0 10px;">Our Work</h2>
+        <p style="color: var(--ink-soft); font-size: 1rem; margin: 0 auto;">Bespoke bridal blouses and artisanal embroidery handcrafted to perfection.</p>
       </div>
 
-      <div class="estimator-container">
-        <div class="estimator-inputs">
-          <div class="field-group">
-            <label for="calcGarment">Garment Type</label>
-            <select id="calcGarment" class="estimator-select">
-              <option value="1800">Bridal Blouse Tailoring (₹1,800)</option>
-              <option value="1200">Standard Saree Blouse (₹1,200)</option>
-              <option value="3500">Lehenga Choli Set (₹3,500)</option>
-              <option value="1100">Salwar / Chudidhar Suit (₹1,100)</option>
-              <option value="450">Boutique Garment Alteration (₹450)</option>
-            </select>
+      <!-- ONE horizontally swipeable row of the 6 best blouse cards -->
+      <div class="our-work-scroll-row" id="ourWorkRow" role="region" aria-label="Our Work Carousel">
+        <!-- Card 1: Hand-embroidered Crimson Red Maggam -->
+        <a href="product?id=prod-real-crimson-red-maggam" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/blouse_bridal_red_maggam_back.webp" alt="Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
           </div>
-
-          <div class="field-group">
-            <label for="calcWork">Embroidery &amp; Craft Level</label>
-            <select id="calcWork" class="estimator-select">
-              <option value="0">Plain Stitching (No Embroidery)</option>
-              <option value="1200">Precision Machine Embroidery (+₹1,200)</option>
-              <option value="2500">Hand Zardozi Sleeve Detailing (+₹2,500)</option>
-              <option value="4500">Grand Bridal Maggam All-Over (+₹4,500)</option>
-            </select>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <span class="our-work-btn">Explore Blouse →</span>
           </div>
+        </a>
 
-          <div class="field-group">
-            <label for="calcSpeed">Turnaround Speed</label>
-            <select id="calcSpeed" class="estimator-select">
-              <option value="0">Standard Studio Care (5–7 Days)</option>
-              <option value="500">Priority Delivery (3 Days) (+₹500)</option>
-              <option value="1000">Express Express (24–48 Hours) (+₹1,000)</option>
-            </select>
+        <!-- Card 2: Hand-embroidered Bottle Green Zigzag -->
+        <a href="product?id=prod-real-bottle-green-zigzag" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/blouse_bottle_green_zigzag_net_back.webp" alt="Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
           </div>
-        </div>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <span class="our-work-btn">Explore Blouse →</span>
+          </div>
+        </a>
 
-        <div class="estimator-result-card">
-          <span class="label">Estimated Quote</span>
-          <div class="estimator-price-val" id="calcPriceVal">₹1,800</div>
-          <p style="font-size: 0.85rem; opacity: 0.8;">Includes custom fitting, premium cotton lining, and padded cups (where applicable).</p>
-          <button class="btn-estimator-book" id="btnBookEstimate">Reserve This Package</button>
-        </div>
-      </div>
+        <!-- Card 3: Hand-embroidered Purple Contrast Net -->
+        <a href="product?id=prod-real-purple-contrast-net" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/blouse_royal_purple_illusion_net_back.webp" alt="Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <span class="our-work-btn">Explore Blouse →</span>
+          </div>
+        </a>
 
-      <!-- CALCULATOR MOBILE STICKY ESTIMATE BAR -->
-      <div class="calc-mobile-sticky-bar" id="calcMobileStickyBar">
-        <div class="calc-mobile-sticky-info">
-          <span class="calc-mobile-sticky-label">Estimated Total</span>
-          <strong class="calc-mobile-sticky-val" id="calcMobileStickyVal">₹1,800</strong>
-        </div>
-        <a id="calcMobileStickyWaBtn" href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20with%20estimated%20quote%20%E2%82%B91,800." target="_blank" rel="noopener noreferrer" class="btn-calc-mobile-wa" aria-label="Book on WhatsApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          <span>Book on WhatsApp</span>
+        <!-- Card 4: Machine-embroidered Dark Brown Silk -->
+        <a href="product?id=prod-me-1" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/service_machine_embroidery_card.webp" alt="Dark Brown Silk Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Dark Brown Silk Embroidered Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,200</div>
+            <span class="our-work-btn">Explore Blouse →</span>
+          </div>
+        </a>
+
+        <!-- Card 5: Machine-embroidered Geometric Mirror Work -->
+        <a href="product?id=prod-me-2" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/service_machine_embroidery_card.webp" alt="Mirror Work Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Geometric Mirror Work Machine Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,200</div>
+            <span class="our-work-btn">Explore Blouse →</span>
+          </div>
+        </a>
+
+        <!-- Card 6: Machine-embroidered Intricate Vine &amp; Jaal Pattern -->
+        <a href="product?id=prod-me-3" class="our-work-card">
+          <div class="our-work-img-wrap">
+            <img src="assets/images/service_machine_embroidery_card.webp" alt="Vine Jaal Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+          </div>
+          <div class="our-work-body">
+            <h3 class="our-work-title">Intricate Vine &amp; Jaal Pattern Machine Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,200</div>
+            <span class="our-work-btn">Explore Blouse →</span>
+          </div>
         </a>
       </div>
-    </div>
-  </section>
 
-  <!-- STORE LOCATIONS & APPOINTMENT BOOKING -->
-  <section class="section-alt" id="stores">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Visit Our Boutiques</span>
-        <h2>Samalapuram &amp; Karnempettai Studios</h2>
-        <p>Walk in for a fitting consultation or schedule your appointment in advance.</p>
-      </div>
-
-      <div class="stores-grid">
-        <div class="store-card">
-          <h3>Samalapuram Branch</h3>
-          <div class="store-address">
-            <strong>Sree Designers &amp; Boutique</strong><br>
-            Opp to IDBI Bank, Samalapuram<br>
-            Annur - Avinashi - Mettupalayam Rd<br>
-            Somanur, Tamil Nadu 641663<br>
-            Phone: +91 99763 44673
-          </div>
-          <div class="store-actions">
-            <a href="https://maps.app.goo.gl/Q9bF9IHpnFQpJMmTR" target="_blank" rel="noopener noreferrer" class="btn-store-map">Get Google Map Location →</a>
-          </div>
-        </div>
-
-        <div class="store-card">
-          <h3>Karnempettai Branch</h3>
-          <div class="store-address">
-            <strong>Sree Designers &amp; Boutique</strong><br>
-            AutoStand, Annur Road<br>
-            Karnempettai, Tamil Nadu<br>
-            Phone: +91 99763 44673
-          </div>
-          <div class="store-actions">
-            <a href="https://maps.app.goo.gl/oh7WH1mDCn5YH6f59" target="_blank" rel="noopener noreferrer" class="btn-store-map">Get Google Map Location →</a>
-          </div>
-        </div>
+      <!-- Button linking to category page -->
+      <div style="text-align: center; margin-top: 24px;">
+        <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-view-all-pill">View All Designs</a>
       </div>
     </div>
   </section>
 
-  
-  <!-- HAPPY CUSTOMERS / REVIEWS SECTION -->
-  <section class="happy-customers-section" id="reviews">
-    <div class="wrap">
-      <div class="section-head text-center" style="text-align:center; max-width:760px; margin:0 auto 36px;">
-        <span class="eyebrow">Client Love &amp; Experiences</span>
-        <h2>Happy Customers</h2>
-        <p>Trusted by brides in Coimbatore &amp; Tiruppur for zero-gap fitting and heirloom bridal craftsmanship.</p>
-        
-        <!-- Google Rating Badge -->
-        <div class="google-rating-badge">
-          <div class="google-g-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-            </svg>
-          </div>
-          <div class="google-rating-info">
-            <span class="google-stars">★★★★★</span>
-            <span class="google-score"><strong>4.9 / 5.0</strong> Rating on Google</span>
-            <span class="google-count">(248+ Verified Reviews)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 Review Cards (Placeholder Text User Can Edit) -->
-      <div class="reviews-grid">
-        <!-- Review Card 1 (Editable Placeholder) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"The fitting was absolutely spot on! The padded cups and intricate peacock aari work on my muhurtham blouse turned out even better than I envisioned. Delivered 2 days before schedule with zero gaping."</p>
-          <div class="review-author">
-            <div class="author-avatar">P</div>
-            <div class="author-details">
-              <h4 class="author-name">Priyadharshini K.</h4>
-              <span class="author-meta">Bridal Muhurtham Blouse • Coimbatore</span>
-              <span class="verified-tag">✓ Verified Fitting</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review Card 2 (Editable Placeholder) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"Zero gaping at the back neck and flawless armhole comfort. Their trial fitting session gave me complete peace of mind for my big day. Best bridal boutique in Tiruppur &amp; Coimbatore!"</p>
-          <div class="review-author">
-            <div class="author-avatar">A</div>
-            <div class="author-details">
-              <h4 class="author-name">Ananya R.</h4>
-              <span class="author-meta">Maggam Work &amp; Reception Blouse • Tiruppur</span>
-              <span class="verified-tag">✓ Verified Fitting</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review Card 3 (Editable Placeholder) -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"Ordered remotely from abroad with just measurement photos. When I visited the Samalapuram branch for trial, it fitted like a dream without needing a single alteration. Highly recommended!"</p>
-          <div class="review-author">
-            <div class="author-avatar">S</div>
-            <div class="author-details">
-              <h4 class="author-name">Sangeetha M.</h4>
-              <span class="author-meta">Express Bridal Fitting • NRI Bride</span>
-              <span class="verified-tag">✓ Verified Fitting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ENQUIRY FORM -->
-  <section id="enquiry">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Online Booking</span>
-        <h2>Schedule Your Fitting Session</h2>
-      </div>
-
-      <div class="enquiry-container">
-        <form id="enquiryForm" class="form-grid">
-          <div class="field">
-            <input type="text" id="fname" class="form-input" placeholder="Your Full Name *" required>
-          </div>
-          <div class="field">
-            <input type="tel" id="fphone" class="form-input" placeholder="Phone / WhatsApp Number *" required>
-          </div>
-          <div class="field">
-            <select id="fstudio" class="form-input">
-              <option>Samalapuram Branch</option>
-              <option>Karnempettai Branch</option>
-            </select>
-          </div>
-          <div class="field">
-            <select id="fservice" class="form-input">
-              <option>Bridal Blouse Tailoring</option>
-              <option>Machine Embroidery</option>
-              <option>Hand Zardozi Work</option>
-              <option>Lehenga Stitching</option>
-              <option>Salwar / Chudidhar</option>
-              <option>Alterations &amp; Re-fitting</option>
-            </select>
-          </div>
-          <div class="field-full">
-            <textarea id="fmsg" class="form-textarea" placeholder="Garment details, preferred date, or special measurements..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit-form">Submit Appointment Request</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrap footer-wrap">
-      <div class="footer-brand-title">Sree Designers &amp; Boutique</div>
-      <div class="footer-links">
-        <a href="#hero">Collection</a>
-        <a href="#services">Services</a>
-        <a href="#estimator">Calculator</a>
-        <a href="#stores">Stores</a>
-        <a href="#enquiry">Book Fitting</a>
-        <a href="/return-policy">Return &amp; Alteration Policy</a>
-      </div>
-      <div class="footer-copy">
-        &copy; 2026 Sree Designers &amp; Boutique — Coimbatore &amp; Tiruppur. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-  
-  <!-- MOBILE STICKY BOTTOM ACTION BAR -->
-  <aside class="mobile-sticky-bottom-bar" id="mobileStickyBottomBar" aria-label="Quick Boutique Actions">
-    <a href="tel:+919976344673" class="mobile-bar-btn mobile-bar-call" aria-label="Call Sree Designers &amp; Boutique">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      <span>Call</span>
-    </a>
-    <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-bar-wa" aria-label="Chat on WhatsApp">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-      <span>WhatsApp</span>
-    </a>
-    <a href="#enquiry" class="mobile-bar-btn mobile-bar-book" aria-label="Book Fitting Appointment">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>Book Fitting</span>
-    </a>
-  </aside>
-
-  <!-- FLOATING WHATSAPP BUTTON -->
-  <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment."
-    target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-    </svg>
-  </a>
-
-  <!-- SCRIPTS -->
-  <script>
-    /* ── Gold Sheen: pixel-perfect via ::after on .hero-title ──
-       We track mouse X/Y relative to the title element itself,
-       so the gradient origin maps exactly to the letter positions. */
-    const hero      = document.getElementById('hero');
-    const titleEl   = document.getElementById('heroTitle');
-
-    let tx = 50, ty = 50;   // target %
-    let cx = 50, cy = 50;   // current (lerped)
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-
-    function tick() {
-      if (isNaN(cx)) cx = 50;
-      if (isNaN(cy)) cy = 50;
-      if (isNaN(tx)) tx = 50;
-      if (isNaN(ty)) ty = 50;
-      cx = lerp(cx, tx, 0.07);
-      cy = lerp(cy, ty, 0.07);
-
-      if (titleEl) {
-        /* Directly set CSS custom props on the element that has ::after */
-        titleEl.style.setProperty('--gx', cx.toFixed(2) + '%');
-        titleEl.style.setProperty('--gy', cy.toFixed(2) + '%');
-        /* Override the ::after background inline so it responds */
-        titleEl.style.setProperty('--sheen',
-          `radial-gradient(300px circle at ${cx.toFixed(2)}% ${cy.toFixed(2)}%,
-            rgba(212,175,55,0.62) 0%,
-            rgba(185,140,20,0.3) 38%,
-            transparent 68%)`
-        );
-      }
-      requestAnimationFrame(tick);
-    }
-
-    if (hero) {
-      hero.addEventListener('mousemove', e => {
-        if (!titleEl) return;
-        const r = titleEl.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        /* Clamp to 0-100%, allow slight overflow for edge glow */
-        tx = Math.max(-5, Math.min(105, ((e.clientX - r.left) / r.width) * 100));
-        ty = Math.max(-5, Math.min(105, ((e.clientY - r.top)  / r.height) * 100));
-      });
-      hero.addEventListener('mouseleave', () => { tx = 50; ty = 50; });
-    }
-
-    requestAnimationFrame(tick);
-
-    /* ── Price Estimator ── */
-    const calcGarment  = document.getElementById('calcGarment');
-    const calcWork     = document.getElementById('calcWork');
-    const calcSpeed    = document.getElementById('calcSpeed');
-    const calcPriceVal = document.getElementById('calcPriceVal');
-
-    function updatePrice() {
-      const total = (parseInt(calcGarment?.value) || 1800)
-                  + (parseInt(calcWork?.value)    || 0)
-                  + (parseInt(calcSpeed?.value)   || 0);
-      if (calcPriceVal) calcPriceVal.textContent = '₹' + total.toLocaleString('en-IN');
-    }
-    ['calcGarment','calcWork','calcSpeed'].forEach(id => {
-      document.getElementById(id)?.addEventListener('change', updatePrice);
-    });
-    updatePrice();
-
-    document.getElementById('btnBookEstimate')?.addEventListener('click', () => {
-      const msg = document.getElementById('fmsg');
-      const selectedOption = calcGarment?.options?.[calcGarment?.selectedIndex]?.text || 'Bridal Blouse Tailoring';
-      if (msg) msg.value = `Requested Quote: ${calcPriceVal?.textContent || '₹2,500'} for ${selectedOption}`;
-      const enq = document.getElementById('enquiry');
-      if (enq) enq.scrollIntoView({ behavior: 'smooth' });
-    });
-  </script>
-
-  <!-- BLOG / ATELIER JOURNAL SECTION (SEO BOOSTER) -->
-  <section class="section-alt" id="blog">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Bridal Journal &amp; Style Guides</span>
-        <h2>Bridal Blouse Designs &amp; Aari Embroidery Journal</h2>
-        <p>Expert tips, maggam embroidery trends, and fabric care guides curated by our master artisans.</p>
-      </div>
-
-      <div class="blog-grid" id="blogGridContainer">
-        <!-- Blog post 1 -->
-        <article class="blog-card">
-          <a href="/blog/bridal-blouse-designs-2026">
-            <img src="assets/images/blog_trends_2026_card.webp" alt="Top 10 South Indian Bridal Blouse Trends" class="blog-cover-img" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
-          </a>
-          <div class="blog-content">
-            <div>
-              <span class="blog-badge">Bridal Trends</span>
-              <h3><a href="/blog/bridal-blouse-designs-2026" style="text-decoration:none; color:inherit;">Top 10 Bridal Blouse Embroidery Trends for South Indian Weddings</a></h3>
-              <p>Discover hand zardozi peacock motifs, elbow-length dense maggam sleeves, and custom padded cup fitting techniques.</p>
-            </div>
-            <div class="blog-meta">
-              <span>7 min read</span>
-              <a href="/blog/bridal-blouse-designs-2026" style="color:var(--gold-dark); font-weight:600;">Read Full Guide →</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Blog post 2 -->
-        <article class="blog-card">
-          <a href="/blog/hand-vs-machine-embroidery">
-            <img src="assets/images/blog_hand_machine_card.webp" alt="Hand Zardozi versus Machine Embroidery Guide" class="blog-cover-img" width="600" height="338" loading="lazy" decoding="async" style="aspect-ratio:16/9; object-fit:cover;">
-          </a>
-          <div class="blog-content">
-            <div>
-              <span class="blog-badge">Stitching Guide</span>
-              <h3><a href="/blog/hand-vs-machine-embroidery" style="text-decoration:none; color:inherit;">Hand Zardozi vs. Machine Embroidery: Complete Saree Blouse Guide</a></h3>
-              <p>Comparing turn-around speed, intricacy, metallic thread durability, and pricing for bespoke bridal wear.</p>
-            </div>
-            <div class="blog-meta">
-              <span>9 min read</span>
-              <a href="/blog/hand-vs-machine-embroidery" style="color:var(--gold-dark); font-weight:600;">Read Full Guide →</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRENDING YOUTUBE SHORTS & STUDIO REELS SHOWCASE -->
+  <!-- SECTION 5: REELS (4 CARDS ONLY, SINGLE "Watch on YouTube" BUTTON) -->
   <section id="reels">
     <div class="wrap">
       <div class="section-head" style="margin-bottom: 16px;">
@@ -4345,86 +3888,330 @@
           </div>
           <div class="reel-title-below">Bridal Blouse with Heirloom Aari Work</div>
         </div>
-
-        <!-- Short 5 -->
-        <div class="reel-item">
-          <div class="reel-card" onclick="openShortModal(4)" role="button" tabindex="0" aria-label="Watch Short: Pink Custom Embroidery Blouse" onkeydown="if(event.key==='Enter') openShortModal(4)">
-            <img src="assets/images/shorts/short__QuAAq8hpHk.webp" alt="Pink Custom Embroidery Blouse" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
-            <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="reel-title-below">Pink Custom Embroidery Blouse</div>
-        </div>
-
-        <!-- Short 6 -->
-        <div class="reel-item">
-          <div class="reel-card" onclick="openShortModal(5)" role="button" tabindex="0" aria-label="Watch Short: Heavy Aari Bridal Wedding Blouse" onkeydown="if(event.key==='Enter') openShortModal(5)">
-            <img src="assets/images/shorts/short_mbvADw3niwA.webp" alt="Heavy Aari Bridal Wedding Blouse" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
-            <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="reel-title-below">Heavy Aari Bridal Wedding Blouse</div>
-        </div>
-
-        <!-- Short 7 -->
-        <div class="reel-item">
-          <div class="reel-card" onclick="openShortModal(6)" role="button" tabindex="0" aria-label="Watch Short: Green Blouse with Minimal Machine Work" onkeydown="if(event.key==='Enter') openShortModal(6)">
-            <img src="assets/images/shorts/short_a3dzh7_6Xa4.webp" alt="Green Blouse with Minimal Machine Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
-            <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="reel-title-below">Green Blouse with Minimal Machine Work</div>
-        </div>
-
-        <!-- Short 8 -->
-        <div class="reel-item">
-          <div class="reel-card" onclick="openShortModal(7)" role="button" tabindex="0" aria-label="Watch Short: Elegant Red Blouse with Hand Zari" onkeydown="if(event.key==='Enter') openShortModal(7)">
-            <img src="assets/images/shorts/short_32WrlMLTAR4.webp" alt="Elegant Red Blouse with Hand Zari" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
-            <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="reel-title-below">Elegant Red Blouse with Hand Zari</div>
-        </div>
       </div>
 
-      <!-- Outlined Button: Watch all on YouTube (Only one button, no emoji) -->
+      <!-- Outlined Button: Watch on YouTube (Only one button, no emoji, no View More) -->
       <div class="reels-action-bar">
-        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="reels-btn-yt-outline" aria-label="Watch all on YouTube">
-          Watch all on YouTube
+        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="reels-btn-yt-outline" aria-label="Watch on YouTube">
+          Watch on YouTube
         </a>
       </div>
     </div>
   </section>
 
-  <!-- SOCIAL FOLLOW CTA BAR -->
-  <section class="social-follow-bar">
+  <!-- SECTION 6: CUSTOMER REVIEWS (3 REVIEW CARDS + GOOGLE BADGE) -->
+  <section class="happy-customers-section" id="reviews">
     <div class="wrap">
-      <h3>Follow Sree Designers &amp; Boutique</h3>
-      <p style="opacity: 0.85; max-width: 540px; margin: 0 auto 20px;">Explore daily new embroidery designs, client fitting stories, and bridal couture updates.</p>
-      <div class="social-pills">
-        <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="social-pill">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Instagram (@sreedesigner_)
-        </a>
-        <a href="https://www.youtube.com/@SreeDesignerss" target="_blank" rel="noopener noreferrer" class="social-pill">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-          YouTube (@SreeDesignerss)
-        </a>
-        <a href="https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-pill">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          Facebook Page
-        </a>
-        <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer" class="social-pill">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          WhatsApp (+91 99763 44673)
+      <div class="section-head text-center" style="text-align:center; max-width:760px; margin:0 auto 36px;">
+        <span class="eyebrow">Client Love &amp; Experiences</span>
+        <h2>Happy Customers</h2>
+        <p>Trusted by brides in Coimbatore &amp; Tiruppur for zero-gap fitting and heirloom bridal craftsmanship.</p>
+        
+        <!-- Google Rating Badge -->
+        <div class="google-rating-badge">
+          <div class="google-g-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+          </div>
+          <div class="google-rating-info">
+            <span class="google-stars">★★★★★</span>
+            <span class="google-score"><strong>4.9 / 5.0</strong> Rating on Google</span>
+            <span class="google-count">(248+ Verified Reviews)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Review Cards -->
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"The fitting was absolutely spot on! The padded cups and intricate peacock aari work on my muhurtham blouse turned out even better than I envisioned. Delivered 2 days before schedule with zero gaping."</p>
+          <div class="review-author">
+            <div class="author-avatar">P</div>
+            <div class="author-details">
+              <h4 class="author-name">Priyadharshini K.</h4>
+              <span class="author-meta">Bridal Muhurtham Blouse • Coimbatore</span>
+              <span class="verified-tag">✓ Verified Fitting</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"Zero gaping at the back neck and flawless armhole comfort. Their trial fitting session gave me complete peace of mind for my big day. Best bridal boutique in Tiruppur &amp; Coimbatore!"</p>
+          <div class="review-author">
+            <div class="author-details">
+              <h4 class="author-name">Ananya R.</h4>
+              <span class="author-meta">Maggam Work &amp; Reception Blouse • Tiruppur</span>
+              <span class="verified-tag">✓ Verified Fitting</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"Ordered remotely from abroad with just measurement photos. When I visited the Samalapuram branch for trial, it fitted like a dream without needing a single alteration. Highly recommended!"</p>
+          <div class="review-author">
+            <div class="author-avatar">S</div>
+            <div class="author-details">
+              <h4 class="author-name">Sangeetha M.</h4>
+              <span class="author-meta">Express Bridal Fitting • NRI Bride</span>
+              <span class="verified-tag">✓ Verified Fitting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: HOW IT WORKS (4 STEPS IN COMPACT VERTICAL LIST) -->
+  <section class="section-alt" id="process">
+    <div class="wrap">
+      <div class="section-head" style="text-align: center; max-width: 680px; margin: 0 auto 30px;">
+        <span class="eyebrow">Service Boutique Journey</span>
+        <h2 style="font-size: 2.2rem; margin: 8px 0 10px;">How It Works</h2>
+        <p style="color: var(--ink-soft); font-size: 1rem;">A seamless 4-step artisan journey from fabric drop-off to precision trial fitting and pickup.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="process-card-header">
+            <span class="process-badge">STEP 01</span>
+            <div class="process-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </div>
+          </div>
+          <h3>Bring Your Fabric</h3>
+          <p>Bring your saree blouse material, silk cloth, or lehenga fabric to our Samalapuram or Karnempettai studio.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-header">
+            <span class="process-badge">STEP 02</span>
+            <div class="process-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
+          </div>
+          <h3>Design &amp; Measurements</h3>
+          <p>Consult with our master designers for necklines, hand zardozi motifs, Aari sketching, and precision fit.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-header">
+            <span class="process-badge">STEP 03</span>
+            <div class="process-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+            </div>
+          </div>
+          <h3>Artisanal Crafting</h3>
+          <p>Our master artisans hand-stitch gold zardozi wires or execute high-density computerized machine embroidery.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-header">
+            <span class="process-badge">STEP 04</span>
+            <div class="process-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+          </div>
+          <h3>Trial &amp; Perfect Pickup</h3>
+          <p>Experience your custom trial fitting with built-in padding and take home your flawless bridal garment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: PRICE ESTIMATOR FOLLOWED DIRECTLY BY ONE BOOKING FORM -->
+  <section id="estimator">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Instant Calculator</span>
+        <h2>Tailoring &amp; Embroidery Estimator</h2>
+        <p>Select your garment specifications for a transparent instant cost estimate.</p>
+      </div>
+
+      <div class="estimator-container">
+        <div class="estimator-inputs">
+          <div class="field-group">
+            <label for="calcGarment">Garment Type</label>
+            <select id="calcGarment" class="estimator-select">
+              <option value="1800">Bridal Blouse Tailoring (₹1,800)</option>
+              <option value="1200">Standard Saree Blouse (₹1,200)</option>
+              <option value="3500">Lehenga Choli Set (₹3,500)</option>
+              <option value="1100">Salwar / Chudidhar Suit (₹1,100)</option>
+              <option value="450">Boutique Garment Alteration (₹450)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="calcWork">Embroidery &amp; Craft Level</label>
+            <select id="calcWork" class="estimator-select">
+              <option value="0">Plain Stitching (No Embroidery)</option>
+              <option value="1200">Precision Machine Embroidery (+₹1,200)</option>
+              <option value="2500">Hand Zardozi Sleeve Detailing (+₹2,500)</option>
+              <option value="4500">Grand Bridal Maggam All-Over (+₹4,500)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="calcSpeed">Turnaround Speed</label>
+            <select id="calcSpeed" class="estimator-select">
+              <option value="0">Standard Studio Care (5–7 Days)</option>
+              <option value="500">Priority Delivery (3 Days) (+₹500)</option>
+              <option value="1000">Express Turnaround (24–48 Hours) (+₹1,000)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="estimator-result-card">
+          <span class="label">Estimated Quote</span>
+          <div class="estimator-price-val" id="calcPriceVal">₹1,800</div>
+          <p style="font-size: 0.85rem; opacity: 0.8;">Includes custom fitting, premium cotton lining, and padded cups (where applicable).</p>
+          <button class="btn-estimator-book" id="btnBookEstimate" type="button">Reserve This Package</button>
+        </div>
+      </div>
+
+      <!-- CALCULATOR MOBILE STICKY ESTIMATE BAR -->
+      <div class="calc-mobile-sticky-bar" id="calcMobileStickyBar">
+        <div class="calc-mobile-sticky-info">
+          <span class="calc-mobile-sticky-label">Estimated Total</span>
+          <strong class="calc-mobile-sticky-val" id="calcMobileStickyVal">₹1,800</strong>
+        </div>
+        <a id="calcMobileStickyWaBtn" href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20with%20estimated%20quote%20%E2%82%B91,800." target="_blank" rel="noopener noreferrer" class="btn-calc-mobile-wa" aria-label="Book on WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <span>Book on WhatsApp</span>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- DIRECT ONE BOOKING FORM (MERGED WITH "RESERVE THIS PACKAGE") -->
+  <section id="enquiry" style="padding-top: 20px;">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom: 24px;">
+        <span class="eyebrow">Online Booking</span>
+        <h2>Schedule Your Fitting Session</h2>
+        <p>Book your boutique fitting and send your appointment directly to WhatsApp.</p>
+      </div>
+
+      <div class="enquiry-container">
+        <form id="enquiryForm" class="form-grid">
+          <div class="field">
+            <input type="text" id="fname" class="form-input" placeholder="Your Full Name *" required>
+          </div>
+          <div class="field">
+            <input type="tel" id="fphone" class="form-input" placeholder="Phone / WhatsApp Number *" required>
+          </div>
+          <div class="field">
+            <select id="fstudio" class="form-input" aria-label="Select Boutique Branch">
+              <option value="Samalapuram Branch">Samalapuram Branch</option>
+              <option value="Karnempettai Branch">Karnempettai Branch</option>
+            </select>
+          </div>
+          <div class="field">
+            <select id="fservice" class="form-input" aria-label="Select Tailoring Service">
+              <option value="Bridal Blouse Tailoring">Bridal Blouse Tailoring</option>
+              <option value="Machine Embroidery">Machine Embroidery</option>
+              <option value="Hand Zardozi Work">Hand Zardozi Work</option>
+              <option value="Lehenga Stitching">Lehenga Stitching</option>
+              <option value="Salwar / Chudidhar">Salwar / Chudidhar</option>
+              <option value="Alterations &amp; Re-fitting">Alterations &amp; Re-fitting</option>
+            </select>
+          </div>
+          <div class="field-full">
+            <textarea id="fmsg" class="form-textarea" placeholder="Garment details, preferred date, or special measurements..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit-form">Submit Appointment Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: VISIT US (THE TWO BRANCHES WITH MAP BUTTONS) -->
+  <section class="section-alt" id="stores">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Visit Our Boutiques</span>
+        <h2>Samalapuram &amp; Karnempettai Studios</h2>
+        <p>Walk in for a fitting consultation or schedule your appointment in advance.</p>
+      </div>
+
+      <div class="stores-grid">
+        <div class="store-card">
+          <h3>Samalapuram Branch</h3>
+          <div class="store-address">
+            <strong>Sree Designers &amp; Boutique</strong><br>
+            Opp to IDBI Bank, Samalapuram<br>
+            Annur - Avinashi - Mettupalayam Rd<br>
+            Somanur, Tamil Nadu 641663<br>
+            Phone: +91 99763 44673
+          </div>
+          <div class="store-actions">
+            <a href="https://maps.app.goo.gl/Q9bF9IHpnFQpJMmTR" target="_blank" rel="noopener noreferrer" class="btn-store-map">Get Google Map Location →</a>
+          </div>
+        </div>
+
+        <div class="store-card">
+          <h3>Karnempettai Branch</h3>
+          <div class="store-address">
+            <strong>Sree Designers &amp; Boutique</strong><br>
+            AutoStand, Annur Road<br>
+            Karnempettai, Tamil Nadu<br>
+            Phone: +91 99763 44673
+          </div>
+          <div class="store-actions">
+            <a href="https://maps.app.goo.gl/oh7WH1mDCn5YH6f59" target="_blank" rel="noopener noreferrer" class="btn-store-map">Get Google Map Location →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: FOOTER (LINKS TO BLOG, RETURN POLICY, INSTAGRAM, YOUTUBE, FACEBOOK, WHATSAPP, COPYRIGHT) -->
+  <footer>
+    <div class="wrap footer-wrap">
+      <div class="footer-brand-title">Sree Designers &amp; Boutique</div>
+      <div class="footer-links">
+        <a href="/blog">Blog</a>
+        <a href="/return-policy">Return Policy</a>
+        <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.youtube.com/@SreeDesignerss" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Sree Designers &amp; Boutique — Coimbatore &amp; Tiruppur. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE STICKY BOTTOM ACTION BAR -->
+  <aside class="mobile-sticky-bottom-bar" id="mobileStickyBottomBar" aria-label="Quick Boutique Actions">
+    <a href="tel:+919976344673" class="mobile-bar-btn mobile-bar-call" aria-label="Call Sree Designers &amp; Boutique">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      <span>Call</span>
+    </a>
+    <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-bar-wa" aria-label="Chat on WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#enquiry" class="mobile-bar-btn mobile-bar-book" aria-label="Book Fitting Appointment">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>Book Fitting</span>
+    </a>
+  </aside>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment."
+    target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    </svg>
+  </a>
 
   <!-- YOUTUBE SHORTS MODAL PLAYER -->
   <div id="shortsModal" class="shorts-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" onclick="if(event.target === this) closeShortModal();">
@@ -4459,7 +4246,7 @@
       <!-- Modal Footer Action Bar -->
       <div class="shorts-modal-footer">
         <a id="shortsWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="shorts-wa-action">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           Inquire / Order on WhatsApp
         </a>
         <a id="shortsYtBtn" href="#" target="_blank" rel="noopener noreferrer" class="shorts-yt-action" aria-label="Open on YouTube">
@@ -4490,7 +4277,7 @@
               <p id="showcaseDetailDesc" style="color:var(--ink-soft); font-size:0.95rem; line-height:1.6; margin-bottom:20px;">
                 Intricate gold zardozi, peacock motifs, threadwork, and custom padded cups crafted with high-density gold metallic thread.
               </p>
-              <div style="font-size:1.3rem; font-weight:700; color:var(--gold-dark); margin-bottom:20px;" id="showcaseDetailPrice">Starting from ₹3,800</div>
+              <div style="font-size:1.3rem; font-weight:700; color:var(--gold-dark); margin-bottom:20px;" id="showcaseDetailPrice">Starting from ₹1,800</div>
             </div>
             <a id="showcaseDetailWaBtn" href="https://wa.me/919976344673" target="_blank" rel="noopener noreferrer" class="nav-cta" style="text-align:center; padding:14px; width:100%; font-size:0.95rem; display:block;">Enquire &amp; Order on WhatsApp →</a>
           </div>
@@ -4505,368 +4292,188 @@
     </div>
   </div>
 
-  <!-- MODULE SCRIPTS (NON-RENDER-BLOCKING) -->
+  <!-- MODULE SCRIPTS -->
   <script src="js/catalogData.js?v=20261004_v1" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/seo.js" defer></script>
 
+  <!-- INTERACTIVE CONTROLLERS SCRIPT -->
   <script>
-    
-    // Helper to select service in booking form when clicking nav links
-    function selectFittingService(serviceName) {
+    /* ── Gold Sheen on Hero Title ── */
+    const hero      = document.getElementById('hero');
+    const titleEl   = document.getElementById('heroTitle');
+
+    let tx = 50, ty = 50;
+    let cx = 50, cy = 50;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      if (isNaN(cx)) cx = 50;
+      if (isNaN(cy)) cy = 50;
+      if (isNaN(tx)) tx = 50;
+      if (isNaN(ty)) ty = 50;
+      cx = lerp(cx, tx, 0.07);
+      cy = lerp(cy, ty, 0.07);
+
+      if (titleEl) {
+        titleEl.style.setProperty('--gx', cx.toFixed(2) + '%');
+        titleEl.style.setProperty('--gy', cy.toFixed(2) + '%');
+        titleEl.style.setProperty('--sheen',
+          `radial-gradient(300px circle at ${cx.toFixed(2)}% ${cy.toFixed(2)}%,
+            rgba(212,175,55,0.62) 0%,
+            rgba(185,140,20,0.3) 38%,
+            transparent 68%)`
+        );
+      }
+      requestAnimationFrame(tick);
+    }
+
+    if (hero && titleEl) {
+      hero.addEventListener('mousemove', e => {
+        const r = titleEl.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        tx = Math.max(-5, Math.min(105, ((e.clientX - r.left) / r.width) * 100));
+        ty = Math.max(-5, Math.min(105, ((e.clientY - r.top)  / r.height) * 100));
+      });
+      hero.addEventListener('mouseleave', () => { tx = 50; ty = 50; });
+    }
+    requestAnimationFrame(tick);
+
+    /* ── Price Estimator Calculations & Sticky Bar Sync ── */
+    const calcGarment  = document.getElementById('calcGarment');
+    const calcWork     = document.getElementById('calcWork');
+    const calcSpeed    = document.getElementById('calcSpeed');
+    const calcPriceVal = document.getElementById('calcPriceVal');
+
+    function updatePrice() {
+      const g = parseInt(calcGarment?.value) || 1800;
+      const w = parseInt(calcWork?.value) || 0;
+      const s = parseInt(calcSpeed?.value) || 0;
+      const total = g + w + s;
+      const formatted = '₹' + total.toLocaleString('en-IN');
+      if (calcPriceVal) calcPriceVal.textContent = formatted;
+      const stickyVal = document.getElementById('calcMobileStickyVal');
+      if (stickyVal) stickyVal.textContent = formatted;
+      const stickyWaBtn = document.getElementById('calcMobileStickyWaBtn');
+      if (stickyWaBtn) {
+        stickyWaBtn.href = 'https://wa.me/919976344673?text=' + encodeURIComponent('Hi Sree Designers, I would like to book a fitting with estimated quote ' + formatted + '.');
+      }
+    }
+
+    ['calcGarment','calcWork','calcSpeed'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', updatePrice);
+    });
+    updatePrice();
+
+    /* ── Merge "Reserve This Package" directly into Booking Form ── */
+    document.getElementById('btnBookEstimate')?.addEventListener('click', () => {
+      const gSelect = document.getElementById('calcGarment');
+      const wSelect = document.getElementById('calcWork');
+      const sSelect = document.getElementById('calcSpeed');
+      const priceText = document.getElementById('calcPriceVal')?.textContent || '₹1,800';
+
+      const gText = gSelect?.options[gSelect.selectedIndex]?.text || 'Bridal Blouse Tailoring';
+      const wText = wSelect?.options[wSelect.selectedIndex]?.text || '';
+      const sText = sSelect?.options[sSelect.selectedIndex]?.text || '';
+
+      // Match Service
       const fservice = document.getElementById('fservice');
       if (fservice) {
-        for (let i = 0; i < fservice.options.length; i++) {
-          if (fservice.options[i].text.toLowerCase().includes(serviceName.toLowerCase()) || 
-              fservice.options[i].value.toLowerCase().includes(serviceName.toLowerCase())) {
-            fservice.selectedIndex = i;
-            break;
-          }
+        if (gText.toLowerCase().includes('bridal')) {
+          fservice.value = 'Bridal Blouse Tailoring';
+        } else if (gText.toLowerCase().includes('lehenga')) {
+          fservice.value = 'Lehenga Stitching';
+        } else if (gText.toLowerCase().includes('salwar')) {
+          fservice.value = 'Salwar / Chudidhar';
+        } else if (gText.toLowerCase().includes('alteration')) {
+          fservice.value = 'Alterations & Re-fitting';
+        } else if (wText.toLowerCase().includes('machine')) {
+          fservice.value = 'Machine Embroidery';
+        } else if (wText.toLowerCase().includes('zardozi') || wText.toLowerCase().includes('maggam')) {
+          fservice.value = 'Hand Zardozi Work';
         }
       }
-    }
 
-    // Demo Portfolio Items for Immediate Interactivity
-    const demoItems = {
-      'demo-1': {
-        title: 'Bridal Blouse Tailoring & Maggam Work',
-        tag: 'Bridal Work',
-        img: 'assets/images/service_bridal_card.webp',
-        subImgs: ['assets/images/service_bridal_card.webp', 'assets/images/service_hand_embroidery_card.webp', 'assets/images/blouse_bottle_green_zigzag_net_back.webp'],
-        price: 'from ₹3,800',
-        desc: 'Custom Kanchipuram bridal silk blouse stitching featuring dense elbow zardozi peacocks, ruby kundan stones, back neck teardrop cutout, and double padded cups.'
-      },
-      'demo-2': {
-        title: 'Precision Machine Embroidery',
-        tag: 'Machine Embroidery',
-        img: 'assets/images/service_machine_embroidery_card.webp',
-        subImgs: ['assets/images/service_machine_embroidery_card.webp', 'assets/images/service_salwar_card.webp'],
-        price: 'from ₹1,800',
-        desc: 'Computerized high-density floral borders and geometric zardozi thread simulation executed on Japanese multi-head embroidery machines.'
-      },
-      'demo-3': {
-        title: 'Hand Embroidery & Zardozi',
-        tag: 'Hand Embroidery',
-        img: 'assets/images/service_hand_embroidery_card.webp',
-        subImgs: ['assets/images/service_hand_embroidery_card.webp', 'assets/images/service_bridal_card.webp'],
-        price: 'from ₹2,500',
-        desc: 'Master artisan hand-stitched gold metallic wire (zardozi), cut glass beads, pearl clusters, and subtle antique copper highlights.'
-      },
-      'demo-4': {
-        title: 'Opulent Lehenga & Festive Couture',
-        tag: 'Lehenga Couture',
-        img: 'assets/images/service_lehenga_card.webp',
-        subImgs: ['assets/images/service_lehenga_card.webp', 'assets/images/blouse_bottle_green_zigzag_net_back.webp'],
-        price: 'from ₹4,200',
-        desc: 'Full-flared silk lehenga stitching with stiff canvas waistlining, handcrafted tassel latkans, padded blouse, and double dupatta pleating.'
-      },
-      'demo-5': {
-        title: 'Chudidhar & Salwar Tailoring',
-        tag: 'Salwar & Chudidhar',
-        img: 'assets/images/service_salwar_card.webp',
-        subImgs: ['assets/images/service_salwar_card.webp', 'assets/images/service_alterations.webp'],
-        price: 'from Rs. 1,200',
-        desc: 'Comfort-fit daily & partywear salwar suit stitching, boat-neck tops, straight pants, and organza dupatta border edging.'
-      },
-      'demo-6': {
-        title: 'Garment Alterations & Re-fitting',
-        tag: 'Garment Alterations',
-        img: 'assets/images/service_alterations.webp',
-        subImgs: ['assets/images/service_alterations.webp', 'assets/images/service_salwar_card.webp'],
-        price: 'from ₹450',
-        desc: 'Resizing bridal blouses, waist adjustments, armhole reshaping, zipper replacements, and custom cup insertions.'
+      // Pre-fill Enquiry Message
+      const fmsg = document.getElementById('fmsg');
+      if (fmsg) {
+        fmsg.value = `Estimated Package: ${gText} + ${wText} (${sText}) | Estimated Quote: ${priceText}`;
       }
-    };
 
-    async function loadDynamicShowcaseGrid(filterTag = 'All') {
-      const container = document.getElementById('servicesGridContainer');
-      if (!container || !window.AtelierDataService) return;
-      
-      const items = await window.AtelierDataService.getShowcaseItems(filterTag);
-      if (!items || items.length === 0) return;
-
-      container.innerHTML = items.map((item, idx) => {
-        const primaryTag = item.tags && item.tags.length > 0 ? item.tags[0] : 'Bespoke Atelier';
-        const priceDisplay = typeof item.starting_price === 'number' ? `from ₹${item.starting_price.toLocaleString('en-IN')}` : (item.starting_price || 'Custom Quote');
-        const encodedItem = encodeURIComponent(JSON.stringify(item));
-        return `
-          <div class="service-card-luxury" data-tags="${(item.tags || []).join(',')}">
-            <div class="service-img-container">
-              <img src="${item.main_image_url || 'assets/images/service_bridal.webp'}" alt="${item.title}" class="service-png-img" width="300" height="400" loading="lazy" decoding="async">
-            </div>
-            <div class="service-info">
-              <span class="service-tag-badge">${primaryTag}</span>
-              <h3>${item.title}</h3>
-              <p>${item.description || 'Custom hand zardozi and fitting atelier service.'}</p>
-            </div>
-            <div class="service-bottom-row">
-              <div class="service-price-starting">${priceDisplay}</div>
-              <a href="product?id=${encodeURIComponent(item.id || item.slug || 'demo-1')}" class="btn-book-service">See More →</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function filterPortfolio(category, btn) {
-      document.querySelectorAll('#portfolioFilterBar .filter-pill').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      loadDynamicShowcaseGrid(category);
-    }
-
-    function openCustomItemDetail(encodedItem) {
-      try {
-        const item = JSON.parse(decodeURIComponent(encodedItem));
-        document.getElementById('showcaseDetailTitle').textContent = item.title;
-        document.getElementById('showcaseDetailHeading').textContent = item.title;
-        document.getElementById('showcaseDetailTag').textContent = (item.tags && item.tags[0]) || 'Bespoke Atelier';
-        document.getElementById('showcaseDetailDesc').textContent = item.description || 'Bespoke hand zardozi and custom fitting atelier service.';
-        document.getElementById('showcaseDetailPrice').textContent = typeof item.starting_price === 'number' ? `from ₹${item.starting_price}` : (item.starting_price || 'from ₹2,500');
-        document.getElementById('showcaseDetailMainImg').src = item.main_image_url || 'assets/images/service_bridal.webp';
-        document.getElementById('showcaseDetailWaBtn').href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20${encodeURIComponent(item.title)}`;
-
-        // Thumbs
-        const thumbsContainer = document.getElementById('showcaseThumbs');
-        thumbsContainer.innerHTML = '';
-        const subList = item.images && item.images.length > 0 ? item.images.map(img => typeof img === 'string' ? img : img.image_url) : [item.main_image_url];
-        subList.forEach(src => {
-          if (!src) return;
-          const thumb = document.createElement('img');
-          thumb.src = src;
-          thumb.style.cssText = 'width:64px; height:64px; object-fit:cover; border-radius:8px; cursor:pointer; border:1px solid var(--line);';
-          thumb.onclick = () => { document.getElementById('showcaseDetailMainImg').src = src; };
-          thumbsContainer.appendChild(thumb);
-        });
-
-        document.getElementById('showcaseDetailModal').style.display = 'flex';
-      } catch (e) {
-        openShowcaseDetail('demo-1');
+      // Smooth scroll to enquiry form
+      const enq = document.getElementById('enquiry');
+      if (enq) {
+        enq.scrollIntoView({ behavior: 'smooth' });
+        const nameInput = document.getElementById('fname');
+        if (nameInput) setTimeout(() => nameInput.focus(), 600);
       }
-    }
+    });
 
-    function openShowcaseDetail(itemId) {
-      const item = demoItems[itemId] || demoItems['demo-1'];
-      document.getElementById('showcaseDetailTitle').textContent = item.title;
-      document.getElementById('showcaseDetailHeading').textContent = item.title;
-      document.getElementById('showcaseDetailTag').textContent = item.tag;
-      document.getElementById('showcaseDetailDesc').textContent = item.desc;
-      document.getElementById('showcaseDetailPrice').textContent = item.price;
-      document.getElementById('showcaseDetailMainImg').src = item.img;
-      document.getElementById('showcaseDetailWaBtn').href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20${encodeURIComponent(item.title)}`;
+    /* ── Submit Booking Form Directly to WhatsApp ── */
+    const enquiryForm = document.getElementById('enquiryForm');
+    if (enquiryForm) {
+      enquiryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('fname')?.value.trim() || '';
+        const phone = document.getElementById('fphone')?.value.trim() || '';
+        const studio = document.getElementById('fstudio')?.value || 'Samalapuram Branch';
+        const service = document.getElementById('fservice')?.value || 'Bridal Blouse Tailoring';
+        const msg = document.getElementById('fmsg')?.value.trim() || '';
 
-      // Render thumbs
-      const thumbsContainer = document.getElementById('showcaseThumbs');
-      thumbsContainer.innerHTML = '';
-      (item.subImgs || [item.img]).forEach(src => {
-        const thumb = document.createElement('img');
-        thumb.src = src;
-        thumb.style.cssText = 'width:64px; height:64px; object-fit:cover; border-radius:8px; cursor:pointer; border:1px solid var(--line);';
-        thumb.onclick = () => { document.getElementById('showcaseDetailMainImg').src = src; };
-        thumbsContainer.appendChild(thumb);
-      });
-
-      document.getElementById('showcaseDetailModal').style.display = 'flex';
-    }
-
-    // ─── DYNAMIC HOMEPAGE FEATURED SHELVES (3 PER SECTION) ───────────────────
-    function renderHomepageFeaturedShelves() {
-      if (typeof window.getFeaturedProductsForSection !== 'function') return;
-      const sectionMapping = [
-        { id: 'hand-embroidery', gridId: 'shelf-grid-hand-embroidery', ctaText: 'Explore Blouse →' },
-        { id: 'machine-embroidery', gridId: 'shelf-grid-machine-embroidery', ctaText: 'Explore Blouse →' },
-        { id: 'lehengas', gridId: 'shelf-grid-lehengas', ctaText: 'Explore Lehenga →' },
-        { id: 'salwar', gridId: 'shelf-grid-salwar', ctaText: 'Explore Suit →' }
-      ];
-
-      sectionMapping.forEach(sec => {
-        const gridEl = document.getElementById(sec.gridId);
-        if (!gridEl) return;
-        const items = window.getFeaturedProductsForSection(sec.id);
-        if (items && items.length > 0) {
-          gridEl.innerHTML = items.slice(0, 3).map(item => {
-            const price = item.starting_price || 1800;
-            const imgUrl = item.main_image_url || 'assets/images/service_bridal.webp';
-            return `
-              <a href="product?id=${encodeURIComponent(item.id || item.slug || '')}" class="shelf-card">
-                <div class="shelf-card-img-wrap">
-                  <img src="${imgUrl}" alt="${item.title || 'Sree Designers Bespoke Couture'}" class="shelf-card-img" width="300" height="400" loading="lazy" decoding="async">
-                </div>
-                <div class="shelf-card-body">
-                  <div>
-                    <h4 class="shelf-card-title">${item.title}</h4>
-                    <div class="shelf-price-row">
-                      <span class="shelf-price-sale">Starting from ₹${Number(price).toLocaleString('en-IN')}</span>
-                    </div>
-                  </div>
-                  <span class="shelf-btn-view">${sec.ctaText}</span>
-                </div>
-              </a>
-            `;
-          }).join('');
+        let text = 'Hi Sree Designers & Boutique, I would like to book a fitting appointment:\n';
+        text += '• Name: ' + name + '\n';
+        text += '• Phone: ' + phone + '\n';
+        text += '• Branch: ' + studio + '\n';
+        text += '• Service: ' + service + '\n';
+        if (msg) {
+          text += '• Details: ' + msg + '\n';
         }
+
+        const waUrl = 'https://wa.me/919976344673?text=' + encodeURIComponent(text);
+        window.open(waUrl, '_blank');
       });
     }
 
-    // ─── MOBILE NAVIGATION DRAWER CONTROLLER ──────────────────────────
+    /* ── Mobile Navigation Drawer Controller ── */
     function openMobileMenu() {
       const drawer = document.getElementById('mobileMenuDrawer');
       const backdrop = document.getElementById('mobileMenuBackdrop');
-      if (drawer) drawer.classList.add('open');
-      if (backdrop) backdrop.classList.add('open');
+      if (drawer) {
+        drawer.classList.add('open', 'active');
+        drawer.setAttribute('aria-hidden', 'false');
+      }
+      if (backdrop) {
+        backdrop.classList.add('open', 'active');
+      }
       document.body.style.overflow = 'hidden';
     }
 
     function closeMobileMenu() {
       const drawer = document.getElementById('mobileMenuDrawer');
       const backdrop = document.getElementById('mobileMenuBackdrop');
-      if (drawer) drawer.classList.remove('open');
-      if (backdrop) backdrop.classList.remove('open');
+      if (drawer) {
+        drawer.classList.remove('open', 'active');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+      if (backdrop) {
+        backdrop.classList.remove('open', 'active');
+      }
       document.body.style.overflow = '';
     }
 
-    // ─── MINIMAL HERO CAROUSEL CONTROLLER (DIVA STYLE) ───
-    function initHeroCarousel() {
-      const carousel = document.querySelector('.minimal-hero-carousel');
-      if (!carousel) return;
-      const slides = carousel.querySelectorAll('.hero-slide');
-      const dots = carousel.querySelectorAll('.hero-dot');
-      const prevBtn = document.getElementById('heroPrevBtn');
-      const nextBtn = document.getElementById('heroNextBtn');
-      if (!slides || slides.length === 0) return;
-
-      let currentSlide = 0;
-      let slideTimer = null;
-
-      function goToSlide(index) {
-        if (index === currentSlide) return;
-        slides[currentSlide].classList.remove('active');
-        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
-
-        currentSlide = (index + slides.length) % slides.length;
-
-        slides[currentSlide].classList.add('active');
-        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-      }
-
-      function nextSlide() {
-        goToSlide(currentSlide + 1);
-      }
-
-      function prevSlide() {
-        goToSlide(currentSlide - 1);
-      }
-
-      function startAutoPlay() {
-        stopAutoPlay();
-        slideTimer = setInterval(nextSlide, 5500);
-      }
-
-      function stopAutoPlay() {
-        if (slideTimer) clearInterval(slideTimer);
-      }
-
-      dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-          goToSlide(idx);
-          startAutoPlay();
-        });
-      });
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          prevSlide();
-          startAutoPlay();
-        });
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          nextSlide();
-          startAutoPlay();
-        });
-      }
-
-      carousel.addEventListener('mouseenter', stopAutoPlay);
-      carousel.addEventListener('mouseleave', startAutoPlay);
-
-      // Touch Swiping for Mobile
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      carousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAutoPlay();
-      }, { passive: true });
-
-      carousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchStartX - touchEndX > 40) {
-          nextSlide();
-        } else if (touchEndX - touchStartX > 40) {
-          prevSlide();
-        }
-        startAutoPlay();
-      }, { passive: true });
-
-      startAutoPlay();
-    }
-
-    // ============ YOUTUBE SHORTS MODAL PLAYER ============
+    /* ── YouTube Shorts Modal Controller ── */
     const SHORTS_DATA = [
-      {
-        id: '1uLUFMEcelU',
-        title: 'Maroon Blouse Design with Green & Gold Embroidery',
-        tag: 'Hand Zardozi',
-        waText: 'Hi Sree Designers, I loved your YouTube Short "Maroon Blouse Design with Green & Gold Embroidery" and want to order or customize this design!'
-      },
-      {
-        id: 'ZiEq_th5pUI',
-        title: 'Purple Blouse with Floral Machine Embroidery',
-        tag: 'Machine Work',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Purple Blouse with Floral Machine Embroidery" and want to know price and customization details!'
-      },
-      {
-        id: 'RB8nXjxkRGc',
-        title: 'Traditional Green Blouse with Hand Aari Work',
-        tag: 'Aari Hand Work',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Traditional Green Blouse with Hand Aari" and want to customize this for my silk saree!'
-      },
-      {
-        id: 'w8GVpBO2e0U',
-        title: 'Bridal Blouse with Heirloom Aari Hand Embroidery',
-        tag: 'Bridal Couture',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Bridal Blouse with Heirloom Aari Work" and want to book a bridal blouse fitting consultation!'
-      },
-      {
-        id: '_QuAAq8hpHk',
-        title: 'Pink Custom Embroidery Blouse',
-        tag: 'Designer Wear',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Pink Custom Embroidery Blouse" and want to order this custom blouse design!'
-      },
-      {
-        id: 'mbvADw3niwA',
-        title: 'Heavy Aari Bridal Wedding Blouse',
-        tag: 'Heavy Bridal',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Heavy Aari Bridal Wedding Blouse" and want to get a quote for reception bridal blouse!'
-      },
-      {
-        id: 'a3dzh7_6Xa4',
-        title: 'Green Blouse with Minimal Machine Work',
-        tag: 'Machine Work',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Green Blouse with Minimal Machine Work" and want to inquire about custom stitching!'
-      },
-      {
-        id: '32WrlMLTAR4',
-        title: 'Elegant Red Hand-Embroidery Blouse with Zari',
-        tag: 'Festive Wear',
-        waText: 'Hi Sree Designers, I saw your YouTube Short "Elegant Red Hand-Embroidery Blouse with Zari" and want to order this design!'
-      }
+      { id: '1uLUFMEcelU', title: 'Maroon Blouse with Gold & Green Zari' },
+      { id: 'ZiEq_th5pUI', title: 'Purple Blouse with Floral Embroidery' },
+      { id: 'RB8nXjxkRGc', title: 'Traditional Green Blouse with Hand Aari' },
+      { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work' }
     ];
 
     let currentShortIndex = 0;
 
     function openShortModal(index) {
-      currentShortIndex = (index + SHORTS_DATA.length) % SHORTS_DATA.length;
+      currentShortIndex = (index >= 0 && index < SHORTS_DATA.length) ? index : 0;
       const short = SHORTS_DATA[currentShortIndex];
       const modal = document.getElementById('shortsModal');
       const iframeWrapper = document.getElementById('shortsIframeWrapper');
@@ -4874,52 +4481,40 @@
       const waBtn = document.getElementById('shortsWhatsappBtn');
       const ytBtn = document.getElementById('shortsYtBtn');
 
-      if (!modal || !iframeWrapper) return;
-
       if (titleEl) titleEl.textContent = short.title;
-      if (waBtn) waBtn.href = 'https://wa.me/919976344673?text=' + encodeURIComponent(short.waText);
+      if (waBtn) waBtn.href = 'https://wa.me/919976344673?text=' + encodeURIComponent('Hi Sree Designers, I watched your reel "' + short.title + '" and want to enquire about having this made.');
       if (ytBtn) ytBtn.href = 'https://www.youtube.com/shorts/' + short.id;
 
-      // Inject clean YouTube nocookie embed with autoplay
-      iframeWrapper.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + short.id + '?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="' + short.title.replace(/"/g, '&quot;') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%; height:100%; border:none;"></iframe>';
+      if (iframeWrapper) {
+        iframeWrapper.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + short.id + '?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="' + short.title + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      }
 
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      if (modal) {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     function closeShortModal() {
       const modal = document.getElementById('shortsModal');
       const iframeWrapper = document.getElementById('shortsIframeWrapper');
-      if (!modal) return;
-
-      modal.classList.remove('active');
-      if (iframeWrapper) iframeWrapper.innerHTML = ''; // instantly stop video and sound
-      document.body.style.overflow = '';
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      if (iframeWrapper) iframeWrapper.innerHTML = '';
     }
 
     function prevShort() {
-      openShortModal(currentShortIndex - 1);
+      const prevIdx = (currentShortIndex - 1 + SHORTS_DATA.length) % SHORTS_DATA.length;
+      openShortModal(prevIdx);
     }
 
     function nextShort() {
-      openShortModal(currentShortIndex + 1);
-    }
-
-    function toggleMoreShorts() {
-      const extraCards = document.querySelectorAll('.reel-card-extra');
-      const toggleBtn = document.getElementById('btnToggleMoreShorts');
-      if (!extraCards.length) return;
-
-      const isHidden = extraCards[0].style.display === 'none' || getComputedStyle(extraCards[0]).display === 'none';
-      extraCards.forEach(card => {
-        card.style.display = isHidden ? 'block' : 'none';
-      });
-
-      if (toggleBtn) {
-        toggleBtn.innerHTML = isHidden 
-          ? '<span>▲ Show Fewer Shorts</span>' 
-          : '<span>🎬 View More Studio Shorts (+4)</span>';
-      }
+      const nextIdx = (currentShortIndex + 1) % SHORTS_DATA.length;
+      openShortModal(nextIdx);
     }
 
     window.addEventListener('keydown', (e) => {
@@ -4930,24 +4525,53 @@
       if (e.key === 'ArrowRight') nextShort();
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof syncEstimatorStickyTotal === 'function') syncEstimatorStickyTotal();
-      initHeroCarousel();
-      loadDynamicShowcaseGrid('All');
-      renderHomepageFeaturedShelves();
+    /* ── Demo Showcase Detail Modal Controller (Kept for Hidden Modals) ── */
+    const demoItems = {
+      'demo-1': {
+        title: 'Bridal Blouse Tailoring & Maggam Work',
+        tag: 'Bridal Work',
+        img: 'assets/images/service_bridal_card.webp',
+        subImgs: ['assets/images/service_bridal_card.webp', 'assets/images/blouse_bridal_red_maggam_back.webp'],
+        price: 'Starting from ₹1,800',
+        desc: 'Custom Kanchipuram bridal silk blouse stitching featuring dense elbow zardozi peacocks, ruby kundan stones, back neck cutout, and double padded cups.'
+      }
+    };
 
-      const searchInput = document.getElementById('headerSearchInput');
-      if (searchInput) {
-        searchInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            const query = searchInput.value.trim();
-            if (query) {
-              window.location.href = `category?search=${encodeURIComponent(query)}`;
-            }
-          }
+    function openShowcaseDetail(itemId) {
+      const item = demoItems[itemId] || demoItems['demo-1'];
+      const titleEl = document.getElementById('showcaseDetailTitle');
+      const headingEl = document.getElementById('showcaseDetailHeading');
+      const tagEl = document.getElementById('showcaseDetailTag');
+      const descEl = document.getElementById('showcaseDetailDesc');
+      const priceEl = document.getElementById('showcaseDetailPrice');
+      const mainImg = document.getElementById('showcaseDetailMainImg');
+      const waBtn = document.getElementById('showcaseDetailWaBtn');
+
+      if (titleEl) titleEl.textContent = item.title;
+      if (headingEl) headingEl.textContent = item.title;
+      if (tagEl) tagEl.textContent = item.tag;
+      if (descEl) descEl.textContent = item.desc;
+      if (priceEl) priceEl.textContent = item.price;
+      if (mainImg) mainImg.src = item.img;
+      if (waBtn) waBtn.href = 'https://wa.me/919976344673?text=' + encodeURIComponent('Hi Sree Designers, I am interested in ' + item.title);
+
+      const thumbsContainer = document.getElementById('showcaseThumbs');
+      if (thumbsContainer) {
+        thumbsContainer.innerHTML = '';
+        (item.subImgs || [item.img]).forEach(src => {
+          const thumb = document.createElement('img');
+          thumb.src = src;
+          thumb.style.cssText = 'width:64px; height:64px; object-fit:cover; border-radius:8px; cursor:pointer; border:1px solid var(--line);';
+          thumb.onclick = () => { if (mainImg) mainImg.src = src; };
+          thumbsContainer.appendChild(thumb);
         });
       }
 
+      const modal = document.getElementById('showcaseDetailModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
       const menuBtn = document.getElementById('menuBtn');
       if (menuBtn) {
         menuBtn.addEventListener('click', openMobileMenu);
@@ -4958,6 +4582,5 @@
       }
     });
   </script>
-
 </body>
 </html>
