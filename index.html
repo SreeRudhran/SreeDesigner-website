@@ -11,11 +11,15 @@
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sree Designers &amp; Boutique — Bridal Blouse &amp; Aari Work Atelier | Coimbatore &amp; Tiruppur</title>
-  <meta name="description" content="Trusted by brides in Coimbatore &amp; Tiruppur. Standard blouse from Rs. 1,200, Bridal blouse from Rs. 1,800. Hand aari, maggam embroidery, padded cup trial fittings &amp; 48-hr express delivery. Book your fitting!">
+  <title>Sree Designers | Bridal Blouse &amp; Aari Work, Coimbatore</title>
+  <meta name="description" content="Bridal blouse &amp; aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!">
   
   <!-- SEO & CANONICALIZATION -->
   <link rel="canonical" href="https://sreedesigners.in/">
+
+  <!-- HIGH-PRIORITY LCP IMAGE PRELOADS (MOBILE & DESKTOP) -->
+  <link rel="preload" as="image" href="assets/images/hero-mobile.webp" media="(max-width: 768px)" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/hero-desktop.webp" media="(min-width: 769px)" type="image/webp" fetchpriority="high">
   <meta name="keywords" content="bridal blouse tailoring coimbatore, aari work blouse, maggam work blouse tiruppur, hand zardozi embroidery, lehenga stitching coimbatore, custom blouse fitting, south indian boutique, kanchipuram silk blouse designer">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
@@ -28,8 +32,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sreedesigners.in/">
   <meta property="og:site_name" content="Sree Designers &amp; Boutique">
-  <meta property="og:title" content="Sree Designers &amp; Boutique — Bridal Blouse &amp; Maggam Work Coimbatore &amp; Tiruppur">
-  <meta property="og:description" content="Trusted by brides in Coimbatore &amp; Tiruppur. Standard blouse from Rs. 1,200, Bridal blouse from Rs. 1,800. Hand aari, maggam embroidery, padded cup trial fittings &amp; 48-hr express delivery.">
+  <meta property="og:title" content="Sree Designers | Bridal Blouse &amp; Aari Work, Coimbatore">
+  <meta property="og:description" content="Bridal blouse &amp; aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!">
   <meta property="og:image" content="https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -37,123 +41,184 @@
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sree Designers &amp; Boutique — Bridal Blouse &amp; Maggam Work Coimbatore &amp; Tiruppur">
-  <meta name="twitter:description" content="Trusted by brides in Coimbatore &amp; Tiruppur. Standard blouse from Rs. 1,200, Bridal blouse from Rs. 1,800. Hand aari, maggam embroidery, padded cup trial fittings &amp; 48-hr express delivery.">
+  <meta name="twitter:title" content="Sree Designers | Bridal Blouse &amp; Aari Work, Coimbatore">
+  <meta name="twitter:description" content="Bridal blouse &amp; aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!">
   <meta name="twitter:image" content="https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.jpg">
 
-  <!-- LOCAL BUSINESS & ATELIER SCHEMA (JSON-LD) -->
+  <!-- LOCAL BUSINESS & FAQPAGE SCHEMA (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ClothingStore",
-    "name": "Sree Designers & Boutique",
-    "alternateName": ["Sree Designers", "Sree Designers Boutique", "Sree Designers Coimbatore", "Sree Designers Tiruppur"],
-    "sameAs": [
-      "https://www.instagram.com/sreedesigner_/",
-      "https://www.youtube.com/@SreeDesignerss",
-      "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr"
-    ],
-    "image": "https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.jpg",
-    "@id": "https://sreedesigners.in/#store",
-    "url": "https://sreedesigners.in/",
-    "telephone": "+919976344673",
-    "priceRange": "₹₹",
-    "currenciesAccepted": "INR",
-    "paymentAccepted": "Cash, UPI, Credit Card",
-    "address": [
+    "@graph": [
       {
-        "@type": "PostalAddress",
-        "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
-        "addressLocality": "Somanur, Coimbatore",
-        "addressRegion": "Tamil Nadu",
-        "postalCode": "641663",
-        "addressCountry": "IN"
+        "@type": ["LocalBusiness", "ClothingStore"],
+        "@id": "https://sreedesigners.in/#business",
+        "name": "Sree Designers & Boutique",
+        "alternateName": [
+          "Sree Designers",
+          "Sree Designers Boutique",
+          "Sree Designers Coimbatore",
+          "Sree Designers Tiruppur"
+        ],
+        "url": "https://sreedesigners.in/",
+        "logo": "https://sreedesigners.in/assets/images/logo.png",
+        "image": [
+          "https://sreedesigners.in/assets/images/hero-desktop.webp",
+          "https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.webp"
+        ],
+        "description": "Bridal blouse & aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!",
+        "telephone": "+919976344673",
+        "priceRange": "₹₹",
+        "currenciesAccepted": "INR",
+        "paymentAccepted": "Cash, UPI, Net Banking, Credit Card",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:30",
+            "closes": "21:00"
+          }
+        ],
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
+            "addressLocality": "Somanur, Coimbatore",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "641663",
+            "addressCountry": "IN"
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "AutoStand, Annur Road",
+            "addressLocality": "Karnempettai, Tiruppur",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "641663",
+            "addressCountry": "IN"
+          }
+        ],
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 11.1271,
+          "longitude": 77.1683
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Coimbatore" },
+          { "@type": "City", "name": "Tiruppur" },
+          { "@type": "AdministrativeArea", "name": "Tamil Nadu" }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/sreedesigner_/",
+          "https://www.youtube.com/@SreeDesignerss",
+          "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "248",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Bridal Blouse Tailoring & Maggam Work Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Standard Saree Blouse Tailoring",
+                "description": "Precision South Indian saree blouse tailoring with pre-shrunk pure cotton lining and reinforced seams."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": "1200",
+                "priceCurrency": "INR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Bespoke Bridal Blouse Tailoring with Padded Cups",
+                "description": "Custom bridal blouse stitching with sculpted padded cups, neckline stability stay, and trial fitting."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": "1800",
+                "priceCurrency": "INR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Hand Aari & Bridal Maggam Work Embroidery",
+                "description": "Authentic hand zardozi, kundan stones, and personalized wedding sleeve and back neck embroidery."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": "2500",
+                "priceCurrency": "INR"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "48-Hour Rapid Express Bridal Fitting & Delivery",
+                "description": "Priority trial fitting and express delivery for urgent weddings and ceremonies."
+              }
+            }
+          ]
+        }
       },
       {
-        "@type": "PostalAddress",
-        "streetAddress": "AutoStand, Annur Road",
-        "addressLocality": "Karnempettai, Tiruppur",
-        "addressRegion": "Tamil Nadu",
-        "addressCountry": "IN"
+        "@type": "FAQPage",
+        "@id": "https://sreedesigners.in/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What makes Sree Designers' padded cups and trial fitting unique?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At Sree Designers boutique, we engineer our bridal blouses with custom-molded, breathable padded cups tailored to your anatomical bust apex and cup size. Unlike standard off-the-rack pads that shift or bunch, our padded cups are invisibly anchored between pre-shrunk pure cotton lining and outer silk. During your in-studio trial fitting, our master pattern maker checks armhole ease, shoulder slope, and back neckline tension to ensure complete freedom of movement without bra strap peek or shoulder slippage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Sree Designers handle rush bridal maggam work within 48 hours?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! We offer an express 48-hour delivery service for urgent bridal blouse stitching and embroidery needs across Coimbatore and Tiruppur. When you bring your saree fabric or courier it to our Samalapuram or Karnempettai studio, our dedicated master cutters and in-house artisans prioritize your pattern, expedite your trial fitting, and deliver finished heirloom garments on time for your muhurtham or reception."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I bring my own Kanchipuram silk saree fabric and border?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Most brides bring pure Kanchipuram silk, Banarasi brocade, organza, tussar, or raw silk fabrics. We preserve the original zari borders, align the temple or floral patterns with surgical precision across your sleeves and back neck, and create custom hand aari embroidery that matches your wedding jewelry."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between hand aari maggam work and machine embroidery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hand aari and maggam work is created thread-by-thread using traditional hook needles, real zardozi metallic wires, pearls, and kundan stones, offering unmatched 3D texture, flexibility, and heirloom bridal richness. Machine embroidery uses high-density computer-guided stitching for clean geometric borders, monograms, and faster turnaround at an accessible starting price. Both can be combined for breathtaking bridal aesthetics."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I book a bridal fitting consultation in Coimbatore or Tiruppur?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can book your fitting session directly via WhatsApp (+91 99763 44673), through our website booking form, or by visiting our walk-in studios at Samalapuram (Somanur, Coimbatore) and Karnempettai (Annur Road, Tiruppur). We recommend scheduling your fitting 2 to 4 weeks prior to your wedding date, though express 48-hour slots are available upon request."
+            }
+          }
+        ]
       }
-    ],
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 11.1271,
-      "longitude": 77.1683
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "09:30",
-        "closes": "21:00"
-      }
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "248",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Bespoke Bridal Tailoring & Maggam Work Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Standard Saree Blouse Tailoring",
-            "description": "Precision South Indian saree blouse tailoring with pre-shrunk pure cotton lining."
-          },
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": "1200",
-            "priceCurrency": "INR"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Bridal Blouse Custom Stitching with Padded Cup Trial",
-            "description": "Bespoke South Indian bridal blouse tailoring with built-in padded cups and pre-shrunk cotton lining."
-          },
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": "1800",
-            "priceCurrency": "INR"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Hand Aari & Maggam Work Embroidery",
-            "description": "Authentic hand zardozi, kundan stone embellishment, and customized neck/sleeve embroidery."
-          },
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": "2500",
-            "priceCurrency": "INR"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "48-Hour Rapid Express Bridal Fitting & Delivery",
-            "description": "Priority trial fitting and express delivery for urgent weddings and ceremonies."
-          }
-        }
-      ]
-    },
-    "sameAs": [
-      "https://www.instagram.com/sreedesigner_/",
-      "https://www.youtube.com/@SreeDesignerss",
-      "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr"
     ]
   }
   </script>
@@ -4465,6 +4530,275 @@
       color: #ffffff !important;
     }
 
+  
+    /* =============================================
+       PRICING GUIDE SECTION STYLES
+    ============================================= */
+    #pricing {
+      padding: 80px 0 !important;
+      background: #ffffff !important;
+    }
+    @media (max-width: 768px) {
+      #pricing { padding: 48px 0 !important; }
+    }
+    .pricing-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 20px !important;
+      margin-top: 10px !important;
+    }
+    @media (max-width: 1024px) and (min-width: 681px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+    @media (max-width: 680px) {
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+    }
+    .pricing-card {
+      background: var(--surface, #faf7f4) !important;
+      border: 1px solid var(--line, #eee) !important;
+      border-radius: 16px !important;
+      padding: 24px 20px 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+    }
+    .pricing-card.featured-pricing-card {
+      background: #ffffff !important;
+      border: 2px solid #c59b27 !important;
+      box-shadow: 0 8px 24px rgba(197, 155, 39, 0.15) !important;
+      position: relative !important;
+    }
+    .pricing-badge {
+      display: inline-block !important;
+      font-size: 0.72rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      color: #555555 !important;
+      background: rgba(0, 0, 0, 0.05) !important;
+      padding: 4px 10px !important;
+      border-radius: 999px !important;
+      margin-bottom: 12px !important;
+    }
+    .pricing-badge.featured-badge {
+      background: #c59b27 !important;
+      color: #ffffff !important;
+    }
+    .pricing-title {
+      font-family: 'Fraunces', serif !important;
+      font-size: 1.15rem !important;
+      font-weight: 500 !important;
+      color: #1f1b18 !important;
+      margin: 0 0 8px !important;
+      line-height: 1.3 !important;
+    }
+    .pricing-price {
+      font-family: 'Jost', sans-serif !important;
+      font-size: 1.45rem !important;
+      font-weight: 700 !important;
+      color: #c59b27 !important;
+      margin-bottom: 10px !important;
+    }
+    .pricing-desc {
+      font-size: 0.88rem !important;
+      color: #555555 !important;
+      line-height: 1.5 !important;
+      margin-bottom: 18px !important;
+    }
+    .pricing-features {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 0 20px !important;
+      border-top: 1px dashed rgba(0, 0, 0, 0.08) !important;
+      padding-top: 14px !important;
+    }
+    .pricing-features li {
+      font-size: 0.84rem !important;
+      color: #3d3d3d !important;
+      margin-bottom: 8px !important;
+      line-height: 1.4 !important;
+    }
+    .btn-pricing-cta {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-height: 44px !important;
+      padding: 10px 16px !important;
+      border: 1.5px solid #1f1b18 !important;
+      border-radius: 999px !important;
+      color: #1f1b18 !important;
+      background: transparent !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      text-decoration: none !important;
+      transition: all 0.2s ease !important;
+    }
+    .btn-pricing-cta:hover {
+      background: #1f1b18 !important;
+      color: #ffffff !important;
+    }
+    .btn-pricing-cta.featured-btn {
+      background: #c59b27 !important;
+      color: #ffffff !important;
+      border-color: #c59b27 !important;
+    }
+    .btn-pricing-cta.featured-btn:hover {
+      background: #9A7718 !important;
+      border-color: #9A7718 !important;
+    }
+
+    /* =============================================
+       FAQ SECTION STYLES
+    ============================================= */
+    #faq {
+      padding: 80px 0 !important;
+      background: var(--surface, #faf7f4) !important;
+    }
+    @media (max-width: 768px) {
+      #faq { padding: 48px 0 !important; }
+    }
+    .faq-accordion-list {
+      max-width: 820px !important;
+      margin: 0 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 14px !important;
+    }
+    .faq-item {
+      background: #ffffff !important;
+      border: 1px solid var(--line, #eee) !important;
+      border-radius: 14px !important;
+      padding: 20px 24px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+    }
+    .faq-question {
+      font-family: 'Fraunces', serif !important;
+      font-size: 1.12rem !important;
+      font-weight: 500 !important;
+      color: #1f1b18 !important;
+      margin: 0 0 10px !important;
+      line-height: 1.35 !important;
+    }
+    .faq-answer p {
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.94rem !important;
+      color: #555555 !important;
+      line-height: 1.65 !important;
+      margin: 0 !important;
+    }
+
+    /* =============================================
+       AREAS SERVED SECTION STYLES
+    ============================================= */
+    #areas-served {
+      padding: 80px 0 !important;
+      background: #ffffff !important;
+    }
+    @media (max-width: 768px) {
+      #areas-served { padding: 48px 0 !important; }
+    }
+    .areas-served-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 24px !important;
+      margin-top: 10px !important;
+    }
+    @media (max-width: 768px) {
+      .areas-served-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+      }
+    }
+    .area-card {
+      background: var(--surface, #faf7f4) !important;
+      border: 1px solid var(--line, #eee) !important;
+      border-radius: 16px !important;
+      padding: 28px 24px !important;
+    }
+    .area-icon {
+      color: #c59b27 !important;
+      margin-bottom: 12px !important;
+    }
+    .area-card h3 {
+      font-family: 'Fraunces', serif !important;
+      font-size: 1.22rem !important;
+      font-weight: 500 !important;
+      color: #1f1b18 !important;
+      margin: 0 0 10px !important;
+    }
+    .area-card p {
+      font-size: 0.92rem !important;
+      color: #555555 !important;
+      line-height: 1.6 !important;
+      margin-bottom: 16px !important;
+    }
+    .area-tags {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    .area-chip {
+      background: #ffffff !important;
+      border: 1px solid rgba(197, 155, 39, 0.3) !important;
+      color: #1f1b18 !important;
+      font-size: 0.78rem !important;
+      font-weight: 500 !important;
+      padding: 4px 10px !important;
+      border-radius: 999px !important;
+    }
+    .nri-service-banner {
+      margin-top: 28px !important;
+      padding: 20px 24px !important;
+      background: #fdfbf9 !important;
+      border: 1px solid rgba(197, 155, 39, 0.35) !important;
+      border-radius: 16px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 18px !important;
+      flex-wrap: wrap !important;
+    }
+    .nri-banner-text {
+      font-size: 0.92rem !important;
+      color: #3d3d3d !important;
+      line-height: 1.5 !important;
+      flex: 1 1 300px !important;
+    }
+    .nri-banner-text strong {
+      color: #1f1b18 !important;
+    }
+    .btn-nri-wa {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 44px !important;
+      padding: 10px 20px !important;
+      background: #25d366 !important;
+      color: #ffffff !important;
+      border-radius: 999px !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.84rem !important;
+      font-weight: 600 !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25) !important;
+      white-space: nowrap !important;
+    }
+
   </style>
 
   <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
@@ -4685,7 +5019,7 @@
     <div class="wrap our-work-container">
       <div class="section-head text-center" style="text-align: center; max-width: 680px; margin: 0 auto 36px;">
         <span class="eyebrow-gold">Atelier Creations</span>
-        <h2 class="section-title-serif">Our Work</h2>
+        <h2 class="section-title-serif">Our Work: Sree Designers Maggam Work &amp; Bridal Blouses</h2>
         <p class="section-desc-italic">Bespoke bridal blouses and artisanal embroidery handcrafted to perfection.</p>
       </div>
 
@@ -4788,7 +5122,7 @@
     <div class="wrap reels-container">
       <div class="section-head text-center" style="text-align: center; max-width: 680px; margin: 0 auto 36px;">
         <span class="eyebrow-gold">Studio Reels</span>
-        <h2 class="section-title-serif">Watch Our Real Blouses in Motion</h2>
+        <h2 class="section-title-serif">Watch Real Blouses &amp; Maggam Work in Motion</h2>
         <p class="section-desc-italic">Watch real silk textures, glistening aari embroidery, and bespoke bridal fittings in motion.</p>
       </div>
 
@@ -4866,7 +5200,7 @@
     <div class="wrap">
       <div class="section-head text-center" style="text-align:center; max-width:760px; margin:0 auto 36px;">
         <span class="eyebrow">Client Love &amp; Experiences</span>
-        <h2>Happy Customers</h2>
+        <h2 class="section-title-serif">Happy Customers: Sree Designers Boutique Reviews</h2>
         <p>Trusted by brides in Coimbatore &amp; Tiruppur for zero-gap fitting and heirloom bridal craftsmanship.</p>
         
         <!-- Google Rating Badge -->
@@ -4895,7 +5229,8 @@
           <div class="review-author">
             <div class="author-avatar">P</div>
             <div class="author-details">
-              <h4 class="author-name">Priyadharshini K.</h4>
+              <!-- [PLACEHOLDER: Replace with verified Google Business review / bride details] -->
+              <h3 class="author-name">Priyadharshini K.</h3>
               <span class="author-meta">Bridal Muhurtham Blouse • Coimbatore</span>
               <span class="verified-tag">✓ Verified Fitting</span>
             </div>
@@ -4907,7 +5242,8 @@
           <p class="review-quote">"Zero gaping at the back neck and flawless armhole comfort. Their trial fitting session gave me complete peace of mind for my big day. Best bridal boutique in Tiruppur &amp; Coimbatore!"</p>
           <div class="review-author">
             <div class="author-details">
-              <h4 class="author-name">Ananya R.</h4>
+              <!-- [PLACEHOLDER: Replace with verified Google Business review / bride details] -->
+              <h3 class="author-name">Ananya R.</h3>
               <span class="author-meta">Maggam Work &amp; Reception Blouse • Tiruppur</span>
               <span class="verified-tag">✓ Verified Fitting</span>
             </div>
@@ -4920,7 +5256,8 @@
           <div class="review-author">
             <div class="author-avatar">S</div>
             <div class="author-details">
-              <h4 class="author-name">Sangeetha M.</h4>
+              <!-- [PLACEHOLDER: Replace with verified Google Business review / bride details] -->
+              <h3 class="author-name">Sangeetha M.</h3>
               <span class="author-meta">Express Bridal Fitting • NRI Bride</span>
               <span class="verified-tag">✓ Verified Fitting</span>
             </div>
@@ -4930,58 +5267,159 @@
     </div>
   </section>
 
-  <!-- SECTION 7: HOW IT WORKS (4 STEPS IN COMPACT VERTICAL LIST) -->
-  <section class="section-alt" id="process">
+  <!-- SECTION 7: HOW IT WORKS (COMPREHENSIVE 4-STEP ATELIER JOURNEY) -->
+  <section class="section-alt" id="process" aria-label="How Sree Designers Bridal Tailoring Works">
     <div class="wrap">
-      <div class="section-head" style="text-align: center; max-width: 680px; margin: 0 auto 30px;">
-        <span class="eyebrow">Service Boutique Journey</span>
-        <h2 style="font-size: 2.2rem; margin: 8px 0 10px;">How It Works</h2>
-        <p style="color: var(--ink-soft); font-size: 1rem;">A seamless 4-step artisan journey from fabric drop-off to precision trial fitting and pickup.</p>
+      <div class="section-head text-center" style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Boutique Craftsmanship Journey</span>
+        <h2 class="section-title-serif">How It Works: Precision Measurement to Padded Cups Fitting</h2>
+        <p class="section-desc-italic">A transparent, master-guided 4-step tailoring journey from pure silk fabric drop-off to personalized maggam work and trial fitting.</p>
       </div>
 
       <div class="process-grid">
+        <!-- Step 1 -->
         <div class="process-card">
           <div class="process-card-header">
             <span class="process-badge">STEP 01</span>
-            <div class="process-icon">
+            <div class="process-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
             </div>
           </div>
-          <h3>Bring Your Fabric</h3>
-          <p>Bring your saree blouse material, silk cloth, or lehenga fabric to our Samalapuram or Karnempettai studio.</p>
+          <h3>1. Fabric Consultation &amp; Personal Measurements</h3>
+          <p>Bring your Kanchipuram silk saree, Banarasi brocade, velvet, or designer fabric to our Samalapuram or Karnempettai studio. Our master pattern cutters take a comprehensive 22-point anatomical measurement mapping your bust apex, shoulder slope, armhole depth, and waist taper. This guarantees your blouse feels like a second skin with zero armhole tightness or shoulder slippage.</p>
         </div>
 
+        <!-- Step 2 -->
         <div class="process-card">
           <div class="process-card-header">
             <span class="process-badge">STEP 02</span>
-            <div class="process-icon">
+            <div class="process-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
             </div>
           </div>
-          <h3>Design &amp; Measurements</h3>
-          <p>Consult with our master designers for necklines, hand zardozi motifs, Aari sketching, and precision fit.</p>
+          <h3>2. Custom Neckline &amp; Maggam Work Blueprint</h3>
+          <p>Collaborate with our in-house bridal stylists to select your dream silhouette: sweetheart necklines, royal boat necks, illusion net backs, or traditional temple arch cutouts. We sketch custom Aari &amp; Maggam work motifs directly onto butter tracing paper, aligning peacock, mango, and floral designs with your heirloom jewelry and wedding saree zari borders.</p>
         </div>
 
+        <!-- Step 3 -->
         <div class="process-card">
           <div class="process-card-header">
             <span class="process-badge">STEP 03</span>
-            <div class="process-icon">
+            <div class="process-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
             </div>
           </div>
-          <h3>Artisanal Crafting</h3>
-          <p>Our master artisans hand-stitch gold zardozi wires or execute high-density computerized machine embroidery.</p>
+          <h3>3. Hand Embroidery &amp; Padded Cups Architecture</h3>
+          <p>Our master artisans hand-stitch genuine gold and antique zardozi wires, sparkling kundan stones, and delicate French knots on specialized wooden khatia frames. Concurrently, our tailoring masters build the blouse interior using pre-shrunk pure cotton lining and sculpt breathable padded cups invisibly anchored to your exact cup profile for a seamless, bra-free bridal silhouette.</p>
         </div>
 
+        <!-- Step 4 -->
         <div class="process-card">
           <div class="process-card-header">
             <span class="process-badge">STEP 04</span>
-            <div class="process-icon">
+            <div class="process-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
           </div>
-          <h3>Trial &amp; Perfect Pickup</h3>
-          <p>Experience your custom trial fitting with built-in padding and take home your flawless bridal garment.</p>
+          <h3>4. In-Studio Trial Fitting &amp; 48-Hour Delivery</h3>
+          <p>Step into our private fitting suites at Samalapuram or Karnempettai for your personalized trial session. We verify torso breathing comfort, neckline flat lay, and arm movement under real bridal movement. Any micro-adjustments are completed on the spot by our tailoring team. For rush schedules, our 48-hour express delivery ensures your blouse is steamed, boxed, and wedding-ready without stress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7B: BESPOKE TAILORING & MAGGAM WORK PRICING GUIDE -->
+  <section class="section" id="pricing" aria-label="Bespoke Tailoring and Maggam Work Pricing Guide">
+    <div class="wrap">
+      <div class="section-head text-center" style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Atelier Rates &amp; Packages</span>
+        <h2 class="section-title-serif">Bespoke Tailoring &amp; Maggam Work Pricing</h2>
+        <p class="section-desc-italic">Transparent boutique pricing with pre-shrunk pure cotton lining, engineered padded cups, and complimentary fit trials.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Card 1: Standard Blouse -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <span class="pricing-badge">Classic Stitch</span>
+            <h3 class="pricing-title">Standard Saree Blouse Tailoring</h3>
+            <div class="pricing-price">Starting from ₹1,200</div>
+            <!-- [PLACEHOLDER: Confirm standard blouse base stitching rate] -->
+            <p class="pricing-desc">Precision South Indian saree blouse tailored to your exact posture with reinforced seams and pre-shrunk cotton lining.</p>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ 22-point anatomical measurement cut</li>
+            <li>✓ Pre-shrunk 100% pure cotton inner lining</li>
+            <li>✓ Seamless armhole curve (no pinching)</li>
+            <li>✓ Rust-free brass hook &amp; eye closure</li>
+            <li>✓ 1 complimentary fit adjustment within 7 days</li>
+          </ul>
+          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20Standard%20Saree%20Blouse%20Tailoring%20(Rs.%201,200)." target="_blank" rel="noopener noreferrer" class="btn-pricing-cta">
+            Book Fitting on WhatsApp
+          </a>
+        </div>
+
+        <!-- Card 2: Bridal Blouse with Padded Cups (Featured) -->
+        <div class="pricing-card featured-pricing-card">
+          <div class="pricing-header">
+            <span class="pricing-badge featured-badge">Most Popular Bride Choice</span>
+            <h3 class="pricing-title">Bridal Blouse Tailoring with Padded Cups</h3>
+            <div class="pricing-price">Starting from ₹1,800</div>
+            <!-- [PLACEHOLDER: Confirm bridal blouse with padded cups rate] -->
+            <p class="pricing-desc">Sculpted bridal architecture engineered with built-in breathable padded cups and neckline stability for zero shoulder slippage.</p>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ Built-in sculpted padded cups (custom apex placement)</li>
+            <li>✓ Shoulder stay ribbons &amp; zero-gap back neck stability</li>
+            <li>✓ Double-stitched interlock seams with 2-inch margins</li>
+            <li>✓ Pre-shrunk premium breathable cambric lining</li>
+            <li>✓ 1 personalized in-studio trial fitting session included</li>
+          </ul>
+          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20Bridal%20Blouse%20Tailoring%20with%20Padded%20Cups%20(Rs.%201,800)." target="_blank" rel="noopener noreferrer" class="btn-pricing-cta featured-btn">
+            Book Bridal Fitting
+          </a>
+        </div>
+
+        <!-- Card 3: Hand Aari & Maggam Work -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <span class="pricing-badge">Artisan Heirloom</span>
+            <h3 class="pricing-title">Hand Aari &amp; Bridal Maggam Work</h3>
+            <div class="pricing-price">Starting from ₹2,500</div>
+            <!-- [PLACEHOLDER: Custom quote based on zardozi threadwork, pearl, and kundan density] -->
+            <p class="pricing-desc">Authentic Coimbatore &amp; Tiruppur hand embroidery with genuine metallic zardozi wires, kundan stones, and temple motifs.</p>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ 100% handcrafted aari embroidery (zero machine shortcuts)</li>
+            <li>✓ Real metallic gold, antique &amp; silver zardozi threadwork</li>
+            <li>✓ Faceted kundan glass stones &amp; micro pearl clusters</li>
+            <li>✓ Custom sleeve motif matching your wedding jewelry</li>
+            <li>✓ Includes pattern tracing &amp; color-matching consultation</li>
+          </ul>
+          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20Hand%20Aari%20and%20Maggam%20Work%20Embroidery." target="_blank" rel="noopener noreferrer" class="btn-pricing-cta">
+            Enquire Maggam Work
+          </a>
+        </div>
+
+        <!-- Card 4: Express 48-Hour Delivery -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <span class="pricing-badge">Express Urgent</span>
+            <h3 class="pricing-title">48-Hour Express Bridal Delivery</h3>
+            <div class="pricing-price">Starting from ₹500</div>
+            <!-- [PLACEHOLDER: Express delivery surcharge depending on embroidery complexity] -->
+            <p class="pricing-desc">Rapid turnaround service for last-minute muhurthams, engagement ceremonies, and NRI brides visiting on short vacations.</p>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ Guaranteed 48-hour cut, stitch &amp; trial turnaround</li>
+            <li>✓ Dedicated master cutter prioritized schedule</li>
+            <li>✓ Same-day emergency alterations &amp; hook adjustments</li>
+            <li>✓ Express courier or direct in-store pickup</li>
+            <li>✓ Available at both Samalapuram &amp; Karnempettai branches</li>
+          </ul>
+          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20have%20an%20urgent%2048-hour%20bridal%20stitching%20requirement." target="_blank" rel="noopener noreferrer" class="btn-pricing-cta">
+            Enquire 48-Hr Express
+          </a>
         </div>
       </div>
     </div>
@@ -5093,6 +5531,114 @@
     </div>
   </section>
 
+  <!-- SECTION 8B: FREQUENTLY ASKED QUESTIONS (FAQ) -->
+  <section class="section-alt" id="faq" aria-label="Frequently Asked Questions">
+    <div class="wrap">
+      <div class="section-head text-center" style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Helpful Advice &amp; Details</span>
+        <h2 class="section-title-serif">Frequently Asked Questions About Sree Designers Boutique</h2>
+        <p class="section-desc-italic">Everything you need to know about bridal blouse tailoring, maggam work, padded cups, and delivery timelines in Coimbatore &amp; Tiruppur.</p>
+      </div>
+
+      <div class="faq-accordion-list">
+        <!-- FAQ 1 -->
+        <article class="faq-item">
+          <h3 class="faq-question">What makes Sree Designers' padded cups and trial fitting unique?</h3>
+          <div class="faq-answer">
+            <p>At Sree Designers boutique, we engineer our bridal blouses with custom-molded, breathable padded cups tailored to your anatomical bust apex and cup size. Unlike standard off-the-rack pads that shift or bunch, our padded cups are invisibly anchored between pre-shrunk pure cotton lining and outer silk. During your in-studio trial fitting, our master pattern maker checks armhole ease, shoulder slope, and back neckline tension to ensure complete freedom of movement without bra strap peek or shoulder slippage.</p>
+          </div>
+        </article>
+
+        <!-- FAQ 2 -->
+        <article class="faq-item">
+          <h3 class="faq-question">Can Sree Designers handle rush bridal maggam work within 48 hours?</h3>
+          <div class="faq-answer">
+            <p>Yes! We offer an express 48-hour delivery service for urgent bridal blouse stitching and embroidery needs across Coimbatore and Tiruppur. When you bring your saree fabric or courier it to our Samalapuram or Karnempettai studio, our dedicated master cutters and in-house artisans prioritize your pattern, expedite your trial fitting, and deliver finished heirloom garments on time for your muhurtham or reception.</p>
+          </div>
+        </article>
+
+        <!-- FAQ 3 -->
+        <article class="faq-item">
+          <h3 class="faq-question">Can I bring my own Kanchipuram silk saree fabric and border?</h3>
+          <div class="faq-answer">
+            <p>Yes. Most brides bring pure Kanchipuram silk, Banarasi brocade, organza, tussar, or raw silk fabrics. We preserve the original zari borders, align the temple or floral patterns with surgical precision across your sleeves and back neck, and create custom hand aari embroidery that matches your wedding jewelry.</p>
+          </div>
+        </article>
+
+        <!-- FAQ 4 -->
+        <article class="faq-item">
+          <h3 class="faq-question">What is the difference between hand aari maggam work and machine embroidery?</h3>
+          <div class="faq-answer">
+            <p>Hand aari and maggam work is created thread-by-thread using traditional hook needles, real zardozi metallic wires, pearls, and kundan stones, offering unmatched 3D texture, flexibility, and heirloom bridal richness. Machine embroidery uses high-density computer-guided stitching for clean geometric borders, monograms, and faster turnaround at an accessible starting price. Both can be combined for breathtaking bridal aesthetics.</p>
+          </div>
+        </article>
+
+        <!-- FAQ 5 -->
+        <article class="faq-item">
+          <h3 class="faq-question">How do I book a bridal fitting consultation in Coimbatore or Tiruppur?</h3>
+          <div class="faq-answer">
+            <p>You can book your fitting session directly via WhatsApp (+91 99763 44673), through our website booking form, or by visiting our walk-in studios at Samalapuram (Somanur, Coimbatore) and Karnempettai (Annur Road, Tiruppur). We recommend scheduling your fitting 2 to 4 weeks prior to your wedding date, though express 48-hour slots are available upon request.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8C: AREAS SERVED ACROSS COIMBATORE & TIRUPPUR -->
+  <section class="section" id="areas-served" aria-label="Areas Served Across Coimbatore and Tiruppur">
+    <div class="wrap">
+      <div class="section-head text-center" style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Local Boutique Presence</span>
+        <h2 class="section-title-serif">Areas Served: Coimbatore &amp; Tiruppur Bridal Studios</h2>
+        <p class="section-desc-italic">Two conveniently located tailoring boutiques serving brides and families across Western Tamil Nadu.</p>
+      </div>
+
+      <div class="areas-served-grid">
+        <div class="area-card">
+          <div class="area-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <h3>Samalapuram Studio — Serving Somanur &amp; East Coimbatore</h3>
+          <p>Conveniently located on Annur-Avinashi-Mettupalayam Road opposite IDBI Bank, our Samalapuram flagship boutique caters to clients throughout Somanur, Sulur, Karumathampatti, Annur, Avinashi Road, Peelamedu, Hope College, Singanallur, Ramanathapuram, and central Coimbatore. Equipped with private trial fitting suites and dedicated hand embroidery stations.</p>
+          <div class="area-tags">
+            <span class="area-chip">Somanur</span>
+            <span class="area-chip">Sulur</span>
+            <span class="area-chip">Avinashi Road</span>
+            <span class="area-chip">Peelamedu</span>
+            <span class="area-chip">Karumathampatti</span>
+          </div>
+        </div>
+
+        <div class="area-card">
+          <div class="area-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <h3>Karnempettai Studio — Serving Tiruppur &amp; Palladam</h3>
+          <p>Situated directly at AutoStand on Annur Road, our Karnempettai studio serves brides and families across Tiruppur city, Palladam, Mangalam, Veerapandi, Dharapuram Road, Kangeyam, and surrounding textile towns. Walk-ins welcome for quick 22-point measurements, fabric drops, and scheduled trial fittings.</p>
+          <div class="area-tags">
+            <span class="area-chip">Tiruppur City</span>
+            <span class="area-chip">Palladam</span>
+            <span class="area-chip">Mangalam</span>
+            <span class="area-chip">Veerapandi</span>
+            <span class="area-chip">Dharapuram Rd</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outstation & NRI Brides Notice -->
+      <div class="nri-service-banner">
+        <div class="nri-banner-text">
+          <strong>Outstation &amp; NRI Brides Worldwide:</strong>
+          <span>We offer doorstep pickup across Chennai, Bengaluru, Madurai, Erode, and Salem, alongside secure international courier delivery for NRI brides with video consultation.</span>
+        </div>
+        <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20an%20outstation/NRI%20bride%20and%20want%20to%20consult%20about%20bridal%20blouse%20stitching." target="_blank" rel="noopener noreferrer" class="btn-nri-wa">
+          Consult on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  
   <!-- SECTION 9: VISIT US (THE TWO BRANCHES WITH MAP BUTTONS) -->
   <section class="section-alt" id="stores">
     <div class="wrap">
@@ -5133,7 +5679,7 @@
     </div>
   </section>
 
-  <!-- SECTION 10: FOOTER (LINKS TO BLOG, RETURN POLICY, INSTAGRAM, YOUTUBE, FACEBOOK, WHATSAPP, COPYRIGHT) -->
+  <!-- SECTION 10: FOOTER -->
   <footer>
     <div class="wrap footer-wrap">
       <div class="footer-brand-title">Sree Designers &amp; Boutique</div>
@@ -5239,9 +5785,7 @@
   </div>
 
   <!-- MODULE SCRIPTS -->
-  <script src="js/catalogData.js?v=20261004_v1" defer></script>
-  <script src="js/supabaseClient.js" defer></script>
-  <script src="js/seo.js" defer></script>
+  
 
   <!-- INTERACTIVE CONTROLLERS SCRIPT -->
   <script>
