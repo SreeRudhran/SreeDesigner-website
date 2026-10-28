@@ -3183,8 +3183,15 @@
         background: var(--ink);
         color: #ffffff;
       }
+      /* Floating green WhatsApp button visible */
       .whatsapp-float {
-        display: none !important; /* Managed seamlessly by sticky bottom bar */
+        display: flex !important;
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 16px !important;
+        width: 52px !important;
+        height: 52px !important;
+        z-index: 999 !important;
       }
 
       /* CALCULATOR MOBILE STICKY BAR */
@@ -3551,6 +3558,248 @@
       padding-top: 20px;
     }
 
+  
+    /* =============================================
+       ONE HERO ONLY: ATELIER EDITORIAL HERO (NO SLIDER)
+    ============================================= */
+    .atelier-hero-section {
+      position: relative;
+      width: 100%;
+      height: 85vh;
+      min-height: 560px;
+      overflow: hidden;
+      background: #1e1916;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-bg-picture {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right center; /* Model on right side for desktop */
+      display: block;
+    }
+
+    /* Soft dark gradient behind text area only, so the model stays bright */
+    .hero-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(16, 12, 10, 0.88) 0%, rgba(16, 12, 10, 0.65) 36%, rgba(16, 12, 10, 0.22) 58%, rgba(16, 12, 10, 0) 75%);
+    }
+
+    .hero-wrap {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Left side on desktop */
+    }
+
+    .hero-text-box {
+      width: 100%;
+      max-width: 520px;
+      color: #ffffff;
+      z-index: 10;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .hero-title-diva {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(2.1rem, 4.6vw, 3.8rem);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      font-weight: 400;
+      line-height: 1.14;
+      color: #ffffff;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-tamil-tagline {
+      color: #FFF6E5 !important;
+      font-size: 1.1rem !important;
+      font-weight: 500;
+      margin: 0 0 14px !important;
+      line-height: 1.45;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      font-family: inherit;
+    }
+
+    .hero-desc-diva {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(1.0rem, 1.4vw, 1.2rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.92);
+      margin: 0 0 26px;
+      max-width: 480px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-btn-wrap {
+      display: flex;
+    }
+
+    .hero-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+      color: #ffffff;
+      border-radius: 999px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .hero-pill-btn:hover {
+      background: linear-gradient(135deg, #ff2a75 0%, #e91e63 100%);
+      box-shadow: 0 10px 28px rgba(233, 30, 99, 0.65);
+      transform: translateY(-2px);
+    }
+
+    /* MOBILE HERO (<= 768px): 75vh height, text at top, full width button, model at bottom */
+    @media (max-width: 768px) {
+      .atelier-hero-section {
+        height: 75vh;
+        min-height: 520px;
+        align-items: flex-start;
+      }
+
+      .hero-bg-img {
+        object-position: center bottom; /* Model stays in bottom half */
+      }
+
+      .hero-gradient-overlay {
+        background: linear-gradient(180deg, rgba(16, 12, 10, 0.92) 0%, rgba(16, 12, 10, 0.65) 42%, rgba(16, 12, 10, 0.2) 68%, rgba(16, 12, 10, 0) 84%);
+      }
+
+      .hero-wrap {
+        padding: 14px 16px 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .hero-text-box {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        margin-bottom: 4px;
+        letter-spacing: 0.18em;
+      }
+
+      .hero-title-diva {
+        font-size: clamp(1.65rem, 6.8vw, 2.15rem);
+        margin-bottom: 4px;
+        line-height: 1.12;
+      }
+
+      .hero-tamil-tagline {
+        font-size: 0.96rem !important;
+        margin-bottom: 6px !important;
+      }
+
+      .hero-desc-diva {
+        font-size: 0.88rem;
+        line-height: 1.35;
+        margin-bottom: 14px;
+        max-width: 100%;
+      }
+
+      .hero-btn-wrap {
+        width: 100%;
+      }
+
+      .hero-pill-btn {
+        width: 100%;
+        text-align: center;
+        min-height: 44px;
+        padding: 12px 18px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* WhatsApp floating button positioning & spacing */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.45);
+      z-index: 999;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.06);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    }
+    @media (max-width: 768px) {
+      .whatsapp-float {
+        bottom: 20px;
+        right: 16px;
+        width: 52px;
+        height: 52px;
+      }
+    }
+
+  
+    /* Force hero text visibility for single hero */
+    .atelier-hero-section .hero-eyebrow,
+    .atelier-hero-section .hero-title-diva,
+    .atelier-hero-section .hero-tamil-tagline,
+    .atelier-hero-section .hero-desc-diva,
+    .atelier-hero-section .hero-pill-btn {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+
   </style>
 
   <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
@@ -3705,20 +3954,26 @@
   </div>
   <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
 
-  <!-- SECTION 2: HERO (ONLY FIRST BRIDAL SLIDE, ONE BUTTON: "Book Fitting on WhatsApp") -->
-  <section class="minimal-hero-carousel" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier Hero">
-    <div class="hero-slides-wrapper" id="heroSlidesWrapper">
-      <div class="hero-slide active" data-index="0">
-        <img src="assets/images/hero_slide_bridal_exact.webp" srcset="assets/images/hero_slide_bridal_exact-mobile.webp 600w, assets/images/hero_slide_bridal_exact.webp 1024w" sizes="100vw" width="1024" height="441" alt="Sree Designers Bridal Blouse Atelier Drape" class="hero-slide-bg" loading="eager" fetchpriority="high" decoding="async">
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content content-right">
-          <div class="hero-text-box">
-            <div class="hero-eyebrow">THE BRIDAL EDIT</div>
-            <h1 class="hero-title-diva" id="heroTitle">Wear Your Story, Wear Your Sree</h1>
-            <p class="hero-tamil-tagline">"உங்கள் கனவு ப்ளவுஸ், எங்கள் கைவண்ணத்தில்"</p>
-            <p class="hero-desc-diva">Heirloom silks and hand-finished maggam drapes, made for the vows you'll always remember.</p>
-            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="hero-pill-btn">Book Fitting on WhatsApp</a>
-          </div>
+  <!-- SECTION 2: HERO (ONE HERO ONLY, NO SLIDER, NO SECOND SLIDE) -->
+  <section class="atelier-hero-section" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier">
+    <!-- Responsive Hero Background Picture -->
+    <picture class="hero-bg-picture">
+      <source media="(min-width: 769px)" srcset="assets/images/hero-desktop.webp" width="1024" height="571">
+      <img src="assets/images/hero-mobile.webp" alt="Sree Designers Bridal Blouse Atelier Drape" class="hero-bg-img" width="824" height="1024" loading="eager" fetchpriority="high" decoding="async">
+    </picture>
+
+    <!-- Soft Dark Gradient Behind Text Area Only -->
+    <div class="hero-gradient-overlay" aria-hidden="true"></div>
+
+    <!-- Hero Content Container (Left side on desktop, top on mobile) -->
+    <div class="wrap hero-wrap">
+      <div class="hero-text-box">
+        <div class="hero-eyebrow">THE BRIDAL EDIT</div>
+        <h1 class="hero-title-diva" id="heroTitle">Wear Your Story, Wear Your Sree</h1>
+        <p class="hero-tamil-tagline">"உங்கள் கனவு ப்ளவுஸ், எங்கள் கைவண்ணத்தில்"</p>
+        <p class="hero-desc-diva">Heirloom silks and hand-finished maggam drapes, made for the vows you'll always remember.</p>
+        <div class="hero-btn-wrap">
+          <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20bridal%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="hero-pill-btn">Book Fitting on WhatsApp</a>
         </div>
       </div>
     </div>
@@ -4188,22 +4443,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- MOBILE STICKY BOTTOM ACTION BAR -->
-  <aside class="mobile-sticky-bottom-bar" id="mobileStickyBottomBar" aria-label="Quick Boutique Actions">
-    <a href="tel:+919976344673" class="mobile-bar-btn mobile-bar-call" aria-label="Call Sree Designers &amp; Boutique">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      <span>Call</span>
-    </a>
-    <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-bar-wa" aria-label="Chat on WhatsApp">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-      <span>WhatsApp</span>
-    </a>
-    <a href="#enquiry" class="mobile-bar-btn mobile-bar-book" aria-label="Book Fitting Appointment">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>Book Fitting</span>
-    </a>
-  </aside>
 
   <!-- FLOATING WHATSAPP BUTTON -->
   <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment."
