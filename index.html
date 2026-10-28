@@ -3800,6 +3800,671 @@
       visibility: visible !important;
     }
 
+  
+    /* =============================================
+       REVISED HEADER NAVIGATION STYLES
+    ============================================= */
+    .diva-header {
+      position: sticky !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 1000 !important;
+      background: #ffffff !important;
+      transition: box-shadow 0.25s ease !important;
+    }
+    .diva-header.scrolled {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+    .diva-header-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 0 clamp(20px, 4vw, 48px) !important;
+      height: 72px !important;
+    }
+    .desktop-nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.2vw, 28px);
+    }
+    .desktop-nav-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1f1b18;
+      text-decoration: none;
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+    .desktop-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #c59b27;
+      transition: width 0.25s ease;
+    }
+    .desktop-nav-link:hover::after,
+    .desktop-nav-link.active::after {
+      width: 100%;
+    }
+    .desktop-nav-link:hover {
+      color: #c59b27;
+    }
+
+    .diva-header-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    .header-book-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 44px !important;
+      min-width: 72px !important;
+      padding: 0 18px !important;
+      border-radius: 999px !important;
+      background: var(--ink, #1f1b18) !important;
+      color: #ffffff !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      text-decoration: none !important;
+      transition: background 0.2s ease !important;
+    }
+    .header-book-btn:hover {
+      background: #332d28 !important;
+    }
+
+    .menu-btn {
+      display: none;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 5px !important;
+      width: 44px !important;
+      height: 44px !important;
+      min-width: 44px !important;
+      min-height: 44px !important;
+      padding: 8px !important;
+      background: none !important;
+      border: none !important;
+      cursor: pointer !important;
+    }
+    .menu-btn .hamburger-bar {
+      display: block !important;
+      width: 24px !important;
+      height: 2.5px !important;
+      min-height: 2.5px !important;
+      flex-shrink: 0 !important;
+      background: #1f1b18 !important;
+      border-radius: 2px !important;
+      transition: transform 0.2s ease, opacity 0.2s ease !important;
+    }
+
+    @media (max-width: 900px) {
+      .desktop-nav-links {
+        display: none !important;
+      }
+      .menu-btn {
+        display: flex !important;
+      }
+      .diva-header-container {
+        padding: 0 20px !important;
+        height: 66px !important;
+      }
+    }
+    @media (min-width: 901px) {
+      .desktop-nav-links {
+        display: flex !important;
+      }
+      .menu-btn {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .diva-header-container {
+        padding: 0 16px !important;
+        gap: 8px !important;
+        height: 64px !important;
+      }
+      .diva-brand-logo {
+        gap: 8px !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+      }
+      .diva-brand-logo img {
+        width: 32px !important;
+        height: 32px !important;
+        flex-shrink: 0 !important;
+      }
+      .diva-logo-text {
+        font-size: 0.82rem !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      .diva-logo-text span {
+        display: none !important;
+      }
+      .header-book-btn {
+        min-height: 40px !important;
+        min-width: 58px !important;
+        padding: 0 12px !important;
+        font-size: 0.74rem !important;
+      }
+      .diva-header-right {
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .diva-header-container {
+        padding: 0 10px !important;
+        gap: 4px !important;
+      }
+      .diva-brand-logo img {
+        width: 28px !important;
+        height: 28px !important;
+      }
+      .diva-logo-text {
+        font-size: 0.72rem !important;
+      }
+      .header-book-btn {
+        min-width: 50px !important;
+        padding: 0 10px !important;
+        font-size: 0.70rem !important;
+      }
+      .menu-btn {
+        padding: 8px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+      }
+    }
+
+    /* FULL-HEIGHT MOBILE DRAWER STYLES */
+    .mobile-menu-drawer {
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      width: 86% !important;
+      max-width: 340px !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      background: #ffffff !important;
+      z-index: 10001 !important;
+      transform: translateX(100%) !important;
+      visibility: hidden !important;
+      transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.32s ease !important;
+      display: flex !important;
+      flex-direction: column !important;
+      box-shadow: -8px 0 28px rgba(0, 0, 0, 0.16) !important;
+    }
+    .mobile-menu-drawer.open,
+    .mobile-menu-drawer.active {
+      transform: translateX(0) !important;
+      visibility: visible !important;
+    }
+    .mobile-menu-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 16px 20px !important;
+      border-bottom: 1px solid var(--line, #eee) !important;
+    }
+    .mobile-menu-close {
+      background: none !important;
+      border: none !important;
+      font-size: 28px !important;
+      line-height: 1 !important;
+      color: #1f1b18 !important;
+      min-width: 44px !important;
+      min-height: 44px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+    }
+    .mobile-menu-links {
+      display: flex !important;
+      flex-direction: column !important;
+      padding: 8px 0 !important;
+      flex: 1 !important;
+      overflow-y: auto !important;
+    }
+    .mobile-nav-link {
+      font-family: 'Fraunces', serif !important;
+      font-size: 20px !important;
+      color: #1f1b18 !important;
+      text-decoration: none !important;
+      padding: 0 24px !important;
+      height: 56px !important;
+      display: flex !important;
+      align-items: center !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+      transition: background 0.15s ease, color 0.15s ease !important;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:active {
+      background: #faf7f4 !important;
+      color: #c59b27 !important;
+    }
+    .mobile-menu-footer {
+      padding: 16px 20px 24px !important;
+      border-top: 1px solid var(--line, #eee) !important;
+      background: #fff !important;
+    }
+    .mobile-menu-wa-btn {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-height: 48px !important;
+      padding: 12px 20px !important;
+      background: #25d366 !important;
+      color: #ffffff !important;
+      border-radius: 999px !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35) !important;
+    }
+    .mobile-menu-backdrop {
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(0, 0, 0, 0.45) !important;
+      z-index: 10000 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity 0.3s ease !important;
+    }
+    .mobile-menu-backdrop.open,
+    .mobile-menu-backdrop.active {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* =============================================
+       FIXED TRUST STRIP (NO STRAY UNDERLINE / SCROLLBAR)
+    ============================================= */
+    .trust-strip-section {
+      padding: 12px 0 !important;
+      background: #fdfbf9 !important;
+      border-bottom: 1px solid var(--line) !important;
+      overflow: hidden !important;
+    }
+    .trust-wrap {
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 0 24px !important;
+    }
+    .trust-chips-row {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      flex-wrap: nowrap !important;
+      overflow: visible !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    .trust-chips-row::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .trust-chip {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: #ffffff !important;
+      border: 1px solid rgba(212, 175, 55, 0.4) !important;
+      color: #3d3d3d !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em !important;
+      padding: 6px 14px !important;
+      border-radius: 999px !important;
+      white-space: nowrap !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
+      text-decoration: none !important;
+      outline: none !important;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.4) !important;
+    }
+    .trust-chip, .trust-chip * {
+      text-decoration: none !important;
+    }
+    .trust-chip svg {
+      color: #c59b27 !important;
+      flex-shrink: 0 !important;
+    }
+    @media (max-width: 390px) {
+      .trust-chips-row {
+        gap: 6px !important;
+      }
+      .trust-chip {
+        padding: 5px 8px !important;
+        font-size: 0.72rem !important;
+        gap: 4px !important;
+      }
+    }
+
+    /* =============================================
+       GLOBAL CONTAINER & HEADINGS FOR OUR WORK & REELS
+    ============================================= */
+    #our-work, #reels {
+      padding: 96px 0 !important;
+      background: var(--surface, #faf7f4) !important;
+      overflow: hidden !important;
+    }
+    @media (max-width: 768px) {
+      #our-work, #reels {
+        padding: 56px 0 !important;
+      }
+    }
+    .our-work-container, .reels-container {
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 0 24px !important;
+    }
+    .eyebrow-gold {
+      color: #c59b27 !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase !important;
+      margin-bottom: 10px !important;
+      display: block !important;
+    }
+    .section-title-serif {
+      font-family: 'Fraunces', Georgia, serif !important;
+      font-size: clamp(2.0rem, 3.8vw, 2.75rem) !important;
+      color: #1f1b18 !important;
+      margin: 0 0 12px !important;
+      font-weight: 400 !important;
+      line-height: 1.15 !important;
+    }
+    .section-desc-italic {
+      font-family: 'Fraunces', Georgia, serif !important;
+      font-size: 1.05rem !important;
+      font-style: italic !important;
+      color: var(--ink-soft, #555555) !important;
+      margin: 0 auto !important;
+      max-width: 620px !important;
+      line-height: 1.5 !important;
+    }
+
+    /* =============================================
+       OUR WORK: 3-COL x 2-ROW GRID (DESKTOP) / SWIPE (MOBILE)
+    ============================================= */
+    .our-work-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 28px !important;
+      margin-top: 10px !important;
+    }
+    @media (max-width: 900px) and (min-width: 601px) {
+      .our-work-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .our-work-grid {
+        display: flex !important;
+        gap: 16px !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 4px 4px 18px !important;
+        scrollbar-width: none !important;
+      }
+      .our-work-grid::-webkit-scrollbar {
+        display: none !important;
+      }
+      .our-work-card {
+        flex: 0 0 78% !important; /* 1.2 cards visible */
+        scroll-snap-align: start !important;
+      }
+    }
+
+    .our-work-card {
+      background: #ffffff !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      border: 1px solid var(--line, #eee) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+    .our-work-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08) !important;
+    }
+    .our-work-img-wrap {
+      position: relative !important;
+      width: 100% !important;
+      aspect-ratio: 4 / 5 !important;
+      overflow: hidden !important;
+      background: #f5ebe6 !important;
+    }
+    .our-work-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transition: transform 0.3s ease !important;
+    }
+    .our-work-card:hover .our-work-img {
+      transform: scale(1.03) !important;
+    }
+    .our-work-body {
+      padding: 16px 18px 20px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      flex: 1 !important;
+    }
+    .our-work-title {
+      font-family: inherit !important;
+      font-size: 1.0rem !important;
+      font-weight: 600 !important;
+      color: #1a1512 !important;
+      margin: 0 0 6px !important;
+      line-height: 1.35 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .our-work-price {
+      font-size: 0.95rem !important;
+      font-weight: 700 !important;
+      color: #c59b27 !important;
+      margin-bottom: 14px !important;
+    }
+    .our-work-enquire-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-height: 40px !important;
+      padding: 8px 16px !important;
+      border: 1.5px solid #c59b27 !important;
+      border-radius: 999px !important;
+      color: #c59b27 !important;
+      background: transparent !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.05em !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      transition: all 0.2s ease !important;
+    }
+    .our-work-enquire-btn:hover {
+      background: #c59b27 !important;
+      color: #ffffff !important;
+    }
+
+    /* =============================================
+       STUDIO REELS: 5 CARDS IN A ROW / 2.2 ON MOBILE
+    ============================================= */
+    .reels-row {
+      display: grid !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 20px !important;
+      margin-top: 10px !important;
+    }
+    @media (max-width: 900px) and (min-width: 601px) {
+      .reels-row {
+        display: flex !important;
+        gap: 16px !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        padding: 4px 4px 18px !important;
+        scrollbar-width: none !important;
+      }
+      .reels-row::-webkit-scrollbar { display: none !important; }
+      .reel-item {
+        flex: 0 0 190px !important;
+        scroll-snap-align: start !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .reels-row {
+        display: flex !important;
+        gap: 14px !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        padding: 4px 4px 18px !important;
+        scrollbar-width: none !important;
+      }
+      .reels-row::-webkit-scrollbar { display: none !important; }
+      .reel-item {
+        flex: 0 0 calc((100% - 18px) / 2.2) !important; /* 2.2 cards visible */
+        scroll-snap-align: start !important;
+      }
+    }
+
+    .reel-item {
+      display: flex !important;
+      flex-direction: column !important;
+      text-align: center !important;
+    }
+    .reel-card {
+      position: relative !important;
+      width: 100% !important;
+      aspect-ratio: 9 / 16 !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      background: #2b2520 !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+    .reel-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14) !important;
+    }
+    .reel-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transition: transform 0.35s ease !important;
+    }
+    .reel-card:hover .reel-img {
+      transform: scale(1.05) !important;
+    }
+    .reel-play-btn {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      background: rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: background 0.2s ease, transform 0.2s ease !important;
+    }
+    .reel-card:hover .reel-play-btn {
+      background: rgba(233, 30, 99, 0.85) !important;
+      transform: translate(-50%, -50%) scale(1.1) !important;
+    }
+    .reel-title-below {
+      margin-top: 10px !important;
+      font-family: inherit !important;
+      font-size: 0.88rem !important;
+      font-weight: 500 !important;
+      color: #1a1512 !important;
+      line-height: 1.35 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      text-align: center !important;
+    }
+
+    .reels-actions-row {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 16px !important;
+      flex-wrap: wrap !important;
+      margin-top: 36px !important;
+    }
+    .btn-reels-action {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 44px !important;
+      padding: 12px 26px !important;
+      border: 1.5px solid var(--ink, #1f1b18) !important;
+      border-radius: 999px !important;
+      color: var(--ink, #1f1b18) !important;
+      background: transparent !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.84rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      transition: all 0.2s ease !important;
+    }
+    .btn-reels-action:hover {
+      background: var(--ink, #1f1b18) !important;
+      color: #ffffff !important;
+    }
+
   </style>
 
   <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
@@ -3908,8 +4573,8 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <!-- SECTION 1: HEADER (LOGO, HAMBURGER MENU, "BOOK" BUTTON, ONE MENU ONLY) -->
-  <header class="diva-header">
+  <!-- SECTION 1: HEADER -->
+  <header class="diva-header" id="siteHeader">
     <div class="diva-header-container">
       <!-- Logo -->
       <a href="/" class="diva-brand-logo" aria-label="Sree Designers &amp; Boutique Home">
@@ -3920,28 +4585,39 @@
         </div>
       </a>
 
+      <!-- Visible Links on Desktop (> 900px) -->
+      <nav class="desktop-nav-links" aria-label="Main Navigation">
+        <a href="#hero" class="desktop-nav-link active">Home</a>
+        <a href="#our-work" class="desktop-nav-link">Our Work</a>
+        <a href="#reels" class="desktop-nav-link">Reels</a>
+        <a href="#process" class="desktop-nav-link">How It Works</a>
+        <a href="#stores" class="desktop-nav-link">Visit Us</a>
+        <a href="/blog" class="desktop-nav-link">Blog</a>
+      </nav>
+
       <!-- Right: Book Button + Hamburger Menu -->
       <div class="diva-header-right">
-        <a href="#enquiry" class="header-book-btn">Book</a>
-        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobileMenuDrawer">
-          <span></span>
-          <span></span>
+        <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="header-book-btn">Book</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenuDrawer">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ONE MENU ONLY (HAMBURGER DRAWER WITH 6 EXACT LINKS) -->
-  <div class="mobile-menu-drawer" id="mobileMenuDrawer" aria-hidden="true">
+  <!-- FULL-HEIGHT MOBILE SLIDE-IN MENU -->
+  <div class="mobile-menu-drawer" id="mobileMenuDrawer" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="mobile-menu-header">
       <div class="brand">
-        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="36" height="36" style="border-radius:8px; object-fit:contain; background:#f5ebe6; padding:2px;">
+        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="34" height="34" style="border-radius:8px; object-fit:contain; background:#f5ebe6; padding:2px;">
         <div class="brand-name">
           Sree Designers &amp; Boutique
           <span>Samalapuram &amp; Karnempettai</span>
         </div>
       </div>
-      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close navigation menu">&times;</button>
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
     </div>
     <nav class="mobile-menu-links">
       <a href="#hero" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
@@ -3949,10 +4625,15 @@
       <a href="#reels" class="mobile-nav-link" onclick="closeMobileMenu()">Reels</a>
       <a href="#process" class="mobile-nav-link" onclick="closeMobileMenu()">How It Works</a>
       <a href="#stores" class="mobile-nav-link" onclick="closeMobileMenu()">Visit Us</a>
-      <a href="#enquiry" class="mobile-nav-link mobile-nav-btn" onclick="closeMobileMenu()">Book Fitting</a>
+      <a href="/blog" class="mobile-nav-link" onclick="closeMobileMenu()">Blog</a>
     </nav>
+    <div class="mobile-menu-footer">
+      <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-menu-wa-btn">
+        Book Fitting on WhatsApp
+      </a>
+    </div>
   </div>
-  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()" aria-hidden="true"></div>
 
   <!-- SECTION 2: HERO (ONE HERO ONLY, NO SLIDER, NO SECOND SLIDE) -->
   <section class="atelier-hero-section" id="hero" aria-label="Bridal Couture &amp; Blouse Atelier">
@@ -3981,7 +4662,7 @@
 
   <!-- SECTION 3: TRUST STRIP (3 SMALL CHIPS IN ONE ROW) -->
   <section class="trust-strip-section" id="trust-strip" aria-label="Why Choose Sree Designers">
-    <div class="wrap">
+    <div class="wrap trust-wrap">
       <div class="trust-chips-row">
         <div class="trust-chip">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
@@ -3999,156 +4680,182 @@
     </div>
   </section>
 
-  <!-- SECTION 4: "OUR WORK" (ONE HORIZONTALLY SWIPEABLE ROW OF 6 BEST BLOUSE CARDS) -->
+  <!-- SECTION 4: "OUR WORK" -->
   <section class="section" id="our-work">
-    <div class="wrap">
-      <div class="section-head" style="text-align: center; max-width: 680px; margin: 0 auto 24px;">
-        <span class="eyebrow">Atelier Creations</span>
-        <h2 style="margin: 8px 0 10px;">Our Work</h2>
-        <p style="color: var(--ink-soft); font-size: 1rem; margin: 0 auto;">Bespoke bridal blouses and artisanal embroidery handcrafted to perfection.</p>
+    <div class="wrap our-work-container">
+      <div class="section-head text-center" style="text-align: center; max-width: 680px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Atelier Creations</span>
+        <h2 class="section-title-serif">Our Work</h2>
+        <p class="section-desc-italic">Bespoke bridal blouses and artisanal embroidery handcrafted to perfection.</p>
       </div>
 
-      <!-- ONE horizontally swipeable row of the 6 best blouse cards -->
-      <div class="our-work-scroll-row" id="ourWorkRow" role="region" aria-label="Our Work Carousel">
-        <!-- Card 1: Hand-embroidered Crimson Red Maggam -->
-        <a href="product?id=prod-real-crimson-red-maggam" class="our-work-card">
+      <!-- 6 Blouse Cards Grid / Swipe Row -->
+      <div class="our-work-grid" id="ourWorkRow" role="region" aria-label="Our Work Gallery">
+        <!-- Card 1: Bridal Red Heavy Maggam Work Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/blouse_bridal_red_maggam_back.webp" alt="Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_bridal_red_maggam_back.webp" alt="Bridal Red Heavy Maggam Work Blouse" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse</h3>
+            <h3 class="our-work-title" title="Bridal Red Heavy Maggam Work Blouse">Bridal Red Heavy Maggam Work Blouse</h3>
             <div class="our-work-price">Starting from ₹1,800</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Bridal%20Red%20Heavy%20Maggam%20Work%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
 
-        <!-- Card 2: Hand-embroidered Bottle Green Zigzag -->
-        <a href="product?id=prod-real-bottle-green-zigzag" class="our-work-card">
+        <!-- Card 2: Bottle Green Net Zigzag Aari Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/blouse_bottle_green_zigzag_net_back.webp" alt="Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_bottle_green_zigzag_net_back.webp" alt="Bottle Green Net Zigzag Aari Blouse" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse</h3>
+            <h3 class="our-work-title" title="Bottle Green Net Zigzag Aari Blouse">Bottle Green Net Zigzag Aari Blouse</h3>
             <div class="our-work-price">Starting from ₹1,800</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Bottle%20Green%20Net%20Zigzag%20Aari%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
 
-        <!-- Card 3: Hand-embroidered Purple Contrast Net -->
-        <a href="product?id=prod-real-purple-contrast-net" class="our-work-card">
+        <!-- Card 3: Purple Illusion Net Aari Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/blouse_royal_purple_illusion_net_back.webp" alt="Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_royal_purple_illusion_net_back.webp" alt="Purple Illusion Net Aari Blouse" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse</h3>
+            <h3 class="our-work-title" title="Purple Illusion Net Aari Blouse">Purple Illusion Net Aari Blouse</h3>
             <div class="our-work-price">Starting from ₹1,800</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Purple%20Illusion%20Net%20Aari%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
 
-        <!-- Card 4: Machine-embroidered Dark Brown Silk -->
-        <a href="product?id=prod-me-1" class="our-work-card">
+        <!-- Card 4: Magenta Pink Emerald Kundan Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/service_machine_embroidery_card.webp" alt="Dark Brown Silk Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_magenta_emerald_kundan_back.webp" alt="Magenta Pink Emerald Kundan Blouse" class="our-work-img" width="1200" height="900" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Dark Brown Silk Embroidered Blouse</h3>
-            <div class="our-work-price">Starting from ₹1,200</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <h3 class="our-work-title" title="Magenta Pink Emerald Kundan Blouse">Magenta Pink Emerald Kundan Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Magenta%20Pink%20Emerald%20Kundan%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
 
-        <!-- Card 5: Machine-embroidered Geometric Mirror Work -->
-        <a href="product?id=prod-me-2" class="our-work-card">
+        <!-- Card 5: Peacock Green V-Neck Aari Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/service_machine_embroidery_card.webp" alt="Mirror Work Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_peacock_green_v_neck_back.webp" alt="Peacock Green V-Neck Aari Blouse" class="our-work-img" width="1024" height="768" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Geometric Mirror Work Machine Blouse</h3>
-            <div class="our-work-price">Starting from ₹1,200</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <h3 class="our-work-title" title="Peacock Green V-Neck Aari Blouse">Peacock Green V-Neck Aari Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Peacock%20Green%20V-Neck%20Aari%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
 
-        <!-- Card 6: Machine-embroidered Intricate Vine &amp; Jaal Pattern -->
-        <a href="product?id=prod-me-3" class="our-work-card">
+        <!-- Card 6: Red Tissue Scalloped Border Blouse -->
+        <article class="our-work-card">
           <div class="our-work-img-wrap">
-            <img src="assets/images/service_machine_embroidery_card.webp" alt="Vine Jaal Blouse" class="our-work-img" width="300" height="400" loading="lazy" decoding="async">
+            <img src="assets/images/blouse_red_tissue_scallop_back.webp" alt="Red Tissue Scalloped Border Blouse" class="our-work-img" width="1200" height="900" loading="lazy" decoding="async">
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title">Intricate Vine &amp; Jaal Pattern Machine Blouse</h3>
-            <div class="our-work-price">Starting from ₹1,200</div>
-            <span class="our-work-btn">Explore Blouse →</span>
+            <h3 class="our-work-title" title="Red Tissue Scalloped Border Blouse">Red Tissue Scalloped Border Blouse</h3>
+            <div class="our-work-price">Starting from ₹1,800</div>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Red%20Tissue%20Scalloped%20Border%20Blouse." target="_blank" rel="noopener noreferrer" class="our-work-enquire-btn">
+              Enquire on WhatsApp
+            </a>
           </div>
-        </a>
+        </article>
       </div>
 
       <!-- Button linking to category page -->
-      <div style="text-align: center; margin-top: 24px;">
+      <div style="text-align: center; margin-top: 36px;">
         <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-view-all-pill">View All Designs</a>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 5: REELS (4 CARDS ONLY, SINGLE "Watch on YouTube" BUTTON) -->
+  <!-- SECTION 5: STUDIO REELS -->
   <section id="reels">
-    <div class="wrap">
-      <div class="section-head" style="margin-bottom: 16px;">
-        <span class="eyebrow" style="letter-spacing: 0.12em;">STUDIO REELS</span>
-        <h2>Watch Our Real Blouses in Motion</h2>
-        <p>Watch real silk textures, glistening aari embroidery, and bespoke bridal fittings in motion.</p>
+    <div class="wrap reels-container">
+      <div class="section-head text-center" style="text-align: center; max-width: 680px; margin: 0 auto 36px;">
+        <span class="eyebrow-gold">Studio Reels</span>
+        <h2 class="section-title-serif">Watch Our Real Blouses in Motion</h2>
+        <p class="section-desc-italic">Watch real silk textures, glistening aari embroidery, and bespoke bridal fittings in motion.</p>
       </div>
 
-      <div class="reels-grid">
-        <!-- Short 1 -->
+      <div class="reels-row" id="reelsRow" role="region" aria-label="Studio Reels Gallery">
+        <!-- Reel 1 -->
         <div class="reel-item">
           <div class="reel-card" onclick="openShortModal(0)" role="button" tabindex="0" aria-label="Watch Short: Maroon Blouse with Gold &amp; Green Zari" onkeydown="if(event.key==='Enter') openShortModal(0)">
-            <img src="assets/images/shorts/short_1uLUFMEcelU.webp" alt="Maroon Blouse Design with Green &amp; Gold Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <img src="assets/images/shorts/short_1uLUFMEcelU.webp" alt="Maroon Blouse with Gold &amp; Green Zari" class="reel-img" width="200" height="355" loading="lazy" decoding="async">
             <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
           <div class="reel-title-below">Maroon Blouse with Gold &amp; Green Zari</div>
         </div>
 
-        <!-- Short 2 -->
+        <!-- Reel 2 -->
         <div class="reel-item">
           <div class="reel-card" onclick="openShortModal(1)" role="button" tabindex="0" aria-label="Watch Short: Purple Blouse with Floral Embroidery" onkeydown="if(event.key==='Enter') openShortModal(1)">
-            <img src="assets/images/shorts/short_ZiEq_th5pUI.webp" alt="Purple Blouse with Floral Machine Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <img src="assets/images/shorts/short_ZiEq_th5pUI.webp" alt="Purple Blouse with Floral Embroidery" class="reel-img" width="200" height="355" loading="lazy" decoding="async">
             <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
           <div class="reel-title-below">Purple Blouse with Floral Embroidery</div>
         </div>
 
-        <!-- Short 3 -->
+        <!-- Reel 3 -->
         <div class="reel-item">
           <div class="reel-card" onclick="openShortModal(2)" role="button" tabindex="0" aria-label="Watch Short: Traditional Green Blouse with Hand Aari" onkeydown="if(event.key==='Enter') openShortModal(2)">
-            <img src="assets/images/shorts/short_RB8nXjxkRGc.webp" alt="Traditional Green Blouse with Hand Aari Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <img src="assets/images/shorts/short_RB8nXjxkRGc.webp" alt="Traditional Green Blouse with Hand Aari" class="reel-img" width="200" height="355" loading="lazy" decoding="async">
             <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
           <div class="reel-title-below">Traditional Green Blouse with Hand Aari</div>
         </div>
 
-        <!-- Short 4 -->
+        <!-- Reel 4 -->
         <div class="reel-item">
           <div class="reel-card" onclick="openShortModal(3)" role="button" tabindex="0" aria-label="Watch Short: Bridal Blouse with Heirloom Aari Work" onkeydown="if(event.key==='Enter') openShortModal(3)">
-            <img src="assets/images/shorts/short_w8GVpBO2e0U.webp" alt="Bridal Blouse with Heirloom Aari Hand Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <img src="assets/images/shorts/short_w8GVpBO2e0U.webp" alt="Bridal Blouse with Heirloom Aari Work" class="reel-img" width="200" height="355" loading="lazy" decoding="async">
             <div class="reel-play-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
           <div class="reel-title-below">Bridal Blouse with Heirloom Aari Work</div>
         </div>
+
+        <!-- Reel 5 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(4)" role="button" tabindex="0" aria-label="Watch Short: Pink Custom Embroidery Blouse" onkeydown="if(event.key==='Enter') openShortModal(4)">
+            <img src="assets/images/shorts/short__QuAAq8hpHk.webp" alt="Pink Custom Embroidery Blouse" class="reel-img" width="200" height="355" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="reel-title-below">Pink Custom Embroidery Blouse</div>
+        </div>
       </div>
 
-      <!-- Outlined Button: Watch on YouTube (Only one button, no emoji, no View More) -->
-      <div class="reels-action-bar">
-        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="reels-btn-yt-outline" aria-label="Watch on YouTube">
+      <!-- Two Centered Buttons: Watch on YouTube & Follow on Instagram -->
+      <div class="reels-actions-row">
+        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="btn-reels-action" aria-label="Watch on YouTube">
           Watch on YouTube
+        </a>
+        <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="btn-reels-action" aria-label="Follow on Instagram">
+          Follow on Instagram
         </a>
       </div>
     </div>
@@ -4538,6 +5245,42 @@
 
   <!-- INTERACTIVE CONTROLLERS SCRIPT -->
   <script>
+    /* ── Sticky Header Shadow on Scroll & Scroll Spy ── */
+    function updateHeaderOnScroll() {
+      const header = document.getElementById('siteHeader');
+      if (header) {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        if (scrollY > 15) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+
+      // Update active nav link
+      const sections = ['hero', 'our-work', 'reels', 'process', 'stores'];
+      const scrollPos = (window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0) + 100;
+      sections.forEach(id => {
+        const sec = document.getElementById(id);
+        if (sec) {
+          const top = sec.offsetTop;
+          const height = sec.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            document.querySelectorAll('.desktop-nav-link').forEach(link => {
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              } else if (link.getAttribute('href').startsWith('#')) {
+                link.classList.remove('active');
+              }
+            });
+          }
+        }
+      });
+    }
+    window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
+    window.addEventListener('DOMContentLoaded', updateHeaderOnScroll);
+    updateHeaderOnScroll();
+
     /* ── Gold Sheen on Hero Title ── */
     const hero      = document.getElementById('hero');
     const titleEl   = document.getElementById('heroTitle');
@@ -4706,7 +5449,8 @@
       { id: '1uLUFMEcelU', title: 'Maroon Blouse with Gold & Green Zari' },
       { id: 'ZiEq_th5pUI', title: 'Purple Blouse with Floral Embroidery' },
       { id: 'RB8nXjxkRGc', title: 'Traditional Green Blouse with Hand Aari' },
-      { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work' }
+      { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work' },
+      { id: '_QuAAq8hpHk', title: 'Pink Custom Embroidery Blouse' }
     ];
 
     let currentShortIndex = 0;
