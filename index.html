@@ -211,15 +211,22 @@
 
     body {
       background: var(--bg-nude);
-      color: var(--ink);
+      color: #3d3d3d;
       font-family: 'Jost', sans-serif;
-      font-weight: 300;
+      font-size: 16px;
+      font-weight: 400;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       max-width: 100vw;
       width: 100%;
       position: relative;
+      padding-bottom: 90px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      color: #3d3d3d;
     }
 
     h1, h2, h3, .display {
@@ -613,7 +620,9 @@
 
     .hero-title-diva {
       font-family: 'Fraunces', serif;
-      font-size: clamp(2.4rem, 4.6vw, 4.3rem);
+      font-size: clamp(1.85rem, 5vw, 4.3rem);
+      word-break: break-word;
+      overflow-wrap: break-word;
       font-weight: 400;
       line-height: 1.1;
       color: #ffffff;
@@ -694,18 +703,27 @@
     }
 
     .hero-dot {
+      min-width: 44px;
+      min-height: 44px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .hero-dot::before {
+      content: '';
       width: 8px;
       height: 8px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.45);
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      border: none;
-      padding: 0;
+      transition: all 0.35s ease;
+      display: block;
     }
-
-    .hero-dot.active {
-      width: 30px;
+    .hero-dot.active::before {
+      width: 28px;
       background: #ffffff;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
     }
@@ -1344,7 +1362,9 @@
 
     .footer-links {
       display: flex;
-      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
       font-size: 0.82rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -1383,21 +1403,24 @@
     .mobile-menu-drawer {
       position: fixed;
       top: 0;
-      right: -100%;
+      right: 0;
+      transform: translateX(100%);
       width: 86%;
       max-width: 320px;
       height: 100vh;
       background: var(--bg-nude);
       z-index: 9999;
       box-shadow: -10px 0 30px rgba(0,0,0,0.15);
-      transition: right 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.35s ease;
       display: flex;
       flex-direction: column;
       padding: 24px 20px;
       overflow-y: auto;
+      visibility: hidden;
     }
     .mobile-menu-drawer.open {
-      right: 0;
+      transform: translateX(0);
+      visibility: visible;
     }
     .mobile-menu-backdrop {
       position: fixed;
@@ -1429,6 +1452,11 @@
       cursor: pointer;
       line-height: 1;
       padding: 4px 8px;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     .mobile-menu-links {
       display: flex;
@@ -1579,6 +1607,18 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       margin-top: 40px;
+    }
+    @media (max-width: 900px) {
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+    @media (max-width: 600px) {
+      .process-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
     }
 
     .process-card {
@@ -2881,6 +2921,356 @@
       }
     }
 
+  
+    /* =============================================
+       MOBILE-FIRST RESPONSIVE OPTIMIZATIONS (360px & 390px)
+    ============================================= */
+    /* Form inputs 16px minimum to prevent iOS Safari auto-zoom */
+    input, select, textarea,
+    .form-input, .form-textarea, .estimator-select, .diva-search-input {
+      font-size: 16px !important;
+    }
+
+    /* Product card titles: max 2 lines with line clamp */
+    .shelf-card-title,
+    .cat-product-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.35;
+      max-height: 2.7em;
+    }
+
+    /* All buttons/links min 44px tall */
+    .hero-pill-btn,
+    .btn-action-primary,
+    .btn-action-outline,
+    .nav-cta,
+    .nav-book-link,
+    .diva-icon-btn,
+    .menu-btn,
+    .mobile-nav-link,
+    .mobile-menu-cta,
+    .btn-estimator-book,
+    .btn-submit-form,
+    .btn-view-all-pill,
+    .shelf-btn-view,
+    .btn-store-map,
+    .social-pill,
+    .header-book-btn,
+    .reels-btn-yt-outline {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* REELS SECTION HORIZONTAL SCROLL & 160px 9:16 CARDS */
+    #reels {
+      padding: 60px 0;
+      overflow: hidden;
+    }
+    #reels .reels-grid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 12px;
+      padding: 4px 16px 16px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #reels .reels-grid::-webkit-scrollbar {
+      display: none;
+    }
+    .reel-item {
+      flex: 0 0 160px;
+      width: 160px;
+      scroll-snap-align: start;
+    }
+    .reel-card {
+      width: 160px;
+      height: 284px;
+      aspect-ratio: 9/16;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: #111;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    .reel-img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .reel-card:hover .reel-img {
+      transform: scale(1.04);
+    }
+    .reel-card .reel-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .reel-card:hover .reel-play-btn {
+      background: #e50914;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    .reel-title-below {
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #3d3d3d;
+      margin-top: 8px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .reels-btn-yt-outline {
+      min-height: 44px;
+      padding: 12px 28px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .reels-btn-yt-outline:hover {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    /* SLIM HEADER ON MOBILE */
+    .header-book-btn {
+      display: none;
+    }
+    @media (max-width: 992px) {
+      header.diva-header {
+        padding: 6px 0;
+      }
+      .diva-header-container {
+        grid-template-columns: 1fr auto;
+        padding: 0 16px;
+        gap: 12px;
+      }
+      .diva-search-box,
+      .diva-categories-nav,
+      .header-account-icon {
+        display: none !important;
+      }
+      .diva-brand-logo {
+        gap: 8px;
+      }
+      .diva-brand-logo img {
+        height: 36px;
+        width: 36px;
+        padding: 2px;
+      }
+      .diva-logo-text {
+        font-size: 1.05rem;
+        letter-spacing: 0.04em;
+        text-align: left;
+      }
+      .diva-logo-text span {
+        font-size: 0.52rem;
+        letter-spacing: 0.14em;
+        text-align: left;
+      }
+      .diva-header-right {
+        gap: 8px;
+      }
+      .header-book-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        min-width: 72px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #ffffff;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+      }
+      .menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 8px;
+      }
+    }
+
+    /* MOBILE STICKY BOTTOM BAR */
+    .mobile-sticky-bottom-bar {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .mobile-sticky-bottom-bar {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr 1.3fr;
+        gap: 8px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 998;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .mobile-bar-btn {
+        min-height: 44px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        touch-action: manipulation;
+      }
+      .mobile-bar-call {
+        background: var(--bg-nude);
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+      .mobile-bar-wa {
+        background: #25d366;
+        color: #ffffff;
+      }
+      .mobile-bar-book {
+        background: var(--ink);
+        color: #ffffff;
+      }
+      .whatsapp-float {
+        display: none !important; /* Managed seamlessly by sticky bottom bar */
+      }
+
+      /* CALCULATOR MOBILE STICKY BAR */
+      .calc-mobile-sticky-bar {
+        display: flex;
+        position: sticky;
+        bottom: 64px;
+        z-index: 990;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--ink);
+        color: var(--white);
+        padding: 12px 18px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        margin: 20px 0 0;
+      }
+      .calc-mobile-sticky-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .calc-mobile-sticky-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--gold-soft);
+      }
+      .calc-mobile-sticky-val {
+        font-family: 'Fraunces', serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--white);
+      }
+      .btn-calc-mobile-wa {
+        min-height: 44px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: #25d366;
+        color: #ffffff;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+      }
+    }
+
+  
+    @media (max-width: 480px) {
+      header.diva-header {
+        padding: 4px 0;
+      }
+      .diva-header-container {
+        padding: 0 10px;
+        gap: 6px;
+      }
+      .diva-brand-logo {
+        gap: 6px;
+      }
+      .diva-brand-logo img {
+        height: 32px;
+        width: 32px;
+      }
+      .diva-logo-text {
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        line-height: 1;
+      }
+      .diva-logo-text span {
+        display: none;
+      }
+      .header-book-btn {
+        min-height: 44px;
+        min-width: 60px;
+        padding: 0 12px;
+        font-size: 0.75rem;
+      }
+      .menu-btn {
+        min-height: 44px;
+        min-width: 40px;
+        padding: 6px;
+      }
+    }
+
   </style>
 
   <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
@@ -3022,10 +3412,13 @@
         </nav>
       </div>
 
-      <!-- Right Column: User Account, Shopping Bag, WhatsApp & Mobile Menu -->
+      <!-- Right Column: Slim Book Button & Mobile Menu -->
       <div class="diva-header-right">
-        <!-- Account / User Icon -->
-        <a href="#enquiry" class="diva-icon-btn" aria-label="User Fitting Account" title="Book Fitting / Account">
+        <!-- Slim Mobile Book Button -->
+        <a href="#enquiry" class="header-book-btn">Book</a>
+
+        <!-- Account / User Icon (Desktop) -->
+        <a href="#enquiry" class="diva-icon-btn header-account-icon" aria-label="User Fitting Account" title="Book Fitting / Account">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
@@ -3561,6 +3954,18 @@
           <button class="btn-estimator-book" id="btnBookEstimate">Reserve This Package</button>
         </div>
       </div>
+
+      <!-- CALCULATOR MOBILE STICKY ESTIMATE BAR -->
+      <div class="calc-mobile-sticky-bar" id="calcMobileStickyBar">
+        <div class="calc-mobile-sticky-info">
+          <span class="calc-mobile-sticky-label">Estimated Total</span>
+          <strong class="calc-mobile-sticky-val" id="calcMobileStickyVal">₹1,800</strong>
+        </div>
+        <a id="calcMobileStickyWaBtn" href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20with%20estimated%20quote%20%E2%82%B91,800." target="_blank" rel="noopener noreferrer" class="btn-calc-mobile-wa" aria-label="Book on WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <span>Book on WhatsApp</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -3737,6 +4142,23 @@
     </div>
   </footer>
 
+  
+  <!-- MOBILE STICKY BOTTOM ACTION BAR -->
+  <aside class="mobile-sticky-bottom-bar" id="mobileStickyBottomBar" aria-label="Quick Boutique Actions">
+    <a href="tel:+919976344673" class="mobile-bar-btn mobile-bar-call" aria-label="Call Sree Designers &amp; Boutique">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      <span>Call</span>
+    </a>
+    <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment." target="_blank" rel="noopener noreferrer" class="mobile-bar-btn mobile-bar-wa" aria-label="Chat on WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#enquiry" class="mobile-bar-btn mobile-bar-book" aria-label="Book Fitting Appointment">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>Book Fitting</span>
+    </a>
+  </aside>
+
   <!-- FLOATING WHATSAPP BUTTON -->
   <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20book%20a%20fitting%20appointment."
     target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
@@ -3873,182 +4295,106 @@
   <!-- TRENDING YOUTUBE SHORTS & STUDIO REELS SHOWCASE -->
   <section id="reels">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Trending YouTube Shorts &amp; Studio Reels</span>
+      <div class="section-head" style="margin-bottom: 16px;">
+        <span class="eyebrow" style="letter-spacing: 0.12em;">STUDIO REELS</span>
         <h2>Watch Our Real Blouses in Motion</h2>
-        <p>Direct from our atelier (@SreeDesignerss) — real silk textures, glistening aari embroidery, and bespoke bridal fittings in crisp vertical HD. Tap any reel to watch with sound!</p>
+        <p>Watch real silk textures, glistening aari embroidery, and bespoke bridal fittings in motion.</p>
       </div>
 
       <div class="reels-grid">
-        <!-- Short 1: Maroon Blouse with Gold & Green Zari -->
-        <div class="reel-card" onclick="openShortModal(0)" role="button" tabindex="0" aria-label="Watch Short: Maroon Blouse Design with Green &amp; Gold Embroidery" onkeydown="if(event.key==='Enter') openShortModal(0)">
-          <img src="assets/images/shorts/short_1uLUFMEcelU.webp" alt="Maroon Blouse Design with Green &amp; Gold Embroidery Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Hand Zardozi</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 1 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(0)" role="button" tabindex="0" aria-label="Watch Short: Maroon Blouse with Gold &amp; Green Zari" onkeydown="if(event.key==='Enter') openShortModal(0)">
+            <img src="assets/images/shorts/short_1uLUFMEcelU.webp" alt="Maroon Blouse Design with Green &amp; Gold Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Maroon Blouse with Gold &amp; Green Zari</div>
-            <div class="reel-caption">Velvet-touch maroon silk with authentic kundan &amp; green silk thread accents.</div>
           </div>
+          <div class="reel-title-below">Maroon Blouse with Gold &amp; Green Zari</div>
         </div>
 
-        <!-- Short 2: Purple Blouse with Floral Machine Embroidery -->
-        <div class="reel-card" onclick="openShortModal(1)" role="button" tabindex="0" aria-label="Watch Short: Purple Blouse with Floral Embroidery" onkeydown="if(event.key==='Enter') openShortModal(1)">
-          <img src="assets/images/shorts/short_ZiEq_th5pUI.webp" alt="Purple Blouse with Floral Machine Embroidery Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Machine Work</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 2 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(1)" role="button" tabindex="0" aria-label="Watch Short: Purple Blouse with Floral Embroidery" onkeydown="if(event.key==='Enter') openShortModal(1)">
+            <img src="assets/images/shorts/short_ZiEq_th5pUI.webp" alt="Purple Blouse with Floral Machine Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Purple Blouse with Floral Embroidery</div>
-            <div class="reel-caption">High-density computerized floral neckline with contrast scalloped sleeve border.</div>
           </div>
+          <div class="reel-title-below">Purple Blouse with Floral Embroidery</div>
         </div>
 
-        <!-- Short 3: Green Blouse with Hand Embroidery -->
-        <div class="reel-card" onclick="openShortModal(2)" role="button" tabindex="0" aria-label="Watch Short: Traditional Green Blouse with Hand Embroidery" onkeydown="if(event.key==='Enter') openShortModal(2)">
-          <img src="assets/images/shorts/short_RB8nXjxkRGc.webp" alt="Traditional Green Blouse with Hand Aari Embroidery Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Aari Hand Work</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 3 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(2)" role="button" tabindex="0" aria-label="Watch Short: Traditional Green Blouse with Hand Aari" onkeydown="if(event.key==='Enter') openShortModal(2)">
+            <img src="assets/images/shorts/short_RB8nXjxkRGc.webp" alt="Traditional Green Blouse with Hand Aari Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Traditional Green Blouse with Hand Aari</div>
-            <div class="reel-caption">Intricate handcrafted peacock &amp; floral jaal designed for temple silk sarees.</div>
           </div>
+          <div class="reel-title-below">Traditional Green Blouse with Hand Aari</div>
         </div>
 
-        <!-- Short 4: Bridal Blouse with Heirloom Aari Work -->
-        <div class="reel-card" onclick="openShortModal(3)" role="button" tabindex="0" aria-label="Watch Short: Bridal Blouse with Heirloom Aari Hand Embroidery" onkeydown="if(event.key==='Enter') openShortModal(3)">
-          <img src="assets/images/shorts/short_w8GVpBO2e0U.webp" alt="Bridal Blouse with Heirloom Aari Hand Embroidery Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Bridal Couture</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 4 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(3)" role="button" tabindex="0" aria-label="Watch Short: Bridal Blouse with Heirloom Aari Work" onkeydown="if(event.key==='Enter') openShortModal(3)">
+            <img src="assets/images/shorts/short_w8GVpBO2e0U.webp" alt="Bridal Blouse with Heirloom Aari Hand Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Bridal Blouse with Heirloom Aari Work</div>
-            <div class="reel-caption">Heavy bridal blouse with 3D cutwork sleeves crafted for wedding ceremonies.</div>
           </div>
+          <div class="reel-title-below">Bridal Blouse with Heirloom Aari Work</div>
         </div>
 
-        <!-- Short 5: Pink Custom Designer Blouse (Expandable) -->
-        <div class="reel-card reel-card-extra" style="display:none;" onclick="openShortModal(4)" role="button" tabindex="0" aria-label="Watch Short: Pink Custom Embroidery Blouse" onkeydown="if(event.key==='Enter') openShortModal(4)">
-          <img src="assets/images/shorts/short__QuAAq8hpHk.webp" alt="Pink Custom Embroidery Blouse Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Designer Wear</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 5 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(4)" role="button" tabindex="0" aria-label="Watch Short: Pink Custom Embroidery Blouse" onkeydown="if(event.key==='Enter') openShortModal(4)">
+            <img src="assets/images/shorts/short__QuAAq8hpHk.webp" alt="Pink Custom Embroidery Blouse" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Pink Custom Embroidery Blouse</div>
-            <div class="reel-caption">Romantic rose pink blouse with delicate pearl &amp; French knot embroidery.</div>
           </div>
+          <div class="reel-title-below">Pink Custom Embroidery Blouse</div>
         </div>
 
-        <!-- Short 6: Heavy Aari Bridal Reception Blouse (Expandable) -->
-        <div class="reel-card reel-card-extra" style="display:none;" onclick="openShortModal(5)" role="button" tabindex="0" aria-label="Watch Short: Heavy Aari Bridal Blouse for Reception" onkeydown="if(event.key==='Enter') openShortModal(5)">
-          <img src="assets/images/shorts/short_mbvADw3niwA.webp" alt="Heavy Aari Bridal Wedding Blouse Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Heavy Bridal</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 6 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(5)" role="button" tabindex="0" aria-label="Watch Short: Heavy Aari Bridal Wedding Blouse" onkeydown="if(event.key==='Enter') openShortModal(5)">
+            <img src="assets/images/shorts/short_mbvADw3niwA.webp" alt="Heavy Aari Bridal Wedding Blouse" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Heavy Aari Bridal Wedding Blouse</div>
-            <div class="reel-caption">High-glam bridal back neck with double-row beads and stone chain borders.</div>
           </div>
+          <div class="reel-title-below">Heavy Aari Bridal Wedding Blouse</div>
         </div>
 
-        <!-- Short 7: Green Blouse with Minimal Machine Work (Expandable) -->
-        <div class="reel-card reel-card-extra" style="display:none;" onclick="openShortModal(6)" role="button" tabindex="0" aria-label="Watch Short: Green Blouse with Minimal Machine Embroidery" onkeydown="if(event.key==='Enter') openShortModal(6)">
-          <img src="assets/images/shorts/short_a3dzh7_6Xa4.webp" alt="Green Blouse with Minimal Machine Embroidery Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Machine Work</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 7 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(6)" role="button" tabindex="0" aria-label="Watch Short: Green Blouse with Minimal Machine Work" onkeydown="if(event.key==='Enter') openShortModal(6)">
+            <img src="assets/images/shorts/short_a3dzh7_6Xa4.webp" alt="Green Blouse with Minimal Machine Embroidery" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Green Blouse with Minimal Machine Work</div>
-            <div class="reel-caption">Clean and contemporary subtle machine finish at accessible boutique tailoring rates.</div>
           </div>
+          <div class="reel-title-below">Green Blouse with Minimal Machine Work</div>
         </div>
 
-        <!-- Short 8: Elegant Red Blouse with Hand Zari (Expandable) -->
-        <div class="reel-card reel-card-extra" style="display:none;" onclick="openShortModal(7)" role="button" tabindex="0" aria-label="Watch Short: Elegant Red Hand-Embroidery Blouse with Zari" onkeydown="if(event.key==='Enter') openShortModal(7)">
-          <img src="assets/images/shorts/short_32WrlMLTAR4.webp" alt="Elegant Red Hand-Embroidery Blouse with Zari Reel" class="reel-img" width="450" height="800" loading="lazy" decoding="async" style="aspect-ratio:9/16; object-fit:cover;">
-          <div class="reel-badge-top">
-            <span class="reel-pill">Festive Wear</span>
-            <span class="reel-yt-icon">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-              Shorts
-            </span>
-          </div>
-          <div class="reel-overlay">
-            <div class="reel-play-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Short 8 -->
+        <div class="reel-item">
+          <div class="reel-card" onclick="openShortModal(7)" role="button" tabindex="0" aria-label="Watch Short: Elegant Red Blouse with Hand Zari" onkeydown="if(event.key==='Enter') openShortModal(7)">
+            <img src="assets/images/shorts/short_32WrlMLTAR4.webp" alt="Elegant Red Blouse with Hand Zari" class="reel-img" width="160" height="284" loading="lazy" decoding="async">
+            <div class="reel-play-btn" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="reel-sound-tag">🎵 Studio Audio &amp; Details</div>
-            <div class="reel-title">Elegant Red Blouse with Hand Zari</div>
-            <div class="reel-caption">Classic bridal red silk blouse hand-embroidered with pure zari thread &amp; beads.</div>
           </div>
+          <div class="reel-title-below">Elegant Red Blouse with Hand Zari</div>
         </div>
       </div>
 
-      <!-- Action Buttons below the Grid -->
+      <!-- Outlined Button: Watch all on YouTube (Only one button, no emoji) -->
       <div class="reels-action-bar">
-        <button id="btnToggleMoreShorts" class="reels-btn-more" onclick="toggleMoreShorts()" aria-label="Toggle more studio shorts">
-          <span>🎬 View More Studio Shorts (+4)</span>
-        </button>
-        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="reels-btn-channel" aria-label="Watch all shorts on YouTube">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
-          <span>Watch All 19+ Shorts on YouTube (@SreeDesignerss)</span>
+        <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="reels-btn-yt-outline" aria-label="Watch all on YouTube">
+          Watch all on YouTube
         </a>
       </div>
     </div>
@@ -4134,7 +4480,7 @@
       <div style="padding: 28px; overflow-y: auto;">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:32px;">
           <div>
-            <img id="showcaseDetailMainImg" src="assets/images/service_bridal_card.webp" alt="Showcase Item" width="450" height="600" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:16px; border:1px solid var(--line);">
+            <img id="showcaseDetailMainImg" src="assets/images/service_bridal_card.webp" alt="Showcase Item" width="450" height="600" loading="lazy" decoding="async" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:16px; border:1px solid var(--line);">
             <div id="showcaseThumbs" style="display:flex; gap:10px; margin-top:12px; overflow-x:auto;"></div>
           </div>
           <div style="display:flex; flex-direction:column; justify-content:space-between;">
@@ -4585,6 +4931,7 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+      if (typeof syncEstimatorStickyTotal === 'function') syncEstimatorStickyTotal();
       initHeroCarousel();
       loadDynamicShowcaseGrid('All');
       renderHomepageFeaturedShelves();
