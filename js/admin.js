@@ -106,32 +106,24 @@ const AtelierAdmin = {
     const email = document.getElementById('adminEmail')?.value?.trim();
     const password = document.getElementById('adminPassword')?.value?.trim();
 
-    // Check credentials:
-    // Admin Email: admin@sreedesigners.com
-    // Admin Password: SreeAtelier2026! (or Supabase auth)
-    if (email !== 'admin@sreedesigners.com' || password !== 'SreeAtelier2026!') {
-      // Try Supabase Auth first
-      let supabaseSuccess = false;
-      if (window.supabase) {
-        try {
-          let { data, error } = await window.supabase.auth.signInWithPassword({ email, password });
-          if (data?.user) {
-            this.currentUser = data.user;
-            supabaseSuccess = true;
-          }
-        } catch (err) {}
-      }
-
-      if (!supabaseSuccess) {
-        alert('❌ Access Denied: Invalid Email or Password! Please use the correct admin credentials.');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        alert('❌ Access Denied: ' + (data.error || 'Invalid Email or Password!'));
         return;
       }
+      localStorage.setItem('sree_admin_token', data.token);
+      localStorage.setItem('sree_admin_email', data.email || email);
+      this.currentUser = { email: data.email || email };
+      this.showDashboard();
+    } catch (err) {
+      alert('❌ Authentication error: ' + err.message);
     }
-
-    localStorage.setItem('sree_admin_logged', 'true');
-    localStorage.setItem('sree_admin_email', email || 'admin@sreedesigners.com');
-    this.currentUser = { email: email || 'admin@sreedesigners.com' };
-    this.showDashboard();
   },
 
   async handleLogout() {

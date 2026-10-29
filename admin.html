@@ -544,7 +544,6 @@
 <script>
 // ─── CONFIGURATION ──────────────────────────────────────────────────────────
 const ADMIN_EMAIL = 'admin@sreedesigners.com';
-const ADMIN_PASS  = 'SreeAtelier2026!';
 
 // ─── LOCAL STORAGE HELPERS ───────────────────────────────────────────────────
 function lsGet(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
@@ -602,20 +601,61 @@ function insertLink(textareaId) {
 }
 
 // ─── AUTH ────────────────────────────────────────────────────────────────────
-function doLogin() {
-  const email = document.getElementById('adminEmail').value.trim();
-  const pass  = document.getElementById('adminPassword').value.trim();
+async function doLogin() {
+  const emailInput = document.getElementById('adminEmail');
+  const passInput  = document.getElementById('adminPassword');
+  const email = emailInput.value.trim();
+  const pass  = passInput.value.trim();
   const err   = document.getElementById('loginErr');
-  if (email !== ADMIN_EMAIL || pass !== ADMIN_PASS) {
+  const submitBtn = document.querySelector('#loginView .btn-main');
+
+  if (!email || !pass) {
+    err.textContent = '❌ Please enter both email and password.';
     err.style.display = 'block';
     return;
   }
-  err.style.display = 'none';
-  localStorage.setItem('sree_admin_logged', 'true');
-  showDash(email);
+
+  const originalBtnText = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) {
+    submitBtn.textContent = 'Verifying credentials...';
+    submitBtn.disabled = true;
+  }
+
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      err.textContent = '❌ ' + (data.error || 'Incorrect email or password.');
+      err.style.display = 'block';
+      return;
+    }
+
+    err.style.display = 'none';
+    localStorage.setItem('sree_admin_token', data.token);
+    localStorage.setItem('sree_admin_email', data.email || email);
+    passInput.value = '';
+    showDash(data.email || email);
+  } catch (networkErr) {
+    console.warn('API authentication unavailable:', networkErr);
+    err.textContent = '❌ Connection error: could not connect to authentication service.';
+    err.style.display = 'block';
+  } finally {
+    if (submitBtn) {
+      submitBtn.textContent = originalBtnText || 'Sign In to Dashboard';
+      submitBtn.disabled = false;
+    }
+  }
 }
 
 function doLogout() {
+  localStorage.removeItem('sree_admin_token');
+  localStorage.removeItem('sree_admin_email');
   localStorage.removeItem('sree_admin_logged');
   document.getElementById('dashView').style.display = 'none';
   document.getElementById('loginView').style.display = 'block';
@@ -1287,10 +1327,43 @@ function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('sree_admin_logged') === 'true') {
-    showDash(localStorage.getItem('sree_admin_email') || ADMIN_EMAIL);
+async function checkAuthOnLoad() {
+  const token = localStorage.getItem('sree_admin_token');
+  const savedEmail = localStorage.getItem('sree_admin_email');
+
+  if (!token) {
+    document.getElementById('dashView').style.display = 'none';
+    document.getElementById('loginView').style.display = 'block';
+    return;
   }
+
+  try {
+    const res = await fetch('/api/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ token })
+    });
+    const data = await res.json();
+    if (res.ok && data.valid) {
+      showDash(data.email || savedEmail || ADMIN_EMAIL);
+    } else {
+      localStorage.removeItem('sree_admin_token');
+      localStorage.removeItem('sree_admin_email');
+      localStorage.removeItem('sree_admin_logged');
+      document.getElementById('dashView').style.display = 'none';
+      document.getElementById('loginView').style.display = 'block';
+    }
+  } catch (e) {
+    document.getElementById('dashView').style.display = 'none';
+    document.getElementById('loginView').style.display = 'block';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkAuthOnLoad();
   document.getElementById('adminPassword').addEventListener('keydown', e => {
     if (e.key === 'Enter') doLogin();
   });
