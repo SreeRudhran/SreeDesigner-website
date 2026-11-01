@@ -6025,6 +6025,14 @@
         const service = document.getElementById('fservice')?.value || 'Bridal Blouse Tailoring';
         const msg = document.getElementById('fmsg')?.value.trim() || '';
 
+        // Validation: Phone must be at least 10 digits
+        const cleanPhone = phone.replace(/\D/g, '');
+        if (cleanPhone.length < 10) {
+          alert('Please enter a valid 10-digit mobile number.');
+          document.getElementById('fphone')?.focus();
+          return;
+        }
+
         let text = 'Hi Sree Designers & Boutique, I would like to book a fitting appointment:\n';
         text += '• Name: ' + name + '\n';
         text += '• Phone: ' + phone + '\n';
@@ -6035,7 +6043,7 @@
         }
 
         const waUrl = 'https://wa.me/919976344673?text=' + encodeURIComponent(text);
-        window.open(waUrl, '_blank');
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
       });
     }
 

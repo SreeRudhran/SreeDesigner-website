@@ -938,22 +938,40 @@
         window.AtelierSEO.injectProductServiceSchema(item);
       }
 
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
       // 7. DYNAMIC SIMILAR WORKS GRID
       const similarGrid = document.getElementById('relatedGridContainer');
       if (similarGrid) {
         const otherItems = allItems.filter(i => String(i.id) !== String(item.id)).slice(0, 3);
-        similarGrid.innerHTML = otherItems.map(sim => `
-          <a href="product?id=${encodeURIComponent(sim.id || sim.slug || '')}" class="related-card">
-            <img src="${sim.main_image_url || 'assets/images/service_hand_embroidery.webp'}" alt="${sim.title}" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
-            <div class="related-info">
-              <div>
-                <div class="related-title">${sim.title}</div>
-                <span style="font-size:0.78rem; color:var(--ink-soft);">${(sim.tags && sim.tags[0]) || 'Bespoke Craft'}</span>
+        similarGrid.innerHTML = otherItems.map(sim => {
+          const safeId = encodeURIComponent(String(sim.id || sim.slug || ''));
+          const safeImg = escapeHtml(sim.main_image_url || 'assets/images/service_hand_embroidery.webp');
+          const safeTitle = escapeHtml(sim.title || 'Custom Blouse');
+          const safeTag = escapeHtml((sim.tags && sim.tags[0]) || 'Bespoke Craft');
+          const safePrice = parseFloat(sim.starting_price) || 2500;
+
+          return `
+            <a href="product?id=${safeId}" class="related-card">
+              <img src="${safeImg}" alt="${safeTitle}" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+              <div class="related-info">
+                <div>
+                  <div class="related-title">${safeTitle}</div>
+                  <span style="font-size:0.78rem; color:var(--ink-soft);">${safeTag}</span>
+                </div>
+                <div class="related-price">from ₹${safePrice.toLocaleString('en-IN')}</div>
               </div>
-              <div class="related-price">from ₹${sim.starting_price || 2500}</div>
-            </div>
-          </a>
-        `).join('');
+            </a>
+          `;
+        }).join('');
       }
     }
 

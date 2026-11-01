@@ -524,11 +524,23 @@
       });
     }
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function loadCategoryPage() {
       const params = new URLSearchParams(window.location.search);
-      const categoryName = params.get('cat') || 'Hand Embroidered Blouses';
+      const rawCat = (params.get('cat') || 'Hand Embroidered Blouses').trim();
+      // Enforce max length to prevent parameter pollution/abuse
+      const categoryName = rawCat.slice(0, 80);
 
-      // Update Header Text & Meta
+      // Update Header Text & Meta (textContent and title are already XSS-safe text sinks)
       document.getElementById('breadcrumbCat').textContent = categoryName;
       document.getElementById('catTitle').textContent = categoryName;
       document.getElementById('catBadge').textContent = `CATEGORY · ${categoryName.toUpperCase()}`;
@@ -548,12 +560,14 @@
       const container = document.getElementById('catProductsGrid');
 
       if (!items || items.length === 0) {
-        // Customer-Facing Graceful Fallback (NO ADMIN TEXT!)
+        // Customer-Facing Graceful Fallback (Properly escaped to prevent Reflected DOM XSS)
+        const safeCat = escapeHtml(categoryName);
+        const encodedCat = encodeURIComponent(categoryName);
         container.innerHTML = `
           <div class="bespoke-enquiry-box">
             <h3>Bespoke Custom Tailoring Available</h3>
-            <p>Looking for a one-of-a-kind design in <strong>${categoryName}</strong>? Our master artisans craft bespoke blouses, lehengas &amp; bridal wear to your exact measurements.</p>
-            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20looking%20for%20custom%20designs%20under%20${encodeURIComponent(categoryName)}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-bespoke">
+            <p>Looking for a one-of-a-kind design in <strong>${safeCat}</strong>? Our master artisans craft bespoke blouses, lehengas &amp; bridal wear to your exact measurements.</p>
+            <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20looking%20for%20custom%20designs%20under%20${encodedCat}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-bespoke">
               💬 Enquire on WhatsApp →
             </a>
           </div>
@@ -563,22 +577,26 @@
 
       container.innerHTML = items.map(item => {
         const salePrice = parseFloat(item.starting_price) || 1800;
-        const imgUrl = item.main_image_url || 'assets/images/service_bridal.webp';
+        const rawImg = item.main_image_url || 'assets/images/service_bridal.webp';
+        const safeImg = escapeHtml(rawImg);
+        const safeTitle = escapeHtml(item.title || 'Custom Garment');
+        const safeDesc = escapeHtml(item.description || 'Handcrafted bespoke garment tailored to perfection.');
+        const safeId = encodeURIComponent(String(item.id || item.slug || ''));
 
         return `
           <div class="cat-product-card">
             <div class="cat-product-img-wrap">
-              <img src="${imgUrl}" alt="${item.title}" class="cat-product-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;" onerror="this.src='assets/images/service_bridal.webp'">
+              <img src="${safeImg}" alt="${safeTitle}" class="cat-product-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;" onerror="this.src='assets/images/service_bridal.webp'">
             </div>
             <div class="cat-product-body">
               <div>
-                <h3 class="cat-product-title">${item.title}</h3>
+                <h3 class="cat-product-title">${safeTitle}</h3>
                 <div class="price-row">
                   <span class="price-sale">Starting from ₹${salePrice.toLocaleString('en-IN')}</span>
                 </div>
-                <p class="cat-product-desc">${item.description || 'Handcrafted bespoke garment tailored to perfection.'}</p>
+                <p class="cat-product-desc">${safeDesc}</p>
               </div>
-              <a href="product?id=${encodeURIComponent(item.id || item.slug || '')}" class="btn-view-product">Explore Design →</a>
+              <a href="product?id=${safeId}" class="btn-view-product">Explore Design →</a>
             </div>
           </div>
         `;

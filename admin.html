@@ -545,6 +545,16 @@
 // ─── CONFIGURATION ──────────────────────────────────────────────────────────
 const ADMIN_EMAIL = 'admin@sreedesigners.com';
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ─── LOCAL STORAGE HELPERS ───────────────────────────────────────────────────
 function lsGet(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
 function lsSet(key, arr) { try { localStorage.setItem(key, JSON.stringify(arr.slice(0, 50))); } catch(e) {} }
@@ -757,23 +767,29 @@ function renderShowcase() {
         <div class="section-items-list">
           ${secItems.length === 0 ? '<p class="empty-msg" style="padding:20px;">No items in this section yet. Upload items with matching category tags above.</p>' : secItems.map(item => {
             const isFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : false;
+            const safeTitle = escapeHtml(item.title || 'Showcase Item');
+            const safeImg = escapeHtml(item.main_image_url || 'assets/images/service_bridal.png');
+            const safePrice = parseFloat(item.starting_price) || 2500;
+            const safeTags = escapeHtml(Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General'));
+            const safeId = escapeHtml(String(item.id || ''));
+            const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
             return `
               <div class="item-card" style="margin-bottom:12px; background:var(--white);">
-                <img class="item-thumb" src="${item.main_image_url || 'assets/images/service_bridal.png'}" onerror="this.src='assets/images/service_bridal.png'" alt="${item.title}">
+                <img class="item-thumb" src="${safeImg}" onerror="this.src='assets/images/service_bridal.png'" alt="${safeTitle}">
                 <div class="item-info">
-                  <h4>${item.title}</h4>
+                  <h4>${safeTitle}</h4>
                   <div>
-                    <span class="badge">₹${item.starting_price || 2500}</span>
-                    <small style="display:inline-block; margin-left:8px;">Category: <strong>${Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General')}</strong></small>
+                    <span class="badge">₹${safePrice.toLocaleString('en-IN')}</span>
+                    <small style="display:inline-block; margin-left:8px;">Category: <strong>${safeTags}</strong></small>
                   </div>
                 </div>
                 <div class="item-actions">
-                  <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${item.id}')" title="${isFeatured ? 'Featured on Main Page (Click to unfeature)' : 'Feature on Main Page (Max 3)'}">
+                  <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${safeId}')" title="${isFeatured ? 'Featured on Main Page (Click to unfeature)' : 'Feature on Main Page (Max 3)'}">
                     ${isFeatured ? '⭐ Featured on Home' : '☆ Feature on Home'}
                   </button>
-                  <a href="product?id=${encodeURIComponent(item.id || item.slug || '')}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
-                  <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${item.id}')">Edit</button>
-                  <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${item.id}')">Delete</button>
+                  <a href="product?id=${safeSlug}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+                  <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${safeId}')">Edit</button>
+                  <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${safeId}')">Delete</button>
                 </div>
               </div>
             `;
@@ -1128,23 +1144,30 @@ function renderBlog() {
   }
   
   el.innerHTML = posts.map(p => {
-    const previewUrl = p.slug || (p.id ? ('/blog/' + p.id.replace(/^blog-/, '')) : '/blog');
+    const rawPreview = p.slug || (p.id ? ('/blog/' + String(p.id).replace(/^blog-/, '')) : '/blog');
+    const safePreviewUrl = encodeURI(rawPreview);
     const faqCount = p.faqs ? p.faqs.length : 0;
+    const safeTitle = escapeHtml(p.title || 'Blog Post');
+    const safeImg = escapeHtml(p.featured_image || p.featured_image_url || 'assets/images/bridal_blouse.jpg');
+    const safeCat = escapeHtml(p.category || 'Bridal Trends');
+    const safeReadTime = escapeHtml(p.read_time || '5 min read');
+    const safeExcerpt = escapeHtml(p.excerpt ? p.excerpt.substring(0, 100) + '...' : '');
+    const safeId = escapeHtml(String(p.id || ''));
     return `
       <div class="item-card">
-        <img class="item-thumb" src="${p.featured_image || p.featured_image_url || 'assets/images/bridal_blouse.jpg'}" onerror="this.src='assets/images/bridal_blouse.jpg'" alt="${p.title}">
+        <img class="item-thumb" src="${safeImg}" onerror="this.src='assets/images/bridal_blouse.jpg'" alt="${safeTitle}">
         <div class="item-info">
-          <h4>${p.title}</h4>
+          <h4>${safeTitle}</h4>
           <div>
-            <span class="badge" style="background:#eef2ff; color:#4338ca;">${p.category || 'Bridal Trends'}</span>
-            <small style="display:inline-block; margin-left:8px;">${p.read_time || '5 min read'} · <strong>${faqCount} FAQ Schema Questions</strong></small>
+            <span class="badge" style="background:#eef2ff; color:#4338ca;">${safeCat}</span>
+            <small style="display:inline-block; margin-left:8px;">${safeReadTime} · <strong>${faqCount} FAQ Schema Questions</strong></small>
           </div>
-          <small style="color:var(--soft); display:block; margin-top:4px;">${p.excerpt ? p.excerpt.substring(0, 100) + '...' : ''}</small>
+          <small style="color:var(--soft); display:block; margin-top:4px;">${safeExcerpt}</small>
         </div>
         <div class="item-actions">
-          <a href="${previewUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
-          <button class="btn-sm btn-edit" onclick="openEditBlog('${p.id}')">Edit</button>
-          <button class="btn-sm btn-delete" onclick="deleteBlog('${p.id}')">Delete</button>
+          <a href="${safePreviewUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+          <button class="btn-sm btn-edit" onclick="openEditBlog('${safeId}')">Edit</button>
+          <button class="btn-sm btn-delete" onclick="deleteBlog('${safeId}')">Delete</button>
         </div>
       </div>
     `;
@@ -1319,6 +1342,44 @@ async function submitReview(e) {
   document.getElementById('formReview').reset();
   closeModal('modalReview');
   alert('✅ Review published!');
+  renderTestimonials();
+}
+
+function renderTestimonials() {
+  const el = document.getElementById('listTestimonials');
+  if (!el) return;
+  const reviews = lsGet('custom_review_items');
+  if (!reviews || !reviews.length) {
+    el.innerHTML = '<p class="empty-msg">No custom reviews published yet. Click "+ Add New Review" above.</p>';
+    return;
+  }
+  el.innerHTML = reviews.map(r => {
+    const safeName = escapeHtml(r.customer_name || 'Client');
+    const safeLoc = escapeHtml(r.location || 'Coimbatore');
+    const safeWork = escapeHtml(r.work_type || 'Bridal Blouse');
+    const safeComment = escapeHtml(r.comment || '');
+    const numRating = Math.min(5, Math.max(1, parseInt(r.rating) || 5));
+    const stars = '⭐'.repeat(numRating);
+    const safeId = escapeHtml(String(r.id || ''));
+    return `
+      <div class="item-card">
+        <div class="item-info">
+          <h4>${safeName} <small style="color:var(--soft);">(${safeLoc})</small> — ${stars}</h4>
+          <div><span class="badge" style="background:#fef3c7; color:#92400e;">${safeWork}</span></div>
+          <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:6px; font-style:italic;">"${safeComment}"</p>
+        </div>
+        <div class="item-actions">
+          <button class="btn-sm btn-delete" onclick="deleteReview('${safeId}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteReview(id) {
+  if (!confirm('Are you sure you want to delete this review?')) return;
+  const arr = lsGet('custom_review_items').filter(r => String(r.id) !== String(id));
+  lsSet('custom_review_items', arr);
   renderTestimonials();
 }
 
