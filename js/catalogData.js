@@ -516,11 +516,20 @@ function getUnifiedCatalog() {
     customItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
   } catch (e) {}
 
-  const customIds = new Set(customItems.map(c => String(c.id)));
-  // Filter out any default items that share an ID with custom items (for edits)
-  const nonReplacedDefaults = MASTER_CATALOG.filter(d => !customIds.has(String(d.id)));
+  let deletedIds = new Set();
+  try {
+    const rawDeleted = JSON.parse(localStorage.getItem('deleted_showcase_ids') || '[]');
+    deletedIds = new Set(rawDeleted.map(String));
+  } catch (e) {}
 
-  return [...customItems, ...nonReplacedDefaults];
+  const customIds = new Set(customItems.map(c => String(c.id)));
+  // Filter out any default items that are replaced by custom items OR were deleted
+  const nonReplacedDefaults = MASTER_CATALOG.filter(d => !customIds.has(String(d.id)) && !deletedIds.has(String(d.id)));
+
+  // Filter out any custom items that were deleted
+  const activeCustom = customItems.filter(c => !deletedIds.has(String(c.id)));
+
+  return [...activeCustom, ...nonReplacedDefaults];
 }
 
 if (typeof window !== 'undefined') {

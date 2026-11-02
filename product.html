@@ -849,8 +849,12 @@
       if (typeof MASTER_CATALOG !== 'undefined') {
         let custom = [];
         try { custom = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
+        let deleted = new Set();
+        try { deleted = new Set(JSON.parse(localStorage.getItem('deleted_showcase_ids') || '[]').map(String)); } catch(e) {}
         const customIds = new Set(custom.map(c => String(c.id)));
-        return [...custom, ...MASTER_CATALOG.filter(d => !customIds.has(String(d.id)))];
+        const nonDeleted = MASTER_CATALOG.filter(d => !customIds.has(String(d.id)) && !deleted.has(String(d.id)));
+        const activeCustom = custom.filter(c => !deleted.has(String(c.id)));
+        return [...activeCustom, ...nonDeleted];
       }
       let localItems = [];
       try { localItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]'); } catch(e) {}
