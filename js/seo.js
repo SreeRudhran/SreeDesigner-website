@@ -76,7 +76,7 @@ const AtelierSEO = {
           "latitude": 11.0825,
           "longitude": 77.1654
         },
-        "hasMap": "https://maps.app.goo.gl/Q9bF9IHpnFQpJMmTR",
+        "hasMap": "https://share.google/hoaCh95clQinP8Bw1",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -101,7 +101,7 @@ const AtelierSEO = {
           "addressRegion": "Tamil Nadu",
           "addressCountry": "IN"
         },
-        "hasMap": "https://maps.app.goo.gl/oh7WH1mDCn5YH6f59",
+        "hasMap": "https://maps.app.goo.gl/RtQ1DR1BFFFs85Ju8",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
