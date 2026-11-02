@@ -652,7 +652,7 @@
       
       <img src="assets/images/sree_boutique_qr.png" alt="Sree Designers In-Store QR Code" class="qr-preview-img" width="220" height="220">
       
-      <p style="font-size:0.78rem; color:var(--gold-dark); font-weight:600; margin-bottom:12px;">Scans directly to: sreedesigners.in/connect</p>
+      <p style="font-size:0.78rem; color:var(--gold-dark); font-weight:600; margin-bottom:12px;">Scans to: sreedesigners.in/connect?utm_source=qr (Tracks scans &amp; clicks automatically)</p>
       
       <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-download-qr">
         ⬇️ Download High-Res QR (PNG)
@@ -661,12 +661,37 @@
   </div>
 
   <script>
+    // 1. Automatic QR Scan Tracking on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const isQr = params.get('utm_source') === 'qr' || params.has('qr');
+      const scanType = isQr ? 'in_store_qr_scan' : 'direct_connect_visit';
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'qr_code_scan', {
+          'event_category': 'In_Studio_QR',
+          'event_label': scanType,
+          'scan_type': scanType
+        });
+      }
+      if (typeof window.va === 'function') {
+        window.va('event', { name: 'qr_code_scan', data: { type: scanType } });
+      }
+    });
+
+    // 2. Interactive Action Tracking for All Buttons
     function trackClick(actionName) {
       if (typeof gtag === 'function') {
-        gtag('event', 'hub_click', {
+        gtag('event', actionName, {
           'event_category': 'In_Studio_Hub',
           'event_label': actionName
         });
+        gtag('event', 'hub_action', {
+          'action_name': actionName
+        });
+      }
+      if (typeof window.va === 'function') {
+        window.va('event', { name: actionName });
       }
     }
 
