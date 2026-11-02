@@ -45,32 +45,40 @@
   <meta name="twitter:description" content="Bridal blouse &amp; aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!">
   <meta name="twitter:image" content="https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.jpg">
 
-  <!-- LOCAL BUSINESS & FAQPAGE SCHEMA (JSON-LD) -->
+    <!-- LOCAL BUSINESS & FAQPAGE SCHEMA (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["LocalBusiness", "ClothingStore"],
-        "@id": "https://sreedesigners.in/#business",
-        "name": "Sree Designers & Boutique",
-        "alternateName": [
-          "Sree Designers",
-          "Sree Designers Boutique",
-          "Sree Designers Coimbatore",
-          "Sree Designers Tiruppur"
-        ],
+        "@type": ["ClothingStore", "LocalBusiness"],
+        "@id": "https://sreedesigners.in/#business-samalapuram",
+        "name": "Sree Designers & Boutique — Samalapuram Branch",
+        "alternateName": ["Sree Designers", "Sree Designers Coimbatore"],
         "url": "https://sreedesigners.in/",
         "logo": "https://sreedesigners.in/assets/images/logo.png",
         "image": [
           "https://sreedesigners.in/assets/images/hero-desktop.webp",
           "https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.webp"
         ],
-        "description": "Bridal blouse & aari work in Coimbatore and Tiruppur. Hand aari, maggam embroidery, padded cups, 48-hr express delivery. Book your fitting!",
+        "description": "Bespoke bridal blouse tailoring, hand aari & maggam embroidery, padded cup trial fittings, and 48-hr express delivery in Coimbatore.",
         "telephone": "+919976344673",
         "priceRange": "₹₹",
         "currenciesAccepted": "INR",
         "paymentAccepted": "Cash, UPI, Net Banking, Credit Card",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
+          "addressLocality": "Somanur, Coimbatore",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "641663",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 11.1271,
+          "longitude": 77.1683
+        },
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -79,32 +87,8 @@
             "closes": "21:00"
           }
         ],
-        "address": [
-          {
-            "@type": "PostalAddress",
-            "streetAddress": "Opp to IDBI Bank, Samalapuram, Annur - Avinashi - Mettupalayam Rd",
-            "addressLocality": "Somanur, Coimbatore",
-            "addressRegion": "Tamil Nadu",
-            "postalCode": "641663",
-            "addressCountry": "IN"
-          },
-          {
-            "@type": "PostalAddress",
-            "streetAddress": "AutoStand, Annur Road",
-            "addressLocality": "Karnempettai, Tiruppur",
-            "addressRegion": "Tamil Nadu",
-            "postalCode": "641663",
-            "addressCountry": "IN"
-          }
-        ],
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 11.1271,
-          "longitude": 77.1683
-        },
         "areaServed": [
           { "@type": "City", "name": "Coimbatore" },
-          { "@type": "City", "name": "Tiruppur" },
           { "@type": "AdministrativeArea", "name": "Tamil Nadu" }
         ],
         "sameAs": [
@@ -174,9 +158,64 @@
         }
       },
       {
+        "@type": ["ClothingStore", "LocalBusiness"],
+        "@id": "https://sreedesigners.in/#business-karnempettai",
+        "name": "Sree Designers & Boutique — Karnempettai Branch",
+        "alternateName": ["Sree Designers Tiruppur"],
+        "url": "https://sreedesigners.in/",
+        "logo": "https://sreedesigners.in/assets/images/logo.png",
+        "image": [
+          "https://sreedesigners.in/assets/images/hero-desktop.webp",
+          "https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.webp"
+        ],
+        "description": "Custom bridal blouse stitching, wedding lehenga tailoring, and maggam embroidery atelier in Karnempettai, Tiruppur.",
+        "telephone": "+919976344673",
+        "priceRange": "₹₹",
+        "currenciesAccepted": "INR",
+        "paymentAccepted": "Cash, UPI, Net Banking, Credit Card",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "AutoStand, Annur Road",
+          "addressLocality": "Karnempettai, Tiruppur",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "641663",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 11.1271,
+          "longitude": 77.1683
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:30",
+            "closes": "21:00"
+          }
+        ],
+        "areaServed": [
+          { "@type": "City", "name": "Tiruppur" },
+          { "@type": "AdministrativeArea", "name": "Tamil Nadu" }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/sreedesigner_/",
+          "https://www.youtube.com/@SreeDesignerss",
+          "https://www.facebook.com/share/1GzvdiWwMT/?mibextid=wwXIfr"
+        ]
+      },
+      {
         "@type": "FAQPage",
         "@id": "https://sreedesigners.in/#faq",
         "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the starting price for bridal blouse stitching in Coimbatore?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At Sree Designers & Boutique, standard blouse stitching starts from Rs. 1,200, and bridal blouse maggam tailoring starts from Rs. 1,800. Hand aari and bridal maggam embroidery ranges from Rs. 2,500 to Rs. 6,500+ depending on the complexity of hand zardozi work."
+            }
+          },
           {
             "@type": "Question",
             "name": "What makes Sree Designers' padded cups and trial fitting unique?",
@@ -190,7 +229,7 @@
             "name": "Can Sree Designers handle rush bridal maggam work within 48 hours?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes! We offer an express 48-hour delivery service for urgent bridal blouse stitching and embroidery needs across Coimbatore and Tiruppur. When you bring your saree fabric or courier it to our Samalapuram or Karnempettai studio, our dedicated master cutters and in-house artisans prioritize your pattern, expedite your trial fitting, and deliver finished heirloom garments on time for your muhurtham or reception."
+              "text": "Yes! We offer a dedicated express 48-hour delivery service for urgent bridal blouse stitching and embroidery needs across Coimbatore, Tiruppur, Somanur, and Avinashi. When you bring your saree fabric or courier it to our Samalapuram or Karnempettai studio, our dedicated master cutters and in-house artisans prioritize your pattern, expedite your trial fitting, and deliver finished heirloom garments on time for your muhurtham or reception."
             }
           },
           {
@@ -215,6 +254,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "You can book your fitting session directly via WhatsApp (+91 99763 44673), through our website booking form, or by visiting our walk-in studios at Samalapuram (Somanur, Coimbatore) and Karnempettai (Annur Road, Tiruppur). We recommend scheduling your fitting 2 to 4 weeks prior to your wedding date, though express 48-hour slots are available upon request."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where are Sree Designers boutiques located in Coimbatore and Tiruppur?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sree Designers operates two accessible studios: 1) Samalapuram Studio (Opp. IDBI Bank, Annur-Avinashi-Mettupalayam Rd, Somanur, Coimbatore) and 2) Karnempettai Studio (AutoStand, Annur Road, Tiruppur)."
             }
           }
         ]
@@ -4845,47 +4892,7 @@
 
   </style>
 
-  <!-- FAQ SCHEMA (JSON-LD) FOR RICH GOOGLE SERP RESULTS -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the starting price for bridal blouse stitching in Coimbatore?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "At Sree Designers & Boutique, standard blouse stitching starts from Rs. 1,200, and bridal blouse maggam tailoring starts from Rs. 1,800. Hand aari and bridal maggam embroidery ranges from Rs. 2,500 to Rs. 6,500+ depending on the complexity of hand zardozi work."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you offer urgent 48-hour express bridal blouse delivery in Coimbatore and Tiruppur?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! Sree Designers provides a dedicated 48-Hour Rapid Express Trial Fitting and Delivery service for brides facing urgent wedding or engagement timelines across Coimbatore, Tiruppur, Somanur, and Avinashi."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you provide trial fittings with padded cups before final delivery?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, every bridal blouse includes a scheduled trial fitting session with built-in bust-contour padded cups for zero back-neck gaping, flawless armhole movement, and perfect comfort."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Where are Sree Designers boutiques located in Coimbatore and Tiruppur?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sree Designers operates two accessible studios: 1) Samalapuram Studio (Opp. IDBI Bank, Annur-Avinashi-Mettupalayam Rd, Somanur, Coimbatore) and 2) Karnempettai Studio (AutoStand, Annur Road, Tiruppur)."
-        }
-      }
-    ]
-  }
-  </script>
+  
 
   <!-- YOUTUBE SHORTS & VIDEO OBJECT SCHEMA (JSON-LD) FOR GOOGLE VIDEO SEARCH -->
   <script type="application/ld+json">

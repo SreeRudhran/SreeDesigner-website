@@ -2,75 +2,110 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin.html
+Disallow: /api/
 
 # Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Applebot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: DuckDuckBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Slurp
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 # Generative AI & LLM Search Crawlers (GEO Optimization)
 User-agent: GPTBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Perplexity-User
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Meta-ExternalAgent
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: cohere-ai
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Bytespider
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 User-agent: CCBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 
 Sitemap: https://sreedesigners.in/sitemap.xml

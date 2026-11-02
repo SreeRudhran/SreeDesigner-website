@@ -7,3 +7,6 @@ raw_uploads/
 package.json
 package-lock.json
 scratch/
+*.bak
+*.bak*
+*.backup
