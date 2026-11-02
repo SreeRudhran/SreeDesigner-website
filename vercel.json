@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/connect",
+      "destination": "/connect.html"
+    },
+    {
+      "source": "/review",
+      "destination": "/connect.html"
+    },
+    {
       "source": "/admin",
       "destination": "/admin.html"
     },
