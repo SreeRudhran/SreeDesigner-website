@@ -167,6 +167,18 @@ function stopQrAutoRefresh() {
     .btn-featured:hover { border-color: var(--gold); color: var(--gold); background: rgba(185,140,20,0.05); }
     .btn-featured.active { background: linear-gradient(135deg, #b98c14, #d4af37); color: #fff; border-color: #b98c14; box-shadow: 0 3px 10px rgba(185,140,20,0.35); font-weight: 700; }
 
+    /* MULTI-CATEGORY CHECKBOX SELECTOR */
+    .category-checkbox-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; margin-top: 6px; }
+    .cat-checkbox-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg2); border: 1.5px solid var(--line);
+      border-radius: 999px; padding: 6px 14px; font-size: 0.8rem;
+      font-weight: 500; color: var(--ink); cursor: pointer;
+      user-select: none; transition: all .2s;
+    }
+    .cat-checkbox-chip:hover { border-color: var(--gold); background: #fdf8f5; }
+    .cat-checkbox-chip input[type="checkbox"] { accent-color: var(--gold); cursor: pointer; width: 14px; height: 14px; }
+    .cat-checkbox-chip.active { background: #fef9ed; border-color: var(--gold); color: #92400e; font-weight: 700; box-shadow: 0 2px 6px rgba(185,140,20,0.15); }
   </style>
 </head>
 <body>
@@ -395,16 +407,20 @@ function stopQrAutoRefresh() {
           <input type="number" id="sc_price" class="field-input" placeholder="3800" required>
         </div>
         <div>
-          <label class="field-label">Category *</label>
-          <select id="sc_tag" class="field-select" required>
-            <option value="Hand Embroidered Blouses">Hand Embroidered Blouses</option>
-            <option value="Machine Embroidered Blouse">Machine Embroidered Blouse</option>
-            <option value="Bridal Blouse & Maggam Work">Bridal Blouse &amp; Maggam Work</option>
-            <option value="Kurtis & Chudidhar">Kurtis &amp; Chudidhar</option>
-            <option value="Lehengas & Festive Couture">Lehengas &amp; Festive Couture</option>
-            <option value="Frocks & Gowns">Frocks &amp; Gowns</option>
-            <option value="Zardozi Work">Zardozi Work</option>
-          </select>
+          <label class="field-label">Instagram Post Link (Optional)</label>
+          <input type="url" id="sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/... (or reel link)">
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Categories (Select all that apply) *</label>
+        <div class="category-checkbox-grid" id="sc_category_picker">
+          <label class="cat-checkbox-chip active"><input type="checkbox" name="sc_categories" value="Bridal Blouse & Maggam Work" checked> <span>Bridal Blouse &amp; Maggam Work</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Hand Embroidered Blouses"> <span>Hand Embroidered Blouses</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Machine Embroidered Blouse"> <span>Machine Embroidered Blouse</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Zardozi Work"> <span>Zardozi Work</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Kurtis & Chudidhar"> <span>Kurtis &amp; Chudidhar</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Lehengas & Festive Couture"> <span>Lehengas &amp; Festive Couture</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
         </div>
       </div>
       <label class="field-label">Description *</label>
@@ -418,10 +434,15 @@ function stopQrAutoRefresh() {
               Upload main photo and extra angles together. First card is your <strong>Main Cover</strong>.
             </small>
           </div>
-          <label for="create_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
-            ➕ Add Photos
-          </label>
-          <input type="file" id="create_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleCreateGalleryUpload(event)">
+          <div style="display:flex; gap:8px;">
+            <button type="button" onclick="promptAddPhotoUrl('create')" class="btn-sm" style="background:#fff; color:#0f172a; padding:6px 12px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600;">
+              🔗 Add by URL
+            </button>
+            <label for="create_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+              ➕ Add Photos
+            </label>
+            <input type="file" id="create_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleCreateGalleryUpload(event)">
+          </div>
         </div>
 
         <div id="createGalleryGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap:12px;">
@@ -452,16 +473,20 @@ function stopQrAutoRefresh() {
           <input type="number" id="edit_sc_price" class="field-input" required>
         </div>
         <div>
-          <label class="field-label">Category *</label>
-          <select id="edit_sc_tag" class="field-select" required>
-            <option value="Hand Embroidered Blouses">Hand Embroidered Blouses</option>
-            <option value="Machine Embroidered Blouse">Machine Embroidered Blouse</option>
-            <option value="Bridal Blouse & Maggam Work">Bridal Blouse &amp; Maggam Work</option>
-            <option value="Kurtis & Chudidhar">Kurtis &amp; Chudidhar</option>
-            <option value="Lehengas & Festive Couture">Lehengas &amp; Festive Couture</option>
-            <option value="Frocks & Gowns">Frocks &amp; Gowns</option>
-            <option value="Zardozi Work">Zardozi Work</option>
-          </select>
+          <label class="field-label">Instagram Post Link (Optional)</label>
+          <input type="url" id="edit_sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/... (or reel link)">
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Categories (Select all that apply) *</label>
+        <div class="category-checkbox-grid" id="edit_sc_category_picker">
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Bridal Blouse & Maggam Work"> <span>Bridal Blouse &amp; Maggam Work</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Hand Embroidered Blouses"> <span>Hand Embroidered Blouses</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Machine Embroidered Blouse"> <span>Machine Embroidered Blouse</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Zardozi Work"> <span>Zardozi Work</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Kurtis & Chudidhar"> <span>Kurtis &amp; Chudidhar</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Lehengas & Festive Couture"> <span>Lehengas &amp; Festive Couture</span></label>
+          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
         </div>
       </div>
       <label class="field-label">Description *</label>
@@ -476,10 +501,15 @@ function stopQrAutoRefresh() {
               Card 1 is the <strong>Main Cover</strong> shown in catalog. Click <strong>⭐ Set as Main</strong> to pick a new cover, or ◀ ▶ to reorder.
             </small>
           </div>
-          <label for="edit_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
-            ➕ Add More Photos
-          </label>
-          <input type="file" id="edit_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleEditGalleryUpload(event)">
+          <div style="display:flex; gap:8px;">
+            <button type="button" onclick="promptAddPhotoUrl('edit')" class="btn-sm" style="background:#fff; color:#0f172a; padding:6px 12px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600;">
+              🔗 Add by URL
+            </button>
+            <label for="edit_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+              ➕ Add More Photos
+            </label>
+            <input type="file" id="edit_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleEditGalleryUpload(event)">
+          </div>
         </div>
 
         <div id="editGalleryGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap:12px;">
@@ -945,6 +975,7 @@ function renderShowcase() {
                   <div>
                     <span class="badge">₹${safePrice.toLocaleString('en-IN')}</span>
                     <small style="display:inline-block; margin-left:8px;">Category: <strong>${safeTags}</strong></small>
+                    ${item.instagram_url ? `<small style="display:inline-block; margin-left:8px;"><a href="${escapeHtml(item.instagram_url)}" target="_blank" style="color:#e1306c; text-decoration:none; font-weight:600;">📸 Instagram ↗</a></small>` : ''}
                   </div>
                 </div>
                 <div class="item-actions">
@@ -1068,12 +1099,20 @@ function runAiAutoFill() {
       const generatedTitle = `${foundColor} ${sleeveHighlight.replace(' Sleeves', '')} ${searchKeyword} | ${workHighlight}`;
       titleEl.value = generatedTitle;
 
-      // 6. Set Category
-      if (tagEl) {
-        for (let opt of tagEl.options) {
-          if (opt.value === category) { opt.selected = true; break; }
+      // 6. Set Category (Multi-Category Checkboxes)
+      document.querySelectorAll('#sc_category_picker input[name="sc_categories"]').forEach(cb => {
+        let isMatch = (cb.value === category);
+        if (category === 'Bridal Blouse & Maggam Work') {
+          if (raw.includes('zardozi') && cb.value === 'Zardozi Work') isMatch = true;
+          if (raw.includes('aari') && cb.value === 'Hand Embroidered Blouses') isMatch = true;
         }
-      }
+        cb.checked = isMatch;
+        const chip = cb.closest('.cat-checkbox-chip');
+        if (chip) {
+          if (isMatch) chip.classList.add('active');
+          else chip.classList.remove('active');
+        }
+      });
 
       // 7. Set Suggested Price
       priceEl.value = estPrice;
@@ -1290,6 +1329,30 @@ async function handleCreateGalleryUpload(e) {
   renderCreateGallery();
 }
 
+function promptAddPhotoUrl(mode) {
+  const url = prompt('Enter image URL (e.g. https://... or assets/images/...):');
+  if (!url || !url.trim()) return;
+  const cleanUrl = url.trim();
+  if (mode === 'create') {
+    createGalleryImages.push({ id: 'url-' + Date.now(), image_url: cleanUrl });
+    renderCreateGallery();
+  } else {
+    editGalleryImages.push({ id: 'url-edit-' + Date.now(), image_url: cleanUrl });
+    renderEditGallery();
+  }
+}
+
+// Category Chip Visual Active State Listener
+document.addEventListener('change', function(e) {
+  if (e.target && (e.target.name === 'sc_categories' || e.target.name === 'edit_sc_categories')) {
+    const chip = e.target.closest('.cat-checkbox-chip');
+    if (chip) {
+      if (e.target.checked) chip.classList.add('active');
+      else chip.classList.remove('active');
+    }
+  }
+});
+
 // ─── SUBMIT SHOWCASE PRODUCT (CREATE) ────────────────────────────────────────
 async function submitShowcase(e) {
   e.preventDefault();
@@ -1311,13 +1374,19 @@ async function submitShowcase(e) {
     const title = document.getElementById('sc_title').value.trim();
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
+    const selectedTags = Array.from(document.querySelectorAll('#sc_category_picker input[name="sc_categories"]:checked')).map(cb => cb.value);
+    if (!selectedTags.length) {
+      throw new Error('Please select at least one category for this product.');
+    }
+
     const newItem = {
       id: 'prod-' + Date.now(),
       title: title,
       slug: slug,
       description: document.getElementById('sc_desc').value.trim(),
       starting_price: parseFloat(document.getElementById('sc_price').value) || 2800,
-      tags: [document.getElementById('sc_tag').value],
+      tags: selectedTags,
+      instagram_url: (document.getElementById('sc_ig_url')?.value || '').trim(),
       main_image_url: mainImgUrl,
       images: subImgUrls,
       is_published: true,
@@ -1371,14 +1440,19 @@ function openEditShowcase(id) {
   document.getElementById('edit_sc_title').value = item.title || '';
   document.getElementById('edit_sc_price').value = item.starting_price || '';
   document.getElementById('edit_sc_desc').value = item.description || '';
-  
-  const tagVal = Array.isArray(item.tags) ? item.tags[0] : (item.tags || 'Hand Embroidered Blouses');
-  const tagSelect = document.getElementById('edit_sc_tag');
-  if (tagSelect) {
-    for (let opt of tagSelect.options) {
-      if (opt.value === tagVal) { opt.selected = true; break; }
-    }
+  if (document.getElementById('edit_sc_ig_url')) {
+    document.getElementById('edit_sc_ig_url').value = item.instagram_url || '';
   }
+  
+  const itemTags = Array.isArray(item.tags) ? item.tags : (item.tags ? [item.tags] : ['Hand Embroidered Blouses']);
+  document.querySelectorAll('#edit_sc_category_picker input[name="edit_sc_categories"]').forEach(cb => {
+    cb.checked = itemTags.some(t => String(t).toLowerCase().trim() === cb.value.toLowerCase().trim());
+    const chip = cb.closest('.cat-checkbox-chip');
+    if (chip) {
+      if (cb.checked) chip.classList.add('active');
+      else chip.classList.remove('active');
+    }
+  });
 
   // Populate Interactive Gallery with Main Photo + all Secondary Angles
   editGalleryImages = [];
@@ -1419,13 +1493,19 @@ async function submitEditShowcase(e) {
       image_url: typeof img === 'string' ? img : img.image_url
     }));
 
+    const selectedTags = Array.from(document.querySelectorAll('#edit_sc_category_picker input[name="edit_sc_categories"]:checked')).map(cb => cb.value);
+    if (!selectedTags.length) {
+      throw new Error('Please select at least one category for this product.');
+    }
+
     const updatedItem = {
       ...existing,
       id: id,
       title: document.getElementById('edit_sc_title').value.trim(),
       description: document.getElementById('edit_sc_desc').value.trim(),
       starting_price: parseFloat(document.getElementById('edit_sc_price').value) || 1800,
-      tags: [document.getElementById('edit_sc_tag').value],
+      tags: selectedTags,
+      instagram_url: (document.getElementById('edit_sc_ig_url')?.value || '').trim(),
       main_image_url: mainImgUrl,
       images: subImgUrls,
       is_published: true,

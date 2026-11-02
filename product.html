@@ -725,6 +725,7 @@
         <!-- ACTION BUTTONS -->
         <div class="action-buttons-row">
           <a id="btnProductWhatsApp" href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20order%20the%20Grand%20Regal%20Peacock%20Maggam%20Bridal%20Blouse." target="_blank" rel="noopener noreferrer" class="btn-action-primary">Enquire on WhatsApp →</a>
+          <a id="btnProductInstagram" href="#" target="_blank" rel="noopener noreferrer" class="btn-action-outline" style="display:none; border-color:#e1306c; color:#e1306c;">📸 View on Instagram ↗</a>
           <a href="index.html#enquiry" class="btn-action-outline">Book Fitting Trial</a>
         </div>
       </div>
@@ -936,10 +937,20 @@
         sub2.alt = `${item.title} - Back Neckline & Handcrafted Stone Work`;
       }
 
-      // 5. DYNAMIC WHATSAPP CTA LINK
+      // 5. DYNAMIC WHATSAPP & INSTAGRAM CTA LINKS
       const waBtn = document.getElementById('btnProductWhatsApp');
       if (waBtn) {
         waBtn.href = `https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20want%20to%20enquire%20about%20the%20${encodeURIComponent(item.title)}`;
+      }
+
+      const igBtn = document.getElementById('btnProductInstagram');
+      if (igBtn) {
+        if (item.instagram_url) {
+          igBtn.href = item.instagram_url;
+          igBtn.style.display = 'inline-flex';
+        } else {
+          igBtn.style.display = 'none';
+        }
       }
 
       // 6. INJECT COMPREHENSIVE GOOGLE SHOPPING & IMAGES PRODUCT SCHEMA

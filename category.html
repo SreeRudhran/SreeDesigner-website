@@ -591,11 +591,18 @@
         const safeTitle = escapeHtml(item.title || 'Custom Garment');
         const safeDesc = escapeHtml(item.description || 'Handcrafted bespoke garment tailored to perfection.');
         const safeId = encodeURIComponent(String(item.id || item.slug || ''));
+        const safeIg = item.instagram_url ? escapeHtml(item.instagram_url) : '';
 
         return `
           <div class="cat-product-card">
-            <div class="cat-product-img-wrap">
+            <div class="cat-product-img-wrap" style="position:relative;">
               <img src="${safeImg}" alt="${safeTitle}" class="cat-product-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;" onerror="this.src='assets/images/service_bridal.webp'">
+              ${safeIg ? `
+                <a href="${safeIg}" target="_blank" rel="noopener noreferrer" class="cat-ig-badge" title="View original post on Instagram" onclick="event.stopPropagation();" style="position:absolute; top:12px; right:12px; background:rgba(28,27,24,0.78); color:#fff; font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:999px; backdrop-filter:blur(6px); display:flex; align-items:center; gap:5px; text-decoration:none; z-index:3; border:1px solid rgba(255,255,255,0.2);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  <span>Instagram</span>
+                </a>
+              ` : ''}
             </div>
             <div class="cat-product-body">
               <div>
@@ -604,6 +611,13 @@
                   <span class="price-sale">Starting from ₹${salePrice.toLocaleString('en-IN')}</span>
                 </div>
                 <p class="cat-product-desc">${safeDesc}</p>
+                ${safeIg ? `
+                  <div style="margin-top:6px;">
+                    <a href="${safeIg}" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:4px; font-size:0.78rem; color:#b98c14; font-weight:600; text-decoration:none;">
+                      <span>📸 View Post on Instagram ↗</span>
+                    </a>
+                  </div>
+                ` : ''}
               </div>
               <a href="product?id=${safeId}" class="btn-view-product">Explore Design →</a>
             </div>
