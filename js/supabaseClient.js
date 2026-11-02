@@ -5,8 +5,8 @@
 
 // SUPABASE CONFIGURATION
 const SUPABASE_CONFIG = {
-  url: 'https://qailnqhcocmudqogyudr.supabase.co',
-  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg'
+  url: (typeof localStorage !== 'undefined' && localStorage.getItem('sree_supabase_url')) || 'https://qailnqhcocmudqogyudr.supabase.co',
+  anonKey: (typeof localStorage !== 'undefined' && localStorage.getItem('sree_supabase_key')) || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhaWxucWhjb2NtdWRxb2d5dWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2MzQ3ODEsImV4cCI6MjEwMjIxMDc4MX0.AQe2TMNujxcBUpn2dfgiaUisZzO4jv1Yf2LAPqSToXg'
 };
 
 // Initialize Supabase JS Client safely

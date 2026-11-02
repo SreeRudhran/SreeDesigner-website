@@ -6205,7 +6205,47 @@
       if (menuCloseBtn) {
         menuCloseBtn.addEventListener('click', closeMobileMenu);
       }
+
+      // Synchronize Live Reviews from Unified Reviews Engine
+      try {
+        if (typeof window.getUnifiedReviews === 'function') {
+          const grid = document.querySelector('.reviews-grid');
+          if (grid) {
+            const allReviews = window.getUnifiedReviews();
+            const featured = allReviews.filter(r => r.is_featured);
+            const displayReviews = featured.length >= 3 ? featured.slice(0, 3) : allReviews.slice(0, 3);
+            if (displayReviews.length > 0) {
+              grid.innerHTML = displayReviews.map(r => {
+                const safeName = r.customer_name || 'Client';
+                const initial = safeName.charAt(0).toUpperCase();
+                const safeLoc = r.location || 'Coimbatore';
+                const safeWork = r.work_type || 'Bridal Blouse';
+                const numRating = Math.min(5, Math.max(1, parseInt(r.rating) || 5));
+                const stars = '★'.repeat(numRating);
+                const quote = r.review_text || r.comment || '';
+                return `
+                  <div class="review-card">
+                    <div class="review-stars">${stars}</div>
+                    <p class="review-quote">"${quote}"</p>
+                    <div class="review-author">
+                      <div class="author-avatar">${initial}</div>
+                      <div class="author-details">
+                        <h3 class="author-name">${safeName}</h3>
+                        <span class="author-meta">${safeWork} • ${safeLoc}</span>
+                        <span class="verified-tag">✓ Verified Fitting</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('');
+            }
+          }
+        }
+      } catch(e) {
+        console.warn('Reviews sync note:', e.message);
+      }
     });
   </script>
+  <script src="js/reviewsData.js?v=1" defer></script>
 </body>
 </html>

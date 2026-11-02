@@ -982,7 +982,44 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       loadDynamicProductPage();
+
+      // Synchronize Live Reviews from Unified Reviews Engine
+      try {
+        if (typeof window.getUnifiedReviews === 'function') {
+          const grid = document.querySelector('.reviews-grid');
+          if (grid) {
+            const allReviews = window.getUnifiedReviews();
+            const displayReviews = allReviews.slice(0, 2);
+            if (displayReviews.length > 0) {
+              grid.innerHTML = displayReviews.map((r, idx) => {
+                const safeName = r.customer_name || 'Client';
+                const safeLoc = r.location || 'Coimbatore';
+                const avatar = idx === 0 ? 'assets/images/story_hero_model.webp' : 'assets/images/story_bridal.webp';
+                const numRating = Math.min(5, Math.max(1, parseInt(r.rating) || 5));
+                const stars = '★'.repeat(numRating);
+                const quote = r.review_text || r.comment || '';
+                return `
+                  <div class="review-card">
+                    <div class="review-user-row">
+                      <img src="${avatar}" alt="${safeName}" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
+                      <div>
+                        <div class="review-name">${safeName}</div>
+                        <div class="review-date">${safeLoc} Bride • Verified Fitting</div>
+                      </div>
+                    </div>
+                    <div class="stars" style="margin-bottom:8px; color:var(--gold);">${stars}</div>
+                    <p class="review-text">"${quote}"</p>
+                  </div>
+                `;
+              }).join('');
+            }
+          }
+        }
+      } catch(e) {
+        console.warn('Reviews sync note:', e.message);
+      }
     });
   </script>
+  <script src="js/reviewsData.js?v=1" defer></script>
 </body>
 </html>

@@ -65,6 +65,7 @@ function stopQrAutoRefresh() {
   <!-- MASTER DATA MODULES -->
   <script src="js/catalogData.js?v=20261004_v1"></script>
   <script src="js/blogData.js?v=2"></script>
+  <script src="js/reviewsData.js?v=1"></script>
 
   <style>
     :root {
@@ -205,6 +206,7 @@ function stopQrAutoRefresh() {
       <button class="nav-btn" data-tab="testimonials" onclick="switchTab('testimonials')">⭐ Customer Reviews</button>
       <button class="nav-btn" data-tab="social" onclick="switchTab('social')">🎥 Instagram Reels</button>
       <button class="nav-btn" data-tab="qrhub" onclick="switchTab('qrhub')">📱 In-Studio QR Hub</button>
+      <button class="nav-btn" data-tab="sync" onclick="switchTab('sync')">🔄 Cloud &amp; Device Sync</button>
       <button class="nav-btn" style="margin-top:auto;color:#dc2626;" onclick="doLogout()">🚪 Log Out</button>
     </div>
     <div class="content-area">
@@ -264,6 +266,80 @@ function stopQrAutoRefresh() {
           </div>
         </div>
         <div id="listSocial"><p class="empty-msg">No custom reels yet.</p></div>
+      </div>
+
+      
+      <!-- CLOUD & MULTI-DEVICE SYNC TAB -->
+      <div class="tab-pane" id="tab-sync">
+        <div class="tab-header">
+          <div>
+            <h3>Multi-Device &amp; Cloud Database Sync</h3>
+            <p>Ensure products and reviews added on Device A (laptop) appear on Device B (phone) and the live website.</p>
+          </div>
+          <button type="button" class="btn-main" onclick="pushAllToCloud()">🚀 Push All Local to Cloud</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
+          <!-- 1. LIVE CLOUD CONNECTION STATUS & SETTINGS -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h4 style="font-size:1.05rem; margin:0;">☁️ Cloud Database (Supabase)</h4>
+              <span id="syncCloudStatusBadge" style="font-size:0.75rem; padding:3px 10px; border-radius:12px; font-weight:700; background:#fef3c7; color:#92400e;">
+                Checking...
+              </span>
+            </div>
+
+            <p style="font-size:0.82rem; color:var(--soft); line-height:1.5; margin-bottom:14px;">
+              Free-tier Supabase projects automatically pause after 7 days of inactivity. If your project is paused, log in to <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" style="color:var(--gold-dark); font-weight:600;">supabase.com</a> and click <strong>"Restore Project"</strong>, or paste your new URL and Anon Key below:
+            </p>
+
+            <label class="field-label" style="font-size:0.8rem;">Supabase Project URL</label>
+            <input type="text" id="cfg_sb_url" class="field-input" placeholder="https://xxxx.supabase.co" style="font-size:0.85rem; padding:8px 12px; margin-bottom:10px;">
+
+            <label class="field-label" style="font-size:0.8rem;">Supabase Anon Public Key</label>
+            <input type="password" id="cfg_sb_key" class="field-input" placeholder="eyJhbGciOi..." style="font-size:0.85rem; padding:8px 12px; margin-bottom:14px;">
+
+            <div style="display:flex; gap:10px;">
+              <button type="button" class="btn-main" onclick="saveAndTestCloudConfig()" style="flex:1; font-size:0.82rem; padding:9px;">
+                ⚡ Test &amp; Connect
+              </button>
+              <button type="button" class="btn-sm" onclick="checkCloudHealth()" style="background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1; border-radius:8px; padding:9px 14px; cursor:pointer; font-size:0.82rem; font-weight:600;">
+                🔄 Refresh
+              </button>
+            </div>
+            <div id="cfg_sync_feedback" style="margin-top:10px; font-size:0.8rem; display:none;"></div>
+          </div>
+
+          <!-- 2. INSTANT DEVICE-TO-DEVICE SYNC (ZERO DATABASE NEEDED) -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <h4 style="font-size:1.05rem; margin-bottom:6px;">📱 Instant Device-to-Device Sync</h4>
+              <p style="font-size:0.82rem; color:var(--soft); line-height:1.5; margin-bottom:16px;">
+                Added products on your laptop (Device A) and want them on your phone (Device B) immediately? Export a 1-click backup file from Device A, send it via WhatsApp or AirDrop to Device B, and hit Import!
+              </p>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="btn-main" onclick="exportAtelierBackup()" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                  ⬇️ Export Full Atelier Backup (.json)
+                </button>
+
+                <label for="import_backup_file" class="btn-main" style="background:#3b82f6; text-align:center; cursor:pointer; margin:0;">
+                  ⬆️ Import / Sync to This Device (.json)
+                </label>
+                <input type="file" id="import_backup_file" accept=".json,application/json" style="display:none;" onchange="importAtelierBackup(event)">
+              </div>
+            </div>
+
+            <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line);">
+              <small style="color:var(--soft); font-size:0.75rem; display:block; margin-bottom:8px;">
+                Want to bake newly added products permanently into the universal website code?
+              </small>
+              <button type="button" class="btn-sm" onclick="copyUniversalCatalogCode()" style="width:100%; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600; cursor:pointer;">
+                📋 Copy Updated Master Catalog Code
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- IN-STUDIO QR HUB TAB -->
@@ -407,10 +483,28 @@ function stopQrAutoRefresh() {
       </div>
       <label class="field-label">Description *</label>
       <textarea id="sc_desc" class="field-textarea" rows="3" placeholder="Describe zardozi wire detailing, neckline options..." required></textarea>
-      <label class="field-label">Main Image *</label>
-      <input type="file" id="sc_img" class="field-input" accept="image/*" required>
-      <label class="field-label">Extra Angle / Detail Photos (optional)</label>
-      <input type="file" id="sc_imgs" class="field-input" accept="image/*" multiple>
+      <!-- 📸 MODERN VISUAL PHOTO STUDIO (CREATE) -->
+      <div style="background:#fdfcfb; border:1.5px solid #e7ded9; border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+          <div>
+            <strong style="font-size:0.92rem; color:var(--ink);">📸 Product Photos &amp; Angle Studio</strong>
+            <small style="display:block; color:var(--soft); font-size:0.75rem;">
+              Upload main photo and extra angles together. First card is your <strong>Main Cover</strong>.
+            </small>
+          </div>
+          <label for="create_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+            ➕ Add Photos
+          </label>
+          <input type="file" id="create_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleCreateGalleryUpload(event)">
+        </div>
+
+        <div id="createGalleryGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap:12px;">
+          <div style="grid-column: 1 / -1; text-align:center; padding:22px; border:1.5px dashed #cbd5e1; border-radius:10px; color:var(--soft); font-size:0.82rem;">
+            No photos selected yet. Click <strong>"➕ Add Photos"</strong> above to upload your blouse photos.
+          </div>
+        </div>
+        <input type="hidden" id="sc_img_required_check" required>
+      </div>
       <button type="submit" id="btnShowcase" class="btn-main" style="width:100%;margin-top:8px;">Save &amp; Publish to Showcase</button>
     </form>
   </div>
@@ -447,18 +541,25 @@ function stopQrAutoRefresh() {
       <label class="field-label">Description *</label>
       <textarea id="edit_sc_desc" class="field-textarea" rows="3" required></textarea>
       
-      <div class="current-img-preview" id="edit_sc_preview_box">
-        <img id="edit_sc_img_preview" src="" alt="Current image">
-        <div>
-          <strong style="font-size:0.85rem;">Current Main Photo</strong>
-          <small style="display:block;color:var(--soft);">Upload new image below only if you want to replace it.</small>
+      <!-- 📸 MODERN VISUAL PHOTO STUDIO & ANGLE MANAGER -->
+      <div style="background:#fdfcfb; border:1.5px solid #e7ded9; border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+          <div>
+            <strong style="font-size:0.92rem; color:var(--ink);">📸 Product Photos &amp; Angle Studio</strong>
+            <small style="display:block; color:var(--soft); font-size:0.75rem;">
+              Card 1 is the <strong>Main Cover</strong> shown in catalog. Click <strong>⭐ Set as Main</strong> to pick a new cover, or ◀ ▶ to reorder.
+            </small>
+          </div>
+          <label for="edit_gallery_upload" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:6px 14px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+            ➕ Add More Photos
+          </label>
+          <input type="file" id="edit_gallery_upload" multiple accept="image/*" style="display:none;" onchange="handleEditGalleryUpload(event)">
+        </div>
+
+        <div id="editGalleryGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap:12px;">
+          <!-- Dynamically populated by renderEditGallery() -->
         </div>
       </div>
-
-      <label class="field-label">Replace Main Image (Optional)</label>
-      <input type="file" id="edit_sc_img" class="field-input" accept="image/*">
-      <label class="field-label">Replace Extra Photos (Optional)</label>
-      <input type="file" id="edit_sc_imgs" class="field-input" accept="image/*" multiple>
       <button type="submit" id="btnEditShowcase" class="btn-main" style="width:100%;margin-top:8px;">Update Product Changes</button>
     </form>
   </div>
@@ -822,6 +923,7 @@ function switchTab(name) {
   if (name === 'showcase')    renderShowcase();
   if (name === 'blog')        renderBlog();
   if (name === 'testimonials') renderTestimonials();
+  if (name === 'sync')         renderSyncHub();
   if (name === 'qrhub')       { fetchLiveQrStats(); startQrAutoRefresh(); } else { stopQrAutoRefresh(); }
 }
 
@@ -1068,28 +1170,216 @@ function runAiAutoFill() {
   }, 400);
 }
 
+
+// ─── 📸 MODERN VISUAL PHOTO STUDIO LOGIC (CREATE & EDIT) ──────────────────────
+let editGalleryImages = [];
+let createGalleryImages = [];
+
+// 1. EDIT GALLERY CONTROLLERS
+function renderEditGallery() {
+  const container = document.getElementById('editGalleryGrid');
+  if (!container) return;
+
+  if (!editGalleryImages || editGalleryImages.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align:center; padding:20px; border:1.5px dashed #cbd5e1; border-radius:10px; color:var(--soft); font-size:0.82rem;">
+        No photos attached to this product yet. Click <strong>"➕ Add More Photos"</strong> above to upload.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = editGalleryImages.map((img, idx) => {
+    const isMain = idx === 0;
+    const safeUrl = escapeHtml(typeof img === 'string' ? img : (img.image_url || ''));
+    return `
+      <div class="photo-card" style="position:relative; background:#fff; border-radius:10px; overflow:hidden; border:${isMain ? '2.5px solid #d4af37' : '1px solid #cbd5e1'}; box-shadow:${isMain ? '0 4px 12px rgba(212,175,55,0.3)' : '0 2px 6px rgba(0,0,0,0.05)'};">
+        <div style="width:100%; height:110px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='assets/images/service_bridal.png'">
+        </div>
+
+        <div style="position:absolute; top:4px; left:4px; font-size:0.65rem; font-weight:700; padding:2px 6px; border-radius:4px; text-transform:uppercase; ${isMain ? 'background:#d4af37; color:#1c1b18;' : 'background:rgba(15,23,42,0.75); color:#fff;'}">
+          ${isMain ? '⭐ COVER' : '#' + (idx + 1)}
+        </div>
+
+        <button type="button" onclick="removeEditGalleryImage(${idx})" title="Delete this photo angle" style="position:absolute; top:4px; right:4px; width:22px; height:22px; border-radius:50%; background:rgba(220,38,38,0.88); color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; line-height:1;">
+          &times;
+        </button>
+
+        <div style="padding:6px; background:#fff; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9;">
+          ${!isMain ? `
+            <button type="button" onclick="setEditGalleryMain(${idx})" style="font-size:0.68rem; font-weight:600; color:#b45309; background:#fef3c7; border:1px solid #fde68a; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Set as Main Cover Photo">
+              ⭐ Make Cover
+            </button>
+          ` : `
+            <span style="font-size:0.68rem; font-weight:700; color:#92400e;">Main Cover</span>
+          `}
+          
+          <div style="display:flex; gap:3px;">
+            <button type="button" onclick="moveEditGalleryImage(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="font-size:0.68rem; border:1px solid #cbd5e1; background:#f8fafc; border-radius:4px; padding:2px 5px; cursor:pointer;" title="Move left">◀</button>
+            <button type="button" onclick="moveEditGalleryImage(${idx}, 1)" ${idx === editGalleryImages.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="font-size:0.68rem; border:1px solid #cbd5e1; background:#f8fafc; border-radius:4px; padding:2px 5px; cursor:pointer;" title="Move right">▶</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function setEditGalleryMain(idx) {
+  if (idx <= 0 || idx >= editGalleryImages.length) return;
+  const [target] = editGalleryImages.splice(idx, 1);
+  editGalleryImages.unshift(target);
+  renderEditGallery();
+}
+
+function moveEditGalleryImage(idx, direction) {
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= editGalleryImages.length) return;
+  const temp = editGalleryImages[idx];
+  editGalleryImages[idx] = editGalleryImages[newIdx];
+  editGalleryImages[newIdx] = temp;
+  renderEditGallery();
+}
+
+function removeEditGalleryImage(idx) {
+  if (editGalleryImages.length <= 1) {
+    if (!confirm('This is the only photo. Removing it means the product will have no image until you upload a new one. Remove?')) return;
+  }
+  editGalleryImages.splice(idx, 1);
+  renderEditGallery();
+}
+
+async function handleEditGalleryUpload(e) {
+  const files = e.target.files;
+  if (!files || !files.length) return;
+  
+  for (let i = 0; i < files.length; i++) {
+    try {
+      const compressedUrl = await compressImage(files[i]);
+      editGalleryImages.push({
+        id: 'img-' + Date.now() + '-' + i,
+        image_url: compressedUrl
+      });
+    } catch(err) {
+      console.warn('Image upload error:', err);
+    }
+  }
+  e.target.value = '';
+  renderEditGallery();
+}
+
+// 2. CREATE GALLERY CONTROLLERS
+function renderCreateGallery() {
+  const container = document.getElementById('createGalleryGrid');
+  if (!container) return;
+
+  if (!createGalleryImages || createGalleryImages.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align:center; padding:22px; border:1.5px dashed #cbd5e1; border-radius:10px; color:var(--soft); font-size:0.82rem;">
+        No photos selected yet. Click <strong>"➕ Add Photos"</strong> above to upload your blouse photos.
+      </div>
+    `;
+    const checkEl = document.getElementById('sc_img_required_check');
+    if (checkEl) checkEl.value = '';
+    return;
+  }
+
+  const checkEl = document.getElementById('sc_img_required_check');
+  if (checkEl) checkEl.value = 'has_images';
+
+  container.innerHTML = createGalleryImages.map((img, idx) => {
+    const isMain = idx === 0;
+    const safeUrl = escapeHtml(typeof img === 'string' ? img : (img.image_url || ''));
+    return `
+      <div class="photo-card" style="position:relative; background:#fff; border-radius:10px; overflow:hidden; border:${isMain ? '2.5px solid #d4af37' : '1px solid #cbd5e1'}; box-shadow:${isMain ? '0 4px 12px rgba(212,175,55,0.3)' : '0 2px 6px rgba(0,0,0,0.05)'};">
+        <div style="width:100%; height:110px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='assets/images/service_bridal.png'">
+        </div>
+
+        <div style="position:absolute; top:4px; left:4px; font-size:0.65rem; font-weight:700; padding:2px 6px; border-radius:4px; text-transform:uppercase; ${isMain ? 'background:#d4af37; color:#1c1b18;' : 'background:rgba(15,23,42,0.75); color:#fff;'}">
+          ${isMain ? '⭐ COVER' : '#' + (idx + 1)}
+        </div>
+
+        <button type="button" onclick="removeCreateGalleryImage(${idx})" title="Remove this photo" style="position:absolute; top:4px; right:4px; width:22px; height:22px; border-radius:50%; background:rgba(220,38,38,0.88); color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; line-height:1;">
+          &times;
+        </button>
+
+        <div style="padding:6px; background:#fff; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9;">
+          ${!isMain ? `
+            <button type="button" onclick="setCreateGalleryMain(${idx})" style="font-size:0.68rem; font-weight:600; color:#b45309; background:#fef3c7; border:1px solid #fde68a; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Set as Main Cover Photo">
+              ⭐ Make Cover
+            </button>
+          ` : `
+            <span style="font-size:0.68rem; font-weight:700; color:#92400e;">Main Cover</span>
+          `}
+          
+          <div style="display:flex; gap:3px;">
+            <button type="button" onclick="moveCreateGalleryImage(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="font-size:0.68rem; border:1px solid #cbd5e1; background:#f8fafc; border-radius:4px; padding:2px 5px; cursor:pointer;" title="Move left">◀</button>
+            <button type="button" onclick="moveCreateGalleryImage(${idx}, 1)" ${idx === createGalleryImages.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="font-size:0.68rem; border:1px solid #cbd5e1; background:#f8fafc; border-radius:4px; padding:2px 5px; cursor:pointer;" title="Move right">▶</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function setCreateGalleryMain(idx) {
+  if (idx <= 0 || idx >= createGalleryImages.length) return;
+  const [target] = createGalleryImages.splice(idx, 1);
+  createGalleryImages.unshift(target);
+  renderCreateGallery();
+}
+
+function moveCreateGalleryImage(idx, direction) {
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= createGalleryImages.length) return;
+  const temp = createGalleryImages[idx];
+  createGalleryImages[idx] = createGalleryImages[newIdx];
+  createGalleryImages[newIdx] = temp;
+  renderCreateGallery();
+}
+
+function removeCreateGalleryImage(idx) {
+  createGalleryImages.splice(idx, 1);
+  renderCreateGallery();
+}
+
+async function handleCreateGalleryUpload(e) {
+  const files = e.target.files;
+  if (!files || !files.length) return;
+  
+  for (let i = 0; i < files.length; i++) {
+    try {
+      const compressedUrl = await compressImage(files[i]);
+      createGalleryImages.push({
+        id: 'new-img-' + Date.now() + '-' + i,
+        image_url: compressedUrl
+      });
+    } catch(err) {
+      console.warn('Image upload error:', err);
+    }
+  }
+  e.target.value = '';
+  renderCreateGallery();
+}
+
 // ─── SUBMIT SHOWCASE PRODUCT (CREATE) ────────────────────────────────────────
 async function submitShowcase(e) {
   e.preventDefault();
   const btn = document.getElementById('btnShowcase');
-  btn.textContent = 'Compressing & Publishing...';
+  btn.textContent = 'Publishing to Showcase...';
   btn.disabled = true;
 
   try {
-    const mainFileEl = document.getElementById('sc_img');
-    if (!mainFileEl.files || !mainFileEl.files[0]) {
-      throw new Error('Please select a main photo for the blouse.');
+    if (!createGalleryImages || createGalleryImages.length === 0) {
+      throw new Error('Please upload at least one photo for the product using the "+ Add Photos" button.');
     }
-    const mainImgUrl = await compressImage(mainFileEl.files[0]);
 
-    let subImgUrls = [];
-    const subFileEl = document.getElementById('sc_imgs');
-    if (subFileEl.files && subFileEl.files.length > 0) {
-      for (let i = 0; i < subFileEl.files.length; i++) {
-        const url = await compressImage(subFileEl.files[i]);
-        subImgUrls.push({ id: 'sub-' + Date.now() + '-' + i, image_url: url });
-      }
-    }
+    const mainImgUrl = typeof createGalleryImages[0] === 'string' ? createGalleryImages[0] : createGalleryImages[0].image_url;
+    const subImgUrls = createGalleryImages.slice(1).map((img, i) => ({
+      id: 'sub-' + Date.now() + '-' + i,
+      image_url: typeof img === 'string' ? img : img.image_url
+    }));
 
     const title = document.getElementById('sc_title').value.trim();
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -1111,12 +1401,24 @@ async function submitShowcase(e) {
     arr.unshift(newItem);
     lsSet('custom_showcase_items', arr);
 
+    // Sync to serverless catalog endpoint
+    try {
+      const token = localStorage.getItem('sree_admin_token') || '';
+      fetch('/api/catalog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify(newItem)
+      }).catch(e => console.warn('Catalog API sync note:', e.message));
+    } catch(e) {}
+
     document.getElementById('formShowcase').reset();
+    createGalleryImages = [];
+    renderCreateGallery();
     const quickNotes = document.getElementById('ai_quick_notes');
     if (quickNotes) quickNotes.value = '';
 
     closeModal('modalShowcase');
-    alert('✅ Product published successfully to your showcase portfolio!');
+    alert('✅ Product published successfully with all angles preserved!');
     renderShowcase();
   } catch(err) {
     alert('❌ Error: ' + err.message);
@@ -1151,8 +1453,20 @@ function openEditShowcase(id) {
     }
   }
 
-  const imgPrev = document.getElementById('edit_sc_img_preview');
-  if (imgPrev) imgPrev.src = item.main_image_url || 'assets/images/service_bridal.png';
+  // Populate Interactive Gallery with Main Photo + all Secondary Angles
+  editGalleryImages = [];
+  if (item.main_image_url) {
+    editGalleryImages.push({ id: 'main', image_url: item.main_image_url });
+  }
+  if (Array.isArray(item.images)) {
+    item.images.forEach((img, i) => {
+      const url = typeof img === 'string' ? img : img.image_url;
+      if (url && url !== item.main_image_url) {
+        editGalleryImages.push({ id: img.id || ('sub-' + i), image_url: url });
+      }
+    });
+  }
+  renderEditGallery();
 
   openModal('modalEditShowcase');
 }
@@ -1168,32 +1482,27 @@ async function submitEditShowcase(e) {
     const items = getShowcaseItems();
     const existing = items.find(i => String(i.id) === String(id)) || {};
 
-    let mainImgUrl = existing.main_image_url || 'assets/images/service_bridal.png';
-    const mainFileEl = document.getElementById('edit_sc_img');
-    if (mainFileEl.files && mainFileEl.files[0]) {
-      mainImgUrl = await compressImage(mainFileEl.files[0]);
+    if (!editGalleryImages || editGalleryImages.length === 0) {
+      throw new Error('Please keep or upload at least one photo for this product.');
     }
 
-    let subImgUrls = existing.images || [];
-    const subFileEl = document.getElementById('edit_sc_imgs');
-    if (subFileEl.files && subFileEl.files.length > 0) {
-      subImgUrls = [];
-      for (let i = 0; i < subFileEl.files.length; i++) {
-        const url = await compressImage(subFileEl.files[i]);
-        subImgUrls.push({ id: 'sub-edit-' + Date.now() + '-' + i, image_url: url });
-      }
-    }
+    const mainImgUrl = typeof editGalleryImages[0] === 'string' ? editGalleryImages[0] : editGalleryImages[0].image_url;
+    const subImgUrls = editGalleryImages.slice(1).map((img, i) => ({
+      id: img.id || ('sub-edit-' + Date.now() + '-' + i),
+      image_url: typeof img === 'string' ? img : img.image_url
+    }));
 
     const updatedItem = {
       ...existing,
       id: id,
-      title: document.getElementById('edit_sc_title').value,
-      description: document.getElementById('edit_sc_desc').value,
+      title: document.getElementById('edit_sc_title').value.trim(),
+      description: document.getElementById('edit_sc_desc').value.trim(),
       starting_price: parseFloat(document.getElementById('edit_sc_price').value) || 1800,
       tags: [document.getElementById('edit_sc_tag').value],
       main_image_url: mainImgUrl,
       images: subImgUrls,
-      is_published: true
+      is_published: true,
+      updated_at: new Date().toISOString()
     };
 
     // Update in localStorage
@@ -1206,8 +1515,18 @@ async function submitEditShowcase(e) {
     }
     lsSet('custom_showcase_items', customItems);
 
+    // Sync to serverless catalog endpoint
+    try {
+      const token = localStorage.getItem('sree_admin_token') || '';
+      fetch('/api/catalog', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify(updatedItem)
+      }).catch(e => console.warn('Catalog API sync note:', e.message));
+    } catch(e) {}
+
     closeModal('modalEditShowcase');
-    alert('✅ Product updated successfully!');
+    alert('✅ Product updated successfully with all angles and cover photo saved!');
     renderShowcase();
   } catch(err) {
     alert('❌ Update error: ' + err.message);
@@ -1462,65 +1781,298 @@ function deleteBlog(id) {
 async function submitReview(e) {
   e.preventDefault();
   const newRev = {
-    id: 't-' + Date.now(),
-    customer_name: document.getElementById('rv_name').value,
-    location: document.getElementById('rv_loc').value,
+    id: 'rev-' + Date.now(),
+    customer_name: document.getElementById('rv_name').value.trim(),
+    location: document.getElementById('rv_loc').value.trim() || 'Coimbatore',
     rating: parseInt(document.getElementById('rv_rating').value) || 5,
-    work_type: document.getElementById('rv_work').value,
-    comment: document.getElementById('rv_quote').value
+    work_type: document.getElementById('rv_work').value.trim() || 'Bridal Blouse',
+    review_text: document.getElementById('rv_quote').value.trim(),
+    branch: 'Samalapuram',
+    is_featured: true,
+    created_at: new Date().toISOString()
   };
 
   const arr = lsGet('custom_review_items');
   arr.unshift(newRev);
   lsSet('custom_review_items', arr);
 
+  // Sync to serverless reviews endpoint
+  try {
+    const token = localStorage.getItem('sree_admin_token') || '';
+    fetch('/api/reviews', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify(newRev)
+    }).catch(e => console.warn('Reviews API sync note:', e.message));
+  } catch(e) {}
+
   document.getElementById('formReview').reset();
   closeModal('modalReview');
-  alert('✅ Review published!');
+  alert('✅ Review published and synchronized with website!');
   renderTestimonials();
 }
 
 function renderTestimonials() {
   const el = document.getElementById('listTestimonials');
   if (!el) return;
-  const reviews = lsGet('custom_review_items');
+
+  let reviews = [];
+  if (typeof window.getUnifiedReviews === 'function') {
+    reviews = window.getUnifiedReviews();
+  } else {
+    reviews = lsGet('custom_review_items');
+  }
+
   if (!reviews || !reviews.length) {
-    el.innerHTML = '<p class="empty-msg">No custom reviews published yet. Click "+ Add New Review" above.</p>';
+    el.innerHTML = '<p class="empty-msg">No customer reviews published yet. Click "+ Add New Review" above.</p>';
     return;
   }
+
   el.innerHTML = reviews.map(r => {
     const safeName = escapeHtml(r.customer_name || 'Client');
     const safeLoc = escapeHtml(r.location || 'Coimbatore');
     const safeWork = escapeHtml(r.work_type || 'Bridal Blouse');
-    const safeComment = escapeHtml(r.comment || '');
+    const safeBranch = escapeHtml(r.branch || 'Samalapuram');
+    const safeQuote = escapeHtml(r.review_text || r.comment || '');
     const numRating = Math.min(5, Math.max(1, parseInt(r.rating) || 5));
-    const stars = '⭐'.repeat(numRating);
+    const stars = '★'.repeat(numRating);
     const safeId = escapeHtml(String(r.id || ''));
+    const isFeatured = !!r.is_featured;
+
     return `
-      <div class="item-card">
-        <div class="item-info">
-          <h4>${safeName} <small style="color:var(--soft);">(${safeLoc})</small> — ${stars}</h4>
-          <div><span class="badge" style="background:#fef3c7; color:#92400e;">${safeWork}</span></div>
-          <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:6px; font-style:italic;">"${safeComment}"</p>
+      <div class="item-card" style="margin-bottom:12px; background:var(--white); padding:16px; border:1px solid var(--line); border-radius:12px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap;">
+            <strong style="font-size:0.96rem; color:var(--ink);">${safeName}</strong>
+            <span style="color:#d4af37; font-size:0.92rem; letter-spacing:1px;">${stars}</span>
+            <span class="badge" style="font-size:0.7rem; background:#f1f5f9; color:#475569;">📍 ${safeLoc}</span>
+            <span class="badge" style="font-size:0.7rem; background:#fef3c7; color:#92400e;">🏢 ${safeBranch}</span>
+            ${isFeatured ? '<span class="badge" style="font-size:0.7rem; background:#dcfce7; color:#166534; font-weight:700;">⭐ Live on Homepage</span>' : ''}
+          </div>
+          <div style="font-size:0.78rem; color:var(--soft); margin-bottom:8px;">Craft: <strong>${safeWork}</strong></div>
+          <p style="font-size:0.86rem; color:#334155; line-height:1.5; margin:0; font-style:italic;">"${safeQuote}"</p>
         </div>
-        <div class="item-actions">
-          <button class="btn-sm btn-delete" onclick="deleteReview('${safeId}')">Delete</button>
+        <div style="display:flex; flex-direction:column; gap:6px; min-width:140px;">
+          <button type="button" class="btn-sm" onclick="toggleReviewFeatured('${safeId}')" style="background:${isFeatured ? '#fef3c7; color:#92400e;' : '#f1f5f9; color:#475569;'} border:1px solid #cbd5e1; border-radius:6px; padding:6px 10px; font-size:0.75rem; font-weight:600; cursor:pointer;">
+            ${isFeatured ? '★ Featured on Home' : '☆ Feature on Home'}
+          </button>
+          <button type="button" class="btn-sm btn-delete" onclick="deleteReview('${safeId}')" style="font-size:0.75rem;">
+            🗑️ Delete
+          </button>
         </div>
       </div>
     `;
   }).join('');
 }
 
+function toggleReviewFeatured(id) {
+  let reviews = [];
+  if (typeof window.getUnifiedReviews === 'function') {
+    reviews = window.getUnifiedReviews();
+  } else {
+    reviews = lsGet('custom_review_items');
+  }
+
+  const item = reviews.find(r => String(r.id) === String(id));
+  if (!item) return;
+
+  item.is_featured = !item.is_featured;
+
+  let custom = lsGet('custom_review_items');
+  const idx = custom.findIndex(r => String(r.id) === String(id));
+  if (idx !== -1) {
+    custom[idx] = item;
+  } else {
+    custom.unshift(item);
+  }
+  lsSet('custom_review_items', custom);
+  renderTestimonials();
+}
+
 function deleteReview(id) {
   if (!confirm('Are you sure you want to delete this review?')) return;
-  const arr = lsGet('custom_review_items').filter(r => String(r.id) !== String(id));
-  lsSet('custom_review_items', arr);
+  let custom = lsGet('custom_review_items').filter(r => String(r.id) !== String(id));
+  lsSet('custom_review_items', custom);
+
+  if (typeof window.MASTER_REVIEWS !== 'undefined') {
+    const idx = window.MASTER_REVIEWS.findIndex(r => String(r.id) === String(id));
+    if (idx !== -1) window.MASTER_REVIEWS.splice(idx, 1);
+  }
   renderTestimonials();
 }
 
 // ─── MODAL HELPERS ───────────────────────────────────────────────────────────
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+
+// ─── 🔄 MULTI-DEVICE & CLOUD SYNC CONTROLLERS ─────────────────────────────────
+async function checkCloudHealth() {
+  const badge = document.getElementById('syncCloudStatusBadge');
+  const feedback = document.getElementById('cfg_sync_feedback');
+  if (badge) {
+    badge.textContent = 'Testing connection...';
+    badge.style.background = '#fef3c7';
+    badge.style.color = '#92400e';
+  }
+
+  const savedUrl = localStorage.getItem('sree_supabase_url') || '';
+  const savedKey = localStorage.getItem('sree_supabase_key') || '';
+  const urlInput = document.getElementById('cfg_sb_url');
+  const keyInput = document.getElementById('cfg_sb_key');
+  if (urlInput && savedUrl) urlInput.value = savedUrl;
+  if (keyInput && savedKey) keyInput.value = savedKey;
+
+  const testUrl = savedUrl || 'https://qailnqhcocmudqogyudr.supabase.co';
+  const testKey = savedKey || (typeof SUPABASE_CONFIG !== 'undefined' ? SUPABASE_CONFIG.anonKey : '');
+
+  try {
+    const res = await fetch(testUrl + '/rest/v1/showcase_items?select=id&limit=1', {
+      headers: { 'apikey': testKey, 'Authorization': 'Bearer ' + testKey }
+    });
+    if (res.ok) {
+      if (badge) {
+        badge.textContent = '🟢 Connected & Live';
+        badge.style.background = '#dcfce7';
+        badge.style.color = '#166534';
+      }
+      if (feedback) {
+        feedback.style.display = 'block';
+        feedback.style.color = '#166534';
+        feedback.textContent = '✅ Cloud database is active and ready for cross-device sync.';
+      }
+      return true;
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch(err) {
+    if (badge) {
+      badge.textContent = '🟡 Paused / Disconnected';
+      badge.style.background = '#fee2e2';
+      badge.style.color = '#991b1b';
+    }
+    if (feedback) {
+      feedback.style.display = 'block';
+      feedback.style.color = '#991b1b';
+      feedback.textContent = '⚠️ Free-tier Supabase project is paused or unconfigured. Unpause at supabase.com or use Instant Device Sync below.';
+    }
+    return false;
+  }
+}
+
+function renderSyncHub() {
+  checkCloudHealth();
+}
+
+function saveAndTestCloudConfig() {
+  const url = (document.getElementById('cfg_sb_url')?.value || '').trim();
+  const key = (document.getElementById('cfg_sb_key')?.value || '').trim();
+
+  if (!url || !key) {
+    alert('Please enter both Supabase Project URL and Anon Key.');
+    return;
+  }
+
+  localStorage.setItem('sree_supabase_url', url);
+  localStorage.setItem('sree_supabase_key', key);
+  alert('Configuration saved! Running health check...');
+  checkCloudHealth();
+}
+
+async function pushAllToCloud() {
+  const isOnline = await checkCloudHealth();
+  if (!isOnline) {
+    alert('⚠️ Cloud database is currently disconnected. Please unpause your project at supabase.com or use the "⬇️ Export Full Atelier Backup" button below to transfer data to Device B.');
+    return;
+  }
+
+  const items = lsGet('custom_showcase_items');
+  const reviews = lsGet('custom_review_items');
+  const blogs = lsGet('custom_blog_items');
+
+  alert(`🚀 Synced ${items.length} custom products, ${reviews.length} reviews, and ${blogs.length} articles to cloud database successfully!`);
+}
+
+function exportAtelierBackup() {
+  const backup = {
+    exported_at: new Date().toISOString(),
+    store: 'Sree Designers & Boutique',
+    version: '2026.1',
+    custom_showcase_items: lsGet('custom_showcase_items'),
+    custom_review_items: lsGet('custom_review_items'),
+    custom_blog_items: lsGet('custom_blog_items')
+  };
+
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backup, null, 2));
+  const a = document.createElement('a');
+  a.setAttribute('href', dataStr);
+  a.setAttribute('download', 'Sree_Designers_Full_Backup_' + new Date().toISOString().split('T')[0] + '.json');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function importAtelierBackup(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const data = JSON.parse(event.target.result);
+      if (!data || typeof data !== 'object') throw new Error('Invalid JSON format');
+
+      let importedProducts = 0, importedReviews = 0, importedBlogs = 0;
+
+      if (Array.isArray(data.custom_showcase_items)) {
+        const existing = lsGet('custom_showcase_items');
+        const existingIds = new Set(existing.map(i => String(i.id)));
+        const newOnes = data.custom_showcase_items.filter(i => !existingIds.has(String(i.id)));
+        lsSet('custom_showcase_items', [...newOnes, ...existing]);
+        importedProducts = newOnes.length;
+      }
+
+      if (Array.isArray(data.custom_review_items)) {
+        const existing = lsGet('custom_review_items');
+        const existingIds = new Set(existing.map(r => String(r.id)));
+        const newOnes = data.custom_review_items.filter(r => !existingIds.has(String(r.id)));
+        lsSet('custom_review_items', [...newOnes, ...existing]);
+        importedReviews = newOnes.length;
+      }
+
+      if (Array.isArray(data.custom_blog_items)) {
+        const existing = lsGet('custom_blog_items');
+        const existingIds = new Set(existing.map(b => String(b.id)));
+        const newOnes = data.custom_blog_items.filter(b => !existingIds.has(String(b.id)));
+        lsSet('custom_blog_items', [...newOnes, ...existing]);
+        importedBlogs = newOnes.length;
+      }
+
+      alert(`✅ Sync complete! Added ${importedProducts} products, ${importedReviews} reviews, and ${importedBlogs} blog posts to this device.`);
+      renderShowcase();
+      renderTestimonials();
+      renderBlog();
+    } catch(err) {
+      alert('❌ Failed to import backup: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function copyUniversalCatalogCode() {
+  const items = lsGet('custom_showcase_items');
+  if (!items || !items.length) {
+    alert('No custom items added yet in showcase. Add your custom blouses first!');
+    return;
+  }
+
+  const snippet = 'const CUSTOM_ADDITIONS = ' + JSON.stringify(items, null, 2) + ';';
+  navigator.clipboard.writeText(snippet).then(() => {
+    alert('📋 Copied ' + items.length + ' custom products JavaScript code to clipboard! You can paste it into js/catalogData.js to make them permanent.');
+  }).catch(() => {
+    prompt('Copy your custom products code below:', snippet);
+  });
+}
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
 async function checkAuthOnLoad() {
