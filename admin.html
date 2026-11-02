@@ -6,7 +6,52 @@
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5227GD9D');</script>
+  })(window,document,'script','dataLayer','GTM-5227GD9D');
+// ─── LIVE IN-STUDIO QR STATS CONTROLLER ─────────────────────────────────────
+let qrAutoRefreshTimer = null;
+
+async function fetchLiveQrStats() {
+  const label = document.getElementById('qrLastUpdated');
+  if (label) label.textContent = 'Refreshing counts...';
+
+  try {
+    const res = await fetch('/api/qr-stats');
+    const data = await res.json();
+    if (res.ok && data.success && data.stats) {
+      const s = data.stats;
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = (typeof val === 'number') ? val.toLocaleString('en-IN') : (val || 0);
+      };
+
+      setVal('metric_qr_scans', s.qr_scans);
+      setVal('metric_total_interactions', s.total_interactions);
+      setVal('metric_review_samalapuram', s.review_samalapuram);
+      setVal('metric_review_karnempettai', s.review_karnempettai);
+      setVal('metric_instagram_follow', s.instagram_follow);
+      setVal('metric_whatsapp_save', s.whatsapp_save);
+
+      const now = new Date();
+      if (label) label.textContent = 'Live • Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+  } catch (err) {
+    if (label) label.textContent = 'Could not load counts.';
+  }
+}
+
+function startQrAutoRefresh() {
+  stopQrAutoRefresh();
+  qrAutoRefreshTimer = setInterval(fetchLiveQrStats, 30000);
+}
+
+function stopQrAutoRefresh() {
+  if (qrAutoRefreshTimer) {
+    clearInterval(qrAutoRefreshTimer);
+    qrAutoRefreshTimer = null;
+  }
+}
+
+</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -241,28 +286,69 @@
             <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-main" style="width:100%; text-decoration:none; display:inline-block;">⬇️ Download Print QR (1000x1000 PNG)</a>
           </div>
 
-          <!-- Where to see live stats Card -->
-          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px;">
-            <h4 style="margin-bottom:8px; font-size:1.05rem;">📊 How to View Live Scan Stats</h4>
-            <p style="font-size:0.85rem; color:var(--soft); margin-bottom:16px;">Every scan and button tap is logged automatically in your analytics accounts:</p>
-            
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; margin-bottom:12px;">
-              <strong style="font-size:0.9rem; color:#0f172a; display:block; margin-bottom:4px;">1. Google Analytics 4 (GA4)</strong>
-              <p style="font-size:0.8rem; color:#475569; margin-bottom:8px;">Go to <strong>Reports &rarr; Engagement &rarr; Events</strong>. You will see:</p>
-              <ul style="font-size:0.78rem; color:#334155; margin-left:18px; line-height:1.6;">
-                <li><code>qr_code_scan</code> &mdash; Total physical QR code scans</li>
-                <li><code>review_samalapuram</code> &mdash; Samalapuram Google Review clicks</li>
-                <li><code>review_karnempettai</code> &mdash; Karnempettai Google Review clicks</li>
-                <li><code>instagram_follow</code> &mdash; Instagram follow button clicks</li>
-                <li><code>whatsapp_save_contact</code> &mdash; WhatsApp quick saves</li>
-              </ul>
-              <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer" style="font-size:0.8rem; font-weight:600; color:var(--gold-dark); text-decoration:underline; display:inline-block; margin-top:8px;">Open Google Analytics &rarr;</a>
+          <!-- LIVE IN-STUDIO COUNTERS CARD -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <div>
+                  <h4 style="font-size:1.1rem; color:var(--ink); margin-bottom:2px;">📊 Live In-Studio Scan Counts</h4>
+                  <small style="color:var(--soft);" id="qrLastUpdated">Auto-updating live counters...</small>
+                </div>
+                <button type="button" class="btn-sm" onclick="fetchLiveQrStats()" style="background:#f1f5f9; color:#0f172a; padding:6px 12px; font-size:0.78rem; font-weight:600; border:1px solid #cbd5e1; cursor:pointer; border-radius:8px;">
+                  🔄 Refresh
+                </button>
+              </div>
+
+              <!-- Metrics 2x3 Grid -->
+              <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;">
+                <!-- 1. Total QR Scans -->
+                <div style="background:linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border:1.5px solid #fde68a; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#92400e; letter-spacing:0.04em; margin-bottom:4px;">📱 Total QR Scans</div>
+                  <div style="font-size:2rem; font-weight:800; color:#78350f; line-height:1.1;" id="metric_qr_scans">0</div>
+                  <small style="color:#b45309; font-size:0.72rem;">Customer standee scans</small>
+                </div>
+
+                <!-- 2. Total Interactions -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⚡ Customer Actions</div>
+                  <div style="font-size:2rem; font-weight:800; color:#0f172a; line-height:1.1;" id="metric_total_interactions">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">Reviews, IG &amp; WhatsApp</small>
+                </div>
+
+                <!-- 3. Samalapuram Reviews -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⭐ Samalapuram Review</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_review_samalapuram">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">Google Maps clicks</small>
+                </div>
+
+                <!-- 4. Karnempettai Reviews -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⭐ Karnempettai Review</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_review_karnempettai">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">Google Maps clicks</small>
+                </div>
+
+                <!-- 5. Instagram Follows -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">📸 Instagram Follows</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_instagram_follow">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">@sreedesigner_ taps</small>
+                </div>
+
+                <!-- 6. WhatsApp Saves -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">💬 WhatsApp Saves</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_whatsapp_save">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">Inquiry &amp; re-order chats</small>
+                </div>
+              </div>
             </div>
 
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px;">
-              <strong style="font-size:0.9rem; color:#0f172a; display:block; margin-bottom:4px;">2. Vercel Web Analytics</strong>
-              <p style="font-size:0.8rem; color:#475569; margin-bottom:8px;">Go to <strong>Vercel Dashboard &rarr; Analytics &rarr; Custom Events</strong> to see scan counts and top visitor devices.</p>
-              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="font-size:0.8rem; font-weight:600; color:var(--gold-dark); text-decoration:underline; display:inline-block;">Open Vercel Dashboard &rarr;</a>
+            <!-- Card footer -->
+            <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
+              <small style="color:var(--soft); font-size:0.76rem;">Counts update automatically every 30s</small>
+              <a href="/connect" target="_blank" rel="noopener noreferrer" style="font-size:0.8rem; font-weight:600; color:var(--gold-dark); text-decoration:none;">Open Live Page &rarr;</a>
             </div>
           </div>
         </div>
@@ -736,6 +822,7 @@ function switchTab(name) {
   if (name === 'showcase')    renderShowcase();
   if (name === 'blog')        renderBlog();
   if (name === 'testimonials') renderTestimonials();
+  if (name === 'qrhub')       { fetchLiveQrStats(); startQrAutoRefresh(); } else { stopQrAutoRefresh(); }
 }
 
 // ─── SHOWCASE SECTIONS & HOMEPAGE FEATURED SELECTOR ─────────────────────────

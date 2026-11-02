@@ -667,6 +667,7 @@
       const isQr = params.get('utm_source') === 'qr' || params.has('qr');
       const scanType = isQr ? 'in_store_qr_scan' : 'direct_connect_visit';
 
+      // Track in GA4 & Vercel
       if (typeof gtag === 'function') {
         gtag('event', 'qr_code_scan', {
           'event_category': 'In_Studio_QR',
@@ -677,6 +678,15 @@
       if (typeof window.va === 'function') {
         window.va('event', { name: 'qr_code_scan', data: { type: scanType } });
       }
+
+      // Record in Live Counter API
+      try {
+        fetch('/api/qr-stats', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'qr_scans' })
+        }).catch(() => {});
+      } catch(e) {}
     });
 
     // 2. Interactive Action Tracking for All Buttons
@@ -693,6 +703,15 @@
       if (typeof window.va === 'function') {
         window.va('event', { name: actionName });
       }
+
+      // Record action in Live Counter API
+      try {
+        fetch('/api/qr-stats', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: actionName })
+        }).catch(() => {});
+      } catch(e) {}
     }
 
     function openQrModal() {
