@@ -491,7 +491,7 @@ const MASTER_BLOGS = [
       </blockquote>
 
       <h2>4. The Sree Designers Precision 3-Stage Fitting Protocol</h2>
-      <p>Most commercial tailors attach padded cups directly to the outer silk fabric without factoring in body curvature. At Sree Designers, we anchor premium breathable foam cups inside a pre-washed cotton canvas lining—independent of the outer silk. Our <a href="index.html#process">3-Stage Fitting Protocol</a> guarantees:</p>
+      <p>Most commercial tailors attach padded cups directly to the outer silk fabric without factoring in body curvature. At Sree Designers, we anchor premium breathable foam cups inside a pre-washed cotton canvas lining—independent of the outer silk. Our 3-Stage Fitting Protocol guarantees:</p>
       <ol>
         <li><strong>18-Point Anatomical Measurement:</strong> Precision shoulder slope, bust apex distance, armhole depth, and waist taper recordings.</li>
         <li><strong>Canvas Structure Trial:</strong> In-person trial fitting at our Samalapuram or Karnempettai studio to verify cup positioning and armhole ease before final zardozi embroidery is sealed.</li>
