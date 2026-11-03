@@ -273,8 +273,8 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "is_featured": true,
-    "updated_at": "2026-11-03T06:24:30.124Z"
+    "is_featured": false,
+    "updated_at": "2026-11-03T06:24:30.870Z"
   },
   {
     "id": "prod-real-peacock-green-v-neck",
