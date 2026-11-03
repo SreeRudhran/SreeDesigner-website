@@ -1559,7 +1559,16 @@ async function handleFetchFromInstagram(mode) {
     }
 
     const slideCount = Array.isArray(data.images) ? data.images.length : 0;
-    alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Slide Photo(s) loaded into Photo Studio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
+    if (slideCount > 0) {
+      alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Photo(s) loaded into Photo Studio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
+    } else {
+      alert(`📸 Instagram Details Extracted!\n\n• Title, Price, Categories & Description auto-calculated.\n• Instagram Link attached to product.\n\n⚠️ Meta required verification for this image download. Please click "➕ Add Photos" below to pick the blouse photo(s) from your device, then click Save & Publish.`);
+      const fileInputId = mode === 'create' ? 'sc_gallery_file_input' : 'edit_sc_gallery_file_input';
+      const fileInput = document.getElementById(fileInputId);
+      if (fileInput) {
+        fileInput.click();
+      }
+    }
   } catch(err) {
     alert('❌ Could not auto-download from Instagram: ' + err.message + '\n\nYou can still select photos manually using "+ Add Photos" below.');
   } finally {
