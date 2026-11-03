@@ -185,21 +185,19 @@ const MASTER_CATALOG = [
     "slug": "rani-pink-jacquard-blouse-designs",
     "description": "Tailored in self-textured chevron jacquard silk in radiant Rani pink, framed by an enchanting turquoise and antique golden French knot floral garland border along the U-neckline and sleeve hems. A versatile, timeless piece suited for both temple visits, festive occasions, and lightweight designer sarees.",
     "starting_price": 2800,
-    "main_image_url": "assets/images/blouse_rani_pink_jacquard_back.webp",
+    "main_image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp",
     "tags": [
-      "Hand Embroidered Blouses",
-      "Machine Embroidery Blouses"
+      "Hand Embroidered Blouses"
     ],
     "images": [
       {
-        "id": "sub-rpj-1",
+        "id": "main",
         "image_url": "assets/images/blouse_rani_pink_jacquard_back.webp"
-      },
-      {
-        "id": "sub-rpj-2",
-        "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T07:42:57.267Z"
   },
   {
     "id": "prod-real-crimson-red-maggam",
