@@ -399,26 +399,24 @@ const MASTER_CATALOG = [
     "slug": "rani-pink-scallop-net-sleeve-blouse-designs",
     "description": "Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.",
     "starting_price": 3400,
-    "main_image_url": "assets/images/blouse_rani_pink_flatlay.webp",
+    "main_image_url": "assets/images/blouse_rani_pink_sleeve.webp",
     "tags": [
-      "Hand Embroidered Blouses",
-      "Bridal Blouse & Maggam Work",
-      "Zardozi Work"
+      "Hand Embroidered Blouses"
     ],
     "images": [
       {
-        "id": "sub-rp-1",
+        "id": "main",
         "image_url": "assets/images/blouse_rani_pink_flatlay.webp"
-      },
-      {
-        "id": "sub-rp-2",
-        "image_url": "assets/images/blouse_rani_pink_sleeve.webp"
       },
       {
         "id": "sub-rp-3",
         "image_url": "assets/images/blouse_rani_pink_neckline.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "is_featured": true,
+    "updated_at": "2026-11-03T15:18:07.497Z"
   },
   {
     "id": "prod-real-peacock-green-v-neck",
