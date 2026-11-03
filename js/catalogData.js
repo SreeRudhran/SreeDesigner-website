@@ -241,7 +241,7 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-crimson-red-tissue-scallop",
-    "is_featured": true,
+    "is_featured": false,
     "title": "Red Tissue Sleeve Blouse Designs | Scalloped Border Golden Vine Aari Work",
     "slug": "red-tissue-sleeve-blouse-designs",
     "description": "Sophisticated crimson red silk blouse highlighted by luminous metallic golden tissue elbow sleeves with fine scalloped embroidery borders. The deep U-cut back neckline and sleeve junctions are embroidered with graceful floral aari vine patterns, micro cutdana beads, and subtle sequin highlights. A lightweight yet opulent design ideal for bride sisters and reception sarees.",
@@ -259,7 +259,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T15:19:34.307Z"
+    "updated_at": "2026-11-03T15:20:03.345Z"
   },
   {
     "id": "prod-real-silver-grey-purple-keyhole",
