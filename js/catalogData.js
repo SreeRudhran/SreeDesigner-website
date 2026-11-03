@@ -318,8 +318,8 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "is_featured": true,
-    "updated_at": "2026-11-03T06:28:54.687Z"
+    "is_featured": false,
+    "updated_at": "2026-11-03T07:43:25.434Z"
   }
 ];
 
