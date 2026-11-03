@@ -177,7 +177,10 @@ const MASTER_CATALOG = [
         "id": "sub-rpj-2",
         "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T06:25:12.754Z"
   },
   {
     "id": "prod-real-crimson-red-maggam",
