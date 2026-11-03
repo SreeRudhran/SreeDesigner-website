@@ -205,27 +205,24 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-bottle-green-zigzag",
-    "is_featured": true,
+    "is_featured": false,
     "title": "Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse",
     "slug": "bottle-green-zigzag-net-blouse-designs",
     "description": "Unique bottle green raw silk blouse featuring a multi-tiered chevron zigzag embroidered sheer net back neck with teardrop keyhole cut, crimson red floral rosettes, and matching elbow-length sleeves with ruby crystal drop latkan hangings.",
     "starting_price": 3600,
-    "main_image_url": "assets/images/blouse_bottle_green_zigzag_net_back.webp",
+    "main_image_url": "assets/images/blouse_bottle_green_zigzag_sleeve.webp",
     "tags": [
-      "Hand Embroidered Blouses",
-      "Bridal Blouse & Maggam Work",
-      "Zardozi Work"
+      "Hand Embroidered Blouses"
     ],
     "images": [
       {
-        "id": "sub-bg-1",
+        "id": "main",
         "image_url": "assets/images/blouse_bottle_green_zigzag_net_back.webp"
-      },
-      {
-        "id": "sub-bg-2",
-        "image_url": "assets/images/blouse_bottle_green_zigzag_sleeve.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T06:24:34.427Z"
   },
   {
     "id": "prod-real-purple-contrast-net",
@@ -257,24 +254,26 @@ const MASTER_CATALOG = [
     "slug": "rani-pink-scallop-net-sleeve-blouse-designs",
     "description": "Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.",
     "starting_price": 3400,
-    "main_image_url": "assets/images/blouse_rani_pink_sleeve.webp",
+    "main_image_url": "assets/images/blouse_rani_pink_flatlay.webp",
     "tags": [
-      "Hand Embroidered Blouses"
+      "Hand Embroidered Blouses",
+      "Bridal Blouse & Maggam Work",
+      "Zardozi Work"
     ],
     "images": [
       {
-        "id": "main",
+        "id": "sub-rp-1",
         "image_url": "assets/images/blouse_rani_pink_flatlay.webp"
+      },
+      {
+        "id": "sub-rp-2",
+        "image_url": "assets/images/blouse_rani_pink_sleeve.webp"
       },
       {
         "id": "sub-rp-3",
         "image_url": "assets/images/blouse_rani_pink_neckline.webp"
       }
-    ],
-    "instagram_url": "",
-    "is_published": true,
-    "is_featured": false,
-    "updated_at": "2026-11-03T06:24:30.870Z"
+    ]
   },
   {
     "id": "prod-real-peacock-green-v-neck",
