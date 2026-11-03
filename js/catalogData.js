@@ -7,7 +7,7 @@
 const MASTER_CATALOG = [
   {
     "id": "prod-real-bridal-kanchipuram-red",
-    "is_featured": false,
+    "is_featured": true,
     "title": "Bridal Red Kanchipuram Border Blouse Designs | Scallop Cutwork Maggam Work",
     "slug": "bridal-red-kanchipuram-border-blouse-designs",
     "description": "A bridal masterpiece crafted in vermilion red pure silk, distinguished by heirloom Kanchipuram pure golden zari borders along the elbow sleeves. Features a scalloped sweetheart front neckline and cutout back framed with dense golden zardozi wires, delicate French knot floral aari work, and sparkling kundan stone embellishments. Hand-tailored with premium canvas padding and comfortable lining for South Indian muhurtham ceremonies.",
@@ -34,7 +34,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T06:29:12.445Z"
+    "updated_at": "2026-11-03T06:29:13.728Z"
   },
   {
     "id": "prod-real-wine-purple-puff-sleeve",
@@ -283,26 +283,26 @@ const MASTER_CATALOG = [
     "slug": "peacock-green-v-neck-net-blouse-designs",
     "description": "Bespoke Peacock Green silk blouse featuring a deep V-neck illusion sheer yellow net back with micro-bead bootis, hand-embroidered floral Aari borders, royal elbow-length sleeves with matching cuffs, and built-in padded cup trial fitting guarantee.",
     "starting_price": 3200,
-    "main_image_url": "assets/images/blouse_peacock_green_v_neck_back.webp",
+    "main_image_url": "assets/images/blouse_peacock_green_sleeve_detail.webp",
     "tags": [
-      "Hand Embroidered Blouses",
       "Bridal Blouse & Maggam Work",
+      "Hand Embroidered Blouses",
       "Zardozi Work"
     ],
     "images": [
       {
-        "id": "sub-pg-1",
+        "id": "main",
         "image_url": "assets/images/blouse_peacock_green_v_neck_back.webp"
-      },
-      {
-        "id": "sub-pg-2",
-        "image_url": "assets/images/blouse_peacock_green_sleeve_detail.webp"
       },
       {
         "id": "sub-pg-3",
         "image_url": "assets/images/blouse_peacock_green_front_neck.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "is_featured": true,
+    "updated_at": "2026-11-03T06:28:54.687Z"
   }
 ];
 
