@@ -1,8 +1,7 @@
 const https = require('https');
 const { verifySessionToken, parseBody } = require('./_auth');
 
-// Scraper API Configuration
-// Supports RapidAPI (Instagram Scraper API) if configured
+// Scraper API Configuration (supports RapidAPI if configured)
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
 const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST || 'instagram-scraper-api2.p.rapidapi.com';
 
@@ -29,9 +28,84 @@ function extractShortcode(urlStr) {
   return null;
 }
 
+function extractJsonObject(str) {
+  let start = str.indexOf('{');
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+
+  for (let i = start; i < str.length; i++) {
+    const char = str[i];
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (char === '\\') {
+      escape = true;
+      continue;
+    }
+    if (char === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString) {
+      if (char === '{') {
+        depth++;
+      } else if (char === '}') {
+        depth--;
+        if (depth === 0) {
+          const jsonSub = str.slice(start, i + 1);
+          try {
+            return JSON.parse(jsonSub);
+          } catch(e) {
+            return null;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function findShortcodeMedia(obj) {
+  if (!obj || typeof obj !== 'object') return null;
+  if (obj.shortcode_media) return obj.shortcode_media;
+  if (Array.isArray(obj)) {
+    for (const item of obj) {
+      const res = findShortcodeMedia(item);
+      if (res) return res;
+    }
+  } else {
+    for (const k of Object.keys(obj)) {
+      if (typeof obj[k] === 'string' && obj[k].includes('shortcode_media')) {
+        try {
+          const inner = JSON.parse(obj[k]);
+          const res = findShortcodeMedia(inner);
+          if (res) return res;
+        } catch(e) {}
+      }
+      const res = findShortcodeMedia(obj[k]);
+      if (res) return res;
+    }
+  }
+  return null;
+}
+
+function pickBestImageUrl(node) {
+  if (!node) return null;
+  if (Array.isArray(node.display_resources) && node.display_resources.length > 0) {
+    const sorted = [...node.display_resources].sort((a, b) => b.config_width - a.config_width);
+    const optimal = sorted.find(r => r.config_width <= 1200 && r.config_width >= 640);
+    if (optimal) return optimal.src;
+    return sorted[0].src;
+  }
+  return node.display_url || null;
+}
+
 function cleanOgDescription(raw) {
   if (!raw) return '';
-  // HTML entity decode
   let text = raw
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'")
@@ -44,7 +118,6 @@ function cleanOgDescription(raw) {
       try { return String.fromCodePoint(parseInt(code, 16)); } catch(e) { return ''; }
     });
 
-  // Strip Instagram boilerplate: e.g. '136 likes, 8 comments - user on May 15, 2022: "Actual caption here"'
   const colonQuoteMatch = text.match(/:\s*\"([\s\S]*)\"/);
   if (colonQuoteMatch && colonQuoteMatch[1]) {
     text = colonQuoteMatch[1].trim();
@@ -56,22 +129,22 @@ async function downloadImageAsBase64(imageUrl) {
   if (!imageUrl) return null;
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 9000);
     const res = await fetch(imageUrl, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }
     });
     clearTimeout(timeout);
-    if (!res.ok) return imageUrl; // fallback to raw URL if status not ok
+    if (!res.ok) return imageUrl;
     const contentType = res.headers.get('content-type') || 'image/jpeg';
     const buffer = await res.arrayBuffer();
     const b64 = Buffer.from(buffer).toString('base64');
     return `data:${contentType};base64,${b64}`;
   } catch (err) {
     console.warn('Download image as base64 failed:', err.message);
-    return imageUrl; // fallback to raw CDN URL
+    return imageUrl;
   }
 }
 
@@ -81,18 +154,25 @@ function analyzeCaption(caption) {
   // 1. Color extraction
   let color = 'Bespoke Designer';
   const colorMap = [
+    { key: 'deep purple', label: 'Deep Purple' },
+    { key: 'purple', label: 'Royal Purple' },
+    { key: 'plum', label: 'Plum Purple' },
+    { key: 'wine', label: 'Deep Wine' },
     { key: 'rani pink', label: 'Rani Pink' },
     { key: 'pink', label: 'Rani Pink' },
+    { key: 'bridal red', label: 'Bridal Red' },
     { key: 'red', label: 'Bridal Red' },
     { key: 'vermilion', label: 'Vermilion Red' },
-    { key: 'wine', label: 'Deep Wine' },
-    { key: 'purple', label: 'Royal Purple' },
     { key: 'maroon', label: 'Maroon' },
-    { key: 'green', label: 'Emerald Green' },
+    { key: 'emerald green', label: 'Emerald Green' },
     { key: 'bottle green', label: 'Bottle Green' },
-    { key: 'blue', label: 'Royal Blue' },
+    { key: 'green', label: 'Emerald Green' },
+    { key: 'royal blue', label: 'Royal Blue' },
     { key: 'navy', label: 'Navy Blue' },
-    { key: 'yellow', label: 'Mustard Yellow' }
+    { key: 'blue', label: 'Royal Blue' },
+    { key: 'yellow', label: 'Mustard Yellow' },
+    { key: 'mustard', label: 'Mustard Yellow' },
+    { key: 'gold', label: 'Antique Gold' }
   ];
   for (const c of colorMap) {
     if (text.includes(c.key)) { color = c.label; break; }
@@ -111,7 +191,7 @@ function analyzeCaption(caption) {
     workType = 'Zardozi & Kundan Maggam Work';
     estPrice = 3800;
   }
-  if (text.includes('aari') || text.includes('hand embroidery') || text.includes('french knot')) {
+  if (text.includes('aari') || text.includes('hand embroidery') || text.includes('french knot') || text.includes('embroidery')) {
     tags.push('Hand Embroidered Blouses');
     if (estPrice < 3200) estPrice = 3200;
   }
@@ -127,6 +207,9 @@ function analyzeCaption(caption) {
   if (text.includes('kurti') || text.includes('salwar') || text.includes('chudidhar')) {
     tags.push('Kurtis & Chudidhar');
     estPrice = 1200;
+  }
+  if (text.includes('scallop') || text.includes('cutwork')) {
+    if (!tags.includes('Hand Embroidered Blouses')) tags.push('Hand Embroidered Blouses');
   }
 
   // Fallback tag if empty
@@ -189,7 +272,69 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { error: 'Invalid Instagram URL. Please provide a link like https://www.instagram.com/p/SHORTCODE/ or /reel/SHORTCODE/' });
     }
 
-    // 1. If RapidAPI Key is configured, query the Scraper API
+    // 1. Primary Method: Direct Embed ServerJS Parser
+    // Extracts true full-resolution slide photos in their original ratio (Slide 1, Slide 2, etc.)
+    try {
+      const embedUrl = `https://www.instagram.com/p/${shortcode}/embed/captioned/`;
+      const embedRes = await fetch(embedUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+      });
+
+      if (embedRes.ok) {
+        const html = await embedRes.text();
+        let scMedia = null;
+
+        const handleIdx = html.indexOf('s.handle(');
+        if (handleIdx !== -1) {
+          const parsed = extractJsonObject(html.slice(handleIdx + 8));
+          if (parsed) {
+            scMedia = findShortcodeMedia(parsed);
+          }
+        }
+
+        if (scMedia) {
+          let rawSlideUrls = [];
+          if (scMedia.edge_sidecar_to_children?.edges?.length > 0) {
+            // Multi-slide Carousel post: extract all slides in original ratio
+            rawSlideUrls = scMedia.edge_sidecar_to_children.edges
+              .map(e => pickBestImageUrl(e.node))
+              .filter(Boolean);
+          } else {
+            // Single image or video post
+            const mainImg = pickBestImageUrl(scMedia);
+            if (mainImg) rawSlideUrls.push(mainImg);
+          }
+
+          const rawCaption = scMedia.edge_media_to_caption?.edges?.[0]?.node?.text || '';
+          const cleanCaption = cleanOgDescription(rawCaption);
+          const analysis = analyzeCaption(cleanCaption);
+
+          // Download all extracted slide photos as permanent base64 data URLs (up to 4 slides)
+          const downloadedImages = [];
+          for (let i = 0; i < Math.min(rawSlideUrls.length, 4); i++) {
+            const b64 = await downloadImageAsBase64(rawSlideUrls[i]);
+            if (b64) downloadedImages.push(b64);
+          }
+
+          if (downloadedImages.length > 0) {
+            return sendJson(res, 200, {
+              success: true,
+              source: 'instagram_embed_sidecar',
+              shortcode,
+              images: downloadedImages,
+              caption: cleanCaption,
+              ...analysis
+            });
+          }
+        }
+      }
+    } catch (embedErr) {
+      console.warn('Embed ServerJS extraction failed, trying fallbacks:', embedErr.message);
+    }
+
+    // 2. Secondary Method: RapidAPI (if configured in environment variables)
     if (RAPIDAPI_KEY) {
       try {
         const apiUrl = `https://${RAPIDAPI_HOST}/v1/post_info?code_or_id_or_url=${encodeURIComponent(shortcode)}`;
@@ -207,7 +352,6 @@ module.exports = async function handler(req, res) {
           const caption = postData.caption?.text || postData.edge_media_to_caption?.edges?.[0]?.node?.text || '';
           const analysis = analyzeCaption(caption);
 
-          // Extract carousel images (Slide 1, Slide 2, etc.)
           let rawImages = [];
           if (Array.isArray(postData.carousel_media) && postData.carousel_media.length > 0) {
             rawImages = postData.carousel_media.map(m => m.image_versions2?.candidates?.[0]?.url || m.display_url).filter(Boolean);
@@ -219,9 +363,8 @@ module.exports = async function handler(req, res) {
             rawImages = [postData.display_url];
           }
 
-          // Download as base64 to ensure permanent storage without CDN expiration
           const downloadedImages = [];
-          for (let i = 0; i < Math.min(rawImages.length, 3); i++) {
+          for (let i = 0; i < Math.min(rawImages.length, 4); i++) {
             const b64 = await downloadImageAsBase64(rawImages[i]);
             if (b64) downloadedImages.push(b64);
           }
@@ -242,20 +385,17 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    // 2. Direct Social Crawler OpenGraph extraction
-    // Meta renders full og:image and og:description for social crawler user-agents
+    // 3. Tertiary Method: Social Crawler OpenGraph extraction
     try {
       const targetUrl = `https://www.instagram.com/p/${shortcode}/`;
       let igRes = await fetch(targetUrl, {
         headers: {
           'User-Agent': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.9'
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
         }
       });
 
       if (!igRes.ok) {
-        // Fallback to Twitterbot User-Agent
         igRes = await fetch(targetUrl, {
           headers: {
             'User-Agent': 'Twitterbot/1.0',
@@ -279,15 +419,13 @@ module.exports = async function handler(req, res) {
         if (ogImgMatch && ogImgMatch[1]) {
           const rawImgUrl = ogImgMatch[1].replace(/&amp;/g, '&');
           const dataUrl = await downloadImageAsBase64(rawImgUrl);
-          if (dataUrl) {
-            images.push(dataUrl);
-          }
+          if (dataUrl) images.push(dataUrl);
         }
 
         if (images.length > 0 || cleanCaption) {
           return sendJson(res, 200, {
             success: true,
-            source: 'instagram_direct',
+            source: 'instagram_opengraph',
             shortcode,
             images,
             caption: cleanCaption,
@@ -299,7 +437,7 @@ module.exports = async function handler(req, res) {
       console.warn('Direct Instagram crawler fetch failed:', fallbackErr.message);
     }
 
-    // 3. Fallback response if no image or caption was extractable
+    // 4. Default fallback if Meta strictly blocked all scrapers
     const analysis = analyzeCaption(body.caption || '');
     return sendJson(res, 200, {
       success: true,

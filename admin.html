@@ -1277,8 +1277,8 @@ function renderEditGallery() {
     const safeUrl = escapeHtml(typeof img === 'string' ? img : (img.image_url || ''));
     return `
       <div class="photo-card" style="position:relative; background:#fff; border-radius:10px; overflow:hidden; border:${isMain ? '2.5px solid #d4af37' : '1px solid #cbd5e1'}; box-shadow:${isMain ? '0 4px 12px rgba(212,175,55,0.3)' : '0 2px 6px rgba(0,0,0,0.05)'};">
-        <div style="width:100%; height:110px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='assets/images/service_bridal.png'">
+        <div style="width:100%; height:130px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:contain; background:#f8fafc;" onerror="this.src='assets/images/service_bridal.png'">
         </div>
 
         <div style="position:absolute; top:4px; left:4px; font-size:0.65rem; font-weight:700; padding:2px 6px; border-radius:4px; text-transform:uppercase; ${isMain ? 'background:#d4af37; color:#1c1b18;' : 'background:rgba(15,23,42,0.75); color:#fff;'}">
@@ -1375,8 +1375,8 @@ function renderCreateGallery() {
     const safeUrl = escapeHtml(typeof img === 'string' ? img : (img.image_url || ''));
     return `
       <div class="photo-card" style="position:relative; background:#fff; border-radius:10px; overflow:hidden; border:${isMain ? '2.5px solid #d4af37' : '1px solid #cbd5e1'}; box-shadow:${isMain ? '0 4px 12px rgba(212,175,55,0.3)' : '0 2px 6px rgba(0,0,0,0.05)'};">
-        <div style="width:100%; height:110px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='assets/images/service_bridal.png'">
+        <div style="width:100%; height:130px; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <img src="${safeUrl}" alt="Photo angle ${idx + 1}" style="width:100%; height:100%; object-fit:contain; background:#f8fafc;" onerror="this.src='assets/images/service_bridal.png'">
         </div>
 
         <div style="position:absolute; top:4px; left:4px; font-size:0.65rem; font-weight:700; padding:2px 6px; border-radius:4px; text-transform:uppercase; ${isMain ? 'background:#d4af37; color:#1c1b18;' : 'background:rgba(15,23,42,0.75); color:#fff;'}">
@@ -1560,7 +1560,7 @@ async function handleFetchFromInstagram(mode) {
 
     const slideCount = Array.isArray(data.images) ? data.images.length : 0;
     if (slideCount > 0) {
-      alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Photo(s) loaded into Photo Studio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
+      alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Slide Photo(s) loaded into Photo Studio in full original ratio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
     } else {
       alert(`📸 Instagram Details Extracted!\n\n• Title, Price, Categories & Description auto-calculated.\n• Instagram Link attached to product.\n\n⚠️ Meta required verification for this image download. Please click "➕ Add Photos" below to pick the blouse photo(s) from your device, then click Save & Publish.`);
       const fileInputId = mode === 'create' ? 'sc_gallery_file_input' : 'edit_sc_gallery_file_input';
