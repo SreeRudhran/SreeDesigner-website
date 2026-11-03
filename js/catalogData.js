@@ -181,7 +181,7 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-crimson-red-maggam",
-    "is_featured": false,
+    "is_featured": true,
     "title": "Bridal Red Heavy Maggam Work Blouse Designs | Cutout Back Neck Wedding Blouse",
     "slug": "bridal-red-heavy-maggam-work-blouse-designs",
     "description": "Showstopper bridal crimson red pure silk blouse featuring an ornate scalloped cutout back neck with illusion sheer net, heavy floral maggam elbow sleeves adorned with antique gold zardozi wires, emerald green thread rosettes, and hanging emerald crystal drop latkan beads.",
@@ -200,7 +200,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T06:25:26.615Z"
+    "updated_at": "2026-11-03T06:25:41.245Z"
   },
   {
     "id": "prod-real-bottle-green-zigzag",
