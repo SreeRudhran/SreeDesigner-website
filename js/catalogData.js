@@ -249,22 +249,19 @@ const MASTER_CATALOG = [
     "slug": "purple-illusion-net-blouse-designs",
     "description": "Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.",
     "starting_price": 3400,
-    "main_image_url": "assets/images/blouse_royal_purple_illusion_net_back.webp",
+    "main_image_url": "assets/images/blouse_royal_purple_floral_sleeve.webp",
     "tags": [
-      "Hand Embroidered Blouses",
-      "Bridal Blouse & Maggam Work",
-      "Zardozi Work"
+      "Hand Embroidered Blouses"
     ],
     "images": [
       {
-        "id": "sub-pr-1",
+        "id": "main",
         "image_url": "assets/images/blouse_royal_purple_illusion_net_back.webp"
-      },
-      {
-        "id": "sub-pr-2",
-        "image_url": "assets/images/blouse_royal_purple_floral_sleeve.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T07:44:42.038Z"
   },
   {
     "id": "prod-real-rani-pink-tissue",
