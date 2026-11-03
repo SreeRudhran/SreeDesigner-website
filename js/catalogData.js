@@ -261,7 +261,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T15:00:47.859Z"
+    "updated_at": "2026-11-03T15:00:51.632Z"
   },
   {
     "id": "prod-real-rani-pink-tissue",
