@@ -407,8 +407,13 @@ function stopQrAutoRefresh() {
           <input type="number" id="sc_price" class="field-input" placeholder="3800" required>
         </div>
         <div>
-          <label class="field-label">Instagram Post Link (Optional)</label>
-          <input type="url" id="sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/... (or reel link)">
+          <label class="field-label">Instagram Post Link (Auto-Download)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="url" id="sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/..." style="margin-bottom:0;">
+            <button type="button" id="btnFetchIg" onclick="handleFetchFromInstagram('create')" class="btn-sm" style="background:linear-gradient(135deg, #e1306c, #fd1d1d); color:#fff; white-space:nowrap; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer;" title="Auto-download slides and extract caption">
+              ✨ Fetch
+            </button>
+          </div>
         </div>
       </div>
       <div>
@@ -473,8 +478,13 @@ function stopQrAutoRefresh() {
           <input type="number" id="edit_sc_price" class="field-input" required>
         </div>
         <div>
-          <label class="field-label">Instagram Post Link (Optional)</label>
-          <input type="url" id="edit_sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/... (or reel link)">
+          <label class="field-label">Instagram Post Link (Auto-Download)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="url" id="edit_sc_ig_url" class="field-input" placeholder="https://www.instagram.com/p/..." style="margin-bottom:0;">
+            <button type="button" id="btnEditFetchIg" onclick="handleFetchFromInstagram('edit')" class="btn-sm" style="background:linear-gradient(135deg, #e1306c, #fd1d1d); color:#fff; white-space:nowrap; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer;" title="Auto-download slides and extract caption">
+              ✨ Fetch
+            </button>
+          </div>
         </div>
       </div>
       <div>
@@ -1352,6 +1362,106 @@ document.addEventListener('change', function(e) {
     }
   }
 });
+
+// ─── ✨ INSTAGRAM AUTO-DOWNLOAD & SMART PARSER ─────────────────────────────
+async function handleFetchFromInstagram(mode) {
+  const urlInput = document.getElementById(mode === 'create' ? 'sc_ig_url' : 'edit_sc_ig_url');
+  const postUrl = (urlInput ? urlInput.value : '').trim();
+  if (!postUrl) {
+    alert('Please paste an Instagram post URL (e.g. https://www.instagram.com/p/...) first.');
+    if (urlInput) urlInput.focus();
+    return;
+  }
+
+  const btn = document.getElementById(mode === 'create' ? 'btnFetchIg' : 'btnEditFetchIg');
+  const originalText = btn ? btn.textContent : '';
+  if (btn) {
+    btn.textContent = '⏳ Fetching...';
+    btn.disabled = true;
+  }
+
+  try {
+    const token = localStorage.getItem('sree_admin_token') || '';
+    const res = await fetch('/api/instagram-import', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ url: postUrl })
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Failed to fetch Instagram post.');
+    }
+
+    // 1. Auto-populate Photo Studio with downloaded slide images
+    if (Array.isArray(data.images) && data.images.length > 0) {
+      if (mode === 'create') {
+        createGalleryImages = data.images.map((imgUrl, i) => ({
+          id: 'ig-slide-' + Date.now() + '-' + i,
+          image_url: imgUrl
+        }));
+        renderCreateGallery();
+      } else {
+        editGalleryImages = data.images.map((imgUrl, i) => ({
+          id: 'ig-edit-slide-' + Date.now() + '-' + i,
+          image_url: imgUrl
+        }));
+        renderEditGallery();
+      }
+    }
+
+    // 2. Pre-fill Title, Price, Description
+    if (mode === 'create') {
+      if (data.suggestedTitle) document.getElementById('sc_title').value = data.suggestedTitle;
+      if (data.suggestedPrice) document.getElementById('sc_price').value = data.suggestedPrice;
+      if (data.cleanDesc) document.getElementById('sc_desc').value = data.cleanDesc;
+
+      // 3. Pre-select Categories
+      const catPickerId = '#sc_category_picker';
+      if (Array.isArray(data.suggestedTags)) {
+        document.querySelectorAll(catPickerId + ' input[name="sc_categories"]').forEach(cb => {
+          const match = data.suggestedTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
+          cb.checked = match;
+          const chip = cb.closest('.cat-checkbox-chip');
+          if (chip) {
+            if (match) chip.classList.add('active');
+            else chip.classList.remove('active');
+          }
+        });
+      }
+    } else {
+      if (data.suggestedTitle) document.getElementById('edit_sc_title').value = data.suggestedTitle;
+      if (data.suggestedPrice) document.getElementById('edit_sc_price').value = data.suggestedPrice;
+      if (data.cleanDesc) document.getElementById('edit_sc_desc').value = data.cleanDesc;
+
+      const catPickerId = '#edit_sc_category_picker';
+      if (Array.isArray(data.suggestedTags)) {
+        document.querySelectorAll(catPickerId + ' input[name="edit_sc_categories"]').forEach(cb => {
+          const match = data.suggestedTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
+          cb.checked = match;
+          const chip = cb.closest('.cat-checkbox-chip');
+          if (chip) {
+            if (match) chip.classList.add('active');
+            else chip.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    const slideCount = Array.isArray(data.images) ? data.images.length : 0;
+    alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Slide Photo(s) loaded into Photo Studio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
+  } catch(err) {
+    alert('❌ Could not auto-download from Instagram: ' + err.message + '\n\nYou can still select photos manually using "+ Add Photos" below.');
+  } finally {
+    if (btn) {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  }
+}
 
 // ─── SUBMIT SHOWCASE PRODUCT (CREATE) ────────────────────────────────────────
 async function submitShowcase(e) {
