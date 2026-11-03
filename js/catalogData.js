@@ -229,32 +229,12 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-purple-contrast-net",
-    "is_featured": false,
+    "is_featured": true,
     "title": "Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse",
     "slug": "purple-illusion-net-blouse-designs",
     "description": "Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.",
     "starting_price": 3400,
-    "main_image_url": "assets/images/blouse_royal_purple_floral_sleeve.webp",
-    "tags": [
-      "Hand Embroidered Blouses"
-    ],
-    "images": [
-      {
-        "id": "main",
-        "image_url": "assets/images/blouse_royal_purple_illusion_net_back.webp"
-      }
-    ],
-    "instagram_url": "",
-    "is_published": true,
-    "updated_at": "2026-11-03T06:24:26.866Z"
-  },
-  {
-    "id": "prod-real-rani-pink-tissue",
-    "title": "Rani Pink Scallop Net Sleeve Blouse Designs | Sheer Back Aari Work Blouse",
-    "slug": "rani-pink-scallop-net-sleeve-blouse-designs",
-    "description": "Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.",
-    "starting_price": 3400,
-    "main_image_url": "assets/images/blouse_rani_pink_flatlay.webp",
+    "main_image_url": "assets/images/blouse_royal_purple_illusion_net_back.webp",
     "tags": [
       "Hand Embroidered Blouses",
       "Bridal Blouse & Maggam Work",
@@ -262,18 +242,39 @@ const MASTER_CATALOG = [
     ],
     "images": [
       {
-        "id": "sub-rp-1",
-        "image_url": "assets/images/blouse_rani_pink_flatlay.webp"
+        "id": "sub-pr-1",
+        "image_url": "assets/images/blouse_royal_purple_illusion_net_back.webp"
       },
       {
-        "id": "sub-rp-2",
-        "image_url": "assets/images/blouse_rani_pink_sleeve.webp"
+        "id": "sub-pr-2",
+        "image_url": "assets/images/blouse_royal_purple_floral_sleeve.webp"
+      }
+    ]
+  },
+  {
+    "id": "prod-real-rani-pink-tissue",
+    "title": "Rani Pink Scallop Net Sleeve Blouse Designs | Sheer Back Aari Work Blouse",
+    "slug": "rani-pink-scallop-net-sleeve-blouse-designs",
+    "description": "Contemporary South Indian bridal blouse tailored in metallic shimmer Rani Pink tissue silk. Features handcrafted dual-layer scalloped sheer net sleeves with floral zardozi wire borders, illusion sheer net back neck with micro-bead sprinkles, built-in bust-contour padded cups, and trial fitting guarantee.",
+    "starting_price": 3400,
+    "main_image_url": "assets/images/blouse_rani_pink_sleeve.webp",
+    "tags": [
+      "Hand Embroidered Blouses"
+    ],
+    "images": [
+      {
+        "id": "main",
+        "image_url": "assets/images/blouse_rani_pink_flatlay.webp"
       },
       {
         "id": "sub-rp-3",
         "image_url": "assets/images/blouse_rani_pink_neckline.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "is_featured": true,
+    "updated_at": "2026-11-03T06:24:30.124Z"
   },
   {
     "id": "prod-real-peacock-green-v-neck",
