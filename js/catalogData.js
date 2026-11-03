@@ -205,7 +205,7 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-bottle-green-zigzag",
-    "is_featured": false,
+    "is_featured": true,
     "title": "Bottle Green Net Blouse Designs | Zigzag Aari Work Keyhole Back Blouse",
     "slug": "bottle-green-zigzag-net-blouse-designs",
     "description": "Unique bottle green raw silk blouse featuring a multi-tiered chevron zigzag embroidered sheer net back neck with teardrop keyhole cut, crimson red floral rosettes, and matching elbow-length sleeves with ruby crystal drop latkan hangings.",
@@ -222,7 +222,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T06:24:34.427Z"
+    "updated_at": "2026-11-03T06:24:35.602Z"
   },
   {
     "id": "prod-real-purple-contrast-net",
