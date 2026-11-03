@@ -338,6 +338,7 @@ function getFeaturedOverrides() {
 }
 
 function isItemFeatured(item) {
+  if (!item) return false;
   const overrides = getFeaturedOverrides();
   if (typeof overrides[item.id] !== 'undefined') {
     return !!overrides[item.id];
@@ -350,30 +351,18 @@ function toggleFeaturedItem(id) {
   const item = allItems.find(i => String(i.id) === String(id));
   if (!item) return { success: false, message: 'Item not found' };
 
-  const sectionId = getProductSectionId(item);
   const overrides = getFeaturedOverrides();
   const currentlyFeatured = isItemFeatured(item);
+  const newStatus = !currentlyFeatured;
 
-  if (!currentlyFeatured) {
-    // Check how many are currently featured in this section
-    const sectionItems = allItems.filter(i => getProductSectionId(i) === sectionId);
-    const activeCount = sectionItems.filter(i => isItemFeatured(i)).length;
-    if (activeCount >= 3) {
-      return {
-        success: false,
-        message: 'Maximum 3 featured products reached for this section on the homepage. Please uncheck another item first!'
-      };
-    }
-    overrides[id] = true;
-  } else {
-    overrides[id] = false;
-  }
+  overrides[id] = newStatus;
+  item.is_featured = newStatus;
 
   try {
     localStorage.setItem('sree_featured_products', JSON.stringify(overrides));
   } catch(e) {}
 
-  return { success: true, is_featured: !currentlyFeatured, sectionId: sectionId };
+  return { success: true, is_featured: newStatus, item: item };
 }
 
 function getFeaturedProductsForSection(sectionId) {
@@ -386,6 +375,14 @@ function getFeaturedProductsForSection(sectionId) {
   return [...featured, ...nonFeatured].slice(0, 3);
 }
 
+function getFeaturedMainPageProducts(limit = 6) {
+  const allItems = getUnifiedCatalog();
+  const featured = allItems.filter(i => isItemFeatured(i));
+  if (featured.length >= limit) return featured.slice(0, limit);
+  const nonFeatured = allItems.filter(i => !isItemFeatured(i));
+  return [...featured, ...nonFeatured].slice(0, limit);
+}
+
 if (typeof window !== 'undefined') {
   window.MASTER_CATALOG = MASTER_CATALOG;
   window.SHOWCASE_SECTIONS = SHOWCASE_SECTIONS;
@@ -394,6 +391,7 @@ if (typeof window !== 'undefined') {
   window.isItemFeatured = isItemFeatured;
   window.toggleFeaturedItem = toggleFeaturedItem;
   window.getFeaturedProductsForSection = getFeaturedProductsForSection;
+  window.getFeaturedMainPageProducts = getFeaturedMainPageProducts;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -404,6 +402,7 @@ if (typeof module !== 'undefined' && module.exports) {
     getProductSectionId,
     isItemFeatured,
     toggleFeaturedItem,
-    getFeaturedProductsForSection
+    getFeaturedProductsForSection,
+    getFeaturedMainPageProducts
   };
 }

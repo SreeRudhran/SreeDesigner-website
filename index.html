@@ -6119,6 +6119,74 @@
         menuCloseBtn.addEventListener('click', closeMobileMenu);
       }
 
+      // Synchronize Live Featured Products from Unified Catalog Engine
+      try {
+        function renderMainOurWork() {
+          const row = document.getElementById('ourWorkRow');
+          if (!row) return;
+
+          let products = [];
+          if (typeof window.getFeaturedMainPageProducts === 'function') {
+            products = window.getFeaturedMainPageProducts(6);
+          } else if (typeof window.getUnifiedCatalog === 'function') {
+            const all = window.getUnifiedCatalog();
+            const feat = all.filter(i => (typeof window.isItemFeatured === 'function' ? window.isItemFeatured(i) : !!i.is_featured));
+            const nonFeat = all.filter(i => (typeof window.isItemFeatured === 'function' ? !window.isItemFeatured(i) : !i.is_featured));
+            products = feat.length >= 6 ? feat.slice(0, 6) : [...feat, ...nonFeat].slice(0, 6);
+          } else if (typeof MASTER_CATALOG !== 'undefined') {
+            const feat = MASTER_CATALOG.filter(i => !!i.is_featured);
+            const nonFeat = MASTER_CATALOG.filter(i => !i.is_featured);
+            products = feat.length >= 6 ? feat.slice(0, 6) : [...feat, ...nonFeat].slice(0, 6);
+          }
+
+          if (!products || !products.length) return;
+
+          row.innerHTML = products.map(item => {
+            const title = (item.title || 'Bespoke Bridal Blouse').replace(/"/g, '&quot;');
+            const price = (parseFloat(item.starting_price) || 1800).toLocaleString('en-IN');
+            const img = (item.main_image_url || 'assets/images/service_bridal.webp').replace(/"/g, '&quot;');
+            const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
+            const waMsg = encodeURIComponent(`Hi Sree Designers, I would like to enquire about the ${item.title || 'Bridal Blouse'}.`);
+            const igUrl = item.instagram_url ? item.instagram_url.replace(/"/g, '&quot;') : '';
+
+            return `
+              <article class="our-work-card">
+                <div class="our-work-img-wrap" style="position:relative;">
+                  <a href="product?id=${safeSlug}" style="display:block; width:100%; height:100%;">
+                    <img src="${img}" alt="${title}" class="our-work-img" width="450" height="600" loading="lazy" decoding="async" onerror="this.src='assets/images/service_bridal.webp'">
+                  </a>
+                  ${igUrl ? `
+                    <a href="${igUrl}" target="_blank" rel="noopener noreferrer" title="View original post on Instagram" style="position:absolute; top:12px; right:12px; background:rgba(28,27,24,0.78); color:#fff; font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:999px; backdrop-filter:blur(6px); display:flex; align-items:center; gap:5px; text-decoration:none; z-index:3; border:1px solid rgba(255,255,255,0.2);">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      <span>Instagram</span>
+                    </a>
+                  ` : ''}
+                </div>
+                <div class="our-work-body">
+                  <div>
+                    <h3 class="our-work-title" title="${title}">${title}</h3>
+                    <div class="our-work-price">Starting from ₹${price}</div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <a href="https://wa.me/919976344673?text=${waMsg}" target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
+                      Enquire on WhatsApp
+                    </a>
+                    <a href="product?id=${safeSlug}" style="text-align:center; font-size:0.78rem; font-weight:600; color:#b98c14; text-decoration:none;">
+                      Explore Design &amp; All Angles →
+                    </a>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join('');
+        }
+
+        renderMainOurWork();
+        window.addEventListener('load', renderMainOurWork);
+      } catch(err) {
+        console.warn('Our work catalog sync error:', err.message);
+      }
+
       // Synchronize Live Reviews from Unified Reviews Engine
       try {
         if (typeof window.getUnifiedReviews === 'function') {
@@ -6159,6 +6227,7 @@
       }
     });
   </script>
+  <script src="js/catalogData.js?v=20261103_v2" defer></script>
   <script src="js/reviewsData.js?v=1" defer></script>
 </body>
 </html>

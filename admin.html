@@ -227,14 +227,15 @@ function stopQrAutoRefresh() {
         <div class="tab-header">
           <div>
             <h3>Service Portfolio Showcase &amp; Homepage Featured</h3>
-            <p>Segregated sections for each category. Select any 3 items per section as featured on the main page.</p>
+            <p>Manage your boutique products and choose which designs appear on the main page (homepage) of your website.</p>
           </div>
           <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
         </div>
 
         <!-- CATEGORY SECTION FILTER TABS -->
         <div class="section-filter-bar" id="showcaseFilterBar">
-          <button class="filter-pill active" onclick="setShowcaseFilter('all')">All Sections</button>
+          <button class="filter-pill active" onclick="setShowcaseFilter('all')">All Products</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('main-page')" style="font-weight:700; color:#92400e; background:#fef3c7; border:1px solid #f59e0b;">⭐ Main Page Featured (<span id="mainPageCount">0</span>)</button>
           <button class="filter-pill" onclick="setShowcaseFilter('hand-embroidery')">🪡 Hand Embroidery &amp; Maggam</button>
           <button class="filter-pill" onclick="setShowcaseFilter('machine-embroidery')">⚙️ Machine Embroidery</button>
           <button class="filter-pill" onclick="setShowcaseFilter('lehengas')">👗 Lehengas &amp; Festive</button>
@@ -457,6 +458,12 @@ function stopQrAutoRefresh() {
         </div>
         <input type="hidden" id="sc_img_required_check" required>
       </div>
+      <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:10px; padding:10px 14px; margin:14px 0;">
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:600; font-size:0.88rem; color:#92400e;">
+          <input type="checkbox" id="sc_is_featured" checked style="width:18px; height:18px; accent-color:#c59b27;">
+          <span>⭐ Feature this product on the Main Page (Homepage "Our Work" Gallery)</span>
+        </label>
+      </div>
       <button type="submit" id="btnShowcase" class="btn-main" style="width:100%;margin-top:8px;">Save &amp; Publish to Showcase</button>
     </form>
   </div>
@@ -525,6 +532,12 @@ function stopQrAutoRefresh() {
         <div id="editGalleryGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap:12px;">
           <!-- Dynamically populated by renderEditGallery() -->
         </div>
+      </div>
+      <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:10px; padding:10px 14px; margin:14px 0;">
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:600; font-size:0.88rem; color:#92400e;">
+          <input type="checkbox" id="edit_sc_is_featured" style="width:18px; height:18px; accent-color:#c59b27;">
+          <span>⭐ Feature this product on the Main Page (Homepage "Our Work" Gallery)</span>
+        </label>
       </div>
       <button type="submit" id="btnEditShowcase" class="btn-main" style="width:100%;margin-top:8px;">Update Product Changes</button>
     </form>
@@ -923,17 +936,92 @@ function setShowcaseFilter(filterId) {
   renderShowcase();
 }
 
-function handleToggleFeatured(id) {
-  if (typeof window.toggleFeaturedItem !== 'function') {
-    alert('Catalog helper not loaded. Please refresh the page.');
+async function handleToggleFeatured(id) {
+  const allItems = getShowcaseItems();
+  const item = allItems.find(i => String(i.id) === String(id));
+  if (!item) {
+    alert('Item not found');
     return;
   }
-  const res = window.toggleFeaturedItem(id);
-  if (!res.success) {
-    alert(res.message);
-    return;
+
+  const currentlyFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+  const newFeaturedStatus = !currentlyFeatured;
+  item.is_featured = newFeaturedStatus;
+
+  // 1. Update in local storage custom items if present
+  let custom = lsGet('custom_showcase_items');
+  const cIdx = custom.findIndex(i => String(i.id) === String(id));
+  if (cIdx !== -1) {
+    custom[cIdx].is_featured = newFeaturedStatus;
+    lsSet('custom_showcase_items', custom);
   }
+
+  // 2. Update in MASTER_CATALOG in memory
+  if (typeof window.MASTER_CATALOG !== 'undefined') {
+    const mItem = window.MASTER_CATALOG.find(i => String(i.id) === String(id));
+    if (mItem) mItem.is_featured = newFeaturedStatus;
+  }
+
+  // 3. Update featured overrides in localStorage
+  try {
+    const overrides = JSON.parse(localStorage.getItem('sree_featured_products') || '{}');
+    overrides[id] = newFeaturedStatus;
+    localStorage.setItem('sree_featured_products', JSON.stringify(overrides));
+  } catch(e) {}
+
   renderShowcase();
+
+  // 4. Commit change directly to GitHub repository through /api/catalog
+  try {
+    const token = localStorage.getItem('sree_admin_token') || '';
+    const res = await fetch('/api/catalog', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(item)
+    });
+    const data = await res.json();
+    if (data.synced_to_repo) {
+      console.log(`Product "${item.title}" main page status committed to repository.`);
+    }
+  } catch(e) {
+    console.warn('Feature toggle sync error:', e.message);
+  }
+}
+
+function renderShowcaseCard(item) {
+  const isFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+  const safeTitle = escapeHtml(item.title || 'Showcase Item');
+  const safeImg = escapeHtml(item.main_image_url || 'assets/images/service_bridal.png');
+  const safePrice = parseFloat(item.starting_price) || 2500;
+  const safeTags = escapeHtml(Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General'));
+  const safeId = escapeHtml(String(item.id || ''));
+  const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
+
+  return `
+    <div class="item-card" style="margin-bottom:12px; background:var(--white);">
+      <img class="item-thumb" src="${safeImg}" onerror="this.src='assets/images/service_bridal.png'" alt="${safeTitle}">
+      <div class="item-info">
+        <h4>${safeTitle}</h4>
+        <div>
+          <span class="badge">₹${safePrice.toLocaleString('en-IN')}</span>
+          <small style="display:inline-block; margin-left:8px;">Category: <strong>${safeTags}</strong></small>
+          ${item.instagram_url ? `<small style="display:inline-block; margin-left:8px;"><a href="${escapeHtml(item.instagram_url)}" target="_blank" style="color:#e1306c; text-decoration:none; font-weight:600;">📸 Instagram ↗</a></small>` : ''}
+          ${isFeatured ? '<span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; margin-left:8px;">⭐ Live on Main Page</span>' : ''}
+        </div>
+      </div>
+      <div class="item-actions">
+        <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${safeId}')" style="${isFeatured ? 'background:#fef3c7; color:#92400e; border:1.5px solid #d97706; font-weight:700; cursor:pointer;' : 'background:#f8fafc; color:#64748b; border:1px solid #cbd5e1; cursor:pointer;'}" title="${isFeatured ? 'Currently showing on Main Page. Click to remove.' : 'Click to show on Main Page'}">
+          ${isFeatured ? '⭐ Live on Main Page' : '☆ Show on Main Page'}
+        </button>
+        <a href="product?id=${safeSlug}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
+        <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${safeId}')">Edit</button>
+        <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${safeId}')">Delete</button>
+      </div>
+    </div>
+  `;
 }
 
 function renderShowcase() {
@@ -942,6 +1030,38 @@ function renderShowcase() {
   
   if (!items || !items.length) {
     el.innerHTML = '<p class="empty-msg">No showcase items found. Click "+ Add New Showcase Item" to publish.</p>';
+    return;
+  }
+
+  // Update Main Page count badge
+  const totalFeaturedOnMain = items.filter(item => {
+    return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+  }).length;
+  const countEl = document.getElementById('mainPageCount');
+  if (countEl) countEl.textContent = totalFeaturedOnMain;
+
+  // 1. FILTER: MAIN PAGE ONLY
+  if (currentShowcaseFilter === 'main-page') {
+    const mainPageItems = items.filter(item => {
+      return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+    });
+
+    el.innerHTML = `
+      <div class="showcase-section-block">
+        <div class="section-block-header" style="background:#fef3c7; border-radius:12px; padding:16px 20px; border:1px solid #f59e0b; margin-bottom:18px;">
+          <div class="section-block-title">
+            <span style="font-size:1.8rem;">⭐</span>
+            <div>
+              <h4 style="color:#92400e; margin:0 0 4px;">Main Page ("Our Work") Products Gallery</h4>
+              <p style="color:#78350f; margin:0; font-size:0.85rem;">These <strong>${mainPageItems.length} products</strong> appear live on the homepage in the <strong>"Our Work"</strong> section. Toggle any product off with <em>"⭐ Live on Main Page"</em> or add more from the category tabs.</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-items-list">
+          ${mainPageItems.length === 0 ? '<p class="empty-msg" style="padding:28px;">No products currently chosen for the main page. Click &quot;☆ Show on Main Page&quot; on any product in the category tabs to feature it!</p>' : mainPageItems.map(renderShowcaseCard).join('')}
+        </div>
+      </div>
+    `;
     return;
   }
 
@@ -967,7 +1087,7 @@ function renderShowcase() {
     });
 
     const featuredCount = secItems.filter(item => {
-      return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : false;
+      return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
     }).length;
 
     html += `
@@ -980,41 +1100,12 @@ function renderShowcase() {
               <p>${sec.description} (${secItems.length} items in collection)</p>
             </div>
           </div>
-          <div class="section-badge-counter ${featuredCount === 3 ? 'full' : ''}">
-            ⭐ Main Page Featured: <strong>${featuredCount} / 3 Selected</strong>
+          <div class="section-badge-counter ${featuredCount > 0 ? 'full' : ''}">
+            ⭐ Main Page: <strong>${featuredCount} Featured</strong>
           </div>
         </div>
         <div class="section-items-list">
-          ${secItems.length === 0 ? '<p class="empty-msg" style="padding:20px;">No items in this section yet. Upload items with matching category tags above.</p>' : secItems.map(item => {
-            const isFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : false;
-            const safeTitle = escapeHtml(item.title || 'Showcase Item');
-            const safeImg = escapeHtml(item.main_image_url || 'assets/images/service_bridal.png');
-            const safePrice = parseFloat(item.starting_price) || 2500;
-            const safeTags = escapeHtml(Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || 'General'));
-            const safeId = escapeHtml(String(item.id || ''));
-            const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
-            return `
-              <div class="item-card" style="margin-bottom:12px; background:var(--white);">
-                <img class="item-thumb" src="${safeImg}" onerror="this.src='assets/images/service_bridal.png'" alt="${safeTitle}">
-                <div class="item-info">
-                  <h4>${safeTitle}</h4>
-                  <div>
-                    <span class="badge">₹${safePrice.toLocaleString('en-IN')}</span>
-                    <small style="display:inline-block; margin-left:8px;">Category: <strong>${safeTags}</strong></small>
-                    ${item.instagram_url ? `<small style="display:inline-block; margin-left:8px;"><a href="${escapeHtml(item.instagram_url)}" target="_blank" style="color:#e1306c; text-decoration:none; font-weight:600;">📸 Instagram ↗</a></small>` : ''}
-                  </div>
-                </div>
-                <div class="item-actions">
-                  <button type="button" class="btn-sm btn-featured ${isFeatured ? 'active' : ''}" onclick="handleToggleFeatured('${safeId}')" title="${isFeatured ? 'Featured on Main Page (Click to unfeature)' : 'Feature on Main Page (Max 3)'}">
-                    ${isFeatured ? '⭐ Featured on Home' : '☆ Feature on Home'}
-                  </button>
-                  <a href="product?id=${safeSlug}" target="_blank" rel="noopener noreferrer" class="btn-sm btn-preview">Preview</a>
-                  <button type="button" class="btn-sm btn-edit" onclick="openEditShowcase('${safeId}')">Edit</button>
-                  <button type="button" class="btn-sm btn-delete" onclick="deleteShowcase('${safeId}')">Delete</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
+          ${secItems.length === 0 ? '<p class="empty-msg" style="padding:20px;">No items in this section yet. Upload items with matching category tags above.</p>' : secItems.map(renderShowcaseCard).join('')}
         </div>
       </div>
     `;
@@ -1516,6 +1607,7 @@ async function submitShowcase(e) {
       main_image_url: mainImgUrl,
       images: subImgUrls,
       is_published: true,
+      is_featured: !!(document.getElementById('sc_is_featured')?.checked),
       created_at: new Date().toISOString()
     };
 
@@ -1595,6 +1687,11 @@ function openEditShowcase(id) {
   }
   renderEditGallery();
 
+  const featCb = document.getElementById('edit_sc_is_featured');
+  if (featCb) {
+    featCb.checked = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+  }
+
   openModal('modalEditShowcase');
 }
 
@@ -1635,6 +1732,7 @@ async function submitEditShowcase(e) {
       main_image_url: mainImgUrl,
       images: subImgUrls,
       is_published: true,
+      is_featured: !!(document.getElementById('edit_sc_is_featured')?.checked),
       updated_at: new Date().toISOString()
     };
 
