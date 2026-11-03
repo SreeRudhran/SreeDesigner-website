@@ -38,26 +38,24 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-wine-purple-puff-sleeve",
-    "is_featured": true,
+    "is_featured": false,
     "title": "Wine Purple Puff Sleeve Blouse Designs | Contrast Turquoise Kundan Maggam Work",
     "slug": "wine-purple-puff-sleeve-blouse-designs",
     "description": "A regal deep wine purple raw silk blouse pairing traditional South Indian puffed sleeves with contemporary maggam craftsmanship. Elaborate contrast turquoise blue kundan stones and antique gold zardozi vines enrich the neckline and sleeve cuffs, complemented by genuine Kanchipuram brocade zari pleats. Perfect for wedding receptions, engagement sarees, and festive celebrations.",
     "starting_price": 3800,
-    "main_image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.webp",
+    "main_image_url": "assets/images/blouse_wine_purple_puff_sleeve_detail.webp",
     "tags": [
-      "Bridal Blouse & Maggam Work",
-      "Hand Embroidered Blouses"
+      "Bridal Blouse & Maggam Work"
     ],
     "images": [
       {
-        "id": "sub-wpp-1",
+        "id": "main",
         "image_url": "assets/images/blouse_wine_purple_puff_sleeve_front.webp"
-      },
-      {
-        "id": "sub-wpp-2",
-        "image_url": "assets/images/blouse_wine_purple_puff_sleeve_detail.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T06:30:29.024Z"
   },
   {
     "id": "prod-real-rani-pink-french-knot",
