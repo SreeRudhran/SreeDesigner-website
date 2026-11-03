@@ -280,26 +280,26 @@ const MASTER_CATALOG = [
     "slug": "peacock-green-v-neck-net-blouse-designs",
     "description": "Bespoke Peacock Green silk blouse featuring a deep V-neck illusion sheer yellow net back with micro-bead bootis, hand-embroidered floral Aari borders, royal elbow-length sleeves with matching cuffs, and built-in padded cup trial fitting guarantee.",
     "starting_price": 3200,
-    "main_image_url": "assets/images/blouse_peacock_green_v_neck_back.webp",
+    "main_image_url": "assets/images/blouse_peacock_green_sleeve_detail.webp",
     "tags": [
-      "Hand Embroidered Blouses",
       "Bridal Blouse & Maggam Work",
+      "Hand Embroidered Blouses",
       "Zardozi Work"
     ],
     "images": [
       {
-        "id": "sub-pg-1",
+        "id": "main",
         "image_url": "assets/images/blouse_peacock_green_v_neck_back.webp"
-      },
-      {
-        "id": "sub-pg-2",
-        "image_url": "assets/images/blouse_peacock_green_sleeve_detail.webp"
       },
       {
         "id": "sub-pg-3",
         "image_url": "assets/images/blouse_peacock_green_front_neck.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "is_featured": true,
+    "updated_at": "2026-11-03T06:28:54.687Z"
   }
 ];
 
