@@ -244,7 +244,7 @@ const MASTER_CATALOG = [
   },
   {
     "id": "prod-real-purple-contrast-net",
-    "is_featured": false,
+    "is_featured": true,
     "title": "Purple Illusion Net Blouse Designs | Contrast Sea Green Aari Work Blouse",
     "slug": "purple-illusion-net-blouse-designs",
     "description": "Rich royal purple silk blouse designed with a contrast sea-green illusion sheer net back neck, delicate floral gold aari bootis, dual-tone emerald green thread zardozi border work, and tailored elbow sleeves.",
@@ -261,7 +261,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T15:00:39.689Z"
+    "updated_at": "2026-11-03T15:00:47.859Z"
   },
   {
     "id": "prod-real-rani-pink-tissue",
