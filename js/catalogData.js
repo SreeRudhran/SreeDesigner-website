@@ -316,7 +316,7 @@ const MASTER_CATALOG = [
     "starting_price": 2800,
     "main_image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp",
     "tags": [
-      "Hand Embroidered Blouses"
+      "Machine Embroidered Blouse"
     ],
     "images": [
       {
@@ -326,7 +326,7 @@ const MASTER_CATALOG = [
     ],
     "instagram_url": "",
     "is_published": true,
-    "updated_at": "2026-11-03T07:42:57.267Z"
+    "updated_at": "2026-11-03T15:17:43.227Z"
   },
   {
     "id": "prod-real-crimson-red-maggam",
