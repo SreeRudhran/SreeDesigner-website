@@ -63,7 +63,7 @@ function stopQrAutoRefresh() {
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- MASTER DATA MODULES -->
-  <script src="js/catalogData.js?v=20261004_v1"></script>
+  <script src="js/catalogData.js?v=20261103_v2"></script>
   <script src="js/blogData.js?v=2"></script>
   <script src="js/reviewsData.js?v=1"></script>
 
@@ -770,6 +770,21 @@ function getShowcaseItems() {
   return custom.filter(i => !deleted.has(String(i.id)));
 }
 
+async function syncCatalogFromCloud() {
+  try {
+    const res = await fetch('/api/catalog');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && Array.isArray(data.items) && data.items.length > 0) {
+        window.MASTER_CATALOG = data.items;
+        renderShowcase();
+      }
+    }
+  } catch(e) {
+    console.warn('Live catalog sync note:', e.message);
+  }
+}
+
 // ─── IMAGE COMPRESSION ──────────────────────────────────────────────────────
 function compressImage(file) {
   return new Promise(resolve => {
@@ -879,6 +894,7 @@ function showDash(email) {
   document.getElementById('dashView').style.display  = 'flex';
   document.getElementById('userEmail').textContent = email || ADMIN_EMAIL;
   switchTab('showcase');
+  syncCatalogFromCloud();
 }
 
 // ─── TABS ────────────────────────────────────────────────────────────────────
@@ -1653,7 +1669,7 @@ async function submitEditShowcase(e) {
   }
 }
 
-function deleteShowcase(id) {
+async function deleteShowcase(id) {
   if (!confirm('Are you sure you want to delete this showcase item?')) return;
   const strId = String(id);
 
@@ -1677,16 +1693,22 @@ function deleteShowcase(id) {
     if (idx !== -1) window.MASTER_CATALOG.splice(idx, 1);
   }
 
-  // 4. Notify serverless catalog endpoint
+  renderShowcase();
+
+  // 4. Notify serverless catalog endpoint and commit deletion globally to repository
   try {
     const token = localStorage.getItem('sree_admin_token') || '';
-    fetch('/api/catalog?id=' + encodeURIComponent(strId), {
+    const res = await fetch('/api/catalog?id=' + encodeURIComponent(strId), {
       method: 'DELETE',
       headers: { 'Authorization': 'Bearer ' + token }
-    }).catch(e => console.warn('Catalog delete note:', e.message));
-  } catch(e) {}
-
-  renderShowcase();
+    });
+    const data = await res.json();
+    if (data.synced_to_repo) {
+      alert('✅ Product deleted and permanently committed to repository! It is removed across all devices.');
+    }
+  } catch(e) {
+    console.warn('Catalog delete note:', e.message);
+  }
 }
 
 // ─── DYNAMIC FAQ BUILDER HELPERS ──────────────────────────────────────────────
