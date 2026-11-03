@@ -177,10 +177,7 @@ const MASTER_CATALOG = [
         "id": "sub-rpj-2",
         "image_url": "assets/images/blouse_rani_pink_jacquard_sleeve.webp"
       }
-    ],
-    "instagram_url": "",
-    "is_published": true,
-    "updated_at": "2026-11-03T06:25:12.754Z"
+    ]
   },
   {
     "id": "prod-real-crimson-red-maggam",
@@ -189,7 +186,7 @@ const MASTER_CATALOG = [
     "slug": "bridal-red-heavy-maggam-work-blouse-designs",
     "description": "Showstopper bridal crimson red pure silk blouse featuring an ornate scalloped cutout back neck with illusion sheer net, heavy floral maggam elbow sleeves adorned with antique gold zardozi wires, emerald green thread rosettes, and hanging emerald crystal drop latkan beads.",
     "starting_price": 4800,
-    "main_image_url": "assets/images/blouse_bridal_red_maggam_back.webp",
+    "main_image_url": "assets/images/blouse_bridal_red_heavy_sleeve.webp",
     "tags": [
       "Bridal Blouse & Maggam Work",
       "Hand Embroidered Blouses",
@@ -197,14 +194,13 @@ const MASTER_CATALOG = [
     ],
     "images": [
       {
-        "id": "sub-rd-1",
+        "id": "main",
         "image_url": "assets/images/blouse_bridal_red_maggam_back.webp"
-      },
-      {
-        "id": "sub-rd-2",
-        "image_url": "assets/images/blouse_bridal_red_heavy_sleeve.webp"
       }
-    ]
+    ],
+    "instagram_url": "",
+    "is_published": true,
+    "updated_at": "2026-11-03T06:25:20.984Z"
   },
   {
     "id": "prod-real-bottle-green-zigzag",
