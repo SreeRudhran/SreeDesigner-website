@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Allow: /product-image/
+Allow: /api/product-image
+Allow: /api/merchant-feed
+Allow: /google-merchant-feed.xml
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
@@ -7,9 +11,23 @@ Disallow: /api/
 # Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
+Allow: /product-image/
+Allow: /api/product-image
+Allow: /api/merchant-feed
+Allow: /google-merchant-feed.xml
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
+
+# Google Shopping & Merchant Center Crawlers
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Storebot-Google
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
 
 User-agent: Bingbot
 Allow: /

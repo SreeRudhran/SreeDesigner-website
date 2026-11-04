@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/google-merchant-feed.xml",
+      "destination": "/api/merchant-feed"
+    },
+    {
+      "source": "/product-image/:id/main.jpg",
+      "destination": "/api/product-image?id=:id&index=0"
+    },
+    {
+      "source": "/product-image/:id/:index.jpg",
+      "destination": "/api/product-image?id=:id&index=:index"
+    },
+    {
+      "source": "/product-image/:id",
+      "destination": "/api/product-image?id=:id&index=0"
+    },
+    {
       "source": "/connect",
       "destination": "/connect.html"
     },

@@ -134,17 +134,21 @@ const AtelierSEO = {
   injectProductServiceSchema(showcaseItem) {
     if (!showcaseItem) return;
     
+    const skuId = String(showcaseItem.id || showcaseItem.slug || 'PRODUCT');
+
     const allImages = [
       showcaseItem.main_image_url,
       ...(showcaseItem.images?.map(img => typeof img === 'string' ? img : img.image_url) || [])
     ]
     .filter(Boolean)
-    .map(url => {
+    .map((url, idx) => {
+      if (url.startsWith('data:')) {
+        const subParam = idx === 0 ? 'main' : idx;
+        return `https://sreedesigners.in/product-image/${encodeURIComponent(skuId)}/${subParam}.jpg`;
+      }
       const clean = url.replace(/\.(jpg|png|jpeg)$/i, '.webp');
       return clean.startsWith('http') ? clean : `https://sreedesigners.in/${clean.replace(/^\//, '')}`;
     });
-
-    const skuId = String(showcaseItem.id || showcaseItem.slug || 'PRODUCT');
     const price = typeof showcaseItem.starting_price === 'number' ? showcaseItem.starting_price : (parseInt(showcaseItem.starting_price) || 2500);
 
     this.setJsonLd('seo-schema-product', {
