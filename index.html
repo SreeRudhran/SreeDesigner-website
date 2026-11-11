@@ -1408,8 +1408,46 @@
       gap: 20px;
     }
 
+    .form-grid .field {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
     .form-grid .field-full {
       grid-column: span 2;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .form-grid .field-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-grid .field-hint {
+      font-size: 0.74rem;
+      color: var(--ink-soft);
+      margin-top: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .form-grid .field-hint.valid {
+      color: #15803d;
+      font-weight: 500;
+    }
+
+    .form-grid .field-hint.error {
+      color: #b91c1c;
+      font-weight: 500;
     }
 
     .form-input, .form-textarea {
@@ -1420,12 +1458,41 @@
       font-family: 'Jost', sans-serif;
       font-size: 0.95rem;
       background: var(--bg-nude);
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .form-input:focus, .form-textarea:focus {
       outline: none;
       border-color: var(--gold-dark);
       background: var(--white);
+    }
+
+    .form-input.is-invalid, .form-textarea.is-invalid {
+      border-color: #b91c1c !important;
+      background: #fff8f8;
+    }
+
+    .form-input.is-valid {
+      border-color: #15803d;
+      background: #f8fff9;
+    }
+
+    .form-feedback-alert {
+      grid-column: span 2;
+      display: none;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      animation: fadeInFeedback 0.25s ease;
+    }
+
+    @keyframes fadeInFeedback {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .form-textarea {
@@ -1708,7 +1775,7 @@
       .blog-grid { grid-template-columns: 1fr; }
       .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .form-grid { grid-template-columns: 1fr; }
-      .form-grid .field-full, .btn-submit-form { grid-column: span 1; }
+      .form-grid .field-full, .btn-submit-form, .form-feedback-alert { grid-column: span 1; }
     }
 
     @media (max-width: 480px) {
@@ -5468,20 +5535,41 @@
       </div>
 
       <div class="enquiry-container">
-        <form id="enquiryForm" class="form-grid">
+        <form id="enquiryForm" class="form-grid" novalidate>
           <div class="field">
-            <input type="text" id="fname" class="form-input" placeholder="Your Full Name *" required>
+            <label for="fname" class="field-label">Full Name *</label>
+            <input type="text" id="fname" class="form-input" placeholder="e.g. Priya Sundaram" required minlength="2" maxlength="50" autocomplete="name" autocapitalize="words" spellcheck="false">
+            <div class="field-hint" id="nameHint">Letters, spaces, and dots only (min. 2 chars)</div>
           </div>
           <div class="field">
-            <input type="tel" id="fphone" class="form-input" placeholder="Phone / WhatsApp Number *" required>
+            <label for="fphone" class="field-label">Phone / WhatsApp * <span id="phoneCounter" style="font-weight:normal; font-size:0.72rem; color:var(--ink-soft);">0/10 digits</span></label>
+            <input type="tel" id="fphone" class="form-input" placeholder="10-digit mobile number" required inputmode="numeric" maxlength="10" autocomplete="tel">
+            <div class="field-hint" id="phoneHint">Enter valid 10-digit Indian mobile number</div>
           </div>
           <div class="field">
+            <label for="fdate" class="field-label">Preferred Fitting Date</label>
+            <input type="date" id="fdate" class="form-input" aria-label="Preferred Fitting Date">
+            <div class="field-hint">Mon–Sat studio appointments (9:30 AM – 8:30 PM)</div>
+          </div>
+          <div class="field">
+            <label for="ftime" class="field-label">Preferred Time Slot</label>
+            <select id="ftime" class="form-input" aria-label="Preferred Fitting Time Slot">
+              <option value="Flexible / Any Time">Flexible / Any Time</option>
+              <option value="Morning Slot (10:00 AM – 1:00 PM)">Morning Slot (10:00 AM – 1:00 PM)</option>
+              <option value="Afternoon Slot (2:00 PM – 5:00 PM)">Afternoon Slot (2:00 PM – 5:00 PM)</option>
+              <option value="Evening Slot (5:00 PM – 8:00 PM)">Evening Slot (5:00 PM – 8:00 PM)</option>
+            </select>
+            <div class="field-hint">We will confirm slot availability on WhatsApp</div>
+          </div>
+          <div class="field">
+            <label for="fstudio" class="field-label">Boutique Branch</label>
             <select id="fstudio" class="form-input" aria-label="Select Boutique Branch">
-              <option value="Samalapuram Branch">Samalapuram Branch</option>
-              <option value="Karnempettai Branch">Karnempettai Branch</option>
+              <option value="Samalapuram Studio (Somanur / Coimbatore)">Samalapuram Studio (Somanur / Coimbatore)</option>
+              <option value="Karnempettai Studio (Annur Road / Tiruppur)">Karnempettai Studio (Annur Road / Tiruppur)</option>
             </select>
           </div>
           <div class="field">
+            <label for="fservice" class="field-label">Tailoring &amp; Embroidery Service</label>
             <select id="fservice" class="form-input" aria-label="Select Tailoring Service">
               <option value="Bridal Blouse Tailoring">Bridal Blouse Tailoring</option>
               <option value="Machine Embroidery">Machine Embroidery</option>
@@ -5492,9 +5580,11 @@
             </select>
           </div>
           <div class="field-full">
-            <textarea id="fmsg" class="form-textarea" placeholder="Garment details, preferred date, or special measurements..."></textarea>
+            <label for="fmsg" class="field-label">Garment Details &amp; Special Requests <span id="msgCounter" style="font-weight:normal; font-size:0.72rem; color:var(--ink-soft);">0 / 500</span></label>
+            <textarea id="fmsg" class="form-textarea" placeholder="Garment specifications, neck designs, preferred fabric, or special measurements..." maxlength="500"></textarea>
           </div>
-          <button type="submit" class="btn-submit-form">Submit Appointment Request</button>
+          <div id="formFeedback" class="form-feedback-alert" role="alert"></div>
+          <button type="submit" class="btn-submit-form" id="btnSubmitEnquiry">Submit Appointment Request</button>
         </form>
       </div>
     </div>
@@ -5928,6 +6018,8 @@
       const fmsg = document.getElementById('fmsg');
       if (fmsg) {
         fmsg.value = `Estimated Package: ${gText} + ${wText} (${sText}) | Estimated Quote: ${priceText}`;
+        const counter = document.getElementById('msgCounter');
+        if (counter) counter.textContent = `${fmsg.value.length} / 500`;
       }
 
       // Smooth scroll to enquiry form
@@ -5939,32 +6031,225 @@
       }
     });
 
-    /* ── Submit Booking Form Directly to WhatsApp ── */
-    const enquiryForm = document.getElementById('enquiryForm');
+    /* ── DIRECT BOOKING FORM CONTROLLER (VALIDATION & WHATSAPP SYNC) ── */
+    const enquiryForm   = document.getElementById('enquiryForm');
+    const fnameInput    = document.getElementById('fname');
+    const fphoneInput   = document.getElementById('fphone');
+    const fdateInput    = document.getElementById('fdate');
+    const ftimeInput    = document.getElementById('ftime');
+    const fstudioSelect = document.getElementById('fstudio');
+    const fserviceSelect= document.getElementById('fservice');
+    const fmsgInput     = document.getElementById('fmsg');
+    const formFeedback  = document.getElementById('formFeedback');
+    const phoneCounter  = document.getElementById('phoneCounter');
+    const phoneHint     = document.getElementById('phoneHint');
+    const nameHint      = document.getElementById('nameHint');
+    const msgCounter    = document.getElementById('msgCounter');
+
+    // 1. Initialize Date Constraints (min = today, max = 90 days ahead)
+    if (fdateInput) {
+      try {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        fdateInput.min = `${yyyy}-${mm}-${dd}`;
+
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 90);
+        const max_yyyy = maxDate.getFullYear();
+        const max_mm = String(maxDate.getMonth() + 1).padStart(2, '0');
+        const max_dd = String(maxDate.getDate()).padStart(2, '0');
+        fdateInput.max = `${max_yyyy}-${max_mm}-${max_dd}`;
+      } catch (e) {}
+    }
+
+    // 2. Feedback Helpers
+    function showFormFeedback(msg, fieldToFocus) {
+      if (formFeedback) {
+        formFeedback.textContent = msg;
+        formFeedback.style.display = 'block';
+      }
+      if (fieldToFocus) {
+        fieldToFocus.classList.add('is-invalid');
+        fieldToFocus.focus();
+      }
+    }
+
+    function clearFormFeedback() {
+      if (formFeedback) {
+        formFeedback.textContent = '';
+        formFeedback.style.display = 'none';
+      }
+      [fnameInput, fphoneInput, fdateInput, fmsgInput].forEach(el => {
+        el?.classList.remove('is-invalid');
+      });
+    }
+
+    // 3. Name Sanitizer & Live Validator
+    function validateName() {
+      if (!fnameInput) return '';
+      const cleaned = fnameInput.value.replace(/[^A-Za-z\s.'-]/g, '');
+      if (cleaned !== fnameInput.value) {
+        fnameInput.value = cleaned;
+      }
+      const trimmed = cleaned.trim();
+      if (trimmed.length >= 2) {
+        fnameInput.classList.remove('is-invalid');
+        fnameInput.classList.add('is-valid');
+        if (nameHint) {
+          nameHint.textContent = '✓ Looks good';
+          nameHint.className = 'field-hint valid';
+        }
+      } else if (trimmed.length > 0) {
+        fnameInput.classList.remove('is-valid');
+        fnameInput.classList.add('is-invalid');
+        if (nameHint) {
+          nameHint.textContent = 'Name must be at least 2 letters';
+          nameHint.className = 'field-hint error';
+        }
+      } else {
+        fnameInput.classList.remove('is-valid', 'is-invalid');
+        if (nameHint) {
+          nameHint.textContent = 'Letters, spaces, and dots only (min. 2 chars)';
+          nameHint.className = 'field-hint';
+        }
+      }
+      return trimmed;
+    }
+
+    fnameInput?.addEventListener('input', () => {
+      clearFormFeedback();
+      validateName();
+    });
+
+    // 4. Phone Sanitizer & Live 10-Digit Restriction
+    function sanitizeAndValidatePhone() {
+      if (!fphoneInput) return '';
+      let raw = fphoneInput.value;
+      let digits = raw.replace(/\D/g, '');
+
+      // Strip country code if pasted/entered (+91 followed by 10 digits)
+      if (digits.length === 12 && digits.startsWith('91')) {
+        digits = digits.slice(2);
+      } else if (digits.length === 11 && digits.startsWith('0')) {
+        digits = digits.slice(1);
+      }
+
+      // Strictly cap to 10 digits
+      if (digits.length > 10) {
+        digits = digits.slice(0, 10);
+      }
+      fphoneInput.value = digits;
+
+      if (phoneCounter) {
+        phoneCounter.textContent = `${digits.length}/10 digits`;
+      }
+
+      if (digits.length === 0) {
+        fphoneInput.classList.remove('is-valid', 'is-invalid');
+        if (phoneHint) {
+          phoneHint.textContent = 'Enter valid 10-digit Indian mobile number';
+          phoneHint.className = 'field-hint';
+        }
+      } else if (digits.length < 10) {
+        fphoneInput.classList.remove('is-valid');
+        fphoneInput.classList.add('is-invalid');
+        if (phoneHint) {
+          const remaining = 10 - digits.length;
+          phoneHint.textContent = `Need ${remaining} more digit${remaining > 1 ? 's' : ''}`;
+          phoneHint.className = 'field-hint error';
+        }
+      } else {
+        if (/^[6-9]/.test(digits)) {
+          fphoneInput.classList.remove('is-invalid');
+          fphoneInput.classList.add('is-valid');
+          if (phoneHint) {
+            phoneHint.textContent = '✓ Valid 10-digit mobile number';
+            phoneHint.className = 'field-hint valid';
+          }
+        } else {
+          fphoneInput.classList.remove('is-valid');
+          fphoneInput.classList.add('is-invalid');
+          if (phoneHint) {
+            phoneHint.textContent = 'Mobile number should begin with 6, 7, 8, or 9';
+            phoneHint.className = 'field-hint error';
+          }
+        }
+      }
+      return digits;
+    }
+
+    fphoneInput?.addEventListener('input', () => {
+      clearFormFeedback();
+      sanitizeAndValidatePhone();
+    });
+    fphoneInput?.addEventListener('paste', () => setTimeout(sanitizeAndValidatePhone, 20));
+
+    // 5. Textarea Character Counter
+    fmsgInput?.addEventListener('input', () => {
+      const len = fmsgInput.value.length;
+      if (msgCounter) {
+        msgCounter.textContent = `${len} / 500`;
+        msgCounter.style.color = len >= 490 ? '#b91c1c' : 'var(--ink-soft)';
+      }
+    });
+
+    // 6. Form Submission & WhatsApp Forwarding
     if (enquiryForm) {
       enquiryForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('fname')?.value.trim() || '';
-        const phone = document.getElementById('fphone')?.value.trim() || '';
-        const studio = document.getElementById('fstudio')?.value || 'Samalapuram Branch';
-        const service = document.getElementById('fservice')?.value || 'Bridal Blouse Tailoring';
-        const msg = document.getElementById('fmsg')?.value.trim() || '';
+        clearFormFeedback();
 
-        // Validation: Phone must be at least 10 digits
-        const cleanPhone = phone.replace(/\D/g, '');
-        if (cleanPhone.length < 10) {
-          alert('Please enter a valid 10-digit mobile number.');
-          document.getElementById('fphone')?.focus();
+        const name = validateName();
+        if (!name || name.length < 2) {
+          showFormFeedback('Please enter your full name (minimum 2 letters).', fnameInput);
           return;
         }
 
+        const cleanPhone = sanitizeAndValidatePhone();
+        if (cleanPhone.length !== 10) {
+          showFormFeedback('Please enter a complete 10-digit mobile number.', fphoneInput);
+          return;
+        }
+        if (!/^[6-9]/.test(cleanPhone)) {
+          showFormFeedback('Please enter a valid mobile number starting with 6, 7, 8, or 9.', fphoneInput);
+          return;
+        }
+
+        let formattedDate = '';
+        if (fdateInput && fdateInput.value) {
+          const selectedDate = new Date(fdateInput.value + 'T00:00:00');
+          const todayFloor = new Date();
+          todayFloor.setHours(0, 0, 0, 0);
+          if (selectedDate < todayFloor) {
+            showFormFeedback('Please select a current or upcoming fitting date.', fdateInput);
+            return;
+          }
+          formattedDate = selectedDate.toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+        }
+
+        const studio = fstudioSelect?.value || 'Samalapuram Studio (Somanur / Coimbatore)';
+        const service = fserviceSelect?.value || 'Bridal Blouse Tailoring';
+        const timeSlot = ftimeInput?.value || 'Flexible / Any Time';
+        const msg = fmsgInput?.value.trim() || '';
+
         let text = 'Hi Sree Designers & Boutique, I would like to book a fitting appointment:\n';
         text += '• Name: ' + name + '\n';
-        text += '• Phone: ' + phone + '\n';
+        text += '• Phone: ' + cleanPhone + '\n';
+        if (formattedDate) {
+          text += '• Preferred Date: ' + formattedDate + ' (' + timeSlot + ')\n';
+        } else if (timeSlot && timeSlot !== 'Flexible / Any Time') {
+          text += '• Preferred Time: ' + timeSlot + '\n';
+        }
         text += '• Branch: ' + studio + '\n';
         text += '• Service: ' + service + '\n';
         if (msg) {
-          text += '• Details: ' + msg + '\n';
+          text += '• Garment Details: ' + msg + '\n';
         }
 
         const waUrl = 'https://wa.me/919976344673?text=' + encodeURIComponent(text);
