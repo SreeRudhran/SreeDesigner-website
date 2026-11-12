@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@sreedesigners.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'SreeAtelier2026!';
-const SESSION_SECRET = process.env.SESSION_SECRET || crypto.createHash('sha256').update(ADMIN_PASSWORD + '_sree_atelier_jwt_salt_2026').digest('hex');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.createHash('sha256').update((ADMIN_PASSWORD || 'sree_secure_salt_random_2026') + '_sree_atelier_jwt_salt_2026').digest('hex');
 
 /**
  * Constant-time string comparison using SHA-256 digests to prevent timing attacks.

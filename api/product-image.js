@@ -3,7 +3,7 @@ const path = require('path');
 const vm = require('vm');
 const https = require('https');
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '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';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
 const REPO_OWNER = 'SreeRudhran';
 const REPO_NAME = 'SreeDesigner-website';
 const CATALOG_FILE_PATH = 'js/catalogData.js';

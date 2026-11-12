@@ -5,7 +5,7 @@ const vm = require('vm');
 const { verifySessionToken, parseBody } = require('./_auth');
 
 // GitHub Persistence Configuration
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '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';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
 const REPO_OWNER = 'SreeRudhran';
 const REPO_NAME = 'SreeDesigner-website';
 const CATALOG_FILE_PATH = 'js/catalogData.js';
@@ -145,14 +145,31 @@ async function commitCatalogToGitHub(newItems, commitMessage, existingSha, origi
     }
   }
 
-  // Commit to GitHub repository
+  // Commit to GitHub repository with automatic conflict retry
   if (GITHUB_TOKEN && targetSha) {
-    const putRes = await requestGitHub('PUT', `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${CATALOG_FILE_PATH}`, {
+    let putRes = await requestGitHub('PUT', `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${CATALOG_FILE_PATH}`, {
       message: commitMessage,
       content: Buffer.from(finalContent, 'utf8').toString('base64'),
       sha: targetSha,
       branch: 'main'
     });
+
+    // Handle 409 Conflict: concurrent write updated SHA
+    if (putRes.status === 409) {
+      console.warn('GitHub 409 Conflict detected. Re-fetching latest SHA and retrying...');
+      const freshRes = await requestGitHub('GET', `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${CATALOG_FILE_PATH}`);
+      if (freshRes.status === 200 && freshRes.data && freshRes.data.sha) {
+        targetSha = freshRes.data.sha;
+        const freshOriginal = Buffer.from(freshRes.data.content, 'base64').toString('utf8');
+        finalContent = serializeCatalogJs(freshOriginal, newItems);
+        putRes = await requestGitHub('PUT', `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${CATALOG_FILE_PATH}`, {
+          message: commitMessage + ' (auto-retry)',
+          content: Buffer.from(finalContent, 'utf8').toString('base64'),
+          sha: targetSha,
+          branch: 'main'
+        });
+      }
+    }
 
     if (putRes.status === 200 || putRes.status === 201) {
       return { success: true, commit_sha: putRes.data.commit?.sha };

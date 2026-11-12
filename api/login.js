@@ -25,6 +25,11 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { error: 'Input length exceeds allowable limit' });
     }
 
+    if (!ADMIN_PASSWORD) {
+      console.error('[API:login] ADMIN_PASSWORD environment variable is not configured.');
+      return sendJson(res, 500, { error: 'Authentication service not configured. Please set ADMIN_PASSWORD in environment variables.' });
+    }
+
     const isEmailMatch = timingSafeCompare(email.trim().toLowerCase(), ADMIN_EMAIL.trim().toLowerCase());
     const isPassMatch  = timingSafeCompare(password.trim(), ADMIN_PASSWORD.trim());
 
