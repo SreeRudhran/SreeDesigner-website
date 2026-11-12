@@ -64,7 +64,7 @@ function parseCatalogJs(content) {
   const startMatch = content.match(/const\s+MASTER_CATALOG\s*=\s*\[/);
   if (!startMatch) return null;
   const startPos = startMatch.index + startMatch[0].length - 1;
-  const endPattern = /\r?\n\];\r?\n\r?\n\/\/ Helper/;
+  const endPattern = /\r?\n\];\r?\n+\/\/ Helper/;
   const endMatch = endPattern.exec(content);
   if (!endMatch) return null;
   const endPos = endMatch.index + (endMatch[0].startsWith('\r\n') ? 3 : 2);

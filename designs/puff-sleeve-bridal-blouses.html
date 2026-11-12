@@ -324,6 +324,13 @@
       </article>
     </div>
 
+    <!-- DYNAMIC LIVE ATELIER CATALOG (AUTO-SYNCED FROM ADMIN APP) -->
+    <div id="dynamic-creations-section" style="display:none; margin: 48px 0;">
+      <h2 style="font-family:var(--font-serif); font-size:2.2rem; text-align:center; margin-bottom:12px;">More Puff Sleeve Bridal Creations</h2>
+      <p style="text-align:center; color:var(--ink-soft); max-width:680px; margin:0 auto 36px;">Latest client customizations crafted at our Coimbatore &amp; Tiruppur ateliers.</p>
+      <div id="dynamic-design-grid" class="design-grid"></div>
+    </div>
+
     <!-- EDITORIAL STYLING GUIDE -->
     <article class="editorial-content">
       <h2>The Renaissance of Vintage South Indian Puff Sleeves</h2>
@@ -383,5 +390,49 @@
     <p style="margin-top:8px; font-size:0.75rem;">Serving Coimbatore, Tiruppur, Gandhipuram, RS Puram, Avinashi &amp; surrounding districts.</p>
     <p style="margin-top:12px;"><a href="/category?cat=Bridal%20Blouse%20%26%20Maggam%20Work">All Bridal Categories</a> · <a href="/designs/boat-neck-blouse-designs">Boat Neck Blouse Designs</a> · <a href="/blog">Bridal Journal</a></p>
   </footer>
+
+  <!-- DYNAMIC LIVE CATALOG SYNC -->
+  <script src="/js/catalogData.js"></script>
+  <script>
+    (function() {
+      try {
+        const TARGET_TAG = 'puff sleeve';
+        let customItems = [];
+        try {
+          const ls = localStorage.getItem('custom_showcase_items') || localStorage.getItem('sree_showcase_items');
+          if (ls) customItems = JSON.parse(ls);
+        } catch(e) {}
+        const allItems = typeof getUnifiedCatalog === 'function' ? getUnifiedCatalog() : [...customItems, ...(window.MASTER_CATALOG || [])];
+        const seen = new Set();
+        const matches = allItems.filter(item => {
+          if (!item || !item.id || seen.has(item.id)) return false;
+          seen.add(item.id);
+          const tags = Array.isArray(item.tags) ? item.tags : (item.tags ? [item.tags] : []);
+          const title = (item.title || '').toLowerCase();
+          const desc = (item.description || '').toLowerCase();
+          return tags.some(t => String(t).toLowerCase().includes(TARGET_TAG) || String(t).toLowerCase().includes('puff')) ||
+                 title.includes(TARGET_TAG) || title.includes('puff') ||
+                 desc.includes(TARGET_TAG) || desc.includes('puff');
+        });
+
+        const grid = document.getElementById('dynamic-design-grid');
+        const sec = document.getElementById('dynamic-creations-section');
+        if (grid && sec && matches.length > 0) {
+          sec.style.display = 'block';
+          grid.innerHTML = matches.map(m => `
+            <article class="design-card">
+              <img src="${m.main_image_url || '/assets/images/blog_sleeve_designs.webp'}" alt="${m.title || 'Puff Sleeve Blouse'}" width="400" height="260" loading="lazy">
+              <h3>${m.title || 'Puff Sleeve Blouse Design'}</h3>
+              <div class="design-price">Starting from ₹${m.starting_price || 2400}</div>
+              <p>${(m.description || '').slice(0, 150)}...</p>
+              <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20am%20interested%20in%20${encodeURIComponent(m.title || 'Puff Sleeve Blouse')}." target="_blank" rel="noopener noreferrer" class="btn-enquire">Enquire on WhatsApp</a>
+            </article>
+          `).join('');
+        }
+      } catch(err) {
+        console.warn('Dynamic design load note:', err);
+      }
+    })();
+  </script>
 </body>
 </html>

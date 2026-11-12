@@ -152,92 +152,188 @@ function analyzeCaption(caption) {
   const text = (caption || '').toLowerCase();
   
   // 1. Color extraction
-  let color = 'Bespoke Designer';
+  let color = 'Designer';
   const colorMap = [
     { key: 'deep purple', label: 'Deep Purple' },
     { key: 'purple', label: 'Royal Purple' },
     { key: 'plum', label: 'Plum Purple' },
-    { key: 'wine', label: 'Deep Wine' },
+    { key: 'wine', label: 'Wine Maroon' },
     { key: 'rani pink', label: 'Rani Pink' },
+    { key: 'magenta', label: 'Magenta Pink' },
     { key: 'pink', label: 'Rani Pink' },
     { key: 'bridal red', label: 'Bridal Red' },
-    { key: 'red', label: 'Bridal Red' },
-    { key: 'vermilion', label: 'Vermilion Red' },
+    { key: 'vermilion', label: 'Bright Red' },
     { key: 'maroon', label: 'Maroon' },
+    { key: 'red', label: 'Bridal Red' },
     { key: 'emerald green', label: 'Emerald Green' },
     { key: 'bottle green', label: 'Bottle Green' },
+    { key: 'teal', label: 'Teal Green' },
     { key: 'green', label: 'Emerald Green' },
     { key: 'royal blue', label: 'Royal Blue' },
     { key: 'navy', label: 'Navy Blue' },
     { key: 'blue', label: 'Royal Blue' },
-    { key: 'yellow', label: 'Mustard Yellow' },
     { key: 'mustard', label: 'Mustard Yellow' },
-    { key: 'gold', label: 'Antique Gold' }
+    { key: 'yellow', label: 'Yellow' },
+    { key: 'gold', label: 'Antique Gold' },
+    { key: 'black', label: 'Black' },
+    { key: 'white', label: 'Ivory White' },
+    { key: 'silver', label: 'Silver Grey' }
   ];
   for (const c of colorMap) {
     if (text.includes(c.key)) { color = c.label; break; }
   }
 
-  // 2. Work type & Categories
-  const tags = [];
-  let workType = 'Hand Embroidered';
+  // 2. Garment Category Tags
+  const categoryTags = [];
   let estPrice = 2800;
 
-  if (text.includes('maggam') || text.includes('bridal') || text.includes('zardozi')) {
-    tags.push('Bridal Blouse & Maggam Work');
-  }
-  if (text.includes('zardozi') || text.includes('kundan') || text.includes('nakshi')) {
-    tags.push('Zardozi Work');
-    workType = 'Zardozi & Kundan Maggam Work';
+  if (text.includes('maggam') || text.includes('bridal') || text.includes('wedding') || text.includes('muhurtham')) {
+    categoryTags.push('Bridal Blouse & Maggam Work');
     estPrice = 3800;
   }
+  if (text.includes('zardozi') || text.includes('zari') || text.includes('wirework')) {
+    categoryTags.push('Zardozi Work');
+    if (estPrice < 3500) estPrice = 3500;
+  }
   if (text.includes('aari') || text.includes('hand embroidery') || text.includes('french knot') || text.includes('embroidery')) {
-    tags.push('Hand Embroidered Blouses');
-    if (estPrice < 3200) estPrice = 3200;
+    if (!categoryTags.includes('Hand Embroidered Blouses')) categoryTags.push('Hand Embroidered Blouses');
+    if (estPrice < 2800) estPrice = 2800;
   }
   if (text.includes('machine') || text.includes('computer')) {
-    tags.push('Machine Embroidered Blouse');
-    workType = 'High-Precision Machine Embroidery';
+    categoryTags.push('Machine Embroidered Blouse');
     estPrice = 1800;
   }
   if (text.includes('lehenga')) {
-    tags.push('Lehengas & Festive Couture');
+    categoryTags.push('Lehengas & Festive Couture');
     estPrice = 6500;
   }
   if (text.includes('kurti') || text.includes('salwar') || text.includes('chudidhar')) {
-    tags.push('Kurtis & Chudidhar');
+    categoryTags.push('Kurtis & Chudidhar');
     estPrice = 1200;
   }
-  if (text.includes('scallop') || text.includes('cutwork')) {
-    if (!tags.includes('Hand Embroidered Blouses')) tags.push('Hand Embroidered Blouses');
+  if (text.includes('alteration') || text.includes('tassel') || text.includes('kuchu')) {
+    categoryTags.push('Bridal Saree Alterations & Tassels');
+    if (estPrice > 1500) estPrice = 1200;
   }
 
-  // Fallback tag if empty
-  if (tags.length === 0) {
-    tags.push('Bridal Blouse & Maggam Work', 'Hand Embroidered Blouses');
+  // Default fallback category if empty
+  if (categoryTags.length === 0) {
+    categoryTags.push('Bridal Blouse & Maggam Work', 'Hand Embroidered Blouses');
   }
 
-  // 3. Sleeve / Neck feature
-  let feature = 'Blouse Designs';
-  if (text.includes('puff')) feature = 'Puff Sleeve Blouse Designs';
-  else if (text.includes('cutwork')) feature = 'Cutwork Sleeve Blouse Designs';
-  else if (text.includes('scallop')) feature = 'Scalloped Neck Blouse Designs';
-  else if (text.includes('elbow')) feature = 'Elbow Length Sleeve Blouse Designs';
+  // 3. Design Tags (Necklines, Sleeves, Work Types)
+  const designTags = [];
 
-  const suggestedTitle = `${color} ${feature} | ${workType}`;
+  // 3a. Necklines
+  let detectedNeck = '';
+  if (text.includes('boat neck') || text.includes('boatneck') || text.includes('boat')) {
+    designTags.push('Boat Neck');
+    detectedNeck = 'Boat Neck';
+  } else if (text.includes('v neck') || text.includes('v-neck') || text.includes('deep v')) {
+    designTags.push('V-Neck');
+    detectedNeck = 'V-Neck';
+  } else if (text.includes('sweetheart')) {
+    designTags.push('Sweetheart Neck');
+    detectedNeck = 'Sweetheart Neck';
+  } else if (text.includes('keyhole') || text.includes('cutout back') || text.includes('teardrop')) {
+    designTags.push('Keyhole Back');
+    detectedNeck = 'Keyhole Back';
+  } else if (text.includes('high neck') || text.includes('collar')) {
+    designTags.push('High Neck / Collar');
+    detectedNeck = 'High Neck';
+  } else if (text.includes('round neck') || text.includes('u neck') || text.includes('u-neck') || text.includes('pot neck')) {
+    designTags.push('Round / U-Neck');
+    detectedNeck = 'U-Neck';
+  }
 
-  // Clean description from caption (remove excessive hashtags)
-  const cleanDesc = (caption || '')
+  // 3b. Sleeves
+  let detectedSleeve = '';
+  if (text.includes('puff') || text.includes('puffed') || text.includes('balloon')) {
+    designTags.push('Puff Sleeve');
+    detectedSleeve = 'Puff Sleeve';
+  } else if (text.includes('elbow') || text.includes('elbow length')) {
+    designTags.push('Elbow Length Sleeve');
+    detectedSleeve = 'Elbow Sleeve';
+  } else if (text.includes('net sleeve') || text.includes('tissue sleeve') || text.includes('sheer sleeve') || text.includes('sheer')) {
+    designTags.push('Sheer / Net Sleeve');
+    detectedSleeve = 'Net Sleeve';
+  } else if (text.includes('cap sleeve') || text.includes('short sleeve')) {
+    designTags.push('Cap Sleeve');
+    detectedSleeve = 'Cap Sleeve';
+  }
+
+  // 3c. Work Details
+  let detectedWork = 'Hand Embroidery';
+  if (text.includes('cutwork') || text.includes('cut work') || text.includes('scallop') || text.includes('scalloped')) {
+    designTags.push('Cutwork');
+  }
+  if (text.includes('zardozi')) {
+    designTags.push('Zardozi Work');
+    detectedWork = 'Heavy Zardozi Work';
+  } else if (text.includes('maggam')) {
+    designTags.push('Maggam Work');
+    detectedWork = 'Heavy Maggam Work';
+  } else if (text.includes('aari')) {
+    designTags.push('Aari Work');
+    detectedWork = 'Hand Aari Work';
+  } else if (text.includes('machine') || text.includes('computer')) {
+    designTags.push('Machine Embroidery');
+    detectedWork = 'Machine Embroidery';
+  }
+
+  if (text.includes('kundan') || text.includes('stone') || text.includes('bead') || text.includes('cutdana')) {
+    designTags.push('Kundan / Stone Work');
+  }
+
+  // 4. Generate Simple High-Search-Intent Title
+  // Format: [Color] [Neckline/Sleeve] Blouse Design with [Work Type]
+  let designFeature = '';
+  if (detectedNeck && detectedSleeve) {
+    designFeature = `${detectedNeck} & ${detectedSleeve}`;
+  } else if (detectedNeck) {
+    designFeature = detectedNeck;
+  } else if (detectedSleeve) {
+    designFeature = detectedSleeve;
+  } else if (designTags.includes('Cutwork')) {
+    designFeature = 'Cutwork';
+  }
+
+  let suggestedTitle = '';
+  if (text.includes('lehenga')) {
+    suggestedTitle = `${color} Bridal Lehenga with ${detectedWork}`;
+  } else if (text.includes('kurti') || text.includes('salwar')) {
+    suggestedTitle = `${color} Designer Kurti Suit with ${detectedWork}`;
+  } else {
+    if (designFeature) {
+      suggestedTitle = `${color} ${designFeature} Blouse Design with ${detectedWork}`;
+    } else {
+      suggestedTitle = `${color} Blouse Design with ${detectedWork}`;
+    }
+  }
+
+  // 5. Clean, Simple, Customer-Focused Description
+  let baseCaption = (caption || '')
     .replace(/#[\w_]+/g, '')
+    .replace(/[^\x00-\x7F\u0B80-\u0BFF]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
-    .slice(0, 300);
+    .slice(0, 240);
+
+  let cleanDesc = '';
+  if (baseCaption && baseCaption.length > 25) {
+    cleanDesc = `${baseCaption}\n\n• Style & Fit: Custom tailored blouse with soft cotton inner lining, comfortable padded cups, and side margins for easy alterations.\n• Work: ${detectedWork} crafted by experienced boutique artisans in Coimbatore.`;
+  } else {
+    const neckDesc = detectedNeck ? `${detectedNeck} pattern` : 'Classic neckline';
+    const sleeveDesc = detectedSleeve ? `${detectedSleeve}s` : 'comfortable sleeves';
+    cleanDesc = `• Design: Beautiful ${color.toLowerCase()} blouse featuring an elegant ${neckDesc} with ${sleeveDesc}.\n• Embroidery: Fine ${detectedWork.toLowerCase()} detailed with gold zari, beads, and stone work.\n• Fabric & Material: Pure raw silk tailored with soft cotton inner lining and padded cups.\n• Fitting Assurance: Perfect bridal fitting with extra inner margins for easy size adjustment.`;
+  }
 
   return {
     suggestedTitle,
     suggestedPrice: estPrice,
-    suggestedTags: tags,
-    cleanDesc: cleanDesc || `${color} silk blouse featuring bespoke hand-embroidered artisanal motifs tailored to perfection.`
+    suggestedTags: categoryTags,
+    suggestedDesignTags: designTags,
+    cleanDesc
   };
 }
 

@@ -232,7 +232,7 @@ function stopQrAutoRefresh() {
           <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
         </div>
 
-        <!-- CATEGORY SECTION FILTER TABS -->
+        <!-- CATEGORY & DESIGN FILTER TABS -->
         <div class="section-filter-bar" id="showcaseFilterBar">
           <button class="filter-pill active" onclick="setShowcaseFilter('all')">All Products</button>
           <button class="filter-pill" onclick="setShowcaseFilter('main-page')" style="font-weight:700; color:#92400e; background:#fef3c7; border:1px solid #f59e0b;">⭐ Main Page Featured (<span id="mainPageCount">0</span>)</button>
@@ -240,6 +240,10 @@ function stopQrAutoRefresh() {
           <button class="filter-pill" onclick="setShowcaseFilter('machine-embroidery')">⚙️ Machine Embroidery</button>
           <button class="filter-pill" onclick="setShowcaseFilter('lehengas')">👗 Lehengas &amp; Festive</button>
           <button class="filter-pill" onclick="setShowcaseFilter('salwar')">🌸 Kurtis &amp; Salwar</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('boat-neck')">✨ Boat Neck</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('puff-sleeve')">✨ Puff Sleeve</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('v-neck')">✨ V-Neck</button>
+          <button class="filter-pill" onclick="setShowcaseFilter('cutwork')">✨ Cutwork</button>
         </div>
 
         <div id="listShowcase"><p class="empty-msg">Loading items...</p></div>
@@ -429,6 +433,53 @@ function stopQrAutoRefresh() {
           <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
         </div>
       </div>
+
+      <!-- ✨ DESIGN STYLE & CUT (AUTO-FILLED BY AI) -->
+      <div style="background:rgba(197, 155, 39, 0.05); border:1.5px dashed #d1b876; border-radius:12px; padding:14px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+          <label class="field-label" style="margin-bottom:0; color:var(--ink); font-weight:700;">
+            ✨ Design Style, Neckline &amp; Cut (Auto-Filled by AI)
+          </label>
+          <span style="font-size:0.75rem; color:var(--gold-dark); font-weight:600;">Powers Landing Hubs &amp; Image SEO</span>
+        </div>
+        
+        <!-- Necklines -->
+        <div style="margin-bottom:10px;">
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
+          <div class="category-checkbox-grid" id="sc_neckline_picker" style="margin-bottom:6px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Boat Neck"> <span>Boat Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="V-Neck"> <span>V-Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Sweetheart Neck"> <span>Sweetheart Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Round / U-Neck"> <span>Round / U-Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Keyhole Back"> <span>Keyhole Back</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="High Neck / Collar"> <span>High Neck / Collar</span></label>
+          </div>
+        </div>
+
+        <!-- Sleeves -->
+        <div style="margin-bottom:10px;">
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
+          <div class="category-checkbox-grid" id="sc_sleeve_picker" style="margin-bottom:6px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Puff Sleeve"> <span>Puff Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Elbow Length Sleeve"> <span>Elbow Length Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Sheer / Net Sleeve"> <span>Sheer / Net Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Cap Sleeve"> <span>Cap Sleeve</span></label>
+          </div>
+        </div>
+
+        <!-- Work Details -->
+        <div>
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
+          <div class="category-checkbox-grid" id="sc_work_picker" style="margin-bottom:2px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Cutwork"> <span>Cutwork</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Aari Work"> <span>Aari Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Maggam Work"> <span>Maggam Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Zardozi Work"> <span>Zardozi Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Kundan / Stone Work"> <span>Kundan / Stone Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Machine Embroidery"> <span>Machine Embroidery</span></label>
+          </div>
+        </div>
+      </div>
       <label class="field-label">Description *</label>
       <textarea id="sc_desc" class="field-textarea" rows="3" placeholder="Describe zardozi wire detailing, neckline options..." required></textarea>
       <!-- 📸 MODERN VISUAL PHOTO STUDIO (CREATE) -->
@@ -504,6 +555,53 @@ function stopQrAutoRefresh() {
           <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Kurtis & Chudidhar"> <span>Kurtis &amp; Chudidhar</span></label>
           <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Lehengas & Festive Couture"> <span>Lehengas &amp; Festive Couture</span></label>
           <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
+        </div>
+      </div>
+
+      <!-- ✨ DESIGN STYLE & CUT (AUTO-FILLED BY AI) -->
+      <div style="background:rgba(197, 155, 39, 0.05); border:1.5px dashed #d1b876; border-radius:12px; padding:14px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+          <label class="field-label" style="margin-bottom:0; color:var(--ink); font-weight:700;">
+            ✨ Design Style, Neckline &amp; Cut (Auto-Filled by AI)
+          </label>
+          <span style="font-size:0.75rem; color:var(--gold-dark); font-weight:600;">Powers Landing Hubs &amp; Image SEO</span>
+        </div>
+        
+        <!-- Necklines -->
+        <div style="margin-bottom:10px;">
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
+          <div class="category-checkbox-grid" id="edit_sc_neckline_picker" style="margin-bottom:6px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Boat Neck"> <span>Boat Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="V-Neck"> <span>V-Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Sweetheart Neck"> <span>Sweetheart Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Round / U-Neck"> <span>Round / U-Neck</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Keyhole Back"> <span>Keyhole Back</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="High Neck / Collar"> <span>High Neck / Collar</span></label>
+          </div>
+        </div>
+
+        <!-- Sleeves -->
+        <div style="margin-bottom:10px;">
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
+          <div class="category-checkbox-grid" id="edit_sc_sleeve_picker" style="margin-bottom:6px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Puff Sleeve"> <span>Puff Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Elbow Length Sleeve"> <span>Elbow Length Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Sheer / Net Sleeve"> <span>Sheer / Net Sleeve</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Cap Sleeve"> <span>Cap Sleeve</span></label>
+          </div>
+        </div>
+
+        <!-- Work Details -->
+        <div>
+          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
+          <div class="category-checkbox-grid" id="edit_sc_work_picker" style="margin-bottom:2px;">
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Cutwork"> <span>Cutwork</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Aari Work"> <span>Aari Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Maggam Work"> <span>Maggam Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Zardozi Work"> <span>Zardozi Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Kundan / Stone Work"> <span>Kundan / Stone Work</span></label>
+            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Machine Embroidery"> <span>Machine Embroidery</span></label>
+          </div>
         </div>
       </div>
       <label class="field-label">Description *</label>
@@ -1065,6 +1163,45 @@ function renderShowcase() {
     return;
   }
 
+  // 1b. FILTER: DESIGN LANDING PAGE HUBS
+  const designFilterMap = {
+    'boat-neck': { label: 'Boat Neck Blouse Designs', tag: 'Boat Neck', icon: '⛵' },
+    'puff-sleeve': { label: 'Puff Sleeve Bridal Blouses', tag: 'Puff Sleeve', icon: '🎈' },
+    'v-neck': { label: 'V-Neck Maggam Work Blouses', tag: 'V-Neck', icon: '✨' },
+    'cutwork': { label: 'Cutwork Back Neck Blouse Designs', tag: 'Cutwork', icon: '✂️' }
+  };
+
+  if (designFilterMap[currentShowcaseFilter]) {
+    const dConf = designFilterMap[currentShowcaseFilter];
+    const designItems = items.filter(item => {
+      const itTags = Array.isArray(item.tags) ? item.tags : (item.tags ? [item.tags] : []);
+      const title = (item.title || '').toLowerCase();
+      const desc = (item.description || '').toLowerCase();
+      const targetTag = dConf.tag.toLowerCase();
+      return itTags.some(t => String(t).toLowerCase().includes(targetTag)) ||
+             title.includes(targetTag) ||
+             desc.includes(targetTag);
+    });
+
+    el.innerHTML = `
+      <div class="showcase-section-block">
+        <div class="section-block-header" style="background:#fdfcfb; border-radius:12px; padding:16px 20px; border:1px solid #d1b876; margin-bottom:18px;">
+          <div class="section-block-title">
+            <span style="font-size:1.8rem;">${dConf.icon}</span>
+            <div>
+              <h4 style="margin:0 0 4px; color:var(--ink);">${dConf.label}</h4>
+              <p style="margin:0; font-size:0.85rem; color:var(--soft);">Showing <strong>${designItems.length} products</strong> matching "${dConf.tag}". These items power the <strong>/designs/${currentShowcaseFilter}</strong> landing page!</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-items-list">
+          ${designItems.length === 0 ? `<p class="empty-msg" style="padding:28px;">No products currently tagged with "${dConf.tag}". When uploading via Instagram, AI will auto-tag these, or you can tick the chip in Edit modal!</p>` : designItems.map(renderShowcaseCard).join('')}
+        </div>
+      </div>
+    `;
+    return;
+  }
+
   const sections = window.SHOWCASE_SECTIONS || [
     { id: 'hand-embroidery', title: 'Hand Embroidered & Bridal Maggam Blouses', icon: '🪡', description: 'Bespoke hand-sewn metallic wires, cut beads, zardozi & kundan stones.' },
     { id: 'machine-embroidery', title: 'Precision Machine Embroidered Blouses', icon: '⚙️', description: 'High-density computerized floral & geometric repeats with 48-hour delivery.' },
@@ -1121,11 +1258,10 @@ function runAiAutoFill() {
   const descEl = document.getElementById('sc_desc');
   const titleEl = document.getElementById('sc_title');
   const priceEl = document.getElementById('sc_price');
-  const tagEl = document.getElementById('sc_tag');
   const btnAi = document.getElementById('btnAiAutoFill');
 
   if (!notes && !descEl.value.trim()) {
-    alert('Please type a few quick notes in the box (e.g. "rani pink tissue silk, net sleeve scallop, zardozi work") or in the description box.');
+    alert('Please type a few quick notes in the box (e.g. "rani pink boat neck blouse, aari work with elbow sleeve") or in the description box.');
     document.getElementById('ai_quick_notes').focus();
     return;
   }
@@ -1138,85 +1274,139 @@ function runAiAutoFill() {
     try {
       // 1. Color Extraction
       const colors = [
+        { key: 'deep purple', label: 'Deep Purple' },
+        { key: 'purple', label: 'Royal Purple' },
+        { key: 'plum', label: 'Plum Purple' },
+        { key: 'wine', label: 'Wine Maroon' },
         { key: 'rani pink', label: 'Rani Pink' },
+        { key: 'magenta', label: 'Magenta Pink' },
         { key: 'pink', label: 'Rani Pink' },
-        { key: 'magenta', label: 'Royal Magenta' },
+        { key: 'bridal red', label: 'Bridal Red' },
+        { key: 'red', label: 'Bridal Red' },
+        { key: 'maroon', label: 'Maroon' },
         { key: 'bottle green', label: 'Bottle Green' },
-        { key: 'peacock green', label: 'Peacock Green' },
+        { key: 'emerald green', label: 'Emerald Green' },
+        { key: 'teal', label: 'Teal Green' },
         { key: 'green', label: 'Emerald Green' },
         { key: 'royal blue', label: 'Royal Blue' },
-        { key: 'navy blue', label: 'Navy Blue' },
+        { key: 'navy', label: 'Navy Blue' },
         { key: 'blue', label: 'Royal Blue' },
-        { key: 'red', label: 'Bridal Crimson Red' },
-        { key: 'maroon', label: 'Deep Wine Maroon' },
-        { key: 'yellow', label: 'Haldi Mustard Yellow' },
-        { key: 'purple', label: 'Aubergine Purple' },
-        { key: 'gold', label: 'Antique Metallic Gold' },
-        { key: 'black', label: 'Midnight Black' },
-        { key: 'white', label: 'Ivory Pearl' }
+        { key: 'mustard', label: 'Mustard Yellow' },
+        { key: 'yellow', label: 'Yellow' },
+        { key: 'gold', label: 'Antique Gold' },
+        { key: 'black', label: 'Black' },
+        { key: 'white', label: 'Ivory White' },
+        { key: 'silver', label: 'Silver Grey' }
       ];
-      let foundColor = 'Custom Couture';
+      let foundColor = 'Designer';
       for (const c of colors) {
         if (raw.includes(c.key)) { foundColor = c.label; break; }
       }
 
-      // 2. Fabric Extraction
-      let foundFabric = 'Raw Silk';
-      if (raw.includes('tissue')) foundFabric = 'Shimmer Tissue Silk';
-      else if (raw.includes('velvet')) foundFabric = 'Royal Micro Velvet';
-      else if (raw.includes('organza')) foundFabric = 'Pure Sheer Organza';
-      else if (raw.includes('banarasi')) foundFabric = 'Handwoven Banarasi Brocade';
-      else if (raw.includes('kanchipuram') || raw.includes('pattu')) foundFabric = 'Kanchipuram Pure Silk';
-
-      // 3. Sleeve & Neck Details
-      let sleeveHighlight = 'Tailored Comfort Fit';
-      if (raw.includes('net') || raw.includes('sheer')) {
-        sleeveHighlight = raw.includes('scallop') ? 'Scalloped Sheer Net Sleeves' : 'Sheer Illusion Net Sleeves';
-      } else if (raw.includes('scallop')) {
-        sleeveHighlight = 'Scalloped Border Sleeves';
-      } else if (raw.includes('elbow')) {
-        sleeveHighlight = 'Elbow-Length Maggam Sleeves';
-      } else if (raw.includes('cap')) {
-        sleeveHighlight = 'Designer Cap Sleeves';
+      // 2. Necklines Detection & Chips
+      const detectedDesignTags = [];
+      let detectedNeck = '';
+      if (raw.includes('boat neck') || raw.includes('boatneck') || raw.includes('boat')) {
+        detectedDesignTags.push('Boat Neck');
+        detectedNeck = 'Boat Neck';
+      } else if (raw.includes('v neck') || raw.includes('v-neck') || raw.includes('deep v')) {
+        detectedDesignTags.push('V-Neck');
+        detectedNeck = 'V-Neck';
+      } else if (raw.includes('sweetheart')) {
+        detectedDesignTags.push('Sweetheart Neck');
+        detectedNeck = 'Sweetheart Neck';
+      } else if (raw.includes('keyhole') || raw.includes('cutout back') || raw.includes('teardrop')) {
+        detectedDesignTags.push('Keyhole Back');
+        detectedNeck = 'Keyhole Back';
+      } else if (raw.includes('high neck') || raw.includes('collar')) {
+        detectedDesignTags.push('High Neck / Collar');
+        detectedNeck = 'High Neck';
+      } else if (raw.includes('round neck') || raw.includes('u neck') || raw.includes('u-neck') || raw.includes('pot neck')) {
+        detectedDesignTags.push('Round / U-Neck');
+        detectedNeck = 'U-Neck';
       }
 
-      // 4. Embroidery Work Type
-      let workHighlight = 'Hand Embroidery';
+      // 3. Sleeve Styles Detection & Chips
+      let detectedSleeve = '';
+      if (raw.includes('puff') || raw.includes('puffed') || raw.includes('balloon')) {
+        detectedDesignTags.push('Puff Sleeve');
+        detectedSleeve = 'Puff Sleeve';
+      } else if (raw.includes('elbow') || raw.includes('elbow length')) {
+        detectedDesignTags.push('Elbow Length Sleeve');
+        detectedSleeve = 'Elbow Sleeve';
+      } else if (raw.includes('net') || raw.includes('sheer') || raw.includes('tissue')) {
+        detectedDesignTags.push('Sheer / Net Sleeve');
+        detectedSleeve = 'Net Sleeve';
+      } else if (raw.includes('cap')) {
+        detectedDesignTags.push('Cap Sleeve');
+        detectedSleeve = 'Cap Sleeve';
+      }
+
+      // 4. Work Details Detection & Chips
+      let workHighlight = 'Hand Aari Work';
       let estPrice = 2800;
       let category = 'Hand Embroidered Blouses';
 
+      if (raw.includes('cutwork') || raw.includes('cut work') || raw.includes('scallop') || raw.includes('scalloped')) {
+        detectedDesignTags.push('Cutwork');
+      }
       if (raw.includes('zardozi')) {
-        workHighlight = 'Handcrafted Zardozi Wirework';
-        estPrice = 3400;
-        category = 'Bridal Blouse & Maggam Work';
-      } else if (raw.includes('maggam')) {
-        workHighlight = 'Heavy Bridal Maggam Embroidery';
+        detectedDesignTags.push('Zardozi Work');
+        workHighlight = 'Heavy Zardozi Maggam Work';
         estPrice = 3800;
         category = 'Bridal Blouse & Maggam Work';
+      } else if (raw.includes('maggam')) {
+        detectedDesignTags.push('Maggam Work');
+        workHighlight = 'Heavy Bridal Maggam Work';
+        estPrice = 3600;
+        category = 'Bridal Blouse & Maggam Work';
       } else if (raw.includes('aari')) {
-        workHighlight = 'Fine Hand Aari Needlework';
-        estPrice = 2600;
+        detectedDesignTags.push('Aari Work');
+        workHighlight = 'Hand Aari Work';
+        estPrice = 2800;
         category = 'Hand Embroidered Blouses';
       } else if (raw.includes('machine') || raw.includes('computer')) {
-        workHighlight = 'High-Precision Machine Embroidery';
+        detectedDesignTags.push('Machine Embroidery');
+        workHighlight = 'Machine Embroidery';
         estPrice = 1800;
         category = 'Machine Embroidered Blouse';
       } else if (raw.includes('lehenga')) {
-        workHighlight = 'Bridal Lehenga Couture Embroidery';
-        estPrice = 8500;
+        workHighlight = 'Bridal Lehenga Work';
+        estPrice = 7500;
         category = 'Lehengas & Festive Couture';
       }
 
-      // 5. Generate Luxury Title
-      // High-Search-Volume SEO Pattern: [Color] [Pattern/Feature] Blouse Designs | [Work Type]
-      let searchKeyword = 'Blouse Designs';
-      if (raw.includes('lehenga')) searchKeyword = 'Bridal Lehenga Designs';
-      else if (raw.includes('kurti') || raw.includes('salwar')) searchKeyword = 'Designer Salwar Suit';
-      
-      const generatedTitle = `${foundColor} ${sleeveHighlight.replace(' Sleeves', '')} ${searchKeyword} | ${workHighlight}`;
+      if (raw.includes('kundan') || raw.includes('stone') || raw.includes('bead') || raw.includes('cutdana')) {
+        detectedDesignTags.push('Kundan / Stone Work');
+      }
+
+      // 5. Generate Simple High-Search-Intent Title
+      let designFeature = '';
+      if (detectedNeck && detectedSleeve) {
+        designFeature = `${detectedNeck} & ${detectedSleeve}`;
+      } else if (detectedNeck) {
+        designFeature = detectedNeck;
+      } else if (detectedSleeve) {
+        designFeature = detectedSleeve;
+      } else if (detectedDesignTags.includes('Cutwork')) {
+        designFeature = 'Cutwork';
+      }
+
+      let generatedTitle = '';
+      if (raw.includes('lehenga')) {
+        generatedTitle = `${foundColor} Bridal Lehenga with ${workHighlight}`;
+      } else if (raw.includes('kurti') || raw.includes('salwar')) {
+        generatedTitle = `${foundColor} Designer Kurti Suit with ${workHighlight}`;
+      } else {
+        if (designFeature) {
+          generatedTitle = `${foundColor} ${designFeature} Blouse Design with ${workHighlight}`;
+        } else {
+          generatedTitle = `${foundColor} Silk Blouse Design with ${workHighlight}`;
+        }
+      }
       titleEl.value = generatedTitle;
 
-      // 6. Set Category (Multi-Category Checkboxes)
+      // 6. Set Category Checkboxes
       document.querySelectorAll('#sc_category_picker input[name="sc_categories"]').forEach(cb => {
         let isMatch = (cb.value === category);
         if (category === 'Bridal Blouse & Maggam Work') {
@@ -1231,26 +1421,39 @@ function runAiAutoFill() {
         }
       });
 
-      // 7. Set Suggested Price
+      // 7. Auto-Check Design & Cut Tags
+      document.querySelectorAll('input[name="sc_design_tags"]').forEach(cb => {
+        const isMatch = detectedDesignTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
+        cb.checked = isMatch;
+        const chip = cb.closest('.cat-checkbox-chip');
+        if (chip) {
+          if (isMatch) chip.classList.add('active');
+          else chip.classList.remove('active');
+        }
+      });
+
+      // 8. Set Suggested Price
       priceEl.value = estPrice;
 
-      // 8. Generate Luxury Bullet Description
-      const sellingHighlights = 
-`• Silhouette & Cut: Bespoke South Indian bridal cut with tailored bust support and deep sheer illusion back neckline.
-• Artisanal Needlework: ${workHighlight} featuring micro-bead bootis, antique metallic highlights, and relief embroidery.
-• Signature Sleeve Cut: Contemporary ${sleeveHighlight} finished with fine scalloped hand-stitched borders.
-• Atelier Quality Guarantee: Incorporates built-in anatomical padded cups, pre-shrunk cotton inner lining, and 1-on-1 trial fitting.`;
+      // 9. Generate Clean Customer-Focused Description (Simple, High-Search Words)
+      const neckDesc = detectedNeck ? `${detectedNeck} pattern` : 'Classic neckline';
+      const sleeveDesc = detectedSleeve ? `${detectedSleeve}s` : 'comfortable sleeves';
+      const simpleDesc = 
+`• Design Style: Beautiful ${foundColor.toLowerCase()} blouse featuring an elegant ${neckDesc} with ${sleeveDesc}.
+• Embroidery Work: ${workHighlight} crafted with fine gold zari, stones, and beads.
+• Fabric & Material: Pure raw silk tailored with soft cotton inner lining and padded cups.
+• Fitting Guarantee: Perfect bridal fitting with extra inner margins for easy size adjustment.`;
 
-      descEl.value = sellingHighlights;
+      descEl.value = simpleDesc;
 
-      alert('✨ AI successfully filled Title, Category, Suggested Price & Selling Highlights! Review and click Save & Publish.');
+      alert('✨ AI successfully filled Title, Categories, Design & Cut tags, Price & Description! Review and click Save & Publish.');
     } catch(err) {
       alert('Error during AI auto-fill: ' + err.message);
     } finally {
       btnAi.textContent = '✨ Auto-Fill Details';
       btnAi.disabled = false;
     }
-  }, 400);
+  }, 350);
 }
 
 
@@ -1459,9 +1662,10 @@ function promptAddPhotoUrl(mode) {
   }
 }
 
-// Category Chip Visual Active State Listener
+// Category & Design Chip Visual Active State Listener
 document.addEventListener('change', function(e) {
-  if (e.target && (e.target.name === 'sc_categories' || e.target.name === 'edit_sc_categories')) {
+  if (e.target && (e.target.name === 'sc_categories' || e.target.name === 'edit_sc_categories' ||
+                   e.target.name === 'sc_design_tags' || e.target.name === 'edit_sc_design_tags')) {
     const chip = e.target.closest('.cat-checkbox-chip');
     if (chip) {
       if (e.target.checked) chip.classList.add('active');
@@ -1539,6 +1743,19 @@ async function handleFetchFromInstagram(mode) {
           }
         });
       }
+
+      // 4. Pre-select Design & Cut Tags
+      if (Array.isArray(data.suggestedDesignTags)) {
+        document.querySelectorAll('input[name="sc_design_tags"]').forEach(cb => {
+          const match = data.suggestedDesignTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
+          cb.checked = match;
+          const chip = cb.closest('.cat-checkbox-chip');
+          if (chip) {
+            if (match) chip.classList.add('active');
+            else chip.classList.remove('active');
+          }
+        });
+      }
     } else {
       if (data.suggestedTitle) document.getElementById('edit_sc_title').value = data.suggestedTitle;
       if (data.suggestedPrice) document.getElementById('edit_sc_price').value = data.suggestedPrice;
@@ -1556,13 +1773,25 @@ async function handleFetchFromInstagram(mode) {
           }
         });
       }
+
+      if (Array.isArray(data.suggestedDesignTags)) {
+        document.querySelectorAll('input[name="edit_sc_design_tags"]').forEach(cb => {
+          const match = data.suggestedDesignTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
+          cb.checked = match;
+          const chip = cb.closest('.cat-checkbox-chip');
+          if (chip) {
+            if (match) chip.classList.add('active');
+            else chip.classList.remove('active');
+          }
+        });
+      }
     }
 
     const slideCount = Array.isArray(data.images) ? data.images.length : 0;
     if (slideCount > 0) {
-      alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Slide Photo(s) loaded into Photo Studio in full original ratio.\n• Title, Price, Categories & Description auto-calculated.\n\nPlease review the details below, make any adjustments, and click Save & Publish.`);
+      alert(`✨ Instagram post fetched successfully!\n\n• ${slideCount} Slide Photo(s) loaded into Photo Studio in full original ratio.\n• Title, Price, Categories, Necklines, Sleeves & Description auto-calculated.\n\nPlease review the details below and click Save & Publish.`);
     } else {
-      alert(`📸 Instagram Details Extracted!\n\n• Title, Price, Categories & Description auto-calculated.\n• Instagram Link attached to product.\n\n⚠️ Meta required verification for this image download. Please click "➕ Add Photos" below to pick the blouse photo(s) from your device, then click Save & Publish.`);
+      alert(`📸 Instagram Details Extracted!\n\n• Title, Price, Categories, Necklines, Sleeves & Description auto-calculated.\n• Instagram Link attached to product.\n\n⚠️ Meta required verification for this image download. Please click "➕ Add Photos" below to pick the blouse photo(s) from your device, then click Save & Publish.`);
       const fileInputId = mode === 'create' ? 'sc_gallery_file_input' : 'edit_sc_gallery_file_input';
       const fileInput = document.getElementById(fileInputId);
       if (fileInput) {
@@ -1600,9 +1829,11 @@ async function submitShowcase(e) {
     const title = document.getElementById('sc_title').value.trim();
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-    const selectedTags = Array.from(document.querySelectorAll('#sc_category_picker input[name="sc_categories"]:checked')).map(cb => cb.value);
+    const selectedCats = Array.from(document.querySelectorAll('#sc_category_picker input[name="sc_categories"]:checked')).map(cb => cb.value);
+    const selectedDesigns = Array.from(document.querySelectorAll('input[name="sc_design_tags"]:checked')).map(cb => cb.value);
+    const selectedTags = [...new Set([...selectedCats, ...selectedDesigns])];
     if (!selectedTags.length) {
-      throw new Error('Please select at least one category for this product.');
+      throw new Error('Please select at least one category or design tag for this product.');
     }
 
     const newItem = {
@@ -1681,6 +1912,16 @@ function openEditShowcase(id) {
     }
   });
 
+  // Populate Design & Cut tags in Edit modal
+  document.querySelectorAll('input[name="edit_sc_design_tags"]').forEach(cb => {
+    cb.checked = itemTags.some(t => String(t).toLowerCase().trim() === cb.value.toLowerCase().trim());
+    const chip = cb.closest('.cat-checkbox-chip');
+    if (chip) {
+      if (cb.checked) chip.classList.add('active');
+      else chip.classList.remove('active');
+    }
+  });
+
   // Populate Interactive Gallery with Main Photo + all Secondary Angles
   editGalleryImages = [];
   if (item.main_image_url) {
@@ -1725,9 +1966,11 @@ async function submitEditShowcase(e) {
       image_url: typeof img === 'string' ? img : img.image_url
     }));
 
-    const selectedTags = Array.from(document.querySelectorAll('#edit_sc_category_picker input[name="edit_sc_categories"]:checked')).map(cb => cb.value);
+    const selectedCats = Array.from(document.querySelectorAll('#edit_sc_category_picker input[name="edit_sc_categories"]:checked')).map(cb => cb.value);
+    const selectedDesigns = Array.from(document.querySelectorAll('input[name="edit_sc_design_tags"]:checked')).map(cb => cb.value);
+    const selectedTags = [...new Set([...selectedCats, ...selectedDesigns])];
     if (!selectedTags.length) {
-      throw new Error('Please select at least one category for this product.');
+      throw new Error('Please select at least one category or design tag for this product.');
     }
 
     const updatedItem = {
