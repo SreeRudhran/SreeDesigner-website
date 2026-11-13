@@ -1608,6 +1608,102 @@ const MASTER_BLOGS = [
     "read_time": "9 min read",
     "featured_image": "assets/images/blog_mom_daughter_pattu_card.webp",
     "excerpt": "Discover royal Mom & Daughter matching outfits and handcrafted kids Pattu Pavadai designs in 2026. Explore pure Kanchipuram silk skirts, baby-safe soft cotton linings, zero-itch seams, and custom festive family couture by Sree Designers."
+  }  ,
+  {
+    "id": "blog-cutwork-blouse-designs-bridal-maggam-work-2026",
+    "slug": "/blog/cutwork-blouse-designs-bridal-maggam-work-2026",
+    "title": "Cutwork Blouse Designs for Silk Sarees: 2026 Bridal Aari Work, Scalloped Edges & Sheer Illusion Back Guide",
+    "category": "Cutwork & Sheer Backs",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 20, 2026",
+    "read_time": "9 min read",
+    "featured_image": "assets/images/blog_editorial_atelier_still_life.jpg",
+    "excerpt": "Explore the 2026 master guide to cutwork blouse designs for bridal silk sarees. Learn about hand-soldered scalloped borders, sheer net illusion back necks, and 0-gaping fit by Sree Designers."
+  },
+  {
+    "id": "blog-kundan-work-blouse-designs-bridal-maggam-guide-2026",
+    "slug": "/blog/kundan-work-blouse-designs-bridal-maggam-guide-2026",
+    "title": "Kundan Work Blouse Designs for Bridal Silk Sarees: 2026 Jadau Stones, Pearl Clusters & Temple Motif Guide",
+    "category": "Kundan & Jadau Craft",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 22, 2026",
+    "read_time": "10 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "The ultimate guide to kundan work blouse designs for South Indian brides in 2026. Discover authentic faceted glass kundan, freshwater pearls, temple jewelry matching, and 0-tarnish settings."
+  },
+  {
+    "id": "blog-deep-v-neck-bridal-maggam-blouse-designs-2026",
+    "slug": "/blog/deep-v-neck-bridal-maggam-blouse-designs-2026",
+    "title": "Deep V-Neck Bridal Maggam Blouse Designs: 2026 Plunging Necklines, Zero-Gap Fit & Temple Jewelry Pairing",
+    "category": "Architectural Necklines",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 24, 2026",
+    "read_time": "8 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "Master guide to deep V-neck bridal maggam blouse designs for South Indian brides in 2026. Discover zero-shoulder-drop engineering, built-in bust support, and temple choker pairings."
+  },
+  {
+    "id": "blog-organza-tissue-silk-saree-blouse-designs-2026",
+    "slug": "/blog/organza-tissue-silk-saree-blouse-designs-2026",
+    "title": "Organza & Tissue Silk Saree Blouse Designs 2026: Sheer Drapes, Metallic Shimmer & Lightweight Fitting Guide",
+    "category": "Sheer Silks & Tissue Drapes",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 26, 2026",
+    "read_time": "8 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "Discover trending blouse designs for organza and tissue silk sarees in 2026. Learn about breathable linings, non-puckering embroidery, and metallic shimmer styling by Sree Designers."
+  },
+  {
+    "id": "blog-velvet-blouse-designs-reception-silk-sarees-2026",
+    "slug": "/blog/velvet-blouse-designs-reception-silk-sarees-2026",
+    "title": "Velvet Blouse Designs for Silk Sarees: 2026 Royal Reception Styling, Deep Hues & Micro-Zardozi Embroidery",
+    "category": "Royal Velvet Textures",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 28, 2026",
+    "read_time": "9 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "Explore luxurious velvet blouse designs for silk sarees in 2026. Discover micro-zardozi hand embroidery, sweat-free breathable linings, deep jewel tones, and reception saree pairing."
+  },
+  {
+    "id": "blog-bridal-blouse-tassels-latkan-designs-guide-2026",
+    "slug": "/blog/bridal-blouse-tassels-latkan-designs-guide-2026",
+    "title": "Bridal Blouse Tassels & Latkans 2026: Handcrafted Potli, Zardozi Monograms & Jewel Hangings Guide",
+    "category": "Bridal Accessories & Latkans",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "October 30, 2026",
+    "read_time": "8 min read",
+    "featured_image": "assets/images/blog_editorial_atelier_still_life.jpg",
+    "excerpt": "The ultimate 2026 guide to handcrafted bridal blouse tassels and latkans. Discover personalized couple monograms, silk potli drops, pearl clusters, and zero-pull dori engineering."
+  },
+  {
+    "id": "blog-high-neck-collar-bridal-blouse-designs-2026",
+    "slug": "/blog/high-neck-collar-bridal-blouse-designs-2026",
+    "title": "High Neck & Closed Collar Bridal Blouse Designs 2026: Royal Chinese Collars, Keyhole Backs & Jewelry Pairings",
+    "category": "Royal High-Neck Silhouettes",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "November 01, 2026",
+    "read_time": "9 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "Explore regal high-neck and closed-collar bridal blouse designs in 2026. Discover Mandarin collars, back teardrop cutouts, choke-free comfort, and jewelry advice by Sree Designers."
+  },
+  {
+    "id": "blog-wedding-reception-saree-blouse-styling-guide-2026",
+    "slug": "/blog/wedding-reception-saree-blouse-styling-guide-2026",
+    "title": "Wedding Reception Saree Blouse Styling 2026: Glamour Cuts, Shimmer Work, Corset Fits & Contemporary Drapes",
+    "category": "Reception & Cocktail Styling",
+    "author": "Sree Designers Master Couturier",
+    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
+    "date": "November 03, 2026",
+    "read_time": "10 min read",
+    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "excerpt": "The ultimate 2026 guide to wedding reception saree blouse styling. Discover corset boning, metallic shimmer embroidery, cape sleeves, and cocktail silhouettes by Sree Designers."
   }
 ];
 
@@ -1623,104 +1719,7 @@ function getUnifiedBlogs() {
   const customIds = new Set(custom.map(c => String(c.id)));
   const baseFiltered = MASTER_BLOGS.filter(d => !customIds.has(String(d.id)));
 
-  return [...custom, ...baseFiltered  ,
-  {
-    "id": "blog-cutwork-blouse-designs-bridal-maggam-work-2026",
-    "slug": "/blog/cutwork-blouse-designs-bridal-maggam-work-2026",
-    "title": "Cutwork Blouse Designs for Silk Sarees: 2026 Bridal Aari Work, Scalloped Edges & Sheer Illusion Back Guide",
-    "category": "Cutwork & Sheer Backs",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 20, 2026",
-    "read_time": "9 min read",
-    "featured_image": "assets/images/blouse_royal_purple_illusion_net_back.webp",
-    "excerpt": "Explore the 2026 master guide to cutwork blouse designs for bridal silk sarees. Learn about hand-soldered scalloped borders, sheer net illusion back necks, and 0-gaping fit by Sree Designers."
-  },
-  {
-    "id": "blog-kundan-work-blouse-designs-bridal-maggam-guide-2026",
-    "slug": "/blog/kundan-work-blouse-designs-bridal-maggam-guide-2026",
-    "title": "Kundan Work Blouse Designs for Bridal Silk Sarees: 2026 Jadau Stones, Pearl Clusters & Temple Motif Guide",
-    "category": "Kundan & Jadau Craft",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 22, 2026",
-    "read_time": "10 min read",
-    "featured_image": "assets/images/blouse_magenta_emerald_kundan_back.webp",
-    "excerpt": "The ultimate guide to kundan work blouse designs for South Indian brides in 2026. Discover authentic faceted glass kundan, freshwater pearls, temple jewelry matching, and 0-tarnish settings."
-  },
-  {
-    "id": "blog-deep-v-neck-bridal-maggam-blouse-designs-2026",
-    "slug": "/blog/deep-v-neck-bridal-maggam-blouse-designs-2026",
-    "title": "Deep V-Neck Bridal Maggam Blouse Designs: 2026 Plunging Necklines, Zero-Gap Fit & Temple Jewelry Pairing",
-    "category": "Architectural Necklines",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 24, 2026",
-    "read_time": "8 min read",
-    "featured_image": "assets/images/blouse_peacock_green_v_neck_back.webp",
-    "excerpt": "Master guide to deep V-neck bridal maggam blouse designs for South Indian brides in 2026. Discover zero-shoulder-drop engineering, built-in bust support, and temple choker pairings."
-  },
-  {
-    "id": "blog-organza-tissue-silk-saree-blouse-designs-2026",
-    "slug": "/blog/organza-tissue-silk-saree-blouse-designs-2026",
-    "title": "Organza & Tissue Silk Saree Blouse Designs 2026: Sheer Drapes, Metallic Shimmer & Lightweight Fitting Guide",
-    "category": "Sheer Silks & Tissue Drapes",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 26, 2026",
-    "read_time": "8 min read",
-    "featured_image": "assets/images/blouse_red_tissue_scallop_back.webp",
-    "excerpt": "Discover trending blouse designs for organza and tissue silk sarees in 2026. Learn about breathable linings, non-puckering embroidery, and metallic shimmer styling by Sree Designers."
-  },
-  {
-    "id": "blog-velvet-blouse-designs-reception-silk-sarees-2026",
-    "slug": "/blog/velvet-blouse-designs-reception-silk-sarees-2026",
-    "title": "Velvet Blouse Designs for Silk Sarees: 2026 Royal Reception Styling, Deep Hues & Micro-Zardozi Embroidery",
-    "category": "Royal Velvet Textures",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 28, 2026",
-    "read_time": "9 min read",
-    "featured_image": "assets/images/blouse_wine_purple_puff_sleeve_detail.webp",
-    "excerpt": "Explore luxurious velvet blouse designs for silk sarees in 2026. Discover micro-zardozi hand embroidery, sweat-free breathable linings, deep jewel tones, and reception saree pairing."
-  },
-  {
-    "id": "blog-bridal-blouse-tassels-latkan-designs-guide-2026",
-    "slug": "/blog/bridal-blouse-tassels-latkan-designs-guide-2026",
-    "title": "Bridal Blouse Tassels & Latkans 2026: Handcrafted Potli, Zardozi Monograms & Jewel Hangings Guide",
-    "category": "Bridal Accessories & Latkans",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "October 30, 2026",
-    "read_time": "8 min read",
-    "featured_image": "assets/images/blouse_bridal_red_heavy_sleeve.webp",
-    "excerpt": "The ultimate 2026 guide to handcrafted bridal blouse tassels and latkans. Discover personalized couple monograms, silk potli drops, pearl clusters, and zero-pull dori engineering."
-  },
-  {
-    "id": "blog-high-neck-collar-bridal-blouse-designs-2026",
-    "slug": "/blog/high-neck-collar-bridal-blouse-designs-2026",
-    "title": "High Neck & Closed Collar Bridal Blouse Designs 2026: Royal Chinese Collars, Keyhole Backs & Jewelry Pairings",
-    "category": "Royal High-Neck Silhouettes",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "November 01, 2026",
-    "read_time": "9 min read",
-    "featured_image": "assets/images/blouse_bottle_green_zigzag_net_back.webp",
-    "excerpt": "Explore regal high-neck and closed-collar bridal blouse designs in 2026. Discover Mandarin collars, back teardrop cutouts, choke-free comfort, and jewelry advice by Sree Designers."
-  },
-  {
-    "id": "blog-wedding-reception-saree-blouse-styling-guide-2026",
-    "slug": "/blog/wedding-reception-saree-blouse-styling-guide-2026",
-    "title": "Wedding Reception Saree Blouse Styling 2026: Glamour Cuts, Shimmer Work, Corset Fits & Contemporary Drapes",
-    "category": "Reception & Cocktail Styling",
-    "author": "Sree Designers Master Couturier",
-    "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
-    "date": "November 03, 2026",
-    "read_time": "10 min read",
-    "featured_image": "assets/images/blouse_silver_grey_keyhole_back.webp",
-    "excerpt": "The ultimate 2026 guide to wedding reception saree blouse styling. Discover corset boning, metallic shimmer embroidery, cape sleeves, and cocktail silhouettes by Sree Designers."
-  }
-];
+  return [...custom, ...baseFiltered];
 }
 
 if (typeof window !== 'undefined') {
