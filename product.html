@@ -40,6 +40,18 @@
   <meta property="og:image:height" content="900">
   <meta property="og:site_name" content="Sree Designers &amp; Boutique">
 
+  <!-- PINTEREST RICH PINS & EXTENDED PRODUCT DATA -->
+  <meta property="og:price:amount" id="ogPriceAmount" content="1800">
+  <meta property="og:price:currency" content="INR">
+  <meta property="og:availability" id="ogAvailability" content="instock">
+  <meta property="product:brand" content="Sree Designers &amp; Boutique">
+  <meta property="product:availability" content="in stock">
+  <meta property="product:condition" content="new">
+  <meta property="product:price:amount" id="productPriceAmount" content="1800">
+  <meta property="product:price:currency" content="INR">
+  <meta name="pinterest-rich-pin" content="true">
+  <meta name="p:domain_verify" content="a4d664960250851f5f48e2a620213f2e">
+
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Custom Bridal Blouse &amp; Aari Work Tailoring | Sree Designers">
@@ -969,10 +981,27 @@
         }
       }
 
-      // 6. INJECT COMPREHENSIVE GOOGLE SHOPPING & IMAGES PRODUCT SCHEMA
+      // 6. INJECT COMPREHENSIVE GOOGLE SHOPPING & IMAGES PRODUCT SCHEMA + PINTEREST RICH PINS
       if (window.AtelierSEO && typeof window.AtelierSEO.injectProductServiceSchema === 'function') {
         window.AtelierSEO.injectProductServiceSchema(item);
       }
+
+      // Dynamic OpenGraph & Pinterest Rich Pin sync
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', `${item.title} | Sree Designers`);
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', item.description || `Handcrafted ${item.title} tailored at Sree Designers.`);
+      const ogImg = document.querySelector('meta[property="og:image"]');
+      if (ogImg && (item.main_image_url || subImgs[0])) {
+        const primaryImg = item.main_image_url || subImgs[0];
+        const fullImgUrl = primaryImg.startsWith('http') ? primaryImg : `https://sreedesigners.in/${primaryImg.replace(/^\//, '')}`;
+        ogImg.setAttribute('content', fullImgUrl);
+      }
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', `https://sreedesigners.in/product?id=${encodeURIComponent(item.id)}`);
+
+      const priceAmountEls = document.querySelectorAll('#ogPriceAmount, #productPriceAmount');
+      priceAmountEls.forEach(el => el.setAttribute('content', salePrice));
 
       function escapeHtml(str) {
         if (str === null || str === undefined) return '';

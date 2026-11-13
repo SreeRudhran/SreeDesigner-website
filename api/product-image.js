@@ -18,7 +18,7 @@ function parseCatalogJs(content) {
     const startMatch = content.match(/const\s+MASTER_CATALOG\s*=\s*\[/);
     if (!startMatch) return null;
     const startPos = startMatch.index + startMatch[0].length - 1;
-    const endMatch = /\r?\n\];\r?\n\r?\n\/\/ Helper/.exec(content);
+    const endMatch = /\r?\n\];\s*[\r\n]+\/\/\s*Helper/.exec(content) || /\r?\n\];/.exec(content);
     if (!endMatch) return null;
     const endPos = endMatch.index + (endMatch[0].startsWith('\r\n') ? 3 : 2);
     const arrayStr = content.slice(startPos, endPos);
@@ -35,7 +35,17 @@ async function getCatalogItems() {
     return catalogCache;
   }
 
-  // 1. Local file read
+  // 1. Native CommonJS require (100% reliable in Node.js runtime)
+  try {
+    const mod = require('../js/catalogData.js');
+    if (mod && Array.isArray(mod.MASTER_CATALOG) && mod.MASTER_CATALOG.length > 0) {
+      catalogCache = mod.MASTER_CATALOG;
+      catalogCacheTime = Date.now();
+      return catalogCache;
+    }
+  } catch (e) {}
+
+  // 2. Local file read
   if (fs.existsSync(LOCAL_CATALOG_PATH)) {
     try {
       const content = fs.readFileSync(LOCAL_CATALOG_PATH, 'utf8');
