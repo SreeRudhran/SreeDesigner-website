@@ -1413,16 +1413,32 @@
   <!-- SECTION 4: "OUR WORK" -->
   <section class="section" id="our-work">
     <div class="wrap our-work-container">
-      <div class="section-head text-center" style="text-align: center; max-width: 680px; margin: 0 auto 36px;">
-        <span class="eyebrow-gold">Atelier Creations</span>
-        <h2 class="section-title-serif">Our Work: Sree Designers Maggam Work &amp; Bridal Blouses</h2>
-        <p class="section-desc-italic">Bespoke bridal blouses and artisanal embroidery handcrafted to perfection.</p>
+      <div class="section-head text-center" style="text-align: center; max-width: 720px; margin: 0 auto 28px;">
+        <span class="eyebrow-gold">Atelier Curated Catalog</span>
+        <h2 class="section-title-serif">Explore Signature Bridal Blouse Designs</h2>
+        <p class="section-desc-italic">Browse real handcrafted blouses from our Coimbatore &amp; Tiruppur ateliers with instant prices and 1-click WhatsApp order.</p>
+      </div>
+
+      <!-- Interactive Category Filter Pills -->
+      <div class="home-catalog-tabs" id="homeCatalogTabs" role="tablist" aria-label="Catalog Style Filters">
+        <button type="button" class="home-tab-pill active" onclick="filterHomeCatalog('all', this)" role="tab" aria-selected="true">
+          All Designs (6)
+        </button>
+        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('maggam', this)" role="tab" aria-selected="false">
+          Bridal Maggam Work
+        </button>
+        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('cutwork', this)" role="tab" aria-selected="false">
+          Cutwork &amp; Sheer Back
+        </button>
+        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('neckline', this)" role="tab" aria-selected="false">
+          V-Neck &amp; Scalloped
+        </button>
       </div>
 
       <!-- 6 Blouse Cards Grid / Swipe Row -->
       <div class="our-work-grid" id="ourWorkRow" role="region" aria-label="Our Work Gallery">
         <!-- Card 1: Bridal Red Heavy Maggam Work Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="maggam" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_bridal_red_maggam_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1431,23 +1447,28 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_bridal_red_maggam_back.webp" alt="Bridal Red Heavy Maggam Work Blouse — Zardozi Cutwork Back Neck Sree Designers Coimbatore" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
+            <span class="product-badge-overlay">Bridal Maggam</span>
+            <span class="product-speed-chip">⚡ 48-Hr Delivery</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Bridal Red Heavy Maggam Work Blouse">Bridal Red Heavy Maggam Work Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Bridal Red Heavy Maggam Work Blouse">Bridal Red Heavy Maggam Work Blouse</h3>
+              <p class="our-work-subtitle">Zardozi cutwork back neck with pearl drops &amp; pure cotton lining</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Bridal%20Red%20Heavy%20Maggam%20Work%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
 
         <!-- Card 2: Bottle Green Net Zigzag Aari Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="cutwork" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_bottle_green_zigzag_net_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1456,23 +1477,27 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_bottle_green_zigzag_net_back.webp" alt="Bottle Green Net Zigzag Aari Blouse — Intricate Threadwork &amp; Sheer Back Sree Designers Tiruppur" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
+            <span class="product-badge-overlay subtle">Sheer Net Back</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Bottle Green Net Zigzag Aari Blouse">Bottle Green Net Zigzag Aari Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Bottle Green Net Zigzag Aari Blouse">Bottle Green Net Zigzag Aari Blouse</h3>
+              <p class="our-work-subtitle">Geometric gold threadwork, illusion back &amp; zero-pinch armholes</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Bottle%20Green%20Net%20Zigzag%20Aari%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
 
         <!-- Card 3: Purple Illusion Net Aari Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="cutwork" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_royal_purple_illusion_net_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1481,23 +1506,27 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_royal_purple_illusion_net_back.webp" alt="Purple Illusion Net Aari Blouse — Royal Raw Silk Sheer Back Sree Designers" class="our-work-img" width="450" height="600" loading="lazy" decoding="async">
+            <span class="product-badge-overlay subtle">Illusion Net</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Purple Illusion Net Aari Blouse">Purple Illusion Net Aari Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Purple Illusion Net Aari Blouse">Purple Illusion Net Aari Blouse</h3>
+              <p class="our-work-subtitle">Bespoke raw silk illusion back with floral creeper embroidery</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Purple%20Illusion%20Net%20Aari%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
 
         <!-- Card 4: Magenta Pink Emerald Kundan Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="maggam" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_magenta_emerald_kundan_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1506,23 +1535,27 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_magenta_emerald_kundan_back.webp" alt="Magenta Pink Emerald Kundan Blouse — Antique Zari &amp; Emerald Bead Work Sree Designers" class="our-work-img" width="1200" height="900" loading="lazy" decoding="async">
+            <span class="product-badge-overlay">Artisan Kundan</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Magenta Pink Emerald Kundan Blouse">Magenta Pink Emerald Kundan Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Magenta Pink Emerald Kundan Blouse">Magenta Pink Emerald Kundan Blouse</h3>
+              <p class="our-work-subtitle">Faceted emerald beads, genuine kundan stone setting &amp; padded cups</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Magenta%20Pink%20Emerald%20Kundan%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
 
         <!-- Card 5: Peacock Green V-Neck Aari Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="neckline" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_peacock_green_v_neck_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1531,23 +1564,27 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_peacock_green_v_neck_back.webp" alt="Peacock Green V-Neck Aari Blouse — Bridal V Neck Cutwork Embroidery Sree Designers" class="our-work-img" width="1024" height="768" loading="lazy" decoding="async">
+            <span class="product-badge-overlay subtle">Bridal V-Neck</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Peacock Green V-Neck Aari Blouse">Peacock Green V-Neck Aari Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Peacock Green V-Neck Aari Blouse">Peacock Green V-Neck Aari Blouse</h3>
+              <p class="our-work-subtitle">Modern deep V cutwork with temple border motifs &amp; zero shoulder slip</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Peacock%20Green%20V-Neck%20Aari%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
 
         <!-- Card 6: Red Tissue Scalloped Border Blouse -->
-        <article class="our-work-card" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="neckline" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_red_tissue_scallop_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1556,17 +1593,21 @@
             <meta itemprop="creator" content="Sree Designers &amp; Boutique">
             <meta itemprop="copyrightNotice" content="© 2026 Sree Designers &amp; Boutique">
             <img src="assets/images/blouse_red_tissue_scallop_back.webp" alt="Red Tissue Scalloped Border Blouse — Metallic Tissue Silk Cutwork Sree Designers" class="our-work-img" width="1200" height="900" loading="lazy" decoding="async">
+            <span class="product-badge-overlay subtle">Scalloped Border</span>
           </div>
           <div class="our-work-body">
-            <h3 class="our-work-title" itemprop="name" title="Red Tissue Scalloped Border Blouse">Red Tissue Scalloped Border Blouse</h3>
-            <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-              <meta itemprop="price" content="1800">
-              <meta itemprop="priceCurrency" content="INR">
-              <link itemprop="availability" href="https://schema.org/InStock">
-              Starting from ₹1,800
+            <div>
+              <h3 class="our-work-title" itemprop="name" title="Red Tissue Scalloped Border Blouse">Red Tissue Scalloped Border Blouse</h3>
+              <p class="our-work-subtitle">Shimmering metallic tissue silk with delicate scalloped cutwork</p>
+              <div class="our-work-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="1800">
+                <meta itemprop="priceCurrency" content="INR">
+                <link itemprop="availability" href="https://schema.org/InStock">
+                Starting from ₹1,800
+              </div>
             </div>
             <a href="https://wa.me/919976344673?text=Hi%20Sree%20Designers,%20I%20would%20like%20to%20enquire%20about%20the%20Red%20Tissue%20Scalloped%20Border%20Blouse." target="_blank" rel="nofollow noopener noreferrer" class="our-work-enquire-btn">
-              Enquire on WhatsApp
+              💬 Enquire on WhatsApp
             </a>
           </div>
         </article>
@@ -1574,8 +1615,29 @@
 
       <!-- Button linking to category page -->
       <div style="text-align: center; margin-top: 36px;">
-        <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-view-all-pill">View All Designs</a>
+        <a href="category?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="btn-view-all-pill">View Full Catalog (21 Designs) →</a>
       </div>
+
+      <script>
+        function filterHomeCatalog(category, btn) {
+          var tabs = document.querySelectorAll('.home-tab-pill');
+          for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove('active');
+            tabs[i].setAttribute('aria-selected', 'false');
+          }
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          var cards = document.querySelectorAll('.our-work-card');
+          for (var j = 0; j < cards.length; j++) {
+            var cardCat = cards[j].getAttribute('data-category');
+            if (category === 'all' || cardCat === category) {
+              cards[j].style.display = '';
+            } else {
+              cards[j].style.display = 'none';
+            }
+          }
+        }
+      </script>
     </div>
   </section>
 

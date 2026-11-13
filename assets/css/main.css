@@ -3480,6 +3480,81 @@
       }
     }
 
+    .home-catalog-tabs {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      margin-bottom: 32px !important;
+    }
+    .home-tab-pill {
+      padding: 9px 20px !important;
+      border-radius: 999px !important;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.06em !important;
+      background: #ffffff !important;
+      color: #555555 !important;
+      border: 1px solid var(--line, #ddd) !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02) !important;
+    }
+    .home-tab-pill:hover {
+      border-color: #1f1b18 !important;
+      color: #1f1b18 !important;
+    }
+    .home-tab-pill.active {
+      background: #1f1b18 !important;
+      color: #ffffff !important;
+      border-color: #1f1b18 !important;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15) !important;
+    }
+    .product-badge-overlay {
+      position: absolute !important;
+      top: 12px !important;
+      left: 12px !important;
+      z-index: 2 !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      color: #ffffff !important;
+      background: #c59b27 !important;
+      padding: 4px 10px !important;
+      border-radius: 999px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    }
+    .product-badge-overlay.subtle {
+      background: rgba(31, 27, 24, 0.82) !important;
+      backdrop-filter: blur(4px) !important;
+    }
+    .product-speed-chip {
+      position: absolute !important;
+      bottom: 12px !important;
+      right: 12px !important;
+      z-index: 2 !important;
+      font-size: 0.65rem !important;
+      font-weight: 600 !important;
+      color: #ffffff !important;
+      background: rgba(31, 27, 24, 0.85) !important;
+      backdrop-filter: blur(4px) !important;
+      padding: 3px 8px !important;
+      border-radius: 6px !important;
+    }
+    .our-work-subtitle {
+      font-size: 0.82rem !important;
+      color: #666666 !important;
+      margin: 0 0 10px !important;
+      line-height: 1.4 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+
     .our-work-card {
       background: #ffffff !important;
       border-radius: 16px !important;
