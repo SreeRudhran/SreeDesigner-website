@@ -420,50 +420,186 @@
     .stores-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 36px;
+      gap: 32px;
     }
 
     .store-card {
       background: var(--white);
-      border-radius: 20px;
-      padding: 40px;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      border-radius: 24px;
+      border: 1px solid rgba(197, 155, 39, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .store-card h3 {
-      font-size: 1.6rem;
+    .store-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
     }
 
-    .store-address {
-      color: var(--ink-soft);
-      font-size: 0.98rem;
-      line-height: 1.6;
+    .store-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
     }
 
-    .store-actions {
-      display: flex;
-      gap: 14px;
-      margin-top: 12px;
+    .store-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
 
-    .btn-store-map {
-      padding: 10px 22px;
+    .store-card:hover .store-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .store-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.25) 55%, transparent 100%);
+    }
+
+    .store-tag-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 4px 12px;
       border-radius: 999px;
-      border: 1px solid var(--ink);
-      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.95);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #c59b27;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      z-index: 2;
+    }
+
+    .store-img-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 18px;
+      right: 18px;
+      color: #ffffff;
+      z-index: 2;
+    }
+
+    .store-img-caption h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .store-img-caption p {
+      font-size: 0.78rem;
+      color: #f0ebe4;
+      margin-top: 3px;
+    }
+
+    .store-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .store-amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .store-amenity-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f7f3ee;
+      color: #5a544e;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .store-info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #3c3834;
+      line-height: 1.5;
+    }
+
+    .store-info-icon {
+      font-size: 1rem;
+      line-height: 1;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .store-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 24px 24px;
+    }
+
+    .btn-store-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid #dcd7ce;
+      background: #ffffff;
+      color: #1f1b18;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      font-weight: 600;
-      transition: all 0.3s ease;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
 
-    .btn-store-map:hover {
-      background: var(--ink);
-      color: var(--white);
+    .btn-store-nav:hover {
+      border-color: #c59b27;
+      color: #c59b27;
+    }
+
+    .btn-store-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: #1f1b18;
+      color: #ffffff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-store-wa:hover {
+      background: #c59b27;
+      color: #ffffff;
+    }
+
+    @media (max-width: 420px) {
+      .store-actions-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Form Styles */
