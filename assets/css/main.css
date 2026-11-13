@@ -2346,22 +2346,35 @@
         display: none !important;
       }
       .diva-brand-logo {
-        gap: 8px;
+        gap: 12px;
       }
       .diva-brand-logo img {
-        height: 36px;
-        width: 36px;
-        padding: 2px;
+        height: 46px;
+        width: 46px;
+        border-radius: 50%;
+        background: #faf7f4;
+        border: 1px solid rgba(197, 155, 39, 0.35);
+        padding: 3px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
       }
       .diva-logo-text {
-        font-size: 1.05rem;
-        letter-spacing: 0.04em;
+        font-family: 'Fraunces', serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        letter-spacing: 0.015em;
         text-align: left;
+        line-height: 1.1;
       }
       .diva-logo-text span {
-        font-size: 0.52rem;
-        letter-spacing: 0.14em;
+        display: block;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.54rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #c59b27;
+        font-weight: 600;
         text-align: left;
+        margin-top: 2px;
       }
       .diva-header-right {
         gap: 8px;
@@ -2508,19 +2521,31 @@
         gap: 6px;
       }
       .diva-brand-logo {
-        gap: 6px;
+        gap: 10px;
       }
       .diva-brand-logo img {
-        height: 32px;
-        width: 32px;
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+        background: #faf7f4;
+        border: 1px solid rgba(197, 155, 39, 0.35);
+        padding: 2.5px;
       }
       .diva-logo-text {
-        font-size: 0.9rem;
-        letter-spacing: 0.02em;
-        line-height: 1;
+        font-family: 'Fraunces', serif;
+        font-size: 1.05rem;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        line-height: 1.1;
       }
       .diva-logo-text span {
-        display: none;
+        display: block;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.50rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #c59b27;
+        font-weight: 600;
       }
       .header-book-btn {
         min-height: 44px;
@@ -3173,25 +3198,40 @@
         height: 64px !important;
       }
       .diva-brand-logo {
-        gap: 8px !important;
+        gap: 10px !important;
         min-width: 0 !important;
         overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
       }
       .diva-brand-logo img {
-        width: 32px !important;
-        height: 32px !important;
+        width: 42px !important;
+        height: 42px !important;
         flex-shrink: 0 !important;
+        border-radius: 50% !important;
+        background: #faf7f4 !important;
+        border: 1px solid rgba(197, 155, 39, 0.35) !important;
+        padding: 2.5px !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
       }
       .diva-logo-text {
-        font-size: 0.82rem !important;
-        letter-spacing: 0.02em !important;
+        font-family: 'Fraunces', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.01em !important;
         line-height: 1.1 !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
       }
       .diva-logo-text span {
-        display: none !important;
+        display: block !important;
+        font-family: 'Jost', sans-serif !important;
+        font-size: 0.50rem !important;
+        letter-spacing: 0.14em !important;
+        text-transform: uppercase !important;
+        color: #c59b27 !important;
+        font-weight: 600 !important;
       }
       .header-book-btn {
         min-height: 40px !important;
@@ -3211,11 +3251,11 @@
         gap: 4px !important;
       }
       .diva-brand-logo img {
-        width: 28px !important;
-        height: 28px !important;
+        width: 36px !important;
+        height: 36px !important;
       }
       .diva-logo-text {
-        font-size: 0.72rem !important;
+        font-size: 0.92rem !important;
       }
       .header-book-btn {
         min-width: 50px !important;

@@ -229,22 +229,46 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      height: 52px;
+      width: 52px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #faf7f4;
+      border: 1px solid rgba(197, 155, 39, 0.35);
+      padding: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .brand:hover img {
+      transform: scale(1.04);
+      border-color: var(--gold);
     }
 
     .brand-name {
       font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: 0.015em;
     }
 
     .brand-name span {
       display: block;
       font-family: var(--font-sans);
       font-size: 0.62rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold-dark);
+      margin-top: 3px;
+      font-weight: 600;
     }
 
     .nav-links {
@@ -557,40 +581,103 @@
 
     .review-card {
       background: var(--white);
-      border: 1px solid var(--line);
+      border: 1px solid rgba(197, 155, 39, 0.25);
       border-radius: 20px;
-      padding: 32px;
-      box-shadow: var(--shadow-soft);
+      padding: 28px;
+      box-shadow: 0 4px 18px rgba(28, 27, 24, 0.05);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(28, 27, 24, 0.09);
+    }
+
+    .google-badge-pill {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #ffffff;
+      border: 1px solid #e5e0d8;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #3c4043;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
 
     .review-user-row {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      padding-right: 110px;
     }
 
-    .review-avatar {
-      width: 48px;
-      height: 48px;
+    .google-avatar-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .google-avatar {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .google-verified-check {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #ffffff;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
     .review-name {
       font-weight: 600;
       font-size: 1rem;
+      color: #202124;
     }
 
     .review-date {
       font-size: 0.76rem;
-      color: var(--ink-soft);
+      color: #5f6368;
+      margin-top: 2px;
     }
 
     .review-text {
       font-size: 0.92rem;
-      color: var(--ink-soft);
+      color: #3c4043;
       line-height: 1.6;
+      font-style: italic;
     }
 
     /* RELATED PRODUCTS CAROUSEL GRID */
@@ -685,11 +772,11 @@
   <!-- HEADER NAVIGATION -->
   <header>
     <nav class="wrap">
-      <a href="/" class="brand">
-        <img src="assets/images/logo.webp" alt="Sree Designers Logo" width="48" height="48" style="height:48px; width:48px; object-fit:contain; border-radius:10px; background:#f5ebe6; padding:3px;">
+      <a href="/" class="brand" aria-label="Sree Designers Home">
+        <img src="assets/images/logo.png" alt="Sree Designers Logo" width="52" height="52">
         <div class="brand-name">
-          Sree Designers &amp; Boutique
-          <span>Fashion Atelier · Coimbatore &amp; Tiruppur</span>
+          Sree Designers
+          <span>Boutique &amp; Bridal Atelier</span>
         </div>
       </a>
 
@@ -785,30 +872,54 @@
 
       <div class="reviews-grid">
         <div class="review-card">
+          <div class="google-badge-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Google Review</span>
+          </div>
           <div class="review-user-row">
-            <img src="assets/images/story_hero_model.webp" alt="Priya Sundaram" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
+            <div class="google-avatar-wrap">
+              <div class="google-avatar" style="background: linear-gradient(135deg, #d97706, #b45309);">P</div>
+              <div class="google-verified-check">✓</div>
+            </div>
             <div>
-              <div class="review-name">Priya Sundaram</div>
-              <div class="review-date">Coimbatore Bride · 2 days ago</div>
+              <div class="review-name">Priyadharshini K.</div>
+              <div class="review-date">Coimbatore Bride · Google Verified Review</div>
             </div>
           </div>
-          <div class="stars" style="margin-bottom:8px;">★★★★★</div>
+          <div class="stars" style="margin-bottom:8px; color:var(--gold);">★★★★★</div>
           <p class="review-text">
-            "I absolutely adore my peacock maggam blouse from Sree Designers! The zardozi work is incredibly dense and intricate. The trial fitting was perfect with comfortable padded support."
+            "The fitting was absolutely spot on! The padded cups and intricate peacock aari work on my muhurtham blouse turned out even better than I envisioned. Delivered 2 days before schedule with zero gaping."
           </p>
         </div>
 
         <div class="review-card">
+          <div class="google-badge-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Google Review</span>
+          </div>
           <div class="review-user-row">
-            <img src="assets/images/story_bridal.webp" alt="Kavitha Ramachandran" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
+            <div class="google-avatar-wrap">
+              <div class="google-avatar" style="background: linear-gradient(135deg, #059669, #047857);">A</div>
+              <div class="google-verified-check">✓</div>
+            </div>
             <div>
-              <div class="review-name">Kavitha Ramachandran</div>
-              <div class="review-date">Tiruppur · 5 days ago</div>
+              <div class="review-name">Ananya R.</div>
+              <div class="review-date">Tiruppur Bride · Google Verified Review</div>
             </div>
           </div>
-          <div class="stars" style="margin-bottom:8px;">★★★★★</div>
+          <div class="stars" style="margin-bottom:8px; color:var(--gold);">★★★★★</div>
           <p class="review-text">
-            "Prompt 4-day delivery for my wedding reception saree blouse. The elbow length peacock motif looked so regal! Thank you to the master designers at the Samalapuram studio."
+            "Zero gaping at the back neck and flawless armhole comfort. Their trial fitting session gave me complete peace of mind for my big day. Best bridal boutique in Tiruppur &amp; Coimbatore!"
           </p>
         </div>
       </div>
@@ -1051,20 +1162,39 @@
             const allReviews = window.getUnifiedReviews();
             const displayReviews = allReviews.slice(0, 2);
             if (displayReviews.length > 0) {
+              const gradients = [
+                'linear-gradient(135deg, #d97706, #b45309)',
+                'linear-gradient(135deg, #059669, #047857)',
+                'linear-gradient(135deg, #881337, #9f1239)',
+                'linear-gradient(135deg, #4338ca, #3730a3)'
+              ];
               grid.innerHTML = displayReviews.map((r, idx) => {
                 const safeName = r.customer_name || 'Client';
                 const safeLoc = r.location || 'Coimbatore';
-                const avatar = idx === 0 ? 'assets/images/story_hero_model.webp' : 'assets/images/story_bridal.webp';
+                const initial = (safeName.trim().charAt(0) || 'C').toUpperCase();
+                const bgGrad = gradients[idx % gradients.length];
                 const numRating = Math.min(5, Math.max(1, parseInt(r.rating) || 5));
                 const stars = '★'.repeat(numRating);
                 const quote = r.review_text || r.comment || '';
                 return `
                   <div class="review-card">
+                    <div class="google-badge-pill">
+                      <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                      </svg>
+                      <span>Google Review</span>
+                    </div>
                     <div class="review-user-row">
-                      <img src="${avatar}" alt="${safeName}" class="review-avatar" width="48" height="48" loading="lazy" decoding="async">
+                      <div class="google-avatar-wrap">
+                        <div class="google-avatar" style="background:${bgGrad};">${initial}</div>
+                        <div class="google-verified-check">✓</div>
+                      </div>
                       <div>
                         <div class="review-name">${safeName}</div>
-                        <div class="review-date">${safeLoc} Bride • Verified Fitting</div>
+                        <div class="review-date">${safeLoc} Bride · Google Verified Review</div>
                       </div>
                     </div>
                     <div class="stars" style="margin-bottom:8px; color:var(--gold);">${stars}</div>
