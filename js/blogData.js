@@ -14,7 +14,7 @@ const MASTER_BLOGS = [
     author_role: "Principal Bridal Pattern Master",
     date: "October 12, 2026",
     read_time: "11 min read",
-    featured_image: "assets/images/blouse_bridal_kanchipuram_red_flatlay.jpg",
+    featured_image: "assets/images/blog_luxury_craftsmanship_look.jpg",
     excerpt: "Discover why discerning South Indian brides invest in bespoke handcrafted bridal blouses over budget tailoring. A deep dive into artisan man-hours, real metallic dabka, temple kundan, ergonomic bust-contour cup architecture, and the hidden costs of cheap tailoring.",
     letter_title: "To the Bride Investing in Her Heirloom Muhurtham Ensemble",
     letter_content: "When you spend months searching across the master weaving looms of Kanchipuram or the heritage boutiques of Coimbatore for the perfect pure zari silk saree, the blouse you pair with it is not an afterthought—it is the frame of your masterpiece. Too many brides have felt their hearts sink when an inexperienced budget tailor puckers their heirloom silk, cuts armholes that bite into the skin, or uses cheap plastic zari that tarnishes to black before their first wedding anniversary. At Sree Designers & Boutique, our ateliers in Samalapuram and Karnempettai exist for the bride who understands that true luxury is not a brand logo; it is 80 hours of meticulous hand needlework, architectural comfort that stays flawless across eight hours of sacred rituals, and a fit that makes you feel utterly magnificent.",
@@ -1567,7 +1567,7 @@ const MASTER_BLOGS = [
     "author_role": "Principal Bridal Pattern Master",
     "date": "October 27, 2026",
     "read_time": "9 min read",
-    "featured_image": "assets/images/blog_muhurtham_aari_card.webp",
+    "featured_image": "assets/images/blog_muhurtham_aari_look.jpg",
     "excerpt": "Explore 25+ divine Muhurtham Aari work blouse designs for Kanchipuram silk sarees in 2026. Master guide on sacred temple motifs, kasu coin necklines, pooja homam comfort, padded cup architecture, and wedding blouse stitching in Coimbatore & Tiruppur."
   },
 
@@ -1580,7 +1580,7 @@ const MASTER_BLOGS = [
     "author_role": "Principal Bridal Pattern Master",
     "date": "October 27, 2026",
     "read_time": "10 min read",
-    "featured_image": "assets/images/blog_blouse_measurement_card.webp",
+    "featured_image": "assets/images/blog_blouse_measurement_look.jpg",
     "excerpt": "Master guide to taking exact saree blouse measurements for zero back gaping, no falling shoulders, and flawless padded cup lift. Detailed 14-point measurement chart, armhole calculation, and WhatsApp video measurement instructions for NRI brides worldwide."
   },
 
@@ -1593,7 +1593,7 @@ const MASTER_BLOGS = [
     "author_role": "Principal Bridal Pattern Master",
     "date": "October 27, 2026",
     "read_time": "8 min read",
-    "featured_image": "assets/images/blog_embroidery_fabrics_card.webp",
+    "featured_image": "assets/images/blog_embroidery_fabrics_look.jpg",
     "excerpt": "Discover the best blouse fabrics for heavy Aari and Maggam embroidery in 2026. Comprehensive analysis of pure raw silk, Kanchipuram brocade, sheer organza, micro-velvet, cambric cotton lining, and needle puncture durability by Sree Designers."
   },
 
@@ -1606,7 +1606,7 @@ const MASTER_BLOGS = [
     "author_role": "Children's Couture Specialist",
     "date": "October 27, 2026",
     "read_time": "9 min read",
-    "featured_image": "assets/images/blog_mom_daughter_pattu_card.webp",
+    "featured_image": "assets/images/blog_mom_daughter_look.jpg",
     "excerpt": "Discover royal Mom & Daughter matching outfits and handcrafted kids Pattu Pavadai designs in 2026. Explore pure Kanchipuram silk skirts, baby-safe soft cotton linings, zero-itch seams, and custom festive family couture by Sree Designers."
   }  ,
   {
@@ -1618,7 +1618,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 20, 2026",
     "read_time": "9 min read",
-    "featured_image": "assets/images/blog_editorial_atelier_still_life.jpg",
+    "featured_image": "assets/images/blog_cutwork_look.jpg",
     "excerpt": "Explore the 2026 master guide to cutwork blouse designs for bridal silk sarees. Learn about hand-soldered scalloped borders, sheer net illusion back necks, and 0-gaping fit by Sree Designers."
   },
   {
@@ -1630,7 +1630,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 22, 2026",
     "read_time": "10 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_kundan_look.jpg",
     "excerpt": "The ultimate guide to kundan work blouse designs for South Indian brides in 2026. Discover authentic faceted glass kundan, freshwater pearls, temple jewelry matching, and 0-tarnish settings."
   },
   {
@@ -1642,7 +1642,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 24, 2026",
     "read_time": "8 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_deep_v_neck_look.jpg",
     "excerpt": "Master guide to deep V-neck bridal maggam blouse designs for South Indian brides in 2026. Discover zero-shoulder-drop engineering, built-in bust support, and temple choker pairings."
   },
   {
@@ -1654,7 +1654,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 26, 2026",
     "read_time": "8 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_organza_tissue_look.jpg",
     "excerpt": "Discover trending blouse designs for organza and tissue silk sarees in 2026. Learn about breathable linings, non-puckering embroidery, and metallic shimmer styling by Sree Designers."
   },
   {
@@ -1666,7 +1666,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 28, 2026",
     "read_time": "9 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_velvet_reception_look.jpg",
     "excerpt": "Explore luxurious velvet blouse designs for silk sarees in 2026. Discover micro-zardozi hand embroidery, sweat-free breathable linings, deep jewel tones, and reception saree pairing."
   },
   {
@@ -1678,7 +1678,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "October 30, 2026",
     "read_time": "8 min read",
-    "featured_image": "assets/images/blog_editorial_atelier_still_life.jpg",
+    "featured_image": "assets/images/blog_bridal_tassels_look.jpg",
     "excerpt": "The ultimate 2026 guide to handcrafted bridal blouse tassels and latkans. Discover personalized couple monograms, silk potli drops, pearl clusters, and zero-pull dori engineering."
   },
   {
@@ -1690,7 +1690,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "November 01, 2026",
     "read_time": "9 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_high_neck_look.jpg",
     "excerpt": "Explore regal high-neck and closed-collar bridal blouse designs in 2026. Discover Mandarin collars, back teardrop cutouts, choke-free comfort, and jewelry advice by Sree Designers."
   },
   {
@@ -1702,7 +1702,7 @@ const MASTER_BLOGS = [
     "author_role": "Head of Bridal Tailoring & Maggam Embroidery",
     "date": "November 03, 2026",
     "read_time": "10 min read",
-    "featured_image": "assets/images/blog_editorial_bridal_look.jpg",
+    "featured_image": "assets/images/blog_reception_glamour_look.jpg",
     "excerpt": "The ultimate 2026 guide to wedding reception saree blouse styling. Discover corset boning, metallic shimmer embroidery, cape sleeves, and cocktail silhouettes by Sree Designers."
   }
 ];
