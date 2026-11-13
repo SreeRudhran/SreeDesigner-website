@@ -3210,7 +3210,7 @@
     .diva-header-container {
       display: flex !important;
       align-items: center !important;
-      justify-content: space-between !important;
+      justify-content: flex-start !important;
       width: 100% !important;
       max-width: 1200px !important;
       margin: 0 auto !important;
@@ -3218,9 +3218,10 @@
       height: 82px !important;
     }
     .desktop-nav-links {
-      display: flex;
-      align-items: center;
-      gap: clamp(14px, 2.2vw, 28px);
+      display: flex !important;
+      align-items: center !important;
+      gap: clamp(14px, 1.8vw, 24px) !important;
+      margin-left: auto !important;
     }
     .desktop-nav-link {
       font-family: 'Jost', sans-serif;
@@ -3257,6 +3258,7 @@
       display: flex !important;
       align-items: center !important;
       gap: 12px !important;
+      margin-left: clamp(16px, 1.8vw, 24px) !important;
     }
     .header-book-btn {
       display: inline-flex !important;
@@ -3316,6 +3318,10 @@
       .diva-header-container {
         padding: 0 20px !important;
         height: 66px !important;
+        justify-content: space-between !important;
+      }
+      .diva-header-right {
+        margin-left: auto !important;
       }
     }
     @media (min-width: 901px) {
