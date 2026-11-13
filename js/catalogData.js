@@ -1,8 +1,80 @@
 ﻿/**
  * SREE DESIGNERS & BOUTIQUE — MASTER CATALOG DATA
- * Comprehensive universal seed products for all 7 signature categories.
+ * Comprehensive universal seed products for all signature categories and custom cuts.
  * Ensures consistent, rich catalog display across all devices, browsers, and private tabs.
  */
+
+const MASTER_TAG_CONFIG = {
+  categories: [
+    "Bridal Blouse & Maggam Work",
+    "Hand Embroidered Blouses",
+    "Machine Embroidered Blouse",
+    "Zardozi Work",
+    "Kurtis & Chudidhar",
+    "Lehengas & Festive Couture",
+    "Frocks & Gowns"
+  ],
+  necklines: [
+    "Boat Neck",
+    "V-Neck",
+    "Sweetheart Neck",
+    "Round / U-Neck",
+    "Square Neck",
+    "Keyhole Back",
+    "High Neck / Collar"
+  ],
+  sleeves: [
+    "Puff Sleeve",
+    "Elbow Length Sleeve",
+    "Sheer / Net Sleeve",
+    "Cap Sleeve",
+    "Sleeveless",
+    "Full Sleeve",
+    "Ruffle Sleeve"
+  ],
+  works: [
+    "Cutwork",
+    "Aari Work",
+    "Maggam Work",
+    "Zardozi Work",
+    "Kundan / Stone Work",
+    "Machine Embroidery",
+    "Pearl / Bead Work"
+  ],
+  featuredMainTabs: [
+    "Boat Neck",
+    "Puff Sleeve",
+    "Cutwork",
+    "V-Neck"
+  ]
+};
+
+function getActiveTagConfig() {
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const saved = localStorage.getItem('sree_tag_config');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          categories: Array.from(new Set([...MASTER_TAG_CONFIG.categories, ...(parsed.categories || [])])),
+          necklines: Array.from(new Set([...MASTER_TAG_CONFIG.necklines, ...(parsed.necklines || [])])),
+          sleeves: Array.from(new Set([...MASTER_TAG_CONFIG.sleeves, ...(parsed.sleeves || [])])),
+          works: Array.from(new Set([...MASTER_TAG_CONFIG.works, ...(parsed.works || [])])),
+          featuredMainTabs: Array.from(new Set([...(parsed.featuredMainTabs || MASTER_TAG_CONFIG.featuredMainTabs)]))
+        };
+      }
+    } catch (e) {}
+  }
+  return JSON.parse(JSON.stringify(MASTER_TAG_CONFIG));
+}
+
+function saveActiveTagConfig(cfg) {
+  if (typeof localStorage !== 'undefined' && cfg) {
+    try {
+      localStorage.setItem('sree_tag_config', JSON.stringify(cfg));
+    } catch (e) {}
+  }
+}
 
 const MASTER_CATALOG = [
     {
@@ -657,6 +729,9 @@ function getFeaturedMainPageProducts(limit = 6) {
 
 if (typeof window !== 'undefined') {
   window.MASTER_CATALOG = MASTER_CATALOG;
+  window.MASTER_TAG_CONFIG = MASTER_TAG_CONFIG;
+  window.getActiveTagConfig = getActiveTagConfig;
+  window.saveActiveTagConfig = saveActiveTagConfig;
   window.SHOWCASE_SECTIONS = SHOWCASE_SECTIONS;
   window.getUnifiedCatalog = getUnifiedCatalog;
   window.getProductSectionId = getProductSectionId;
@@ -669,6 +744,9 @@ if (typeof window !== 'undefined') {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MASTER_CATALOG,
+    MASTER_TAG_CONFIG,
+    getActiveTagConfig,
+    saveActiveTagConfig,
     SHOWCASE_SECTIONS,
     getUnifiedCatalog,
     getProductSectionId,

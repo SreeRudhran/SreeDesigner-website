@@ -508,7 +508,7 @@
   </div>
 
   <!-- QUICK CATEGORY SWITCHER PILLS -->
-  <div class="cat-pills-bar">
+  <div class="cat-pills-bar" id="categoryPillsBar">
     <a href="category.html?cat=Hand%20Embroidered%20Blouses" class="cat-pill" data-cat="Hand Embroidered Blouses">Hand Embroidered Blouses</a>
     <a href="category.html?cat=Machine%20Embroidered%20Blouse" class="cat-pill" data-cat="Machine Embroidered Blouse">Machine Embroidered Blouse</a>
     <a href="category.html?cat=Bridal%20Blouse%20%26%20Maggam%20Work" class="cat-pill" data-cat="Bridal Blouse &amp; Maggam Work">Bridal Blouses &amp; Maggam</a>
@@ -516,6 +516,10 @@
     <a href="category.html?cat=Lehengas%20%26%20Festive%20Couture" class="cat-pill" data-cat="Lehengas &amp; Festive Couture">Lehengas &amp; Festive</a>
     <a href="category.html?cat=Frocks%20%26%20Gowns" class="cat-pill" data-cat="Frocks &amp; Gowns">Frocks &amp; Gowns</a>
     <a href="category.html?cat=Zardozi%20Work" class="cat-pill" data-cat="Zardozi Work">Zardozi Work</a>
+    <a href="category.html?cat=Boat%20Neck" class="cat-pill" data-cat="Boat Neck" style="font-weight:600; border-color:var(--gold);">✨ Boat Neck</a>
+    <a href="category.html?cat=Puff%20Sleeve" class="cat-pill" data-cat="Puff Sleeve" style="font-weight:600; border-color:var(--gold);">✨ Puff Sleeve</a>
+    <a href="category.html?cat=Cutwork" class="cat-pill" data-cat="Cutwork" style="font-weight:600; border-color:var(--gold);">✨ Cutwork</a>
+    <a href="category.html?cat=V-Neck" class="cat-pill" data-cat="V-Neck" style="font-weight:600; border-color:var(--gold);">✨ V-Neck</a>
   </div>
 
   <!-- TRENDING DESIGN HUBS PILLS -->
@@ -584,11 +588,48 @@
         .replace(/'/g, '&#39;');
     }
 
+    function renderCategoryPills(activeCat) {
+      const container = document.getElementById('categoryPillsBar');
+      if (!container) return;
+      const cfg = (typeof getActiveTagConfig === 'function') ? getActiveTagConfig() : {
+        categories: [
+          "Bridal Blouse & Maggam Work",
+          "Hand Embroidered Blouses",
+          "Machine Embroidered Blouse",
+          "Zardozi Work",
+          "Kurtis & Chudidhar",
+          "Lehengas & Festive Couture",
+          "Frocks & Gowns"
+        ],
+        featuredMainTabs: ["Boat Neck", "Puff Sleeve", "Cutwork", "V-Neck"]
+      };
+
+      const normActive = (activeCat || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+      let html = '';
+      (cfg.categories || []).forEach(cat => {
+        const norm = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isActive = normActive === norm;
+        html += `<a href="category.html?cat=${encodeURIComponent(cat)}" class="cat-pill ${isActive ? 'active' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</a>\n`;
+      });
+
+      (cfg.featuredMainTabs || []).forEach(tag => {
+        const norm = tag.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isActive = normActive === norm;
+        html += `<a href="category.html?cat=${encodeURIComponent(tag)}" class="cat-pill ${isActive ? 'active' : ''}" data-cat="${escapeHtml(tag)}" style="font-weight:600; border-color:var(--gold);">✨ ${escapeHtml(tag)}</a>\n`;
+      });
+
+      container.innerHTML = html;
+    }
+
     function loadCategoryPage() {
       const params = new URLSearchParams(window.location.search);
       const rawCat = (params.get('cat') || 'Hand Embroidered Blouses').trim();
       // Enforce max length to prevent parameter pollution/abuse
       const categoryName = rawCat.slice(0, 80);
+
+      // Render category & featured design pills dynamically
+      renderCategoryPills(categoryName);
 
       // Update Header Text & Meta (textContent and title are already XSS-safe text sinks)
       document.getElementById('breadcrumbCat').textContent = categoryName;

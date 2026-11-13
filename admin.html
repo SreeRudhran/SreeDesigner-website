@@ -179,6 +179,22 @@ function stopQrAutoRefresh() {
     .cat-checkbox-chip:hover { border-color: var(--gold); background: #fdf8f5; }
     .cat-checkbox-chip input[type="checkbox"] { accent-color: var(--gold); cursor: pointer; width: 14px; height: 14px; }
     .cat-checkbox-chip.active { background: #fef9ed; border-color: var(--gold); color: #92400e; font-weight: 700; box-shadow: 0 2px 6px rgba(185,140,20,0.15); }
+
+    /* 🏷️ TAG & CATEGORY CUSTOMIZER STYLES */
+    .tag-manager-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 20px; }
+    .tag-group-card { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03); }
+    .tag-group-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+    .tag-group-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .tag-list-box { display: flex; flex-wrap: wrap; gap: 8px; min-height: 80px; align-content: flex-start; }
+    .tag-item-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--bg2); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 0.82rem; font-weight: 500; transition: all 0.2s; }
+    .tag-item-pill.is-featured { background: #fef9ed; border-color: #f59e0b; color: #92400e; font-weight: 700; box-shadow: 0 2px 8px rgba(245,158,11,0.2); }
+    .tag-star-toggle { background: transparent; border: none; cursor: pointer; font-size: 0.85rem; padding: 0 2px; line-height: 1; transition: transform 0.2s; }
+    .tag-star-toggle:hover { transform: scale(1.25); }
+    .tag-del-btn { background: transparent; border: none; cursor: pointer; font-size: 0.95rem; color: #94a3b8; line-height: 1; padding: 0 2px; }
+    .tag-del-btn:hover { color: #dc2626; }
+    .tag-add-inline { display: flex; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--line); }
+    .tag-add-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg2); font-size: 0.82rem; outline: none; }
+    .tag-add-input:focus { border-color: var(--gold); background: var(--white); }
   </style>
 </head>
 <body>
@@ -214,6 +230,7 @@ function stopQrAutoRefresh() {
     <div class="sidebar">
       <div style="font-size:.78rem;color:var(--soft);padding:0 8px;margin-bottom:6px;">Logged in as:<br><strong id="userEmail">admin@sreedesigners.com</strong></div>
       <button class="nav-btn active" data-tab="showcase" onclick="switchTab('showcase')">📁 Showcase Portfolio</button>
+      <button class="nav-btn" data-tab="tags" onclick="switchTab('tags')">🏷️ Categories &amp; Design Tags</button>
       <button class="nav-btn" data-tab="blog" onclick="switchTab('blog')">✍️ Blog Articles</button>
       <button class="nav-btn" data-tab="testimonials" onclick="switchTab('testimonials')">⭐ Customer Reviews</button>
       <button class="nav-btn" data-tab="social" onclick="switchTab('social')">🎥 Instagram Reels</button>
@@ -247,6 +264,95 @@ function stopQrAutoRefresh() {
         </div>
 
         <div id="listShowcase"><p class="empty-msg">Loading items...</p></div>
+      </div>
+
+      <!-- CATEGORIES & DESIGN TAG MANAGER TAB -->
+      <div class="tab-pane" id="tab-tags">
+        <div class="tab-header">
+          <div>
+            <h3>Categories &amp; Design Tag Manager</h3>
+            <p>Customize blouse cuts, sleeve styles, and embroidery crafts. Replicate any design tag as a live filter tab on your customer website.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-sm" onclick="resetTagsToDefault()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;">🔄 Reset to Defaults</button>
+            <a href="/category" target="_blank" rel="noopener noreferrer" class="btn-main" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">👁️ View Live Website Tabs</a>
+          </div>
+        </div>
+
+        <!-- LIVE WEBSITE REPLICATION STATUS BANNER -->
+        <div style="background:linear-gradient(135deg, #fef9ed 0%, #fffbeb 100%); border:1.5px solid #f59e0b; border-radius:16px; padding:18px 22px; margin-bottom:24px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <div>
+              <strong style="font-size:0.95rem; color:#92400e; display:inline-flex; align-items:center; gap:6px;">
+                ⭐ Live Website Main Filter Tabs (Active Now)
+              </strong>
+              <small style="display:block; color:#78350f; font-size:0.78rem; margin-top:2px;">
+                These tags appear as top-level filter pills on your customer-facing category page. Click the ⭐ star on any tag below to add or remove it from the website!
+              </small>
+            </div>
+          </div>
+          <div id="liveFeaturedTabsPreview" style="display:flex; flex-wrap:wrap; gap:8px;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="tag-manager-grid">
+          <!-- CARD 1: MAIN CATEGORIES -->
+          <div class="tag-group-card">
+            <div class="tag-group-header">
+              <span class="tag-group-title">📁 Signature Categories</span>
+              <span class="badge" id="count_categories">0 tags</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--soft); margin-top:-6px;">Primary garment departments displayed on your homepage and shop.</p>
+            <div class="tag-list-box" id="tagList_categories"></div>
+            <div class="tag-add-inline">
+              <input type="text" id="inputNewTag_categories" class="tag-add-input" placeholder="New category (e.g. Designer Dupattas)" onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromManager('categories');}">
+              <button type="button" class="btn-sm btn-preview" onclick="addTagFromManager('categories')">+ Add</button>
+            </div>
+          </div>
+
+          <!-- CARD 2: NECKLINE CUTS -->
+          <div class="tag-group-card">
+            <div class="tag-group-header">
+              <span class="tag-group-title">✨ Neckline Cuts</span>
+              <span class="badge" id="count_necklines">0 tags</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--soft); margin-top:-6px;">Blouse neck cuts. Click ⭐ to replicate as a main filter tab on the website.</p>
+            <div class="tag-list-box" id="tagList_necklines"></div>
+            <div class="tag-add-inline">
+              <input type="text" id="inputNewTag_necklines" class="tag-add-input" placeholder="New neck cut (e.g. Halter Neck)" onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromManager('necklines');}">
+              <button type="button" class="btn-sm btn-preview" onclick="addTagFromManager('necklines')">+ Add</button>
+            </div>
+          </div>
+
+          <!-- CARD 3: SLEEVE STYLES -->
+          <div class="tag-group-card">
+            <div class="tag-group-header">
+              <span class="tag-group-title">✨ Sleeve Styles</span>
+              <span class="badge" id="count_sleeves">0 tags</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--soft); margin-top:-6px;">Sleeve cuts and lengths. Click ⭐ to replicate as a main filter tab on the website.</p>
+            <div class="tag-list-box" id="tagList_sleeves"></div>
+            <div class="tag-add-inline">
+              <input type="text" id="inputNewTag_sleeves" class="tag-add-input" placeholder="New sleeve style (e.g. Bell Sleeve)" onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromManager('sleeves');}">
+              <button type="button" class="btn-sm btn-preview" onclick="addTagFromManager('sleeves')">+ Add</button>
+            </div>
+          </div>
+
+          <!-- CARD 4: WORK & CRAFT DETAILS -->
+          <div class="tag-group-card">
+            <div class="tag-group-header">
+              <span class="tag-group-title">🪡 Work &amp; Craft Details</span>
+              <span class="badge" id="count_works">0 tags</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--soft); margin-top:-6px;">Hand embroidery and craft techniques. Click ⭐ to replicate as a main filter tab.</p>
+            <div class="tag-list-box" id="tagList_works"></div>
+            <div class="tag-add-inline">
+              <input type="text" id="inputNewTag_works" class="tag-add-input" placeholder="New craft detail (e.g. Mirror Work)" onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromManager('works');}">
+              <button type="button" class="btn-sm btn-preview" onclick="addTagFromManager('works')">+ Add</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- BLOG TAB -->
@@ -422,15 +528,12 @@ function stopQrAutoRefresh() {
         </div>
       </div>
       <div>
-        <label class="field-label">Categories (Select all that apply) *</label>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label class="field-label" style="margin-bottom:0;">Categories (Select all that apply) *</label>
+          <button type="button" onclick="promptAddNewTag('categories', 'create')" class="btn-sm" style="background:transparent; color:var(--gold-dark); border:none; padding:0; cursor:pointer; font-size:0.75rem; text-decoration:underline;">+ Add Custom Category</button>
+        </div>
         <div class="category-checkbox-grid" id="sc_category_picker">
-          <label class="cat-checkbox-chip active"><input type="checkbox" name="sc_categories" value="Bridal Blouse & Maggam Work" checked> <span>Bridal Blouse &amp; Maggam Work</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Hand Embroidered Blouses"> <span>Hand Embroidered Blouses</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Machine Embroidered Blouse"> <span>Machine Embroidered Blouse</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Zardozi Work"> <span>Zardozi Work</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Kurtis & Chudidhar"> <span>Kurtis &amp; Chudidhar</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Lehengas & Festive Couture"> <span>Lehengas &amp; Festive Couture</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
+          <!-- Populated dynamically via renderAllFormTagPickers -->
         </div>
       </div>
 
@@ -445,39 +548,29 @@ function stopQrAutoRefresh() {
         
         <!-- Necklines -->
         <div style="margin-bottom:10px;">
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
-          <div class="category-checkbox-grid" id="sc_neckline_picker" style="margin-bottom:6px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Boat Neck"> <span>Boat Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="V-Neck"> <span>V-Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Sweetheart Neck"> <span>Sweetheart Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Round / U-Neck"> <span>Round / U-Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Keyhole Back"> <span>Keyhole Back</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="High Neck / Collar"> <span>High Neck / Collar</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
+            <button type="button" onclick="promptAddNewTag('necklines', 'create')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Cut</button>
           </div>
+          <div class="category-checkbox-grid" id="sc_neckline_picker" style="margin-bottom:6px;"></div>
         </div>
 
         <!-- Sleeves -->
         <div style="margin-bottom:10px;">
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
-          <div class="category-checkbox-grid" id="sc_sleeve_picker" style="margin-bottom:6px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Puff Sleeve"> <span>Puff Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Elbow Length Sleeve"> <span>Elbow Length Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Sheer / Net Sleeve"> <span>Sheer / Net Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Cap Sleeve"> <span>Cap Sleeve</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
+            <button type="button" onclick="promptAddNewTag('sleeves', 'create')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Sleeve</button>
           </div>
+          <div class="category-checkbox-grid" id="sc_sleeve_picker" style="margin-bottom:6px;"></div>
         </div>
 
         <!-- Work Details -->
         <div>
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
-          <div class="category-checkbox-grid" id="sc_work_picker" style="margin-bottom:2px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Cutwork"> <span>Cutwork</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Aari Work"> <span>Aari Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Maggam Work"> <span>Maggam Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Zardozi Work"> <span>Zardozi Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Kundan / Stone Work"> <span>Kundan / Stone Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="sc_design_tags" value="Machine Embroidery"> <span>Machine Embroidery</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
+            <button type="button" onclick="promptAddNewTag('works', 'create')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Craft</button>
           </div>
+          <div class="category-checkbox-grid" id="sc_work_picker" style="margin-bottom:2px;"></div>
         </div>
       </div>
       <label class="field-label">Description *</label>
@@ -546,15 +639,12 @@ function stopQrAutoRefresh() {
         </div>
       </div>
       <div>
-        <label class="field-label">Categories (Select all that apply) *</label>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label class="field-label" style="margin-bottom:0;">Categories (Select all that apply) *</label>
+          <button type="button" onclick="promptAddNewTag('categories', 'edit')" class="btn-sm" style="background:transparent; color:var(--gold-dark); border:none; padding:0; cursor:pointer; font-size:0.75rem; text-decoration:underline;">+ Add Custom Category</button>
+        </div>
         <div class="category-checkbox-grid" id="edit_sc_category_picker">
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Bridal Blouse & Maggam Work"> <span>Bridal Blouse &amp; Maggam Work</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Hand Embroidered Blouses"> <span>Hand Embroidered Blouses</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Machine Embroidered Blouse"> <span>Machine Embroidered Blouse</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Zardozi Work"> <span>Zardozi Work</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Kurtis & Chudidhar"> <span>Kurtis &amp; Chudidhar</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Lehengas & Festive Couture"> <span>Lehengas &amp; Festive Couture</span></label>
-          <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_categories" value="Frocks & Gowns"> <span>Frocks &amp; Gowns</span></label>
+          <!-- Populated dynamically via renderAllFormTagPickers -->
         </div>
       </div>
 
@@ -569,39 +659,29 @@ function stopQrAutoRefresh() {
         
         <!-- Necklines -->
         <div style="margin-bottom:10px;">
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
-          <div class="category-checkbox-grid" id="edit_sc_neckline_picker" style="margin-bottom:6px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Boat Neck"> <span>Boat Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="V-Neck"> <span>V-Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Sweetheart Neck"> <span>Sweetheart Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Round / U-Neck"> <span>Round / U-Neck</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Keyhole Back"> <span>Keyhole Back</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="High Neck / Collar"> <span>High Neck / Collar</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Neckline Cuts</small>
+            <button type="button" onclick="promptAddNewTag('necklines', 'edit')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Cut</button>
           </div>
+          <div class="category-checkbox-grid" id="edit_sc_neckline_picker" style="margin-bottom:6px;"></div>
         </div>
 
         <!-- Sleeves -->
         <div style="margin-bottom:10px;">
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
-          <div class="category-checkbox-grid" id="edit_sc_sleeve_picker" style="margin-bottom:6px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Puff Sleeve"> <span>Puff Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Elbow Length Sleeve"> <span>Elbow Length Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Sheer / Net Sleeve"> <span>Sheer / Net Sleeve</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Cap Sleeve"> <span>Cap Sleeve</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Sleeve Styles</small>
+            <button type="button" onclick="promptAddNewTag('sleeves', 'edit')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Sleeve</button>
           </div>
+          <div class="category-checkbox-grid" id="edit_sc_sleeve_picker" style="margin-bottom:6px;"></div>
         </div>
 
         <!-- Work Details -->
         <div>
-          <small style="display:block; font-weight:700; color:#5c4712; margin-bottom:6px; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
-          <div class="category-checkbox-grid" id="edit_sc_work_picker" style="margin-bottom:2px;">
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Cutwork"> <span>Cutwork</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Aari Work"> <span>Aari Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Maggam Work"> <span>Maggam Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Zardozi Work"> <span>Zardozi Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Kundan / Stone Work"> <span>Kundan / Stone Work</span></label>
-            <label class="cat-checkbox-chip"><input type="checkbox" name="edit_sc_design_tags" value="Machine Embroidery"> <span>Machine Embroidery</span></label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <small style="display:block; font-weight:700; color:#5c4712; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.04em;">Work &amp; Craft Details</small>
+            <button type="button" onclick="promptAddNewTag('works', 'edit')" class="btn-sm" style="background:transparent; color:#5c4712; border:none; padding:0; cursor:pointer; font-size:0.72rem; text-decoration:underline;">+ Add Craft</button>
           </div>
+          <div class="category-checkbox-grid" id="edit_sc_work_picker" style="margin-bottom:2px;"></div>
         </div>
       </div>
       <label class="field-label">Description *</label>
@@ -1016,9 +1096,203 @@ function switchTab(name) {
   });
   document.getElementById('tab-' + name).classList.add('active');
   if (name === 'showcase')    renderShowcase();
+  if (name === 'tags')        renderTagManager();
   if (name === 'blog')        renderBlog();
   if (name === 'testimonials') renderTestimonials();
   if (name === 'qrhub')       { fetchLiveQrStats(); startQrAutoRefresh(); } else { stopQrAutoRefresh(); }
+}
+
+// ─── 🏷️ DYNAMIC CATEGORY & DESIGN TAG MANAGER ────────────────────────────────
+function getAdminTagConfig() {
+  if (typeof getActiveTagConfig === 'function') {
+    return getActiveTagConfig();
+  }
+  return {
+    categories: ["Bridal Blouse & Maggam Work", "Hand Embroidered Blouses", "Machine Embroidered Blouse", "Zardozi Work", "Kurtis & Chudidhar", "Lehengas & Festive Couture", "Frocks & Gowns"],
+    necklines: ["Boat Neck", "V-Neck", "Sweetheart Neck", "Round / U-Neck", "Square Neck", "Keyhole Back", "High Neck / Collar"],
+    sleeves: ["Puff Sleeve", "Elbow Length Sleeve", "Sheer / Net Sleeve", "Cap Sleeve", "Sleeveless", "Full Sleeve", "Ruffle Sleeve"],
+    works: ["Cutwork", "Aari Work", "Maggam Work", "Zardozi Work", "Kundan / Stone Work", "Machine Embroidery", "Pearl / Bead Work"],
+    featuredMainTabs: ["Boat Neck", "Puff Sleeve", "Cutwork", "V-Neck"]
+  };
+}
+
+function saveAdminTagConfig(cfg) {
+  if (typeof saveActiveTagConfig === 'function') {
+    saveActiveTagConfig(cfg);
+  } else {
+    try { localStorage.setItem('sree_tag_config', JSON.stringify(cfg)); } catch(e) {}
+  }
+}
+
+function renderTagManager() {
+  const cfg = getAdminTagConfig();
+
+  // Render Live Featured Tabs preview banner
+  const previewEl = document.getElementById('liveFeaturedTabsPreview');
+  if (previewEl) {
+    if (!cfg.featuredMainTabs || cfg.featuredMainTabs.length === 0) {
+      previewEl.innerHTML = '<span style="font-size:0.8rem; color:#78350f;">No custom design tags featured yet. Click the ⭐ star on any tag below to promote it to the website!</span>';
+    } else {
+      previewEl.innerHTML = cfg.featuredMainTabs.map(tab => `
+        <span style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid #f59e0b; border-radius:999px; padding:4px 12px; font-size:0.78rem; font-weight:700; color:#92400e;">
+          ⭐ ${escapeHtml(tab)}
+          <button type="button" onclick="toggleFeaturedTab('${escapeHtml(tab).replace(/'/g, "\\'")}')" style="background:transparent; border:none; cursor:pointer; color:#b45309; font-size:0.85rem;" title="Remove from website tabs">&times;</button>
+        </span>
+      `).join('');
+    }
+  }
+
+  // Render 4 tag group cards
+  const sections = [
+    { key: 'categories', listId: 'tagList_categories', countId: 'count_categories', allowFeature: false },
+    { key: 'necklines', listId: 'tagList_necklines', countId: 'count_necklines', allowFeature: true },
+    { key: 'sleeves', listId: 'tagList_sleeves', countId: 'count_sleeves', allowFeature: true },
+    { key: 'works', listId: 'tagList_works', countId: 'count_works', allowFeature: true }
+  ];
+
+  sections.forEach(sec => {
+    const listEl = document.getElementById(sec.listId);
+    const countEl = document.getElementById(sec.countId);
+    const items = cfg[sec.key] || [];
+
+    if (countEl) countEl.textContent = `${items.length} tags`;
+
+    if (listEl) {
+      if (!items.length) {
+        listEl.innerHTML = '<span style="font-size:0.8rem; color:var(--soft);">No tags added yet.</span>';
+      } else {
+        listEl.innerHTML = items.map(tag => {
+          const isFeatured = (cfg.featuredMainTabs || []).includes(tag);
+          const safeTag = escapeHtml(tag).replace(/'/g, "\\'");
+          return `
+            <div class="tag-item-pill ${isFeatured ? 'is-featured' : ''}">
+              <span>${escapeHtml(tag)}</span>
+              ${sec.allowFeature ? `
+                <button type="button" class="tag-star-toggle" onclick="toggleFeaturedTab('${safeTag}')" title="${isFeatured ? 'Remove from live website main filter tabs' : 'Replicate as main filter tab on website'}">
+                  ${isFeatured ? '⭐' : '☆'}
+                </button>
+              ` : ''}
+              <button type="button" class="tag-del-btn" onclick="deleteTag('${sec.key}', '${safeTag}')" title="Delete tag">&times;</button>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+  });
+}
+
+function toggleFeaturedTab(tagName) {
+  const cfg = getAdminTagConfig();
+  if (!Array.isArray(cfg.featuredMainTabs)) cfg.featuredMainTabs = [];
+  const idx = cfg.featuredMainTabs.indexOf(tagName);
+  if (idx !== -1) {
+    cfg.featuredMainTabs.splice(idx, 1);
+  } else {
+    cfg.featuredMainTabs.push(tagName);
+  }
+  saveAdminTagConfig(cfg);
+  renderTagManager();
+}
+
+function addTagFromManager(sectionKey) {
+  const inputEl = document.getElementById(`inputNewTag_${sectionKey}`);
+  if (!inputEl) return;
+  const val = inputEl.value.trim();
+  if (!val) return;
+
+  const cfg = getAdminTagConfig();
+  if (!Array.isArray(cfg[sectionKey])) cfg[sectionKey] = [];
+  if (!cfg[sectionKey].some(t => t.toLowerCase() === val.toLowerCase())) {
+    cfg[sectionKey].push(val);
+    saveAdminTagConfig(cfg);
+  }
+  inputEl.value = '';
+  renderTagManager();
+}
+
+function deleteTag(sectionKey, tagName) {
+  if (!confirm(`Delete tag "${tagName}"?`)) return;
+  const cfg = getAdminTagConfig();
+  if (Array.isArray(cfg[sectionKey])) {
+    cfg[sectionKey] = cfg[sectionKey].filter(t => t.toLowerCase() !== tagName.toLowerCase());
+  }
+  if (Array.isArray(cfg.featuredMainTabs)) {
+    cfg.featuredMainTabs = cfg.featuredMainTabs.filter(t => t.toLowerCase() !== tagName.toLowerCase());
+  }
+  saveAdminTagConfig(cfg);
+  renderTagManager();
+}
+
+function resetTagsToDefault() {
+  if (!confirm('Reset all categories, necklines, sleeves, and works to boutique defaults?')) return;
+  try { localStorage.removeItem('sree_tag_config'); } catch(e) {}
+  renderTagManager();
+  alert('✅ Tags reset to boutique defaults!');
+}
+
+function promptAddNewTag(sectionKey, mode) {
+  const label = sectionKey === 'categories' ? 'category' : (sectionKey === 'necklines' ? 'neckline cut' : (sectionKey === 'sleeves' ? 'sleeve style' : 'craft detail'));
+  const newTag = prompt(`Enter new ${label} name (e.g. ${sectionKey === 'necklines' ? 'Halter Neck' : (sectionKey === 'sleeves' ? 'Bell Sleeve' : 'Mirror Work')}):`);
+  if (!newTag || !newTag.trim()) return;
+  const cleanTag = newTag.trim();
+
+  const cfg = getAdminTagConfig();
+  if (!Array.isArray(cfg[sectionKey])) cfg[sectionKey] = [];
+  if (!cfg[sectionKey].some(t => t.toLowerCase() === cleanTag.toLowerCase())) {
+    cfg[sectionKey].push(cleanTag);
+    saveAdminTagConfig(cfg);
+  }
+
+  // Get currently selected tags in this form
+  const prefix = mode === 'create' ? 'sc' : 'edit_sc';
+  const checkedCats = Array.from(document.querySelectorAll(`input[name="${prefix}_categories"]:checked`)).map(c => c.value);
+  const checkedDesigns = Array.from(document.querySelectorAll(`input[name="${prefix}_design_tags"]:checked`)).map(c => c.value);
+  const allSelected = [...new Set([...checkedCats, ...checkedDesigns, cleanTag])];
+
+  renderAllFormTagPickers(allSelected, mode);
+}
+
+function renderAllFormTagPickers(selectedTags = [], mode = 'create') {
+  const cfg = getAdminTagConfig();
+  const prefix = mode === 'create' ? 'sc' : 'edit_sc';
+
+  const normSelected = (selectedTags || []).map(t => String(t).toLowerCase().trim());
+
+  // 1. Categories
+  const catEl = document.getElementById(`${prefix}_category_picker`);
+  if (catEl) {
+    catEl.innerHTML = (cfg.categories || []).map(cat => {
+      const isChecked = normSelected.includes(cat.toLowerCase().trim()) || (mode === 'create' && !selectedTags.length && cat === 'Bridal Blouse & Maggam Work');
+      return `
+        <label class="cat-checkbox-chip ${isChecked ? 'active' : ''}">
+          <input type="checkbox" name="${prefix}_categories" value="${escapeHtml(cat)}" ${isChecked ? 'checked' : ''}>
+          <span>${escapeHtml(cat)}</span>
+        </label>
+      `;
+    }).join('');
+  }
+
+  // Helper for design tag sections
+  const renderDesignGroup = (containerId, items) => {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = (items || []).map(item => {
+      const isChecked = normSelected.includes(item.toLowerCase().trim());
+      return `
+        <label class="cat-checkbox-chip ${isChecked ? 'active' : ''}">
+          <input type="checkbox" name="${prefix}_design_tags" value="${escapeHtml(item)}" ${isChecked ? 'checked' : ''}>
+          <span>${escapeHtml(item)}</span>
+        </label>
+      `;
+    }).join('');
+  };
+
+  // 2. Necklines
+  renderDesignGroup(`${prefix}_neckline_picker`, cfg.necklines);
+  // 3. Sleeves
+  renderDesignGroup(`${prefix}_sleeve_picker`, cfg.sleeves);
+  // 4. Works
+  renderDesignGroup(`${prefix}_work_picker`, cfg.works);
 }
 
 // ─── SHOWCASE SECTIONS & HOMEPAGE FEATURED SELECTOR ─────────────────────────
@@ -1730,61 +2004,23 @@ async function handleFetchFromInstagram(mode) {
       if (data.suggestedPrice) document.getElementById('sc_price').value = data.suggestedPrice;
       if (data.cleanDesc) document.getElementById('sc_desc').value = data.cleanDesc;
 
-      // 3. Pre-select Categories
-      const catPickerId = '#sc_category_picker';
-      if (Array.isArray(data.suggestedTags)) {
-        document.querySelectorAll(catPickerId + ' input[name="sc_categories"]').forEach(cb => {
-          const match = data.suggestedTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
-          cb.checked = match;
-          const chip = cb.closest('.cat-checkbox-chip');
-          if (chip) {
-            if (match) chip.classList.add('active');
-            else chip.classList.remove('active');
-          }
-        });
-      }
-
-      // 4. Pre-select Design & Cut Tags
-      if (Array.isArray(data.suggestedDesignTags)) {
-        document.querySelectorAll('input[name="sc_design_tags"]').forEach(cb => {
-          const match = data.suggestedDesignTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
-          cb.checked = match;
-          const chip = cb.closest('.cat-checkbox-chip');
-          if (chip) {
-            if (match) chip.classList.add('active');
-            else chip.classList.remove('active');
-          }
-        });
-      }
+      // 3. Auto-populate all Categories and Design Tags (Neckline, Sleeve, Work)
+      const allSuggested = [
+        ...(Array.isArray(data.suggestedTags) ? data.suggestedTags : []),
+        ...(Array.isArray(data.suggestedDesignTags) ? data.suggestedDesignTags : [])
+      ];
+      renderAllFormTagPickers(allSuggested, 'create');
     } else {
       if (data.suggestedTitle) document.getElementById('edit_sc_title').value = data.suggestedTitle;
       if (data.suggestedPrice) document.getElementById('edit_sc_price').value = data.suggestedPrice;
       if (data.cleanDesc) document.getElementById('edit_sc_desc').value = data.cleanDesc;
 
-      const catPickerId = '#edit_sc_category_picker';
-      if (Array.isArray(data.suggestedTags)) {
-        document.querySelectorAll(catPickerId + ' input[name="edit_sc_categories"]').forEach(cb => {
-          const match = data.suggestedTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
-          cb.checked = match;
-          const chip = cb.closest('.cat-checkbox-chip');
-          if (chip) {
-            if (match) chip.classList.add('active');
-            else chip.classList.remove('active');
-          }
-        });
-      }
-
-      if (Array.isArray(data.suggestedDesignTags)) {
-        document.querySelectorAll('input[name="edit_sc_design_tags"]').forEach(cb => {
-          const match = data.suggestedDesignTags.some(t => t.toLowerCase() === cb.value.toLowerCase());
-          cb.checked = match;
-          const chip = cb.closest('.cat-checkbox-chip');
-          if (chip) {
-            if (match) chip.classList.add('active');
-            else chip.classList.remove('active');
-          }
-        });
-      }
+      // 3. Auto-populate all Categories and Design Tags (Neckline, Sleeve, Work) in Edit modal
+      const allSuggested = [
+        ...(Array.isArray(data.suggestedTags) ? data.suggestedTags : []),
+        ...(Array.isArray(data.suggestedDesignTags) ? data.suggestedDesignTags : [])
+      ];
+      renderAllFormTagPickers(allSuggested, 'edit');
     }
 
     const slideCount = Array.isArray(data.images) ? data.images.length : 0;
@@ -1903,24 +2139,7 @@ function openEditShowcase(id) {
   }
   
   const itemTags = Array.isArray(item.tags) ? item.tags : (item.tags ? [item.tags] : ['Hand Embroidered Blouses']);
-  document.querySelectorAll('#edit_sc_category_picker input[name="edit_sc_categories"]').forEach(cb => {
-    cb.checked = itemTags.some(t => String(t).toLowerCase().trim() === cb.value.toLowerCase().trim());
-    const chip = cb.closest('.cat-checkbox-chip');
-    if (chip) {
-      if (cb.checked) chip.classList.add('active');
-      else chip.classList.remove('active');
-    }
-  });
-
-  // Populate Design & Cut tags in Edit modal
-  document.querySelectorAll('input[name="edit_sc_design_tags"]').forEach(cb => {
-    cb.checked = itemTags.some(t => String(t).toLowerCase().trim() === cb.value.toLowerCase().trim());
-    const chip = cb.closest('.cat-checkbox-chip');
-    if (chip) {
-      if (cb.checked) chip.classList.add('active');
-      else chip.classList.remove('active');
-    }
-  });
+  renderAllFormTagPickers(itemTags, 'edit');
 
   // Populate Interactive Gallery with Main Photo + all Secondary Angles
   editGalleryImages = [];
@@ -2411,7 +2630,12 @@ function deleteReview(id) {
 }
 
 // ─── MODAL HELPERS ───────────────────────────────────────────────────────────
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id) {
+  if (id === 'modalShowcase') {
+    renderAllFormTagPickers([], 'create');
+  }
+  document.getElementById(id).classList.add('open');
+}
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 
