@@ -78,6 +78,31 @@ function saveActiveTagConfig(cfg) {
 
 const MASTER_CATALOG = [
     {
+        "id":  "prod-1793719000000",
+        "title":  "Pastel Green Aari Work Blouse with Brocade Sleeves \u0026 Tie-Up Back",
+        "slug":  "pastel-green-aari-work-blouse-brocade-sleeves-tie-up-back",
+        "description":  "• Design Style: Elegant pistachio green blouse with intricate hand aari embroidery, rich brocade sleeves, and tie-up back with tassel latkans.\n• Embroidery Work: Gold zardozi, beads, and stone detailing crafted by master artisans in Coimbatore.\n• Fabric \u0026 Lining: Pure raw silk with soft cotton inner lining and padded cups.\n• Stitching \u0026 Fit: Custom tailored to your exact measurements with 2-inch alteration margins.",
+        "starting_price":  2400,
+        "main_image_url":  "assets/images/blouse_pastel_green_aari_front.jpg",
+        "images":  [
+                       {
+                           "id":  "sub-green-1",
+                           "image_url":  "assets/images/blouse_pastel_green_aari_back.jpg"
+                       }
+                   ],
+        "tags":  [
+                     "Bridal Blouse \u0026 Maggam Work",
+                     "Hand Embroidered Blouses",
+                     "Aari Work",
+                     "Zardozi Work",
+                     "Brocade Sleeve"
+                 ],
+        "instagram_url":  "https://www.instagram.com/p/Dfrh0xOEz9m/",
+        "is_published":  true,
+        "is_featured":  true,
+        "updated_at":  "2026-11-14T16:30:00.000Z"
+    },
+    {
         "id":  "prod-1791026848751",
         "title":  "Royal Blue Silk Blouse Design with Gold Machine Embroidery",
         "slug":  "royal-blue-silk-blouse-design-with-gold-machine-embroidery",

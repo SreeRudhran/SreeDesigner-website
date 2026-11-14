@@ -134,64 +134,48 @@ async function downloadImageAsBase64(imageUrl) {
 function analyzeCaption(caption) {
   const text = (caption || '').toLowerCase();
   
-  // 1. Color extraction
+  // 1. Color extraction (using regex word boundaries to avoid false positives like 'paired' triggering 'red')
   let color = 'Designer';
   const colorMap = [
-    { key: 'deep purple', label: 'Deep Purple' },
-    { key: 'royal purple', label: 'Royal Purple' },
-    { key: 'purple', label: 'Royal Purple' },
-    { key: 'plum', label: 'Plum Purple' },
-    { key: 'wine', label: 'Wine Maroon' },
-    { key: 'rani pink', label: 'Rani Pink' },
-    { key: 'magenta', label: 'Magenta Pink' },
-    { key: 'baby pink', label: 'Pastel Pink' },
-    { key: 'pink', label: 'Rani Pink' },
-    { key: 'bridal red', label: 'Bridal Red' },
-    { key: 'vermilion', label: 'Bright Red' },
-    { key: 'crimson', label: 'Crimson Red' },
-    { key: 'maroon', label: 'Maroon' },
-    { key: 'red', label: 'Bridal Red' },
-    { key: 'emerald green', label: 'Emerald Green' },
-    { key: 'bottle green', label: 'Bottle Green' },
-    { key: 'peacock green', label: 'Peacock Green' },
-    { key: 'teal', label: 'Teal Green' },
-    { key: 'green', label: 'Emerald Green' },
-    { key: 'royal blue', label: 'Royal Blue' },
-    { key: 'navy blue', label: 'Navy Blue' },
-    { key: 'navy', label: 'Navy Blue' },
-    { key: 'sky blue', label: 'Sky Blue' },
-    { key: 'blue', label: 'Royal Blue' },
-    { key: 'mustard', label: 'Mustard Yellow' },
-    { key: 'haldi', label: 'Haldi Yellow' },
-    { key: 'yellow', label: 'Yellow' },
-    { key: 'antique gold', label: 'Antique Gold' },
-    { key: 'gold', label: 'Gold' },
-    { key: 'copper', label: 'Copper Bronze' },
-    { key: 'black', label: 'Black' },
-    { key: 'white', label: 'Ivory White' },
-    { key: 'ivory', label: 'Ivory' },
-    { key: 'silver', label: 'Silver Grey' },
-    { key: 'grey', label: 'Silver Grey' }
+    { regex: /\b(pastel green|mint green|pistachio green|pista green)\b/i, label: 'Pastel Green' },
+    { regex: /\b(bottle green|dark green)\b/i, label: 'Bottle Green' },
+    { regex: /\b(emerald green)\b/i, label: 'Emerald Green' },
+    { regex: /\b(peacock green)\b/i, label: 'Peacock Green' },
+    { regex: /\b(teal green|teal)\b/i, label: 'Teal Green' },
+    { regex: /\b(lime green|olive green|green)\b/i, label: 'Green' },
+    { regex: /\b(royal purple|deep purple|purple)\b/i, label: 'Royal Purple' },
+    { regex: /\b(plum|wine maroon|wine)\b/i, label: 'Wine Purple' },
+    { regex: /\b(rani pink|magenta pink|magenta|hot pink)\b/i, label: 'Rani Pink' },
+    { regex: /\b(baby pink|pastel pink|pink)\b/i, label: 'Pastel Pink' },
+    { regex: /\b(bridal red|crimson red|crimson|vermilion|maroon|ruby red|dark red)\b/i, label: 'Bridal Red' },
+    { regex: /\bred\b/i, label: 'Red' },
+    { regex: /\b(royal blue|navy blue|navy|sky blue|blue)\b/i, label: 'Royal Blue' },
+    { regex: /\b(mustard yellow|mustard|haldi yellow|haldi|yellow)\b/i, label: 'Mustard Yellow' },
+    { regex: /\b(antique gold|gold zari|gold|golden)\b/i, label: 'Antique Gold' },
+    { regex: /\b(copper bronze|copper)\b/i, label: 'Copper Bronze' },
+    { regex: /\b(black)\b/i, label: 'Black' },
+    { regex: /\b(ivory white|ivory|white)\b/i, label: 'Ivory White' },
+    { regex: /\b(silver grey|silver|grey|gray)\b/i, label: 'Silver Grey' }
   ];
   for (const c of colorMap) {
-    if (text.includes(c.key)) { color = c.label; break; }
+    if (c.regex.test(text)) { color = c.label; break; }
   }
 
   // 2. Garment Category Tags
   const categoryTags = [];
-  let estPrice = 2800;
+  let estPrice = 2400;
 
   if (text.includes('maggam') || text.includes('bridal') || text.includes('wedding') || text.includes('muhurtham')) {
     categoryTags.push('Bridal Blouse & Maggam Work');
-    estPrice = 3800;
+    estPrice = 3200;
   }
   if (text.includes('zardozi') || text.includes('zari') || text.includes('wirework')) {
     categoryTags.push('Zardozi Work');
-    if (estPrice < 3500) estPrice = 3500;
+    if (estPrice < 2800) estPrice = 2800;
   }
   if (text.includes('aari') || text.includes('hand embroidery') || text.includes('french knot') || text.includes('embroidery')) {
     if (!categoryTags.includes('Hand Embroidered Blouses')) categoryTags.push('Hand Embroidered Blouses');
-    if (estPrice < 2800) estPrice = 2800;
+    if (estPrice < 2400) estPrice = 2400;
   }
   if (text.includes('machine') || text.includes('computer')) {
     categoryTags.push('Machine Embroidered Blouse');
@@ -205,9 +189,8 @@ function analyzeCaption(caption) {
     categoryTags.push('Kurtis & Chudidhar');
     estPrice = 1200;
   }
-  if (text.includes('alteration') || text.includes('tassel') || text.includes('kuchu')) {
+  if (text.includes('alteration') || text.includes('tassel') || text.includes('kuchu') || text.includes('latkan')) {
     categoryTags.push('Bridal Saree Alterations & Tassels');
-    if (estPrice > 1500) estPrice = 1200;
   }
 
   // Default fallback category if empty
@@ -218,71 +201,80 @@ function analyzeCaption(caption) {
   // 3. Design Tags (Necklines, Sleeves, Work Types)
   const designTags = [];
 
-  // 3a. Necklines
+  // 3a. Necklines & Backs
   let detectedNeck = '';
-  if (text.includes('boat neck') || text.includes('boatneck') || text.includes('boat')) {
+  if (/\b(tie-up|tie up|tassel|latkan|latkans)\b/i.test(text)) {
+    designTags.push('Tie-Up Back');
+    detectedNeck = 'Tie-Up Back';
+  } else if (/\b(boat neck|boatneck|boat)\b/i.test(text)) {
     designTags.push('Boat Neck');
     detectedNeck = 'Boat Neck';
-  } else if (text.includes('v neck') || text.includes('v-neck') || text.includes('deep v')) {
+  } else if (/\b(v neck|v-neck|deep v)\b/i.test(text)) {
     designTags.push('V-Neck');
     detectedNeck = 'V-Neck';
-  } else if (text.includes('sweetheart')) {
+  } else if (/\b(sweetheart)\b/i.test(text)) {
     designTags.push('Sweetheart Neck');
     detectedNeck = 'Sweetheart Neck';
-  } else if (text.includes('square neck') || text.includes('square')) {
+  } else if (/\b(square neck|square)\b/i.test(text)) {
     designTags.push('Square Neck');
     detectedNeck = 'Square Neck';
-  } else if (text.includes('collar') || text.includes('chinese collar') || text.includes('mandarin')) {
+  } else if (/\b(collar|chinese collar|mandarin)\b/i.test(text)) {
     designTags.push('High Neck / Collar');
     detectedNeck = 'Collar Neck';
-  } else if (text.includes('keyhole') || text.includes('cutout back') || text.includes('teardrop')) {
+  } else if (/\b(keyhole|cutout back|teardrop)\b/i.test(text)) {
     designTags.push('Keyhole Back');
     detectedNeck = 'Keyhole Back';
-  } else if (text.includes('round neck') || text.includes('u neck') || text.includes('u-neck') || text.includes('pot neck')) {
+  } else if (/\b(round neck|u neck|u-neck|pot neck)\b/i.test(text)) {
     designTags.push('Round / U-Neck');
     detectedNeck = 'U-Neck';
   }
 
   // 3b. Sleeves
   let detectedSleeve = '';
-  if (text.includes('puff') || text.includes('puffed') || text.includes('balloon')) {
+  if (/\b(brocade sleeve|brocade sleeves|brocade)\b/i.test(text)) {
+    designTags.push('Brocade Sleeve');
+    detectedSleeve = 'Brocade Sleeves';
+  } else if (/\b(puff|puffed|balloon)\b/i.test(text)) {
     designTags.push('Puff Sleeve');
-    detectedSleeve = 'Puff Sleeve';
-  } else if (text.includes('elbow') || text.includes('elbow length')) {
+    detectedSleeve = 'Puff Sleeves';
+  } else if (/\b(elbow|elbow length)\b/i.test(text)) {
     designTags.push('Elbow Length Sleeve');
-    detectedSleeve = 'Elbow Sleeve';
-  } else if (text.includes('net sleeve') || text.includes('tissue sleeve') || text.includes('sheer sleeve') || text.includes('sheer')) {
+    detectedSleeve = 'Elbow Sleeves';
+  } else if (/\b(net sleeve|tissue sleeve|sheer sleeve|sheer)\b/i.test(text)) {
     designTags.push('Sheer / Net Sleeve');
-    detectedSleeve = 'Net Sleeve';
-  } else if (text.includes('cap sleeve') || text.includes('short sleeve')) {
+    detectedSleeve = 'Net Sleeves';
+  } else if (/\b(cap sleeve|short sleeve)\b/i.test(text)) {
     designTags.push('Cap Sleeve');
-    detectedSleeve = 'Cap Sleeve';
-  } else if (text.includes('sleeveless') || text.includes('strap')) {
+    detectedSleeve = 'Cap Sleeves';
+  } else if (/\b(sleeveless|strap)\b/i.test(text)) {
     designTags.push('Sleeveless');
     detectedSleeve = 'Sleeveless';
-  } else if (text.includes('full sleeve') || text.includes('long sleeve')) {
+  } else if (/\b(full sleeve|long sleeve)\b/i.test(text)) {
     designTags.push('Full Sleeve');
-    detectedSleeve = 'Full Sleeve';
-  } else if (text.includes('ruffle') || text.includes('frill')) {
+    detectedSleeve = 'Full Sleeves';
+  } else if (/\b(ruffle|frill)\b/i.test(text)) {
     designTags.push('Ruffle Sleeve');
-    detectedSleeve = 'Ruffle Sleeve';
+    detectedSleeve = 'Ruffle Sleeves';
   }
 
   // 3c. Work Details
-  let detectedWork = 'Hand Embroidery';
-  if (text.includes('cutwork') || text.includes('cut work') || text.includes('scallop') || text.includes('scalloped')) {
+  let detectedWork = 'Hand Aari Work';
+  if (/\bcutwork\b/i.test(text) || /\bcut work\b/i.test(text) || /\bscallop\b/i.test(text)) {
     designTags.push('Cutwork');
   }
-  if (text.includes('zardozi')) {
+  if (/\bzardozi\b/i.test(text) && (/\baari\b/i.test(text) || /\bmaggam\b/i.test(text))) {
+    designTags.push('Zardozi Work', 'Aari Work');
+    detectedWork = 'Aari & Zardozi Work';
+  } else if (/\bzardozi\b/i.test(text)) {
     designTags.push('Zardozi Work');
     detectedWork = 'Heavy Zardozi Work';
-  } else if (text.includes('maggam')) {
+  } else if (/\bmaggam\b/i.test(text)) {
     designTags.push('Maggam Work');
     detectedWork = 'Gold Maggam Work';
-  } else if (text.includes('aari')) {
+  } else if (/\baari\b/i.test(text)) {
     designTags.push('Aari Work');
     detectedWork = 'Hand Aari Work';
-  } else if (text.includes('machine') || text.includes('computer')) {
+  } else if (/\bmachine\b/i.test(text) || /\bcomputer\b/i.test(text)) {
     designTags.push('Machine Embroidery');
     detectedWork = 'Machine Embroidery';
   }
@@ -472,7 +464,85 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { error: 'Invalid Instagram URL. Please paste a link like https://www.instagram.com/p/CODE/ or https://www.instagram.com/reel/CODE/' });
     }
 
-    // 1. Primary Method: Instagram Embed ServerJS Data
+    // 1. High-Performance Primary Method: VxInstagram Open-Source Multi-Slide Engine
+    try {
+      const vxUrl = `https://vxinstagram.com/p/${shortcode}/`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6500);
+
+      const vxRes = await fetch(vxUrl, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
+      });
+      clearTimeout(timeout);
+
+      if (vxRes.ok) {
+        const vxHtml = await vxRes.text();
+
+        // Extract description/caption
+        const descMatch = vxHtml.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i) ||
+                          vxHtml.match(/name="description"\s+content="([^"]+)"/i);
+        let rawCaption = descMatch ? descMatch[1] : '';
+        // Unescape common HTML entities in caption
+        rawCaption = rawCaption
+          .replace(/&#x2728;/g, '✨')
+          .replace(/&#x1F49A;/g, '💚')
+          .replace(/&#x1F9F5;/g, '🧵')
+          .replace(/&#x1F4CD;/g, '📍')
+          .replace(/&#x1F69A;/g, '🚚')
+          .replace(/&#x1F4DE;/g, '📞')
+          .replace(/&#x1F517;/g, '🔗')
+          .replace(/&#x1F4F2;/g, '📲')
+          .replace(/&#x1F4BE;/g, '💾')
+          .replace(/&amp;/g, '&')
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>');
+
+        // Extract all slide images from download links and image tags
+        const slideMatches = [
+          ...vxHtml.matchAll(/href="(https:\/\/[^"]*?fbcdn\.net[^"]*?\.jpg[^"]*?)"\s+download/gi),
+          ...vxHtml.matchAll(/<img\s+src="(https:\/\/[^"]*?fbcdn\.net[^"]*?\.jpg[^"]*?)"/gi)
+        ];
+
+        const rawSlideUrls = [];
+        for (const m of slideMatches) {
+          const u = m[1].replace(/&amp;/g, '&');
+          if (!rawSlideUrls.includes(u)) {
+            rawSlideUrls.push(u);
+          }
+        }
+
+        if (rawSlideUrls.length > 0) {
+          // Download all extracted slide photos as permanent base64 data URLs (up to 6 slides)
+          const downloadedImages = [];
+          for (let i = 0; i < Math.min(rawSlideUrls.length, 6); i++) {
+            const b64 = await downloadImageAsBase64(rawSlideUrls[i]);
+            if (b64) downloadedImages.push(b64);
+          }
+
+          if (downloadedImages.length > 0) {
+            const analysis = await getHybridAnalysis(rawCaption, downloadedImages[0]);
+            return sendJson(res, 200, {
+              success: true,
+              source: 'vxinstagram_multi_slide',
+              shortcode,
+              images: downloadedImages,
+              caption: rawCaption,
+              ...analysis
+            });
+          }
+        }
+      }
+    } catch (vxErr) {
+      console.warn('VxInstagram multi-slide extraction failed, trying fallbacks:', vxErr.message);
+    }
+
+    // 2. Secondary Method: Instagram Embed ServerJS Data
     try {
       const embedUrl = `https://www.instagram.com/p/${shortcode}/embed/captioned/`;
       const embedRes = await fetch(embedUrl, {
