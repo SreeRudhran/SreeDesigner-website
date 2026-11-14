@@ -682,8 +682,10 @@
         const salePrice = parseFloat(item.starting_price) || 1800;
         const rawImg = item.main_image_url || 'assets/images/service_bridal.webp';
         const safeImg = escapeHtml(rawImg);
-        const safeTitle = escapeHtml(item.title || 'Custom Garment');
-        const safeDesc = escapeHtml(item.description || 'Handcrafted bespoke garment tailored to perfection.');
+        const cleanTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.title || '') : (item.title || '');
+        const cleanDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.description || '') : (item.description || '').replace(/(?:&;)+/g, ' ').trim();
+        const safeTitle = escapeHtml(cleanTitle || 'Custom Garment');
+        const safeDesc = escapeHtml(cleanDesc || 'Handcrafted bespoke garment tailored to perfection.');
         const safeId = encodeURIComponent(String(item.id || item.slug || ''));
         const safeIg = item.instagram_url ? escapeHtml(item.instagram_url) : '';
 

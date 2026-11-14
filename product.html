@@ -1193,22 +1193,26 @@
       if (!item) return;
 
       // 1. DYNAMIC PAGE META & SEO TITLE / DESCRIPTION
-      document.title = `${item.title} — Sree Designers & Boutique`;
+      const rawDesc = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';
+      const cleanDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(rawDesc) : rawDesc.replace(/(?:&;)+/g, ' ').trim();
+      const cleanTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.title || '') : (item.title || '');
+
+      document.title = `${cleanTitle} — Sree Designers & Boutique`;
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', item.description || `Handcrafted ${item.title} tailored at Sree Designers studio in Samalapuram & Karnempettai.`);
+        metaDesc.setAttribute('content', cleanDesc || `Handcrafted ${cleanTitle} tailored at Sree Designers studio in Samalapuram & Karnempettai.`);
       }
 
       // 2. DYNAMIC BREADCRUMBS
       const breadcrumbEl = document.getElementById('breadcrumbTitle');
-      if (breadcrumbEl) breadcrumbEl.textContent = item.title;
+      if (breadcrumbEl) breadcrumbEl.textContent = cleanTitle;
 
       // 3. DYNAMIC PRODUCT DETAILS
       const tagEl = document.getElementById('productCategoryTag');
       if (tagEl) tagEl.textContent = (item.tags && item.tags[0]) ? item.tags[0].toUpperCase() : 'BRIDAL ATELIER';
 
       const titleEl = document.getElementById('productTitle');
-      if (titleEl) titleEl.textContent = item.title;
+      if (titleEl) titleEl.textContent = cleanTitle;
 
       // 4b. DYNAMIC PRICE — MRP is calculated as price / 0.7 (30% off)
       const salePrice  = parseFloat(item.starting_price) || 1800;
@@ -1220,7 +1224,7 @@
       if (discEl) discEl.style.display = 'none';
 
       const descEl = document.getElementById('productDesc');
-      if (descEl) descEl.textContent = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';
+      if (descEl) descEl.textContent = cleanDesc;
 
       // 4. ATELIER DYNAMIC IMAGES & MULTI-SLIDE GALLERY ENGINE
       allProductImages = [];
@@ -1305,9 +1309,9 @@
 
       // Dynamic OpenGraph & Pinterest Rich Pin sync
       const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', `${item.title} | Sree Designers`);
+      if (ogTitle) ogTitle.setAttribute('content', `${cleanTitle} | Sree Designers`);
       const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', item.description || `Handcrafted ${item.title} tailored at Sree Designers.`);
+      if (ogDesc) ogDesc.setAttribute('content', cleanDesc || `Handcrafted ${cleanTitle} tailored at Sree Designers.`);
       const ogImg = document.querySelector('meta[property="og:image"]');
       if (ogImg && allProductImages.length > 0) {
         const primaryImg = allProductImages[0];

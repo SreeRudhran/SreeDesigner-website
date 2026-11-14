@@ -82,12 +82,63 @@ function findShortcodeMedia(obj) {
   return null;
 }
 
+function decodeHtmlEntities(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    // Hexadecimal character references: &#x1F470; -> 👰
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      try {
+        const code = parseInt(hex, 16);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch (e) {}
+      return ' ';
+    })
+    // Decimal character references: &#128112; -> 👰
+    .replace(/&#([0-9]+);/g, (_, dec) => {
+      try {
+        const code = parseInt(dec, 10);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch (e) {}
+      return ' ';
+    })
+    // Standard HTML entities
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&copy;/g, '©')
+    .replace(/&reg;/g, '®')
+    // Lingering orphan &; or repeated &;&;&;
+    .replace(/(?:&;)+/g, ' ')
+    .replace(/&[a-zA-Z0-9#_]+;/g, ' ');
+}
+
+function cleanCaptionText(raw) {
+  if (!raw || typeof raw !== 'string') return '';
+  let str = decodeHtmlEntities(raw);
+  // Safely strip hashtags (must be preceded by whitespace or start of line)
+  str = str.replace(/(?:^|\s)#[A-Za-z0-9_\u0B80-\u0BFF]+/g, ' ');
+  // Clean emoji/pictographs cleanly into spaces so no symbol wreckage remains
+  str = str.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E6}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}]/gu, ' ');
+  // Wipe any residual &; or malformed entity debris
+  str = str.replace(/(?:&;)+/g, ' ');
+  str = str.replace(/&[a-zA-Z0-9#_]+;/g, ' ');
+  // Fix spacing around punctuation marks
+  str = str.replace(/\s+([.,!?:])/g, '$1');
+  str = str.replace(/\s+/g, ' ').trim();
+  return str;
+}
+
 function cleanOgDescription(desc) {
   if (!desc) return '';
-  return desc
+  const decoded = decodeHtmlEntities(desc);
+  return decoded
     .replace(/^.*?on Instagram:\s*["“]?/i, '')
     .replace(/["”]?\s*$/, '')
     .replace(/[\r\n]+/g, ' ')
+    .replace(/(?:&;)+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -316,9 +367,9 @@ function analyzeCaption(caption) {
   }
 
   // 5. Clean, Simple, Customer-Focused Description (Zero Complicated Jargon)
-  let baseCaption = (caption || '')
-    .replace(/#[\w_]+/g, '')
-    .replace(/[^\x00-\x7F\u0B80-\u0BFF]/g, ' ')
+  let baseCaption = cleanCaptionText(caption)
+    .replace(/(?:&;)+/g, ' ')
+    .replace(/\s+([.,!?:])/g, '$1')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 240);
@@ -408,18 +459,19 @@ Output strict JSON with these exact fields:
 
 // ─── HYBRID AI ORCHESTRATOR ───────────────────────────────────────────────────
 async function getHybridAnalysis(caption, sampleImageBase64) {
-  const fallback = analyzeCaption(caption);
+  const cleanInput = cleanCaptionText(caption);
+  const fallback = analyzeCaption(cleanInput);
 
   if (GEMINI_API_KEY) {
     try {
-      const geminiResult = await callGemini(caption, sampleImageBase64);
+      const geminiResult = await callGemini(cleanInput, sampleImageBase64);
       if (geminiResult && geminiResult.suggestedTitle) {
         return {
-          suggestedTitle: geminiResult.suggestedTitle,
+          suggestedTitle: cleanCaptionText(geminiResult.suggestedTitle) || fallback.suggestedTitle,
           suggestedPrice: geminiResult.suggestedPrice || fallback.suggestedPrice,
           suggestedTags: Array.isArray(geminiResult.suggestedTags) && geminiResult.suggestedTags.length ? geminiResult.suggestedTags : fallback.suggestedTags,
           suggestedDesignTags: Array.isArray(geminiResult.suggestedDesignTags) && geminiResult.suggestedDesignTags.length ? geminiResult.suggestedDesignTags : fallback.suggestedDesignTags,
-          cleanDesc: geminiResult.cleanDesc || fallback.cleanDesc,
+          cleanDesc: cleanCaptionText(geminiResult.cleanDesc) || fallback.cleanDesc,
           ai_engine: 'gemini-flash'
         };
       }
@@ -485,23 +537,7 @@ module.exports = async function handler(req, res) {
         // Extract description/caption
         const descMatch = vxHtml.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i) ||
                           vxHtml.match(/name="description"\s+content="([^"]+)"/i);
-        let rawCaption = descMatch ? descMatch[1] : '';
-        // Unescape common HTML entities in caption
-        rawCaption = rawCaption
-          .replace(/&#x2728;/g, '✨')
-          .replace(/&#x1F49A;/g, '💚')
-          .replace(/&#x1F9F5;/g, '🧵')
-          .replace(/&#x1F4CD;/g, '📍')
-          .replace(/&#x1F69A;/g, '🚚')
-          .replace(/&#x1F4DE;/g, '📞')
-          .replace(/&#x1F517;/g, '🔗')
-          .replace(/&#x1F4F2;/g, '📲')
-          .replace(/&#x1F4BE;/g, '💾')
-          .replace(/&amp;/g, '&')
-          .replace(/&quot;/g, '"')
-          .replace(/&#39;/g, "'")
-          .replace(/&lt;/g, '<')
-          .replace(/&gt;/g, '>');
+        const rawCaption = cleanCaptionText(descMatch ? descMatch[1] : '');
 
         // Extract all slide images from download links and image tags
         const slideMatches = [
@@ -576,7 +612,7 @@ module.exports = async function handler(req, res) {
           }
 
           const rawCaption = scMedia.edge_media_to_caption?.edges?.[0]?.node?.text || '';
-          const cleanCaption = cleanOgDescription(rawCaption);
+          const cleanCaption = cleanCaptionText(cleanOgDescription(rawCaption));
 
           // Download all extracted slide photos as permanent base64 data URLs (up to 4 slides)
           const downloadedImages = [];
@@ -618,7 +654,7 @@ module.exports = async function handler(req, res) {
           const raw = await apiRes.json();
           const postData = raw.data || raw;
 
-          const caption = postData.caption?.text || postData.edge_media_to_caption?.edges?.[0]?.node?.text || '';
+          const caption = cleanCaptionText(postData.caption?.text || postData.edge_media_to_caption?.edges?.[0]?.node?.text || '');
 
           let rawImages = [];
           if (Array.isArray(postData.carousel_media) && postData.carousel_media.length > 0) {
@@ -682,7 +718,7 @@ module.exports = async function handler(req, res) {
                             html.match(/name=["']description["']\s+content=["']([^"']+)["']/i);
 
         const rawCaption = ogDescMatch ? ogDescMatch[1] : '';
-        const cleanCaption = cleanOgDescription(rawCaption);
+        const cleanCaption = cleanCaptionText(cleanOgDescription(rawCaption));
 
         const images = [];
         if (ogImgMatch && ogImgMatch[1]) {
@@ -709,7 +745,7 @@ module.exports = async function handler(req, res) {
     }
 
     // 4. Default fallback if Meta strictly blocked all scrapers
-    const analysis = await getHybridAnalysis(body.caption || '', null);
+    const analysis = await getHybridAnalysis(cleanCaptionText(body.caption || ''), null);
     return sendJson(res, 200, {
       success: true,
       source: 'manual_input',

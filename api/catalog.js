@@ -60,6 +60,36 @@ function requestGitHub(method, apiPath, body) {
   });
 }
 
+function sanitizeCatalogText(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      try {
+        const code = parseInt(hex, 16);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch(e) {}
+      return ' ';
+    })
+    .replace(/&#([0-9]+);/g, (_, dec) => {
+      try {
+        const code = parseInt(dec, 10);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch(e) {}
+      return ' ';
+    })
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/(?:&;)+/g, ' ')
+    .replace(/&[a-zA-Z0-9#_]+;/g, ' ')
+    .replace(/\s+([.,!?:])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function parseCatalogJs(content) {
   const startMatch = content.match(/const\s+MASTER_CATALOG\s*=\s*\[/);
   if (!startMatch) return null;
@@ -87,7 +117,12 @@ async function getLiveCatalogData() {
       const content = fs.readFileSync(LOCAL_CATALOG_PATH, 'utf8');
       const parsed = parseCatalogJs(content);
       if (parsed && Array.isArray(parsed.items)) {
-        return { source: 'local_file', items: parsed.items, content, sha: null };
+        const cleanItems = parsed.items.map(it => ({
+          ...it,
+          title: sanitizeCatalogText(it.title),
+          description: sanitizeCatalogText(it.description)
+        }));
+        return { source: 'local_file', items: cleanItems, content, sha: null };
       }
     } catch(e) {
       console.warn('Local catalog read failed:', e.message);
@@ -102,7 +137,12 @@ async function getLiveCatalogData() {
         const content = Buffer.from(ghRes.data.content, 'base64').toString('utf8');
         const parsed = parseCatalogJs(content);
         if (parsed && Array.isArray(parsed.items)) {
-          return { source: 'github_api', items: parsed.items, content, sha: ghRes.data.sha };
+          const cleanItems = parsed.items.map(it => ({
+            ...it,
+            title: sanitizeCatalogText(it.title),
+            description: sanitizeCatalogText(it.description)
+          }));
+          return { source: 'github_api', items: cleanItems, content, sha: ghRes.data.sha };
         }
       }
     } catch(e) {
@@ -235,9 +275,9 @@ module.exports = async function handler(req, res) {
 
       const itemPayload = {
         id: body.id || ('prod-custom-' + Date.now()),
-        title: body.title,
+        title: sanitizeCatalogText(body.title),
         slug: body.slug || body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-        description: body.description || '',
+        description: sanitizeCatalogText(body.description || ''),
         starting_price: parseFloat(body.starting_price) || 2800,
         main_image_url: body.main_image_url || '',
         tags: Array.isArray(body.tags) ? body.tags : [body.tags || 'Hand Embroidered Blouses'],

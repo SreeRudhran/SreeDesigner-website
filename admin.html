@@ -1737,10 +1737,36 @@ function doLogout() {
   document.getElementById('loginView').style.display = 'block';
 }
 
+function selfHealLegacyShowcaseItems() {
+  try {
+    const raw = localStorage.getItem('custom_showcase_items');
+    if (!raw) return;
+    const items = JSON.parse(raw);
+    if (!Array.isArray(items)) return;
+    let modified = false;
+    const cleaned = items.map(item => {
+      let desc = item.description || '';
+      let title = item.title || '';
+      const cleanD = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(desc) : desc.replace(/(?:&;)+/g, ' ').trim();
+      const cleanT = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(title) : title.replace(/(?:&;)+/g, ' ').trim();
+      if (cleanD !== desc || cleanT !== title) {
+        modified = true;
+        return Object.assign({}, item, { description: cleanD, title: cleanT });
+      }
+      return item;
+    });
+    if (modified) {
+      localStorage.setItem('custom_showcase_items', JSON.stringify(cleaned));
+      console.log('✅ Self-healed legacy showcase items with corrupted symbols.');
+    }
+  } catch(e) {}
+}
+
 function showDash(email) {
   document.getElementById('loginView').style.display = 'none';
   document.getElementById('dashView').style.display  = 'flex';
   document.getElementById('userEmail').textContent = email || ADMIN_EMAIL;
+  selfHealLegacyShowcaseItems();
   switchTab('showcase');
   syncCatalogFromCloud();
 }
@@ -2677,11 +2703,14 @@ async function handleFetchFromInstagram(mode) {
       }
     }
 
-    // 2. Pre-fill Title, Price, Description
+    // 2. Pre-fill Title, Price, Description (universally sanitized)
+    const cleanSuggestedTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(data.suggestedTitle || '') : (data.suggestedTitle || '').replace(/(?:&;)+/g, ' ').trim();
+    const cleanSuggestedDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(data.cleanDesc || '') : (data.cleanDesc || '').replace(/(?:&;)+/g, ' ').trim();
+
     if (mode === 'create') {
-      if (data.suggestedTitle) document.getElementById('sc_title').value = data.suggestedTitle;
+      if (cleanSuggestedTitle) document.getElementById('sc_title').value = cleanSuggestedTitle;
       if (data.suggestedPrice) document.getElementById('sc_price').value = data.suggestedPrice;
-      if (data.cleanDesc) document.getElementById('sc_desc').value = data.cleanDesc;
+      if (cleanSuggestedDesc) document.getElementById('sc_desc').value = cleanSuggestedDesc;
 
       // 3. Auto-populate all Categories and Design Tags (Neckline, Sleeve, Work)
       const allSuggested = [
@@ -2690,9 +2719,9 @@ async function handleFetchFromInstagram(mode) {
       ];
       renderAllFormTagPickers(allSuggested, 'create');
     } else {
-      if (data.suggestedTitle) document.getElementById('edit_sc_title').value = data.suggestedTitle;
+      if (cleanSuggestedTitle) document.getElementById('edit_sc_title').value = cleanSuggestedTitle;
       if (data.suggestedPrice) document.getElementById('edit_sc_price').value = data.suggestedPrice;
-      if (data.cleanDesc) document.getElementById('edit_sc_desc').value = data.cleanDesc;
+      if (cleanSuggestedDesc) document.getElementById('edit_sc_desc').value = cleanSuggestedDesc;
 
       // 3. Auto-populate all Categories and Design Tags (Neckline, Sleeve, Work) in Edit modal
       const allSuggested = [
@@ -2751,11 +2780,15 @@ async function submitShowcase(e) {
       throw new Error('Please select at least one category or design tag for this product.');
     }
 
+    const cleanTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(title) : title.replace(/(?:&;)+/g, ' ').trim();
+    const rawDesc = document.getElementById('sc_desc').value;
+    const cleanDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(rawDesc) : rawDesc.replace(/(?:&;)+/g, ' ').trim();
+
     const newItem = {
       id: 'prod-' + Date.now(),
-      title: title,
+      title: cleanTitle,
       slug: slug,
-      description: document.getElementById('sc_desc').value.trim(),
+      description: cleanDesc,
       starting_price: parseFloat(document.getElementById('sc_price').value) || 2800,
       tags: selectedTags,
       instagram_url: (document.getElementById('sc_ig_url')?.value || '').trim(),
@@ -2810,9 +2843,9 @@ function openEditShowcase(id) {
   currentEditingItem = item;
 
   document.getElementById('edit_sc_id').value = item.id;
-  document.getElementById('edit_sc_title').value = item.title || '';
+  document.getElementById('edit_sc_title').value = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.title || '') : (item.title || '');
   document.getElementById('edit_sc_price').value = item.starting_price || '';
-  document.getElementById('edit_sc_desc').value = item.description || '';
+  document.getElementById('edit_sc_desc').value = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.description || '') : (item.description || '').replace(/(?:&;)+/g, ' ');
   if (document.getElementById('edit_sc_ig_url')) {
     document.getElementById('edit_sc_ig_url').value = item.instagram_url || '';
   }
@@ -2871,11 +2904,16 @@ async function submitEditShowcase(e) {
       throw new Error('Please select at least one category or design tag for this product.');
     }
 
+    const rawEditTitle = document.getElementById('edit_sc_title').value;
+    const cleanEditTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(rawEditTitle) : rawEditTitle.replace(/(?:&;)+/g, ' ').trim();
+    const rawEditDesc = document.getElementById('edit_sc_desc').value;
+    const cleanEditDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(rawEditDesc) : rawEditDesc.replace(/(?:&;)+/g, ' ').trim();
+
     const updatedItem = {
       ...existing,
       id: id,
-      title: document.getElementById('edit_sc_title').value.trim(),
-      description: document.getElementById('edit_sc_desc').value.trim(),
+      title: cleanEditTitle,
+      description: cleanEditDesc,
       starting_price: parseFloat(document.getElementById('edit_sc_price').value) || 1800,
       tags: selectedTags,
       instagram_url: (document.getElementById('edit_sc_ig_url')?.value || '').trim(),
@@ -3523,6 +3561,7 @@ async function checkAuthOnLoad() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  selfHealLegacyShowcaseItems();
   checkAuthOnLoad();
   document.getElementById('adminPassword').addEventListener('keydown', e => {
     if (e.key === 'Enter') doLogin();

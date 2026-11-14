@@ -622,6 +622,42 @@ const MASTER_CATALOG = [
 ];
 
 
+// Universal Product Text Sanitizer (cleans HTML entities, removes &; symbol artifacts, normalizes punctuation)
+function sanitizeProductText(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    // Decode Hexadecimal HTML entities (e.g. &#x1F470;)
+    .replace(/&#x([0-9a-fA-F]+);/g, function(_, hex) {
+      try {
+        var code = parseInt(hex, 16);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch (e) {}
+      return ' ';
+    })
+    // Decode Decimal HTML entities (e.g. &#128112;)
+    .replace(/&#([0-9]+);/g, function(_, dec) {
+      try {
+        var code = parseInt(dec, 10);
+        if (code > 0 && code <= 0x10FFFF) return String.fromCodePoint(code);
+      } catch (e) {}
+      return ' ';
+    })
+    // Decode standard named entities
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    // Permanently eliminate broken entity remnants (&; or &;&;&;)
+    .replace(/(?:&;)+/g, ' ')
+    .replace(/&[a-zA-Z0-9#_]+;/g, ' ')
+    // Fix spacing before punctuation marks (e.g. "big day. &;&; Call" -> "big day. Call")
+    .replace(/\s+([.,!?:])/g, '$1')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
 // Helper to get all items merging local storage additions with master catalog
 function getUnifiedCatalog() {
   let customItems = [];
@@ -635,17 +671,49 @@ function getUnifiedCatalog() {
     deletedIds = new Set(rawDeleted.map(String));
   } catch (e) {}
 
-  const customIds = new Set(customItems.map(c => String(c.id)));
-  // Filter out any default items that are replaced by custom items OR were deleted
-  const nonReplacedDefaults = MASTER_CATALOG.filter(d => !customIds.has(String(d.id)) && !deletedIds.has(String(d.id)));
+  let modifiedCustom = false;
+  const activeCustom = customItems.filter(c => !deletedIds.has(String(c.id))).map(item => {
+    let cleanDesc = item.description || '';
+    let cleanTitle = item.title || '';
+    let changed = false;
 
-  // Filter out any custom items that were deleted
-  const activeCustom = customItems.filter(c => !deletedIds.has(String(c.id)));
+    if (cleanDesc && (cleanDesc.includes('&;') || /&#[x0-9]/i.test(cleanDesc))) {
+      cleanDesc = sanitizeProductText(cleanDesc);
+      changed = true;
+    }
+    if (cleanTitle && (cleanTitle.includes('&;') || /&#[x0-9]/i.test(cleanTitle))) {
+      cleanTitle = sanitizeProductText(cleanTitle);
+      changed = true;
+    }
+
+    if (changed) {
+      modifiedCustom = true;
+      return Object.assign({}, item, { description: cleanDesc, title: cleanTitle });
+    }
+    return item;
+  });
+
+  // Self-heal localStorage so old corrupted descriptions are permanently repaired
+  if (modifiedCustom) {
+    try {
+      localStorage.setItem('custom_showcase_items', JSON.stringify(activeCustom));
+    } catch (e) {}
+  }
+
+  const customIds = new Set(activeCustom.map(c => String(c.id)));
+  // Filter out any default items that are replaced by custom items OR were deleted
+  const nonReplacedDefaults = MASTER_CATALOG.filter(d => !customIds.has(String(d.id)) && !deletedIds.has(String(d.id))).map(item => {
+    if (item.description && item.description.includes('&;')) {
+      return Object.assign({}, item, { description: sanitizeProductText(item.description) });
+    }
+    return item;
+  });
 
   return [...activeCustom, ...nonReplacedDefaults];
 }
 
 if (typeof window !== 'undefined') {
+  window.sanitizeProductText = sanitizeProductText;
   window.MASTER_CATALOG = MASTER_CATALOG;
   window.getUnifiedCatalog = getUnifiedCatalog;
 }

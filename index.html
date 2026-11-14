@@ -2914,10 +2914,13 @@
       const mainImg = document.getElementById('showcaseDetailMainImg');
       const waBtn = document.getElementById('showcaseDetailWaBtn');
 
-      if (titleEl) titleEl.textContent = item.title;
-      if (headingEl) headingEl.textContent = item.title;
+      const cleanTitle = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.title || '') : (item.title || '');
+      const cleanDesc = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(item.desc || '') : (item.desc || '').replace(/(?:&;)+/g, ' ');
+
+      if (titleEl) titleEl.textContent = cleanTitle;
+      if (headingEl) headingEl.textContent = cleanTitle;
       if (tagEl) tagEl.textContent = item.tag;
-      if (descEl) descEl.textContent = item.desc;
+      if (descEl) descEl.textContent = cleanDesc;
       if (priceEl) priceEl.textContent = item.price;
       if (mainImg) mainImg.src = item.img;
       if (waBtn) waBtn.href = 'https://wa.me/919976344673?text=' + encodeURIComponent('Hi Sree Designers, I am interested in ' + item.title);
