@@ -646,7 +646,7 @@
 
     <!-- 6. PRINT QR CODE MODAL TRIGGER -->
     <div class="qr-trigger-wrap">
-      <button type="button" class="btn-qr-view" onclick="openQrModal()">
+      <button type="button" class="btn-qr-view" onclick="openQrModal(); trackClick('print_qr_modal');">
         <span>📱</span> Shop Owner: Print QR Standee
       </button>
     </div>
@@ -654,7 +654,7 @@
     <!-- 7. FOOTER -->
     <footer class="hub-footer">
       <div>Sree Designers &amp; Boutique · Samalapuram &amp; Karnempettai</div>
-      <div>Helpline: <a href="tel:+919976344673">+91 99763 44673</a> · Mon–Sat 9:30 AM–9:00 PM</div>
+      <div>Helpline: <a href="tel:+919976344673" onclick="trackClick('helpline_call')">+91 99763 44673</a> · Mon–Sat 9:30 AM–9:00 PM</div>
     </footer>
 
   </main>
@@ -670,64 +670,166 @@
       
       <p style="font-size:0.78rem; color:var(--gold-dark); font-weight:600; margin-bottom:12px;">Scans to: sreedesigners.in/connect?utm_source=qr (Tracks scans &amp; clicks automatically)</p>
       
-      <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-download-qr">
+      <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-download-qr" onclick="trackClick('download_qr_png')">
         ⬇️ Download High-Res QR (PNG)
       </a>
     </div>
   </div>
 
   <script>
+    // ── CLIENT METADATA & TIME TRACKING HELPER ─────────────────────────────
+    function getClientMeta() {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const dateStr = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+      const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+      const hour = now.getHours();
+
+      let device = 'Desktop';
+      const ua = navigator.userAgent || '';
+      if (/Android/i.test(ua)) device = 'Android Phone';
+      else if (/iPhone/i.test(ua)) device = 'Apple iPhone';
+      else if (/iPad|Tablet/i.test(ua)) device = 'Tablet';
+      else if (/Mobile/i.test(ua)) device = 'Mobile Browser';
+
+      return {
+        timestamp: now.toISOString(),
+        date: dateStr,
+        time: timeStr,
+        hour: hour,
+        device: device
+      };
+    }
+
+    const ACTION_METAS = {
+      'review_samalapuram': {
+        label: '⭐ Google Review (Samalapuram Branch)',
+        channel: 'Samalapuram Studio'
+      },
+      'review_karnempettai': {
+        label: '⭐ Google Review (Karnempettai Branch)',
+        channel: 'Karnempettai Studio'
+      },
+      'instagram_follow': {
+        label: '📸 Follow Instagram (@sreedesigner_)',
+        channel: 'Social'
+      },
+      'whatsapp_save_contact': {
+        label: '💬 Save WhatsApp & Book Fitting',
+        channel: 'WhatsApp'
+      },
+      'browse_hand_embroidery': {
+        label: '🪡 Hand Aari & Maggam Catalog',
+        channel: 'Catalog'
+      },
+      'browse_machine_embroidery': {
+        label: '⚙️ Machine Embroidery Catalog',
+        channel: 'Catalog'
+      },
+      'browse_lehengas': {
+        label: '👗 Bridal Lehengas Catalog',
+        channel: 'Catalog'
+      },
+      'browse_homepage': {
+        label: '🏠 Full Website (sreedesigners.in)',
+        channel: 'Website'
+      },
+      'print_qr_modal': {
+        label: '📱 In-Studio Standee QR Preview',
+        channel: 'Owner Tool'
+      },
+      'download_qr_png': {
+        label: '⬇️ Download Standee QR PNG',
+        channel: 'Owner Tool'
+      },
+      'helpline_call': {
+        label: '📞 Helpline Call Click',
+        channel: 'Support'
+      }
+    };
+
+    function sendTrackingPayload(payload) {
+      const jsonStr = JSON.stringify(payload);
+      if (typeof navigator.sendBeacon === 'function') {
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        navigator.sendBeacon('/api/qr-stats', blob);
+      } else {
+        try {
+          fetch('/api/qr-stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonStr,
+            keepalive: true
+          }).catch(() => {});
+        } catch(e) {}
+      }
+    }
+
     // 1. Automatic QR Scan Tracking on Page Load
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const isQr = params.get('utm_source') === 'qr' || params.has('qr');
       const scanType = isQr ? 'in_store_qr_scan' : 'direct_connect_visit';
+      const meta = getClientMeta();
 
       // Track in GA4 & Vercel
       if (typeof gtag === 'function') {
         gtag('event', 'qr_code_scan', {
           'event_category': 'In_Studio_QR',
           'event_label': scanType,
-          'scan_type': scanType
+          'scan_type': scanType,
+          'scan_time': meta.time,
+          'scan_date': meta.date
         });
       }
       if (typeof window.va === 'function') {
-        window.va('event', { name: 'qr_code_scan', data: { type: scanType } });
+        window.va('event', { name: 'qr_code_scan', data: { type: scanType, time: meta.time, date: meta.date } });
       }
 
-      // Record in Live Counter API
-      try {
-        fetch('/api/qr-stats', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'qr_scans' })
-        }).catch(() => {});
-      } catch(e) {}
+      // Record in Live Counter & Analytics API
+      sendTrackingPayload({
+        action: 'qr_scans',
+        event_type: 'scan',
+        label: isQr ? '📱 In-Store Standee QR Scan' : '🌐 Direct Connect Page Visit',
+        channel: isQr ? 'Counter Standee' : 'Direct Link',
+        ...meta
+      });
     });
 
-    // 2. Interactive Action Tracking for All Buttons
+    // 2. Interactive Action Tracking for All Buttons (Tracks exact Time & Date)
     function trackClick(actionName) {
+      const meta = getClientMeta();
+      const metaDef = ACTION_METAS[actionName] || {
+        label: '⚡ ' + actionName.replace(/_/g, ' '),
+        channel: 'In-Studio Hub'
+      };
+
       if (typeof gtag === 'function') {
         gtag('event', actionName, {
           'event_category': 'In_Studio_Hub',
-          'event_label': actionName
+          'event_label': metaDef.label,
+          'click_time': meta.time,
+          'click_date': meta.date
         });
         gtag('event', 'hub_action', {
-          'action_name': actionName
+          'action_name': actionName,
+          'action_label': metaDef.label,
+          'click_time': meta.time,
+          'click_date': meta.date
         });
       }
       if (typeof window.va === 'function') {
-        window.va('event', { name: actionName });
+        window.va('event', { name: actionName, data: { time: meta.time, date: meta.date } });
       }
 
-      // Record action in Live Counter API
-      try {
-        fetch('/api/qr-stats', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: actionName })
-        }).catch(() => {});
-      } catch(e) {}
+      // Send exact Time & Date payload to Analytics API
+      sendTrackingPayload({
+        action: actionName,
+        event_type: 'click',
+        label: metaDef.label,
+        channel: metaDef.channel,
+        ...meta
+      });
     }
 
     function openQrModal() {

@@ -6,9 +6,19 @@
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5227GD9D');
-// ─── LIVE IN-STUDIO QR STATS CONTROLLER ─────────────────────────────────────
+  })(window,document,'script','dataLayer','GTM-5227GD9D');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Chart.js for Live Analytics & Time Tracking Graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script>
+// ─── LIVE IN-STUDIO QR HUB & TIME-TRACKING ANALYTICS CONTROLLER ─────────────
 let qrAutoRefreshTimer = null;
+let qrChartInstance = null;
+let qrAnalyticsData = null;
+let currentChartMode = 'daily';
+let currentEventFilter = 'all';
 
 async function fetchLiveQrStats() {
   const label = document.getElementById('qrLastUpdated');
@@ -17,8 +27,9 @@ async function fetchLiveQrStats() {
   try {
     const res = await fetch('/api/qr-stats');
     const data = await res.json();
-    if (res.ok && data.success && data.stats) {
-      const s = data.stats;
+    if (res.ok && data.success) {
+      qrAnalyticsData = data;
+      const s = data.stats || {};
       const setVal = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.textContent = (typeof val === 'number') ? val.toLocaleString('en-IN') : (val || 0);
@@ -31,12 +42,451 @@ async function fetchLiveQrStats() {
       setVal('metric_instagram_follow', s.instagram_follow);
       setVal('metric_whatsapp_save', s.whatsapp_save);
 
+      // Merge & save events to localStorage so history persists permanently in the admin browser
+      if (Array.isArray(data.events) && data.events.length > 0) {
+        mergeLocalEvents(data.events);
+      }
+
       const now = new Date();
       if (label) label.textContent = 'Live • Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      // Update Insights
+      updateQrInsights(data);
+
+      // Render Charts & Activity Table
+      renderQrChart(currentChartMode);
+      renderQrActivityTable();
     }
   } catch (err) {
     if (label) label.textContent = 'Could not load counts.';
   }
+}
+
+function mergeLocalEvents(serverEvents) {
+  try {
+    const stored = JSON.parse(localStorage.getItem('sree_qr_events_history') || '[]');
+    const map = new Map();
+    stored.forEach(e => { if (e && e.id) map.set(e.id, e); });
+    serverEvents.forEach(e => { if (e && e.id) map.set(e.id, e); });
+    const merged = Array.from(map.values()).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+    localStorage.setItem('sree_qr_events_history', JSON.stringify(merged.slice(0, 300)));
+  } catch(e) {}
+}
+
+function getAllEvents() {
+  let list = [];
+  try {
+    list = JSON.parse(localStorage.getItem('sree_qr_events_history') || '[]');
+  } catch(e) {}
+  if ((!list || list.length === 0) && qrAnalyticsData && Array.isArray(qrAnalyticsData.events)) {
+    list = qrAnalyticsData.events;
+  }
+  return list;
+}
+
+function updateQrInsights(data) {
+  if (!data) return;
+  const daily = data.daily || [];
+  const hourly = data.hourly || [];
+  const stats = data.stats || {};
+
+  // 1. Top Visiting Date
+  let topDay = null;
+  daily.forEach(d => {
+    if (!topDay || d.total > topDay.total) topDay = d;
+  });
+  const elDate = document.getElementById('insight_top_date');
+  if (elDate && topDay) {
+    elDate.textContent = `${topDay.display} (${topDay.scans} scans, ${topDay.clicks} clicks)`;
+  }
+
+  // 2. Peak Activity Time
+  let peakHour = null;
+  hourly.forEach(h => {
+    if (!peakHour || h.total > peakHour.total) peakHour = h;
+  });
+  const elHour = document.getElementById('insight_peak_hour');
+  if (elHour && peakHour && peakHour.total > 0) {
+    const h = peakHour.hour;
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const displayH = h % 12 || 12;
+    const nextH = (h + 1) % 12 || 12;
+    const nextAmpm = (h + 1) >= 12 && (h + 1) < 24 ? 'PM' : 'AM';
+    elHour.textContent = `${String(displayH).padStart(2, '0')}:00 ${ampm} – ${String(nextH).padStart(2, '0')}:00 ${nextAmpm} (${peakHour.total} actions)`;
+  } else if (elHour) {
+    elHour.textContent = '05:00 PM – 08:00 PM (Studio Hours)';
+  }
+
+  // 3. Most Clicked Button
+  const elBtn = document.getElementById('insight_top_button');
+  if (elBtn) {
+    const buttons = [
+      { name: '⭐ Samalapuram Review', count: stats.review_samalapuram || 0 },
+      { name: '⭐ Karnempettai Review', count: stats.review_karnempettai || 0 },
+      { name: '📸 Instagram Follow', count: stats.instagram_follow || 0 },
+      { name: '💬 WhatsApp Save', count: stats.whatsapp_save || 0 },
+      { name: '👗 Catalog Browse', count: stats.catalog_browse || 0 }
+    ];
+    buttons.sort((a, b) => b.count - a.count);
+    if (buttons[0] && buttons[0].count > 0) {
+      elBtn.textContent = `${buttons[0].name} (${buttons[0].count} clicks)`;
+    } else {
+      elBtn.textContent = '⭐ Samalapuram Review';
+    }
+  }
+
+  // 4. Conversion / Action Rate
+  const elRate = document.getElementById('insight_conversion');
+  if (elRate && stats.qr_scans > 0) {
+    const rate = Math.round((stats.total_interactions / stats.qr_scans) * 100);
+    elRate.textContent = `${rate}% (Actions per Scan)`;
+  }
+}
+
+function setChartMode(mode) {
+  currentChartMode = mode;
+  document.querySelectorAll('.qr-chart-tab').forEach(b => {
+    b.style.background = 'transparent';
+    b.style.color = '#64748b';
+    b.style.boxShadow = 'none';
+  });
+  const activeBtn = document.getElementById(mode === 'daily' ? 'btnChartDaily' : (mode === 'hourly' ? 'btnChartHourly' : 'btnChartActions'));
+  if (activeBtn) {
+    activeBtn.style.background = '#fff';
+    activeBtn.style.color = '#0f172a';
+    activeBtn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+  }
+  renderQrChart(mode);
+}
+
+function renderQrChart(mode = 'daily') {
+  if (!qrAnalyticsData) return;
+  const canvas = document.getElementById('qrChartCanvas');
+  if (!canvas) return;
+
+  if (typeof window.Chart === 'undefined') {
+    // If CDN fails, draw graceful SVG
+    renderSvgFallbackChart(mode);
+    return;
+  }
+
+  if (qrChartInstance) {
+    qrChartInstance.destroy();
+    qrChartInstance = null;
+  }
+
+  const ctx = canvas.getContext('2d');
+
+  if (mode === 'daily') {
+    const daily = qrAnalyticsData.daily || [];
+    const labels = daily.map(d => d.display);
+    const scansData = daily.map(d => d.scans);
+    const clicksData = daily.map(d => d.clicks);
+
+    qrChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '📱 In-Studio QR Scans (Visits)',
+            data: scansData,
+            backgroundColor: 'rgba(197, 155, 39, 0.85)',
+            borderColor: '#9A7718',
+            borderWidth: 1.5,
+            borderRadius: 6
+          },
+          {
+            label: '⚡ Button Clicks (Actions)',
+            data: clicksData,
+            backgroundColor: 'rgba(15, 23, 42, 0.85)',
+            borderColor: '#0f172a',
+            borderWidth: 1.5,
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Jost', size: 12, weight: 600 } } },
+          tooltip: {
+            backgroundColor: '#0f172a',
+            titleFont: { family: 'Jost', size: 13, weight: 700 },
+            bodyFont: { family: 'Jost', size: 12 },
+            padding: 10,
+            cornerRadius: 8
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { family: 'Jost', size: 11, weight: 500 } } },
+          y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Jost', size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } }
+        }
+      }
+    });
+  } else if (mode === 'hourly') {
+    const hourly = qrAnalyticsData.hourly || [];
+    // Filter to focus primarily on boutique business hours 8 AM to 10 PM
+    const filteredHours = hourly.filter(h => h.hour >= 8 && h.hour <= 22);
+    const labels = filteredHours.map(h => h.label);
+    const scansData = filteredHours.map(h => h.scans);
+    const clicksData = filteredHours.map(h => h.clicks);
+
+    qrChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '⚡ Button Clicks by Hour',
+            data: clicksData,
+            borderColor: '#0f172a',
+            backgroundColor: 'rgba(15, 23, 42, 0.1)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointBackgroundColor: '#0f172a'
+          },
+          {
+            label: '📱 QR Scans by Hour',
+            data: scansData,
+            borderColor: '#C59B27',
+            backgroundColor: 'rgba(197, 155, 39, 0.12)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointBackgroundColor: '#C59B27'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Jost', size: 12, weight: 600 } } },
+          tooltip: {
+            backgroundColor: '#0f172a',
+            padding: 10,
+            cornerRadius: 8,
+            callbacks: {
+              title: (items) => `Time Window: ${items[0].label} – Studio Activity`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,0.03)' }, ticks: { font: { family: 'Jost', size: 11, weight: 500 } } },
+          y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Jost', size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } }
+        }
+      }
+    });
+  } else if (mode === 'actions') {
+    const s = qrAnalyticsData.stats || {};
+    const labels = ['⭐ Samalapuram Review', '⭐ Karnempettai Review', '📸 Instagram Follow', '💬 WhatsApp Save', '👗 Catalog Browse'];
+    const values = [s.review_samalapuram || 0, s.review_karnempettai || 0, s.instagram_follow || 0, s.whatsapp_save || 0, s.catalog_browse || 0];
+
+    qrChartInstance = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: ['#16a34a', '#2563eb', '#e11d48', '#128c7e', '#d97706'],
+          borderWidth: 2,
+          borderColor: '#ffffff'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { boxWidth: 14, font: { family: 'Jost', size: 12, weight: 600 } } },
+          tooltip: { backgroundColor: '#0f172a', padding: 10, cornerRadius: 8 }
+        }
+      }
+    });
+  }
+}
+
+function renderSvgFallbackChart(mode) {
+  const canvas = document.getElementById('qrChartCanvas');
+  const fallback = document.getElementById('chartFallbackSvg');
+  if (canvas) canvas.style.display = 'none';
+  if (!fallback) return;
+  fallback.style.display = 'block';
+
+  const daily = (qrAnalyticsData && qrAnalyticsData.daily) || [];
+  if (daily.length === 0) return;
+
+  const maxVal = Math.max(1, ...daily.map(d => d.total));
+  let barsHtml = '';
+  daily.forEach(d => {
+    const hPct = Math.round((d.total / maxVal) * 100);
+    barsHtml += `
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end;">
+        <span style="font-size:0.75rem; font-weight:700; color:#0f172a;">${d.total}</span>
+        <div style="width:28px; height:${Math.max(8, hPct)}%; background:linear-gradient(to top, #0f172a, #c59b27); border-radius:6px 6px 0 0;"></div>
+        <span style="font-size:0.72rem; color:#64748b; font-weight:600;">${d.display}</span>
+      </div>
+    `;
+  });
+
+  fallback.innerHTML = `
+    <div style="display:flex; height:220px; align-items:flex-end; gap:12px; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">
+      ${barsHtml}
+    </div>
+  `;
+}
+
+function setEventFilter(filterName, btn) {
+  currentEventFilter = filterName;
+  document.querySelectorAll('.btn-event-filter').forEach(b => {
+    b.style.background = '#fff';
+    b.style.color = '#475569';
+  });
+  if (btn) {
+    btn.style.background = '#0f172a';
+    btn.style.color = '#fff';
+  }
+  renderQrActivityTable();
+}
+
+function filterQrEvents() {
+  renderQrActivityTable();
+}
+
+function renderQrActivityTable() {
+  const tbody = document.getElementById('qrEventsTableBody');
+  if (!tbody) return;
+
+  const allEvents = getAllEvents();
+  const searchInput = document.getElementById('qrEventSearch');
+  const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+
+  // Update count pills
+  const counts = { all: allEvents.length, reviews: 0, whatsapp: 0, instagram: 0, scans: 0, catalog: 0 };
+  allEvents.forEach(e => {
+    const a = (e.action || '').toLowerCase();
+    if (a.includes('review')) counts.reviews++;
+    else if (a.includes('whatsapp') || a.includes('helpline')) counts.whatsapp++;
+    else if (a.includes('instagram')) counts.instagram++;
+    else if (a.includes('scan')) counts.scans++;
+    else if (a.includes('catalog') || a.includes('browse') || a.includes('print')) counts.catalog++;
+  });
+
+  const setElText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+  setElText('count_all', counts.all);
+  setElText('count_reviews', counts.reviews);
+  setElText('count_whatsapp', counts.whatsapp);
+  setElText('count_instagram', counts.instagram);
+  setElText('count_scans', counts.scans);
+  setElText('count_catalog', counts.catalog);
+
+  // Filter
+  const filtered = allEvents.filter(e => {
+    const a = (e.action || '').toLowerCase();
+    const l = (e.label || '').toLowerCase();
+    const d = (e.date || '').toLowerCase();
+    const t = (e.time || '').toLowerCase();
+    const c = (e.channel || '').toLowerCase();
+
+    // Category Filter
+    if (currentEventFilter === 'reviews' && !a.includes('review')) return false;
+    if (currentEventFilter === 'whatsapp' && !a.includes('whatsapp') && !a.includes('helpline')) return false;
+    if (currentEventFilter === 'instagram' && !a.includes('instagram')) return false;
+    if (currentEventFilter === 'scans' && !a.includes('scan')) return false;
+    if (currentEventFilter === 'catalog' && !a.includes('catalog') && !a.includes('browse') && !a.includes('print')) return false;
+
+    // Search Query Filter
+    if (query) {
+      const match = a.includes(query) || l.includes(query) || d.includes(query) || t.includes(query) || c.includes(query);
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="padding:32px; text-align:center; color:#94a3b8; font-size:0.85rem;">
+          No customer interactions found matching this filter.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  // Format Date & Time cleanly
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const rowsHtml = filtered.slice(0, 50).map(e => {
+    const isToday = e.date === todayStr;
+    const dateBadge = isToday ? '<span style="background:#fef3c7; color:#92400e; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:4px; margin-right:6px;">TODAY</span>' : `<span style="color:#64748b; font-size:0.75rem; margin-right:6px;">${e.date || ''}</span>`;
+    
+    const isScan = e.event_type === 'scan' || (e.action || '').includes('scan');
+    const typeBadge = isScan 
+      ? '<span style="background:#fef3c7; color:#92400e; font-size:0.72rem; font-weight:700; padding:3px 8px; border-radius:6px;">📱 Standee Scan</span>'
+      : '<span style="background:#ecfdf5; color:#047857; font-size:0.72rem; font-weight:700; padding:3px 8px; border-radius:6px;">⚡ Button Click</span>';
+
+    return `
+      <tr style="border-bottom:1px solid #f1f5f9; transition:background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+        <td style="padding:12px 14px; white-space:nowrap;">
+          <div>${dateBadge}<strong style="color:#0f172a; font-size:0.85rem;">${e.time || ''}</strong></div>
+        </td>
+        <td style="padding:12px 14px;">
+          <div style="font-weight:600; color:#1e293b; font-size:0.86rem;">${e.label || e.action}</div>
+        </td>
+        <td style="padding:12px 14px; color:#475569; font-size:0.8rem; white-space:nowrap;">
+          📍 ${e.channel || 'Counter Standee'}
+        </td>
+        <td style="padding:12px 14px; color:#64748b; font-size:0.78rem; white-space:nowrap;">
+          ${e.device || 'Mobile'}
+        </td>
+        <td style="padding:12px 14px; text-align:right; white-space:nowrap;">
+          ${typeBadge}
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  tbody.innerHTML = rowsHtml;
+}
+
+function exportQrEventsCsv() {
+  const events = getAllEvents();
+  if (events.length === 0) {
+    alert('No events recorded yet to export.');
+    return;
+  }
+
+  let csv = 'ID,Date,Time,Hour,Action,Label,Channel,Device,Type,Timestamp\n';
+  events.forEach(e => {
+    const row = [
+      `"${e.id || ''}"`,
+      `"${e.date || ''}"`,
+      `"${e.time || ''}"`,
+      `"${e.hour ?? ''}"`,
+      `"${e.action || ''}"`,
+      `"${(e.label || '').replace(/"/g, '""')}"`,
+      `"${e.channel || ''}"`,
+      `"${e.device || ''}"`,
+      `"${e.event_type || 'click'}"`,
+      `"${e.timestamp || ''}"`
+    ];
+    csv += row.join(',') + '\n';
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `sree_designers_qr_activity_${new Date().toISOString().slice(0, 10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 function startQrAutoRefresh() {
@@ -50,8 +500,7 @@ function stopQrAutoRefresh() {
     qrAutoRefreshTimer = null;
   }
 }
-
-</script>
+  </script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -476,6 +925,126 @@ function stopQrAutoRefresh() {
               <small style="color:var(--soft); font-size:0.76rem;">Counts update automatically every 30s</small>
               <a href="/connect" target="_blank" rel="noopener noreferrer" style="font-size:0.8rem; font-weight:600; color:var(--gold-dark); text-decoration:none;">Open Live Page &rarr;</a>
             </div>
+          </div>
+        </div>
+
+        <!-- ─── ANALYTICS INSIGHTS CARDS (DATE & TIME PEAKS) ─── -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin-top:20px;">
+          <!-- Top Visiting Date -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;">
+            <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#64748b; letter-spacing:0.04em; margin-bottom:6px;">📅 Highest Traffic Date</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--ink);" id="insight_top_date">Calculating...</div>
+            <small style="color:var(--soft); font-size:0.72rem;">Peak customer visits by date</small>
+          </div>
+
+          <!-- Peak Activity Time -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;">
+            <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#64748b; letter-spacing:0.04em; margin-bottom:6px;">⏰ Peak Activity Time</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--ink);" id="insight_peak_hour">Calculating...</div>
+            <small style="color:var(--soft); font-size:0.72rem;">Most active time of the day</small>
+          </div>
+
+          <!-- Most Clicked Button -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;">
+            <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#64748b; letter-spacing:0.04em; margin-bottom:6px;">🏆 Top Performing Button</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--ink);" id="insight_top_button">Calculating...</div>
+            <small style="color:var(--soft); font-size:0.72rem;">Customer's primary action</small>
+          </div>
+
+          <!-- Scan-to-Action Rate -->
+          <div style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;">
+            <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#64748b; letter-spacing:0.04em; margin-bottom:6px;">⚡ Engagement Rate</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--gold-dark);" id="insight_conversion">100%</div>
+            <small style="color:var(--soft); font-size:0.72rem;">Actions per physical QR scan</small>
+          </div>
+        </div>
+
+        <!-- ─── INTERACTIVE ANALYTICS VISUALIZATION (CHARTS) ─── -->
+        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+            <div>
+              <h4 style="font-size:1.1rem; color:var(--ink); margin-bottom:2px;">📈 QR Scan &amp; Button Interaction Trends</h4>
+              <p style="font-size:0.8rem; color:var(--soft); margin:0;">Visualise on which dates people scan and at what times of day they click buttons.</p>
+            </div>
+
+            <!-- Chart Switcher Tabs -->
+            <div style="display:inline-flex; background:#f1f5f9; padding:3px; border-radius:10px; border:1px solid #e2e8f0;">
+              <button type="button" class="qr-chart-tab" id="btnChartDaily" onclick="setChartMode('daily')" style="border:none; background:#fff; color:#0f172a; padding:6px 14px; font-size:0.78rem; font-weight:700; border-radius:7px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.06); transition:all 0.15s;">
+                📅 Daily Visits (Dates)
+              </button>
+              <button type="button" class="qr-chart-tab" id="btnChartHourly" onclick="setChartMode('hourly')" style="border:none; background:transparent; color:#64748b; padding:6px 14px; font-size:0.78rem; font-weight:700; border-radius:7px; cursor:pointer; transition:all 0.15s;">
+                ⏰ Time of Day (Peak Hours)
+              </button>
+              <button type="button" class="qr-chart-tab" id="btnChartActions" onclick="setChartMode('actions')" style="border:none; background:transparent; color:#64748b; padding:6px 14px; font-size:0.78rem; font-weight:700; border-radius:7px; cursor:pointer; transition:all 0.15s;">
+                ⚡ Action Breakdown
+              </button>
+            </div>
+          </div>
+
+          <!-- Chart Canvas Container -->
+          <div style="position:relative; height:320px; width:100%;">
+            <canvas id="qrChartCanvas"></canvas>
+            <div id="chartFallbackSvg" style="display:none; height:100%; width:100%;"></div>
+          </div>
+        </div>
+
+        <!-- ─── REAL-TIME CUSTOMER ACTIVITY LOG (TIME & DATE TRACKER) ─── -->
+        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+            <div>
+              <h4 style="font-size:1.1rem; color:var(--ink); margin-bottom:2px;">⏱️ Real-Time Customer Activity Log</h4>
+              <p style="font-size:0.8rem; color:var(--soft); margin:0;">Detailed chronological log recording exact dates, timestamps, and button clicks.</p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+              <input type="text" id="qrEventSearch" oninput="filterQrEvents()" placeholder="Search action, date, studio..." style="padding:7px 12px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:8px; width:220px; outline:none;">
+              <button type="button" onclick="exportQrEventsCsv()" class="btn-sm" style="background:#0f172a; color:#fff; padding:7px 14px; font-size:0.78rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                📥 Export CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Pills -->
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('all', this)" style="border:1px solid #e2e8f0; background:#0f172a; color:#fff; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              All Events (<span id="count_all">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('reviews', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              ⭐ Google Reviews (<span id="count_reviews">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('whatsapp', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              💬 WhatsApp (<span id="count_whatsapp">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('instagram', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              📸 Instagram (<span id="count_instagram">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('scans', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              📱 Standee Scans (<span id="count_scans">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('catalog', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
+              👗 Catalog (<span id="count_catalog">0</span>)
+            </button>
+          </div>
+
+          <!-- Activity Log Table -->
+          <div style="overflow-x:auto; border:1px solid #e2e8f0; border-radius:10px;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.82rem; text-align:left;">
+              <thead>
+                <tr style="background:#f8fafc; border-bottom:1px solid #e2e8f0; color:#475569;">
+                  <th style="padding:10px 14px; font-weight:700; width:190px;">Date &amp; Exact Time</th>
+                  <th style="padding:10px 14px; font-weight:700;">Customer Action / Button Clicked</th>
+                  <th style="padding:10px 14px; font-weight:700; width:180px;">Studio / Channel</th>
+                  <th style="padding:10px 14px; font-weight:700; width:120px;">Device</th>
+                  <th style="padding:10px 14px; font-weight:700; text-align:right; width:140px;">Event Type</th>
+                </tr>
+              </thead>
+              <tbody id="qrEventsTableBody">
+                <tr>
+                  <td colspan="5" style="padding:24px; text-align:center; color:#94a3b8;">
+                    Loading customer activity log...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -152,3 +152,28 @@ CREATE POLICY "Public Storage Read" ON storage.objects FOR SELECT USING (bucket_
 CREATE POLICY "Admin Storage Insert" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'portfolio' AND auth.role() = 'authenticated');
 CREATE POLICY "Admin Storage Update" ON storage.objects FOR UPDATE USING (bucket_id = 'portfolio' AND auth.role() = 'authenticated');
 CREATE POLICY "Admin Storage Delete" ON storage.objects FOR DELETE USING (bucket_id = 'portfolio' AND auth.role() = 'authenticated');
+
+-- ============================================================================
+-- 9. IN-STUDIO QR STAND & BUTTON CLICK TRACKING (TIME & DATE ANALYTICS)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS public.qr_events (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    action TEXT NOT NULL,
+    label TEXT NOT NULL,
+    channel TEXT,
+    event_type TEXT DEFAULT 'click', -- 'scan' or 'click'
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    time TEXT NOT NULL,
+    hour INT NOT NULL,
+    device TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_qr_events_date ON public.qr_events(date DESC);
+CREATE INDEX IF NOT EXISTS idx_qr_events_action ON public.qr_events(action);
+CREATE INDEX IF NOT EXISTS idx_qr_events_created ON public.qr_events(created_at DESC);
+
+ALTER TABLE public.qr_events ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Insert QR Events" ON public.qr_events FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public Read QR Events" ON public.qr_events FOR SELECT USING (true);
+CREATE POLICY "Admin All QR Events" ON public.qr_events FOR ALL USING (auth.role() = 'authenticated');
