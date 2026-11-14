@@ -305,8 +305,9 @@
       height: 100% !important;
       max-width: 100% !important;
       max-height: 100% !important;
-      object-fit: contain !important;
-      padding: 6px !important;
+      object-fit: cover !important;
+      object-position: center 20% !important;
+      padding: 0 !important;
       box-sizing: border-box !important;
       transition: transform 0.4s ease;
     }
@@ -692,7 +693,7 @@
         return `
           <div class="cat-product-card">
             <div class="cat-product-img-wrap" style="position:relative; aspect-ratio:1/1; background:#faf8f5; display:flex; align-items:center; justify-content:center;">
-              <img src="${safeImg}" alt="${safeTitle}" class="cat-product-img" width="400" height="400" loading="lazy" decoding="async" style="aspect-ratio:1/1; object-fit:contain; padding:6px; box-sizing:border-box;" onerror="this.src='assets/images/service_bridal.webp'">
+              <img src="${safeImg}" alt="${safeTitle}" class="cat-product-img" width="400" height="400" loading="lazy" decoding="async" style="aspect-ratio:1/1; object-fit:cover; object-position:center 20%; padding:0; box-sizing:border-box;" onerror="this.src='assets/images/service_bridal.webp'">
               ${safeIg ? `
                 <a href="${safeIg}" target="_blank" rel="noopener noreferrer" class="cat-ig-badge" title="View original post on Instagram" onclick="event.stopPropagation();" style="position:absolute; top:12px; right:12px; background:rgba(28,27,24,0.78); color:#fff; font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:999px; backdrop-filter:blur(6px); display:flex; align-items:center; gap:5px; text-decoration:none; z-index:3; border:1px solid rgba(255,255,255,0.2);">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>

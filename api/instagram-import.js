@@ -118,6 +118,10 @@ function decodeHtmlEntities(str) {
 function cleanCaptionText(raw) {
   if (!raw || typeof raw !== 'string') return '';
   let str = decodeHtmlEntities(raw);
+  // Strip Instagram scraper prefix junk (e.g. '6 likes, 0 comments - sreedesigner_ on November 11, 2026: "')
+  str = str.replace(/^(?:\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*)?[^\n:]+on\s+[A-Za-z]+\s+\d+,\s*\d{4}:\s*["“]?/i, '');
+  str = str.replace(/^.*?on Instagram:\s*["“]?/i, '');
+  str = str.replace(/^(?:\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*)/i, '');
   // Safely strip hashtags (must be preceded by whitespace or start of line)
   str = str.replace(/(?:^|\s)#[A-Za-z0-9_\u0B80-\u0BFF]+/g, ' ');
   // Clean emoji/pictographs cleanly into spaces so no symbol wreckage remains
@@ -133,14 +137,16 @@ function cleanCaptionText(raw) {
 
 function cleanOgDescription(desc) {
   if (!desc) return '';
-  const decoded = decodeHtmlEntities(desc);
-  return decoded
-    .replace(/^.*?on Instagram:\s*["“]?/i, '')
-    .replace(/["”]?\s*$/, '')
-    .replace(/[\r\n]+/g, ' ')
-    .replace(/(?:&;)+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  let str = decodeHtmlEntities(desc);
+  // Strip Instagram scraper prefix junk (e.g. '6 likes, 0 comments - sreedesigner_ on November 11, 2026: "' or 'on Instagram: "')
+  str = str.replace(/^(?:\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*)?[^\n:]+on\s+[A-Za-z]+\s+\d+,\s*\d{4}:\s*["“]?/i, '');
+  str = str.replace(/^.*?on Instagram:\s*["“]?/i, '');
+  str = str.replace(/^(?:\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*)/i, '');
+  str = str.replace(/["”]?\s*$/, '');
+  str = str.replace(/[\r\n]+/g, ' ');
+  str = str.replace(/(?:&;)+/g, ' ');
+  str = str.replace(/\s+/g, ' ').trim();
+  return str;
 }
 
 function pickBestImageUrl(node) {
@@ -406,7 +412,7 @@ Analyze the following Instagram blouse post caption and details:
 
 Output strict JSON with these exact fields:
 {
-  "suggestedTitle": "Simple, natural, high-volume search title. Format: [Color] [Neck/Sleeve] Blouse Design with [Work]. STRICT REQUIREMENT: NEVER use complex or pompous words like 'opulent', 'sartorial', 'ethereal', 'resplendent', 'tapestry'. Use simple, everyday, easily searched words like 'Bridal Red Boat Neck Blouse Design with Gold Aari Work'.",
+  "suggestedTitle": "Simple, natural, customer-focused search title. Detect the primary blouse color from the caption/image (e.g. Pastel Green, Bottle Green, Royal Blue, Rani Pink, Bridal Red, Mustard Yellow). Format: [Detected Color] [Neck/Sleeve Style if present] Blouse Design with [Detected Work Type]. STRICT REQUIREMENT: NEVER use complex or pompous words like 'opulent', 'sartorial', 'ethereal', 'resplendent', 'tapestry'.",
   "suggestedPrice": 3800,
   "suggestedTags": ["Bridal Blouse & Maggam Work", "Hand Embroidered Blouses"],
   "suggestedDesignTags": ["Boat Neck", "Elbow Length Sleeve", "Aari Work"],

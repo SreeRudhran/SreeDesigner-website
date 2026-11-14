@@ -675,8 +675,33 @@ function getUnifiedCatalog() {
   const activeCustom = customItems.filter(c => !deletedIds.has(String(c.id))).map(item => {
     let cleanDesc = item.description || '';
     let cleanTitle = item.title || '';
+    let isFeatured = item.is_featured;
     let changed = false;
 
+    // 1. Strip Instagram scraper prefix junk (e.g. '6 likes, 0 comments - sreedesigner_ on November 11, 2026: "')
+    if (cleanDesc && /^\d+[\d,]*\s+likes?/i.test(cleanDesc)) {
+      cleanDesc = cleanDesc.replace(/^\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*[^\n:]+:\s*["“]?/i, '');
+      cleanDesc = cleanDesc.replace(/["”]?\s*$/, '').trim();
+      changed = true;
+    }
+
+    // 2. Resolve title mismatch (e.g. 'Bridal Red' mistakenly assigned to Pastel Green blouse)
+    const isGreenProduct = String(item.id) === 'prod-1794670454679' ||
+                          (cleanDesc && /pastel green|pistachio|pista/i.test(cleanDesc)) ||
+                          (item.main_image_url && /green/i.test(item.main_image_url));
+
+    if (isGreenProduct && /bridal red|red blouse/i.test(cleanTitle)) {
+      cleanTitle = 'Pastel Green Aari Work Blouse with Brocade Sleeves & Tie-Up Back';
+      changed = true;
+    }
+
+    // 3. Resolve duplicate on homepage (keep prod-1793719000000 as the featured pastel green blouse)
+    if (String(item.id) === 'prod-1794670454679' && isFeatured) {
+      isFeatured = false;
+      changed = true;
+    }
+
+    // 4. Sanitize entities & remove any '&;' symbol wreckage
     if (cleanDesc && (cleanDesc.includes('&;') || /&#[x0-9]/i.test(cleanDesc))) {
       cleanDesc = sanitizeProductText(cleanDesc);
       changed = true;
@@ -688,12 +713,16 @@ function getUnifiedCatalog() {
 
     if (changed) {
       modifiedCustom = true;
-      return Object.assign({}, item, { description: cleanDesc, title: cleanTitle });
+      return Object.assign({}, item, {
+        description: cleanDesc,
+        title: cleanTitle,
+        is_featured: isFeatured
+      });
     }
     return item;
   });
 
-  // Self-heal localStorage so old corrupted descriptions are permanently repaired
+  // Self-heal localStorage so old corrupted descriptions, mismatched titles, and duplicates are permanently repaired
   if (modifiedCustom) {
     try {
       localStorage.setItem('custom_showcase_items', JSON.stringify(activeCustom));

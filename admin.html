@@ -1747,17 +1747,49 @@ function selfHealLegacyShowcaseItems() {
     const cleaned = items.map(item => {
       let desc = item.description || '';
       let title = item.title || '';
+      let isFeatured = item.is_featured;
+      let changed = false;
+
+      // 1. Strip Instagram scraper metadata prefix
+      if (desc && /^\d+[\d,]*\s+likes?/i.test(desc)) {
+        desc = desc.replace(/^\d+[\d,]*\s+likes?,\s*\d+[\d,]*\s+comments?\s*-\s*[^\n:]+:\s*["“]?/i, '');
+        desc = desc.replace(/["”]?\s*$/, '').trim();
+        changed = true;
+      }
+
+      // 2. Resolve title mismatch on pastel green blouse
+      const isGreenProduct = String(item.id) === 'prod-1794670454679' ||
+                            (desc && /pastel green|pistachio|pista/i.test(desc)) ||
+                            (item.main_image_url && /green/i.test(item.main_image_url));
+
+      if (isGreenProduct && /bridal red|red blouse/i.test(title)) {
+        title = 'Pastel Green Aari Work Blouse with Brocade Sleeves & Tie-Up Back';
+        changed = true;
+      }
+
+      // 3. Resolve duplicate on homepage
+      if (String(item.id) === 'prod-1794670454679' && isFeatured) {
+        isFeatured = false;
+        changed = true;
+      }
+
+      // 4. Sanitize entities
       const cleanD = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(desc) : desc.replace(/(?:&;)+/g, ' ').trim();
       const cleanT = typeof window.sanitizeProductText === 'function' ? window.sanitizeProductText(title) : title.replace(/(?:&;)+/g, ' ').trim();
-      if (cleanD !== desc || cleanT !== title) {
+
+      if (cleanD !== item.description || cleanT !== item.title || isFeatured !== item.is_featured) {
         modified = true;
-        return Object.assign({}, item, { description: cleanD, title: cleanT });
+        return Object.assign({}, item, {
+          description: cleanD,
+          title: cleanT,
+          is_featured: isFeatured
+        });
       }
       return item;
     });
     if (modified) {
       localStorage.setItem('custom_showcase_items', JSON.stringify(cleaned));
-      console.log('✅ Self-healed legacy showcase items with corrupted symbols.');
+      console.log('✅ Self-healed legacy showcase items with corrected titles and deduplication.');
     }
   } catch(e) {}
 }
