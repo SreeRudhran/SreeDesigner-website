@@ -324,62 +324,176 @@
       align-items: start;
     }
 
-    /* ASYMMETRIC GALLERY */
-    .gallery-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ATELIER BOUTIQUE STUDIO GALLERY (100% UN増CROPPED & DYNAMIC MULTI-SLIDE) */
+    .atelier-gallery-wrapper {
+      display: flex;
+      flex-direction: column;
       gap: 16px;
+      width: 100%;
     }
 
-    .gallery-main-item {
-      grid-column: span 1;
-      grid-row: span 2;
+    .gallery-main-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-height: 580px;
+      background: #faf8f5;
       border-radius: 24px;
+      border: 1px solid rgba(226, 217, 207, 0.85);
+      box-shadow: 0 12px 36px -8px rgba(44, 30, 22, 0.08);
       overflow: hidden;
-      background: #faf8f5;
-      box-shadow: var(--shadow-soft);
-      height: 540px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .gallery-main-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 8px;
-      box-sizing: border-box;
-      transition: transform 0.5s ease;
+    .gallery-main-viewport img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      padding: 12px !important;
+      box-sizing: border-box !important;
+      transition: opacity 0.25s ease, transform 0.35s ease;
+      display: block;
     }
 
-    .gallery-main-item:hover img {
-      transform: scale(1.04);
+    .gallery-main-viewport:hover img {
+      transform: scale(1.02);
     }
 
-    .gallery-side-item {
-      border-radius: 20px;
-      overflow: hidden;
-      background: #faf8f5;
-      box-shadow: var(--shadow-soft);
-      height: 262px;
+    .gallery-slide-indicator {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(28, 27, 24, 0.82);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.94);
+      color: #1c1917;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      font-size: 1.6rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      opacity: 0.88;
+      transition: all 0.2s ease;
+      z-index: 3;
+    }
+    .gallery-arrow:hover {
+      opacity: 1;
+      background: #fff;
+      transform: translateY(-50%) scale(1.08);
+      color: var(--gold-dark);
+    }
+    .gallery-arrow.gallery-prev { left: 14px; }
+    .gallery-arrow.gallery-next { right: 14px; }
+
+    .gallery-thumbnails-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 2px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #d4af37 transparent;
+    }
+    .gallery-thumbnails-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+    .gallery-thumbnails-strip::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
+    }
+
+    .gallery-thumb-item {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      min-width: 96px;
+      border-radius: 14px;
+      background: #faf8f5;
+      border: 2px solid #e7ded4;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+    .gallery-thumb-item:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .gallery-thumb-item.active {
+      border-color: #c59b27;
+      box-shadow: 0 6px 18px rgba(197, 155, 39, 0.35);
+      transform: translateY(-2px);
+    }
+    .gallery-thumb-item img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      display: block;
+    }
+
+    /* BACKWARD COMPATIBILITY ALIASES */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+    .gallery-main-item {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-height: 580px;
+      background: #faf8f5;
+      border-radius: 24px;
+      border: 1px solid rgba(226, 217, 207, 0.85);
+      box-shadow: 0 12px 36px -8px rgba(44, 30, 22, 0.08);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .gallery-side-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 6px;
-      box-sizing: border-box;
-      transition: transform 0.4s ease;
+    .gallery-main-item img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      padding: 12px !important;
+      box-sizing: border-box !important;
     }
-
-    .gallery-side-item:hover img {
-      transform: scale(1.05);
+    .gallery-side-item {
+      display: none !important;
     }
 
     /* PRODUCT INFO PANEL */
@@ -728,8 +842,13 @@
 
     .related-img {
       width: 100%;
-      height: 320px;
-      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      max-height: 280px;
+      object-fit: contain !important;
+      background: #faf8f5;
+      padding: 8px;
+      box-sizing: border-box;
+      display: block;
     }
 
     .related-info {
@@ -759,10 +878,10 @@
       .brand-name { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .brand-name span { font-size: 0.55rem; letter-spacing: 0.08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
       .nav-links { display: none; }
-      .product-hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .gallery-container { grid-template-columns: 1fr; }
-      .gallery-main-item { height: 380px; }
-      .gallery-side-item { height: 180px; }
+      .product-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .gallery-container, .atelier-gallery-wrapper { width: 100%; }
+      .gallery-main-viewport, .gallery-main-item { max-height: 480px; }
+      .gallery-thumb-item { width: 80px; height: 80px; min-width: 80px; }
       .reviews-grid { grid-template-columns: 1fr; }
       .related-grid { grid-template-columns: 1fr; }
       .storyteller-banner { grid-template-columns: 1fr; padding: 32px; }
@@ -816,17 +935,17 @@
     <!-- MAIN PRODUCT SHOWCASE HERO (INSPIRED BY REFERENCE IMAGE 1) -->
     <section class="product-hero-grid">
 
-      <!-- ASYMMETRIC MULTI-IMAGE GALLERY -->
-      <div class="gallery-container">
-        <div class="gallery-main-item">
-          <img id="mainGalleryImg" src="assets/images/service_bridal.webp" alt="Grand Regal Peacock Maggam Blouse Full Front View" width="600" height="800" loading="eager" fetchpriority="high" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+      <!-- ATELIER BOUTIQUE STUDIO GALLERY (UNCROPPED 1:1 STUDIO CANVAS + DYNAMIC MULTI-SLIDES) -->
+      <div class="atelier-gallery-wrapper" id="atelierGalleryWrapper">
+        <div class="gallery-main-viewport">
+          <img id="mainGalleryImg" src="assets/images/service_bridal.webp" alt="Blouse Design View" width="800" height="800" loading="eager" fetchpriority="high" decoding="async">
+          <span class="gallery-slide-indicator" id="gallerySlideIndicator" style="display:none;">Slide 1 of 2</span>
+          <button type="button" class="gallery-arrow gallery-prev" id="btnGalleryPrev" onclick="navigateGallery(-1)" aria-label="Previous Angle" style="display:none;">‹</button>
+          <button type="button" class="gallery-arrow gallery-next" id="btnGalleryNext" onclick="navigateGallery(1)" aria-label="Next Angle" style="display:none;">›</button>
         </div>
-        <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img id="gallerySubImg1" src="assets/images/service_hand_embroidery.webp" alt="Detail View" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
-        </div>
-        <div class="gallery-side-item" onclick="swapImage(this.querySelector('img').src)">
-          <img id="gallerySubImg2" src="assets/images/hero_model.webp" alt="Fitting Preview" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
-        </div>
+        
+        <!-- DYNAMIC THUMBNAIL STRIP (Populates all unique slide angles with gold active indicator) -->
+        <div class="gallery-thumbnails-strip" id="galleryThumbnailsStrip"></div>
       </div>
 
       <!-- PRODUCT SPECIFICATION & ORDER PANEL -->
@@ -943,7 +1062,7 @@
 
       <div class="related-grid" id="relatedGridContainer">
         <div class="related-card">
-          <img src="assets/images/service_machine_embroidery.webp" alt="Precision Machine Embroidery Blouse" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+          <img src="assets/images/service_machine_embroidery.webp" alt="Precision Machine Embroidery Blouse" class="related-img" width="400" height="400" loading="lazy" decoding="async" style="aspect-ratio:1/1; object-fit:contain; background:#faf8f5; padding:8px; box-sizing:border-box;">
           <div class="related-info">
             <div>
               <div class="related-title">Precision Machine Embroidery</div>
@@ -954,7 +1073,7 @@
         </div>
 
         <div class="related-card">
-          <img src="assets/images/service_hand_embroidery.webp" alt="Hand Zardozi Sleeve Blouse" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+          <img src="assets/images/service_hand_embroidery.webp" alt="Hand Zardozi Sleeve Blouse" class="related-img" width="400" height="400" loading="lazy" decoding="async" style="aspect-ratio:1/1; object-fit:contain; background:#faf8f5; padding:8px; box-sizing:border-box;">
           <div class="related-info">
             <div>
               <div class="related-title">Hand Zardozi &amp; Kundan Work</div>
@@ -986,9 +1105,54 @@
   <script src="js/seo.js" defer></script>
   <script src="js/catalogData.js?v=20261103_v2" defer></script>
   <script>
+    let allProductImages = [];
+    let currentGalleryIndex = 0;
+
+    function updateGalleryView(index) {
+      if (!allProductImages || allProductImages.length === 0) return;
+      if (index < 0 || index >= allProductImages.length) return;
+      currentGalleryIndex = index;
+      const mainImg = document.getElementById('mainGalleryImg');
+      if (mainImg) {
+        mainImg.style.opacity = '0.35';
+        setTimeout(() => {
+          mainImg.src = allProductImages[index];
+          mainImg.style.opacity = '1';
+        }, 100);
+      }
+
+      const indicator = document.getElementById('gallerySlideIndicator');
+      if (indicator) {
+        if (allProductImages.length > 1) {
+          indicator.textContent = `Slide ${index + 1} of ${allProductImages.length}`;
+          indicator.style.display = 'block';
+        } else {
+          indicator.style.display = 'none';
+        }
+      }
+
+      // Highlight active thumbnail
+      const thumbs = document.querySelectorAll('.gallery-thumb-item');
+      thumbs.forEach((thumb, i) => {
+        if (i === index) thumb.classList.add('active');
+        else thumb.classList.remove('active');
+      });
+    }
+
+    function navigateGallery(direction) {
+      if (!allProductImages || allProductImages.length <= 1) return;
+      let newIdx = (currentGalleryIndex + direction + allProductImages.length) % allProductImages.length;
+      updateGalleryView(newIdx);
+    }
+
     function swapImage(src) {
-      const main = document.getElementById('mainGalleryImg');
-      if (main && src) main.src = src;
+      const idx = allProductImages.indexOf(src);
+      if (idx !== -1) {
+        updateGalleryView(idx);
+      } else {
+        const main = document.getElementById('mainGalleryImg');
+        if (main && src) main.src = src;
+      }
     }
 
     // ── INLINE DATA LOADER WITH MASTER CATALOG SUPPORT ─────────────────────
@@ -1058,33 +1222,65 @@
       const descEl = document.getElementById('productDesc');
       if (descEl) descEl.textContent = item.description || 'Custom South Indian silk garment handcrafted by master artisans at Sree Designers studio.';
 
-      // 4. DYNAMIC IMAGES & GALLERY
+      // 4. ATELIER DYNAMIC IMAGES & MULTI-SLIDE GALLERY ENGINE
+      allProductImages = [];
+      if (item.main_image_url) {
+        allProductImages.push(item.main_image_url);
+      }
+      if (Array.isArray(item.images)) {
+        item.images.forEach(img => {
+          const url = typeof img === 'string' ? img : (img && img.image_url ? img.image_url : null);
+          if (url && !allProductImages.includes(url)) {
+            allProductImages.push(url);
+          }
+        });
+      }
+      if (allProductImages.length === 0) {
+        allProductImages.push('assets/images/service_bridal.webp');
+      }
+
       const mainImg = document.getElementById('mainGalleryImg');
       if (mainImg) {
-        mainImg.src = item.main_image_url || 'assets/images/service_bridal.png';
         mainImg.alt = item.title;
       }
 
-      // Sub-images: use the extra uploaded images (index 0 and 1 of sub-images)
-      // item.images is the array of secondary images uploaded alongside the main one
-      const subImgs = [];
-      if (item.images && item.images.length > 0) {
-        item.images.forEach(img => {
-          const url = typeof img === 'string' ? img : img.image_url;
-          if (url && url !== item.main_image_url) subImgs.push(url);
-        });
+      // Render thumbnail strip for all available slides
+      const thumbsContainer = document.getElementById('galleryThumbnailsStrip');
+      if (thumbsContainer) {
+        if (allProductImages.length > 1) {
+          thumbsContainer.innerHTML = allProductImages.map((url, i) => `
+            <div class="gallery-thumb-item ${i === 0 ? 'active' : ''}" onclick="updateGalleryView(${i})" title="View angle ${i + 1}" role="button" tabindex="0">
+              <img src="${url}" alt="${item.title} angle ${i + 1}" loading="lazy">
+            </div>
+          `).join('');
+          thumbsContainer.style.display = 'flex';
+        } else {
+          thumbsContainer.innerHTML = '';
+          thumbsContainer.style.display = 'none';
+        }
       }
-      // Fallback: if no sub-images, show main image in side slots
-      const sub1 = document.getElementById('gallerySubImg1');
-      const sub2 = document.getElementById('gallerySubImg2');
-      if (sub1) {
-        sub1.src = subImgs[0] || item.main_image_url || 'assets/images/service_bridal.webp';
-        sub1.alt = `${item.title} - Sleeve Embroidery & Cutwork Detail`;
+
+      // Show/hide arrow controls if multiple slides
+      const prevBtn = document.getElementById('btnGalleryPrev');
+      const nextBtn = document.getElementById('btnGalleryNext');
+      if (prevBtn && nextBtn) {
+        if (allProductImages.length > 1) {
+          prevBtn.style.display = 'flex';
+          nextBtn.style.display = 'flex';
+        } else {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        }
       }
-      if (sub2) {
-        sub2.src = subImgs[1] || item.main_image_url || 'assets/images/service_bridal.webp';
-        sub2.alt = `${item.title} - Back Neckline & Handcrafted Stone Work`;
-      }
+
+      // Keyboard arrow keys for smooth gallery browsing
+      window.onkeydown = function(e) {
+        if (e.key === 'ArrowLeft') navigateGallery(-1);
+        if (e.key === 'ArrowRight') navigateGallery(1);
+      };
+
+      // Set initial slide
+      updateGalleryView(0);
 
       // 5. DYNAMIC WHATSAPP & INSTAGRAM CTA LINKS
       const waBtn = document.getElementById('btnProductWhatsApp');
@@ -1113,8 +1309,8 @@
       const ogDesc = document.querySelector('meta[property="og:description"]');
       if (ogDesc) ogDesc.setAttribute('content', item.description || `Handcrafted ${item.title} tailored at Sree Designers.`);
       const ogImg = document.querySelector('meta[property="og:image"]');
-      if (ogImg && (item.main_image_url || subImgs[0])) {
-        const primaryImg = item.main_image_url || subImgs[0];
+      if (ogImg && allProductImages.length > 0) {
+        const primaryImg = allProductImages[0];
         const fullImgUrl = primaryImg.startsWith('http') ? primaryImg : `https://sreedesigners.in/${primaryImg.replace(/^\//, '')}`;
         ogImg.setAttribute('content', fullImgUrl);
       }
@@ -1147,7 +1343,7 @@
 
           return `
             <a href="product?id=${safeId}" class="related-card">
-              <img src="${safeImg}" alt="${safeTitle}" class="related-img" width="300" height="400" loading="lazy" decoding="async" style="aspect-ratio:3/4; object-fit:cover;">
+              <img src="${safeImg}" alt="${safeTitle}" class="related-img" width="400" height="400" loading="lazy" decoding="async" style="aspect-ratio:1/1; object-fit:contain; background:#faf8f5; padding:8px; box-sizing:border-box;">
               <div class="related-info">
                 <div>
                   <div class="related-title">${safeTitle}</div>
