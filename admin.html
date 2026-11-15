@@ -2139,7 +2139,7 @@ async function handleToggleFeatured(id) {
   }
 }
 
-function renderShowcaseCard(item) {
+function renderShowcaseCard(item, index = 0, totalCount = 1, isMainPageView = false) {
   const isFeatured = typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
   const safeTitle = escapeHtml(item.title || 'Showcase Item');
   const safeImg = escapeHtml(item.main_image_url || 'assets/images/service_bridal.png');
@@ -2149,7 +2149,14 @@ function renderShowcaseCard(item) {
   const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
 
   return `
-    <div class="item-card" style="margin-bottom:12px; background:var(--white);">
+    <div class="item-card" style="margin-bottom:12px; background:var(--white); border:${isMainPageView ? '1.5px solid #f59e0b;' : '1px solid var(--line);'}">
+      ${isMainPageView ? `
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:0 6px;">
+          <span style="font-size:0.75rem; font-weight:800; background:#92400e; color:#fff; border-radius:999px; width:26px; height:26px; display:flex; align-items:center; justify-content:center;" title="Homepage Display Position">#${index + 1}</span>
+          <button type="button" class="btn-sm" onclick="moveFeaturedItem('${safeId}', -1)" ${index === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="cursor:pointer;"'} title="Move Earlier / Up on Homepage">▲</button>
+          <button type="button" class="btn-sm" onclick="moveFeaturedItem('${safeId}', 1)" ${index === totalCount - 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="cursor:pointer;"'} title="Move Later / Down on Homepage">▼</button>
+        </div>
+      ` : ''}
       <img class="item-thumb" src="${safeImg}" onerror="this.src='assets/images/service_bridal.png'" alt="${safeTitle}">
       <div class="item-info">
         <h4>${safeTitle}</h4>
@@ -2157,7 +2164,7 @@ function renderShowcaseCard(item) {
           <span class="badge">₹${safePrice.toLocaleString('en-IN')}</span>
           <small style="display:inline-block; margin-left:8px;">Category: <strong>${safeTags}</strong></small>
           ${item.instagram_url ? `<small style="display:inline-block; margin-left:8px;"><a href="${escapeHtml(item.instagram_url)}" target="_blank" style="color:#e1306c; text-decoration:none; font-weight:600;">📸 Instagram ↗</a></small>` : ''}
-          ${isFeatured ? '<span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; margin-left:8px;">⭐ Live on Main Page</span>' : ''}
+          ${isFeatured ? `<span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; margin-left:8px;">⭐ Live on Main Page ${isMainPageView ? `(Slot #${index + 1})` : ''}</span>` : ''}
         </div>
       </div>
       <div class="item-actions">
@@ -2170,6 +2177,43 @@ function renderShowcaseCard(item) {
       </div>
     </div>
   `;
+}
+
+function moveFeaturedItem(id, direction) {
+  const items = getShowcaseItems();
+  let mainPageItems = items.filter(item => {
+    return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
+  });
+
+  // Get current order
+  let currentOrder = [];
+  try {
+    currentOrder = JSON.parse(localStorage.getItem('sree_featured_order') || '[]');
+  } catch(e) {}
+
+  if (!Array.isArray(currentOrder) || currentOrder.length === 0) {
+    currentOrder = mainPageItems.map(i => String(i.id));
+  } else {
+    mainPageItems.forEach(i => {
+      const sId = String(i.id);
+      if (!currentOrder.includes(sId)) currentOrder.push(sId);
+    });
+    currentOrder = currentOrder.filter(sId => mainPageItems.some(i => String(i.id) === sId));
+  }
+
+  const strId = String(id);
+  const idx = currentOrder.indexOf(strId);
+  if (idx === -1) return;
+
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= currentOrder.length) return;
+
+  const temp = currentOrder[idx];
+  currentOrder[idx] = currentOrder[newIdx];
+  currentOrder[newIdx] = temp;
+
+  localStorage.setItem('sree_featured_order', JSON.stringify(currentOrder));
+  renderShowcase();
 }
 
 function renderShowcase() {
@@ -2190,9 +2234,24 @@ function renderShowcase() {
 
   // 1. FILTER: MAIN PAGE ONLY
   if (currentShowcaseFilter === 'main-page') {
-    const mainPageItems = items.filter(item => {
+    let mainPageItems = items.filter(item => {
       return typeof window.isItemFeatured === 'function' ? window.isItemFeatured(item) : !!item.is_featured;
     });
+
+    // Sort by saved user order
+    try {
+      const savedOrder = JSON.parse(localStorage.getItem('sree_featured_order') || '[]');
+      if (Array.isArray(savedOrder) && savedOrder.length > 0) {
+        mainPageItems.sort((a, b) => {
+          const idxA = savedOrder.indexOf(String(a.id));
+          const idxB = savedOrder.indexOf(String(b.id));
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+          if (idxA !== -1) return -1;
+          if (idxB !== -1) return 1;
+          return 0;
+        });
+      }
+    } catch(e) {}
 
     el.innerHTML = `
       <div class="showcase-section-block">
@@ -2200,13 +2259,13 @@ function renderShowcase() {
           <div class="section-block-title">
             <span style="font-size:1.8rem;">⭐</span>
             <div>
-              <h4 style="color:#92400e; margin:0 0 4px;">Main Page ("Our Work") Products Gallery</h4>
-              <p style="color:#78350f; margin:0; font-size:0.85rem;">These <strong>${mainPageItems.length} products</strong> appear live on the homepage in the <strong>"Our Work"</strong> section. Toggle any product off with <em>"⭐ Live on Main Page"</em> or add more from the category tabs.</p>
+              <h4 style="color:#92400e; margin:0 0 4px;">Main Page ("Our Work") Products Gallery &amp; Display Order</h4>
+              <p style="color:#78350f; margin:0; font-size:0.85rem;">These <strong>${mainPageItems.length} products</strong> appear live on the homepage in the <strong>"Our Work"</strong> section. Use the <strong>▲ Up</strong> and <strong>▼ Down</strong> buttons to swap which product appears 1st, 2nd, 3rd, etc. on your live website!</p>
             </div>
           </div>
         </div>
         <div class="section-items-list">
-          ${mainPageItems.length === 0 ? '<p class="empty-msg" style="padding:28px;">No products currently chosen for the main page. Click &quot;☆ Show on Main Page&quot; on any product in the category tabs to feature it!</p>' : mainPageItems.map(renderShowcaseCard).join('')}
+          ${mainPageItems.length === 0 ? '<p class="empty-msg" style="padding:28px;">No products currently chosen for the main page. Click &quot;☆ Show on Main Page&quot; on any product in the category tabs to feature it!</p>' : mainPageItems.map((item, idx) => renderShowcaseCard(item, idx, mainPageItems.length, true)).join('')}
         </div>
       </div>
     `;

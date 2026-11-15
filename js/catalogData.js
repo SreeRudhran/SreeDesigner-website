@@ -884,7 +884,25 @@ function getFeaturedProductsForSection(sectionId) {
 
 function getFeaturedMainPageProducts(limit = 6) {
   const allItems = getUnifiedCatalog();
-  const featured = allItems.filter(i => isItemFeatured(i));
+  let featured = allItems.filter(i => isItemFeatured(i));
+
+  // Check if custom user-defined display order exists in localStorage
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const savedOrder = JSON.parse(localStorage.getItem('sree_featured_order') || '[]');
+      if (Array.isArray(savedOrder) && savedOrder.length > 0) {
+        featured.sort((a, b) => {
+          const idxA = savedOrder.indexOf(String(a.id));
+          const idxB = savedOrder.indexOf(String(b.id));
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+          if (idxA !== -1) return -1;
+          if (idxB !== -1) return 1;
+          return 0;
+        });
+      }
+    } catch (e) {}
+  }
+
   if (featured.length >= limit) return featured.slice(0, limit);
   const nonFeatured = allItems.filter(i => !isItemFeatured(i));
   return [...featured, ...nonFeatured].slice(0, limit);
