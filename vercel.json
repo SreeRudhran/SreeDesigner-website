@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "js/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/google-merchant-feed.xml",

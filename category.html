@@ -723,7 +723,16 @@
       }).join('');
     }
 
-    document.addEventListener('DOMContentLoaded', loadCategoryPage);
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCategoryPage();
+      if (typeof window.syncUnifiedCatalogFromCloud === 'function') {
+        window.syncUnifiedCatalogFromCloud().then(items => {
+          if (items && items.length) {
+            loadCategoryPage();
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>

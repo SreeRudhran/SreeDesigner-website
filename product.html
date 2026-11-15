@@ -1365,6 +1365,13 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       loadDynamicProductPage();
+      if (typeof window.syncUnifiedCatalogFromCloud === 'function') {
+        window.syncUnifiedCatalogFromCloud().then(items => {
+          if (items && items.length) {
+            loadDynamicProductPage();
+          }
+        });
+      }
 
       // Synchronize Live Reviews from Unified Reviews Engine
       try {

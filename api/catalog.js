@@ -4,6 +4,14 @@ const path = require('path');
 const vm = require('vm');
 const { verifySessionToken, parseBody } = require('./_auth');
 
+// CommonJS require ensures Vercel NFT bundles catalogData.js into lambda and provides instant static fallback
+let staticCatalog = null;
+try {
+  staticCatalog = require('../js/catalogData.js');
+} catch (e) {
+  console.warn('Could not require ../js/catalogData.js:', e.message);
+}
+
 // GitHub Persistence Configuration
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
 const REPO_OWNER = 'SreeRudhran';
@@ -94,10 +102,10 @@ function parseCatalogJs(content) {
   const startMatch = content.match(/const\s+MASTER_CATALOG\s*=\s*\[/);
   if (!startMatch) return null;
   const startPos = startMatch.index + startMatch[0].length - 1;
-  const endPattern = /\r?\n\];\r?\n+\/\/ Helper/;
-  const endMatch = endPattern.exec(content);
+  const afterStart = content.slice(startPos);
+  const endMatch = afterStart.match(/\r?\n\];/);
   if (!endMatch) return null;
-  const endPos = endMatch.index + (endMatch[0].startsWith('\r\n') ? 3 : 2);
+  const endPos = startPos + endMatch.index + (endMatch[0].startsWith('\r\n') ? 3 : 2);
   const arrayStr = content.slice(startPos, endPos);
   const items = vm.runInNewContext('(' + arrayStr + ')');
   return { items, startPos, endPos };
@@ -150,6 +158,16 @@ async function getLiveCatalogData() {
     }
   }
 
+  // 3. Resilient fallback to CommonJS bundled MASTER_CATALOG
+  if (staticCatalog && Array.isArray(staticCatalog.MASTER_CATALOG) && staticCatalog.MASTER_CATALOG.length > 0) {
+    const cleanItems = staticCatalog.MASTER_CATALOG.map(it => ({
+      ...it,
+      title: sanitizeCatalogText(it.title),
+      description: sanitizeCatalogText(it.description)
+    }));
+    return { source: 'bundled_static', items: cleanItems, content: '', sha: null };
+  }
+
   return { source: 'none', items: [], content: '', sha: null };
 }
 
@@ -187,11 +205,17 @@ async function commitCatalogToGitHub(newItems, commitMessage, existingSha, origi
 
   // Commit to GitHub repository with automatic conflict retry
   if (GITHUB_TOKEN && targetSha) {
+    const gitAuthor = {
+      name: process.env.GIT_COMMITTER_NAME || 'Sreeji',
+      email: process.env.GIT_COMMITTER_EMAIL || 'sreeji321209@gmail.com'
+    };
     let putRes = await requestGitHub('PUT', `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${CATALOG_FILE_PATH}`, {
       message: commitMessage,
       content: Buffer.from(finalContent, 'utf8').toString('base64'),
       sha: targetSha,
-      branch: 'main'
+      branch: 'main',
+      committer: gitAuthor,
+      author: gitAuthor
     });
 
     // Handle 409 Conflict: concurrent write updated SHA
@@ -206,7 +230,9 @@ async function commitCatalogToGitHub(newItems, commitMessage, existingSha, origi
           message: commitMessage + ' (auto-retry)',
           content: Buffer.from(finalContent, 'utf8').toString('base64'),
           sha: targetSha,
-          branch: 'main'
+          branch: 'main',
+          committer: gitAuthor,
+          author: gitAuthor
         });
       }
     }
@@ -246,9 +272,11 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 200, { success: true, source, items });
     }
 
+    const fallbackItems = (staticCatalog && staticCatalog.MASTER_CATALOG) ? staticCatalog.MASTER_CATALOG : [];
     return sendJson(res, 200, {
       success: true,
       source: 'local_master',
+      items: fallbackItems,
       message: 'Catalog sync endpoint active.'
     });
   }

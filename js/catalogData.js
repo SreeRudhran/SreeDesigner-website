@@ -78,6 +78,36 @@ function saveActiveTagConfig(cfg) {
 
 const MASTER_CATALOG = [
     {
+        "id": "prod-1794713200000",
+        "title": "Minimal Hand Embroidery Silk Blouse with Contrast Magenta Sleeve",
+        "slug": "minimal-hand-embroidery-silk-blouse-contrast-magenta-sleeve",
+        "description": "• Design Style: Minimal embroidery blouse designed for comfort and class — perfect for daily wear, office looks, and small festive functions.\n• Embroidery Work: Handcrafted needlework accents along the neckline and contrast sleeve border.\n• Fabric & Lining: Pure silk fabric in olive sage paired with contrast magenta zari-striped sleeves, finished with breathable cotton inner lining.\n• Stitching & Fit: Tailored to your exact measurements with comfortable 2-inch inner margins for future adjustments.",
+        "starting_price": 2200,
+        "main_image_url": "assets/images/blouse_minimal_olive_magenta_sleeve.jpg",
+        "images": [
+            {
+                "id": "sub-olive-magenta-1",
+                "image_url": "assets/images/blouse_minimal_olive_magenta_front.jpg"
+            },
+            {
+                "id": "sub-olive-magenta-2",
+                "image_url": "assets/images/blouse_minimal_olive_magenta_detail.jpg"
+            }
+        ],
+        "tags": [
+            "Hand Embroidered Blouses",
+            "Bridal Blouse & Maggam Work",
+            "Simple Blouse",
+            "Embroidery Blouse",
+            "Round / U-Neck",
+            "Elbow Length Sleeve"
+        ],
+        "instagram_url": "https://www.instagram.com/p/DWVmIxCE_lP/",
+        "is_published": true,
+        "is_featured": true,
+        "updated_at": "2026-11-15T10:00:00.000Z"
+    },
+    {
         "id":  "prod-1793719000000",
         "title":  "Pastel Green Aari Work Blouse with Brocade Sleeves \u0026 Tie-Up Back",
         "slug":  "pastel-green-aari-work-blouse-brocade-sleeves-tie-up-back",
@@ -665,6 +695,17 @@ function getUnifiedCatalog() {
     customItems = JSON.parse(localStorage.getItem('custom_showcase_items') || '[]');
   } catch (e) {}
 
+  // Merge dynamic items loaded from /api/catalog into custom items list
+  if (typeof window !== 'undefined' && Array.isArray(window.LIVE_SERVER_CATALOG) && window.LIVE_SERVER_CATALOG.length > 0) {
+    const knownIds = new Set(customItems.map(c => String(c.id)));
+    for (const sItem of window.LIVE_SERVER_CATALOG) {
+      if (sItem && sItem.id && !knownIds.has(String(sItem.id))) {
+        customItems.push(sItem);
+        knownIds.add(String(sItem.id));
+      }
+    }
+  }
+
   let deletedIds = new Set();
   try {
     const rawDeleted = JSON.parse(localStorage.getItem('deleted_showcase_ids') || '[]');
@@ -849,6 +890,22 @@ function getFeaturedMainPageProducts(limit = 6) {
   return [...featured, ...nonFeatured].slice(0, limit);
 }
 
+async function syncUnifiedCatalogFromCloud() {
+  if (typeof window === 'undefined' || typeof fetch === 'undefined') return [];
+  try {
+    const res = await fetch('/api/catalog');
+    if (!res.ok) return [];
+    const data = await res.json();
+    if (data && data.success && Array.isArray(data.items) && data.items.length > 0) {
+      window.LIVE_SERVER_CATALOG = data.items;
+      return data.items;
+    }
+  } catch (e) {
+    console.warn('Catalog live sync note:', e.message);
+  }
+  return [];
+}
+
 if (typeof window !== 'undefined') {
   window.MASTER_CATALOG = MASTER_CATALOG;
   window.MASTER_TAG_CONFIG = MASTER_TAG_CONFIG;
@@ -861,6 +918,7 @@ if (typeof window !== 'undefined') {
   window.toggleFeaturedItem = toggleFeaturedItem;
   window.getFeaturedProductsForSection = getFeaturedProductsForSection;
   window.getFeaturedMainPageProducts = getFeaturedMainPageProducts;
+  window.syncUnifiedCatalogFromCloud = syncUnifiedCatalogFromCloud;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -875,6 +933,7 @@ if (typeof module !== 'undefined' && module.exports) {
     isItemFeatured,
     toggleFeaturedItem,
     getFeaturedProductsForSection,
-    getFeaturedMainPageProducts
+    getFeaturedMainPageProducts,
+    syncUnifiedCatalogFromCloud
   };
 }

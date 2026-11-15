@@ -2981,8 +2981,14 @@
             const waMsg = encodeURIComponent(`Hi Sree Designers, I would like to enquire about the ${item.title || 'Bridal Blouse'}.`);
             const igUrl = item.instagram_url ? item.instagram_url.replace(/"/g, '&quot;') : '';
 
+            const tagStr = (Array.isArray(item.tags) ? item.tags.join(' ') : (item.tags || '')).toLowerCase();
+            let catAttr = 'maggam';
+            if (tagStr.includes('cutwork') || tagStr.includes('sheer') || tagStr.includes('net') || tagStr.includes('back')) catAttr = 'cutwork';
+            else if (tagStr.includes('neck') || tagStr.includes('scallop') || tagStr.includes('boat')) catAttr = 'neckline';
+            else if (tagStr.includes('maggam') || tagStr.includes('aari') || tagStr.includes('bridal') || tagStr.includes('zardozi')) catAttr = 'maggam';
+
             return `
-              <article class="our-work-card">
+              <article class="our-work-card" data-category="${catAttr}">
                 <div class="our-work-img-wrap" style="position:relative; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; background:#faf8f5;">
                   <a href="product?id=${safeSlug}" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
                     <img src="${img}" alt="${title}" class="our-work-img" width="600" height="600" loading="lazy" decoding="async" onerror="this.src='assets/images/service_bridal.webp'" style="object-fit:cover; object-position:center 20%; max-width:100%; max-height:100%; width:100%; height:100%; padding:0; box-sizing:border-box;">
@@ -3015,6 +3021,15 @@
 
         renderMainOurWork();
         window.addEventListener('load', renderMainOurWork);
+
+        // Background live sync from cloud catalog
+        if (typeof window.syncUnifiedCatalogFromCloud === 'function') {
+          window.syncUnifiedCatalogFromCloud().then(items => {
+            if (items && items.length) {
+              renderMainOurWork();
+            }
+          });
+        }
       } catch(err) {
         console.warn('Our work catalog sync error:', err.message);
       }

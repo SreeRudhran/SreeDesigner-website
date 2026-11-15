@@ -1606,7 +1606,18 @@ function escapeHtml(str) {
 
 // ─── LOCAL STORAGE HELPERS ───────────────────────────────────────────────────
 function lsGet(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
-function lsSet(key, arr) { try { localStorage.setItem(key, JSON.stringify(arr.slice(0, 50))); } catch(e) {} }
+function lsSet(key, arr) {
+  if (!Array.isArray(arr)) return false;
+  for (let limit of [50, 30, 20, 15, 10, 5]) {
+    try {
+      localStorage.setItem(key, JSON.stringify(arr.slice(0, limit)));
+      return true;
+    } catch(e) {
+      console.warn(`localStorage quota limit hit for ${key} at ${limit}, trimming older items...`);
+    }
+  }
+  return false;
+}
 
 // ─── GET UNIFIED SHOWCASE ITEMS ──────────────────────────────────────────────
 function getShowcaseItems() {
@@ -1633,7 +1644,35 @@ async function syncCatalogFromCloud() {
   }
 }
 
-// ─── IMAGE COMPRESSION ──────────────────────────────────────────────────────
+// ─── IMAGE COMPRESSION HELPERS ───────────────────────────────────────────────
+function compressImageSrc(src, maxDim = 900, quality = 0.72) {
+  return new Promise(resolve => {
+    if (!src || typeof src !== 'string' || (!src.startsWith('data:image/') && !src.startsWith('blob:'))) {
+      return resolve(src);
+    }
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+          else       { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      } catch (err) {
+        resolve(src);
+      }
+    };
+    img.onerror = () => resolve(src);
+    img.src = src;
+  });
+}
+
 function compressImage(file) {
   return new Promise(resolve => {
     const reader = new FileReader();
@@ -2718,16 +2757,27 @@ async function handleFetchFromInstagram(mode) {
       throw new Error(data.error || 'Failed to fetch Instagram post.');
     }
 
-    // 1. Auto-populate Photo Studio with downloaded slide images
+    // 1. Auto-populate Photo Studio with downloaded slide images (compressed to prevent storage quota exhaustion)
     if (Array.isArray(data.images) && data.images.length > 0) {
+      if (btn) btn.textContent = '⏳ Optimizing slide photos...';
+      const compressedSlides = [];
+      for (let i = 0; i < data.images.length; i++) {
+        try {
+          const comp = await compressImageSrc(data.images[i], 900, 0.72);
+          compressedSlides.push(comp);
+        } catch(compErr) {
+          compressedSlides.push(data.images[i]);
+        }
+      }
+
       if (mode === 'create') {
-        createGalleryImages = data.images.map((imgUrl, i) => ({
+        createGalleryImages = compressedSlides.map((imgUrl, i) => ({
           id: 'ig-slide-' + Date.now() + '-' + i,
           image_url: imgUrl
         }));
         renderCreateGallery();
       } else {
-        editGalleryImages = data.images.map((imgUrl, i) => ({
+        editGalleryImages = compressedSlides.map((imgUrl, i) => ({
           id: 'ig-edit-slide-' + Date.now() + '-' + i,
           image_url: imgUrl
         }));
@@ -2833,17 +2883,31 @@ async function submitShowcase(e) {
 
     const arr = lsGet('custom_showcase_items');
     arr.unshift(newItem);
-    lsSet('custom_showcase_items', arr);
+    const localSaved = lsSet('custom_showcase_items', arr);
+    if (!localSaved) {
+      console.warn('LocalStorage save note: storage quota was pruned to fit newest item.');
+    }
 
     // Sync to serverless catalog endpoint
+    let serverSynced = false;
+    let syncErrorMsg = '';
     try {
+      btn.textContent = '⏳ Committing to catalog & repository...';
       const token = localStorage.getItem('sree_admin_token') || '';
-      fetch('/api/catalog', {
+      const catRes = await fetch('/api/catalog', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify(newItem)
-      }).catch(e => console.warn('Catalog API sync note:', e.message));
-    } catch(e) {}
+      });
+      const catData = await catRes.json();
+      if (catRes.ok && catData.success) {
+        serverSynced = true;
+      } else {
+        syncErrorMsg = catData.error || `HTTP ${catRes.status}`;
+      }
+    } catch(syncErr) {
+      syncErrorMsg = syncErr.message;
+    }
 
     document.getElementById('formShowcase').reset();
     createGalleryImages = [];
@@ -2852,7 +2916,11 @@ async function submitShowcase(e) {
     if (quickNotes) quickNotes.value = '';
 
     closeModal('modalShowcase');
-    alert('✅ Product published successfully with all angles preserved!');
+    if (serverSynced) {
+      alert('✅ Product published and synchronized site-wide successfully! Your design is now live across the website.');
+    } else {
+      alert('✅ Product published and saved locally! (Cloud sync note: ' + (syncErrorMsg || 'Queued for live rebuild') + ')');
+    }
     renderShowcase();
   } catch(err) {
     alert('❌ Error: ' + err.message);
@@ -2967,17 +3035,32 @@ async function submitEditShowcase(e) {
     lsSet('custom_showcase_items', customItems);
 
     // Sync to serverless catalog endpoint
+    let serverSynced = false;
+    let syncErrorMsg = '';
     try {
+      btn.textContent = '⏳ Saving changes to catalog & repository...';
       const token = localStorage.getItem('sree_admin_token') || '';
-      fetch('/api/catalog', {
+      const catRes = await fetch('/api/catalog', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify(updatedItem)
-      }).catch(e => console.warn('Catalog API sync note:', e.message));
-    } catch(e) {}
+      });
+      const catData = await catRes.json();
+      if (catRes.ok && catData.success) {
+        serverSynced = true;
+      } else {
+        syncErrorMsg = catData.error || `HTTP ${catRes.status}`;
+      }
+    } catch(syncErr) {
+      syncErrorMsg = syncErr.message;
+    }
 
     closeModal('modalEditShowcase');
-    alert('✅ Product updated successfully with all angles and cover photo saved!');
+    if (serverSynced) {
+      alert('✅ Product updated and synchronized site-wide successfully!');
+    } else {
+      alert('✅ Product updated locally! (Cloud sync note: ' + (syncErrorMsg || 'Queued for live rebuild') + ')');
+    }
     renderShowcase();
   } catch(err) {
     alert('❌ Update error: ' + err.message);
