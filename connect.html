@@ -666,11 +666,11 @@
       <h3 style="font-family:var(--serif); font-size:1.25rem; margin-bottom:4px;">In-Studio QR Standee</h3>
       <p style="font-size:0.82rem; color:var(--ink-soft);">Print this high-resolution QR code for your billing counter or trial room mirror.</p>
       
-      <img src="assets/images/sree_boutique_qr.png" alt="Sree Designers In-Store QR Code" class="qr-preview-img" width="220" height="220">
+      <img src="assets/images/sree_shop_counter_qr.png" alt="Sree Designers In-Store QR Code" class="qr-preview-img" width="220" height="220">
       
-      <p style="font-size:0.78rem; color:var(--gold-dark); font-weight:600; margin-bottom:12px;">Scans to: sreedesigners.in/connect?utm_source=qr (Tracks scans &amp; clicks automatically)</p>
+      <p style="font-size:0.78rem; color:var(--gold-dark); font-weight:600; margin-bottom:12px;">Scans to: <strong>sreedesigners.in/connect?ref=shop_qr</strong> (Separate In-Shop Tracking)</p>
       
-      <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-download-qr" onclick="trackClick('download_qr_png')">
+      <a href="assets/images/sree_shop_counter_qr.png" download="Sree_Designers_Shop_QR_ref_shop_qr.png" class="btn-download-qr" onclick="trackClick('download_qr_png')">
         ⬇️ Download High-Res QR (PNG)
       </a>
     </div>
@@ -766,10 +766,13 @@
     }
 
     // 1. Automatic QR Scan Tracking on Page Load
+    let currentRefId = '';
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const isQr = params.get('utm_source') === 'qr' || params.has('qr');
-      const scanType = isQr ? 'in_store_qr_scan' : 'direct_connect_visit';
+      currentRefId = (params.get('ref') || params.get('ref_id') || params.get('r') || '').trim();
+      const isShopQr = !!currentRefId;
+      const isQr = isShopQr || params.get('utm_source') === 'qr' || params.has('qr');
+      const scanType = isShopQr ? `in_shop_qr_${currentRefId}` : (isQr ? 'in_store_qr_scan' : 'direct_connect_visit');
       const meta = getClientMeta();
 
       // Track in GA4 & Vercel
@@ -778,25 +781,27 @@
           'event_category': 'In_Studio_QR',
           'event_label': scanType,
           'scan_type': scanType,
+          'ref': currentRefId || (isQr ? 'qr' : 'direct'),
           'scan_time': meta.time,
           'scan_date': meta.date
         });
       }
       if (typeof window.va === 'function') {
-        window.va('event', { name: 'qr_code_scan', data: { type: scanType, time: meta.time, date: meta.date } });
+        window.va('event', { name: 'qr_code_scan', data: { type: scanType, ref: currentRefId || (isQr ? 'qr' : 'direct'), time: meta.time, date: meta.date } });
       }
 
-      // Record in Live Counter & Analytics API
+      // Record in Live Counter & Analytics API with Dedicated Ref
       sendTrackingPayload({
         action: 'qr_scans',
+        ref: currentRefId || (isQr ? 'shop_qr' : ''),
         event_type: 'scan',
-        label: isQr ? '📱 In-Store Standee QR Scan' : '🌐 Direct Connect Page Visit',
-        channel: isQr ? 'Counter Standee' : 'Direct Link',
+        label: isShopQr ? `🏪 In-Shop QR Scan (ref: ${currentRefId})` : (isQr ? '📱 In-Store Standee QR Scan' : '🌐 Direct Connect Page Visit'),
+        channel: isShopQr ? `🏪 In-Shop QR (${currentRefId})` : (isQr ? 'Counter Standee' : 'Direct Link'),
         ...meta
       });
     });
 
-    // 2. Interactive Action Tracking for All Buttons (Tracks exact Time & Date)
+    // 2. Interactive Action Tracking for All Buttons (Tracks exact Time & Date + Ref attribution)
     function trackClick(actionName) {
       const meta = getClientMeta();
       const metaDef = ACTION_METAS[actionName] || {
@@ -808,26 +813,29 @@
         gtag('event', actionName, {
           'event_category': 'In_Studio_Hub',
           'event_label': metaDef.label,
+          'ref': currentRefId || 'direct',
           'click_time': meta.time,
           'click_date': meta.date
         });
         gtag('event', 'hub_action', {
           'action_name': actionName,
           'action_label': metaDef.label,
+          'ref': currentRefId || 'direct',
           'click_time': meta.time,
           'click_date': meta.date
         });
       }
       if (typeof window.va === 'function') {
-        window.va('event', { name: actionName, data: { time: meta.time, date: meta.date } });
+        window.va('event', { name: actionName, data: { time: meta.time, date: meta.date, ref: currentRefId || 'direct' } });
       }
 
-      // Send exact Time & Date payload to Analytics API
+      // Send exact Time & Date payload to Analytics API with Ref tracking
       sendTrackingPayload({
         action: actionName,
+        ref: currentRefId || '',
         event_type: 'click',
-        label: metaDef.label,
-        channel: metaDef.channel,
+        label: metaDef.label + (currentRefId ? ` [ref: ${currentRefId}]` : ''),
+        channel: currentRefId ? `🏪 In-Shop QR (${currentRefId})` : metaDef.channel,
         ...meta
       });
     }

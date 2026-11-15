@@ -258,6 +258,7 @@ module.exports = async function handler(req, res) {
 
     const targetKey = aliasMap[rawAction] || 'qr_scans';
     const isScan = targetKey === 'qr_scans';
+    const refTag = body.ref ? String(body.ref).trim().toLowerCase() : '';
 
     const ist = getIstDateInfo();
     const eventDate = body.date || ist.date;
@@ -272,6 +273,13 @@ module.exports = async function handler(req, res) {
       fetchAbacus('hit', isScan ? `hr_scan_${hourKey}` : `hr_click_${hourKey}`)
     ];
 
+    if (refTag && isScan) {
+      promises.push(fetchAbacus('hit', `ref_${refTag}`));
+      if (refTag.includes('shop')) {
+        promises.push(fetchAbacus('hit', 'ref_shop_qr'));
+      }
+    }
+
     const results = await Promise.all(promises);
     const newTargetCount = results[0] || 0;
 
@@ -279,9 +287,10 @@ module.exports = async function handler(req, res) {
     const eventObj = {
       id: 'evt-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
       action: targetKey,
+      ref: refTag || null,
       event_type: isScan ? 'scan' : 'click',
-      label: body.label || (isScan ? '📱 In-Store Standee Scan' : '⚡ Action: ' + targetKey.replace(/_/g, ' ')),
-      channel: body.channel || (isScan ? 'Counter Standee' : 'In-Studio Hub'),
+      label: body.label || (isScan ? `📱 In-Store Shop QR Scan${refTag ? ' [' + refTag + ']' : ''}` : '⚡ Action: ' + targetKey.replace(/_/g, ' ')),
+      channel: body.channel || (refTag ? `🏪 In-Shop QR (${refTag})` : (isScan ? 'Counter Standee' : 'In-Studio Hub')),
       date: eventDate,
       time: eventTime,
       hour: eventHour,
@@ -315,7 +324,10 @@ module.exports = async function handler(req, res) {
 
     try {
       // 1. Fetch total metrics
-      const totalResults = await Promise.all(METRICS.map(k => fetchAbacus('get', k)));
+      const totalResults = await Promise.all([
+        ...METRICS.map(k => fetchAbacus('get', k)),
+        fetchAbacus('get', 'ref_shop_qr')
+      ]);
       const stats = {};
       let totalInteractions = 0;
 
@@ -324,6 +336,7 @@ module.exports = async function handler(req, res) {
         if (k !== 'qr_scans') totalInteractions += (totalResults[idx] || 0);
       });
       stats.total_interactions = totalInteractions;
+      stats.shop_qr_scans = totalResults[METRICS.length] || 0;
 
       // 2. Fetch last 7 days of daily trends
       const days = getPastDates(7);

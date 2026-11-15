@@ -42,6 +42,12 @@ async function fetchLiveQrStats() {
       setVal('metric_instagram_follow', s.instagram_follow);
       setVal('metric_whatsapp_save', s.whatsapp_save);
 
+      // Separate In-Shop QR Tracking (ref: shop_qr)
+      const allEvts = getAllEvents();
+      const shopEvts = allEvts.filter(e => (e.ref && e.ref.toLowerCase().includes('shop')) || (e.channel && e.channel.toLowerCase().includes('shop')));
+      const shopScans = (s.shop_qr_scans && s.shop_qr_scans > 0) ? s.shop_qr_scans : shopEvts.filter(e => e.event_type === 'scan').length;
+      setVal('metric_shop_qr', shopScans);
+
       // Merge & save events to localStorage so history persists permanently in the admin browser
       if (Array.isArray(data.events) && data.events.length > 0) {
         mergeLocalEvents(data.events);
@@ -368,9 +374,12 @@ function renderQrActivityTable() {
   const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
 
   // Update count pills
-  const counts = { all: allEvents.length, reviews: 0, whatsapp: 0, instagram: 0, scans: 0, catalog: 0 };
+  const counts = { all: allEvents.length, shop_qr: 0, reviews: 0, whatsapp: 0, instagram: 0, scans: 0, catalog: 0 };
   allEvents.forEach(e => {
     const a = (e.action || '').toLowerCase();
+    const c = (e.channel || '').toLowerCase();
+    const r = (e.ref || '').toLowerCase();
+    if (r.includes('shop') || c.includes('shop')) counts.shop_qr++;
     if (a.includes('review')) counts.reviews++;
     else if (a.includes('whatsapp') || a.includes('helpline')) counts.whatsapp++;
     else if (a.includes('instagram')) counts.instagram++;
@@ -380,6 +389,7 @@ function renderQrActivityTable() {
 
   const setElText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
   setElText('count_all', counts.all);
+  setElText('count_shop_qr', counts.shop_qr);
   setElText('count_reviews', counts.reviews);
   setElText('count_whatsapp', counts.whatsapp);
   setElText('count_instagram', counts.instagram);
@@ -393,8 +403,10 @@ function renderQrActivityTable() {
     const d = (e.date || '').toLowerCase();
     const t = (e.time || '').toLowerCase();
     const c = (e.channel || '').toLowerCase();
+    const r = (e.ref || '').toLowerCase();
 
     // Category Filter
+    if (currentEventFilter === 'shop_qr' && !(r.includes('shop') || c.includes('shop'))) return false;
     if (currentEventFilter === 'reviews' && !a.includes('review')) return false;
     if (currentEventFilter === 'whatsapp' && !a.includes('whatsapp') && !a.includes('helpline')) return false;
     if (currentEventFilter === 'instagram' && !a.includes('instagram')) return false;
@@ -403,7 +415,7 @@ function renderQrActivityTable() {
 
     // Search Query Filter
     if (query) {
-      const match = a.includes(query) || l.includes(query) || d.includes(query) || t.includes(query) || c.includes(query);
+      const match = a.includes(query) || l.includes(query) || d.includes(query) || t.includes(query) || c.includes(query) || r.includes(query);
       if (!match) return false;
     }
     return true;
@@ -431,6 +443,11 @@ function renderQrActivityTable() {
       ? '<span style="background:#fef3c7; color:#92400e; font-size:0.72rem; font-weight:700; padding:3px 8px; border-radius:6px;">📱 Standee Scan</span>'
       : '<span style="background:#ecfdf5; color:#047857; font-size:0.72rem; font-weight:700; padding:3px 8px; border-radius:6px;">⚡ Button Click</span>';
 
+    const isShopQr = (e.ref && e.ref.toLowerCase().includes('shop')) || (e.channel && e.channel.toLowerCase().includes('shop'));
+    const channelHtml = isShopQr
+      ? `<span style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; font-size:0.72rem; font-weight:700; padding:2px 7px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🏪 In-Shop QR ${e.ref ? `[${escapeHtml(e.ref)}]` : ''}</span>`
+      : `📍 ${escapeHtml(e.channel || 'Counter Standee')}`;
+
     return `
       <tr style="border-bottom:1px solid #f1f5f9; transition:background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
         <td style="padding:12px 14px; white-space:nowrap;">
@@ -440,7 +457,7 @@ function renderQrActivityTable() {
           <div style="font-weight:600; color:#1e293b; font-size:0.86rem;">${e.label || e.action}</div>
         </td>
         <td style="padding:12px 14px; color:#475569; font-size:0.8rem; white-space:nowrap;">
-          📍 ${e.channel || 'Counter Standee'}
+          ${channelHtml}
         </td>
         <td style="padding:12px 14px; color:#64748b; font-size:0.78rem; white-space:nowrap;">
           ${e.device || 'Mobile'}
@@ -450,6 +467,7 @@ function renderQrActivityTable() {
         </td>
       </tr>
     `;
+  }).join('');
   }).join('');
 
   tbody.innerHTML = rowsHtml;
@@ -854,11 +872,17 @@ function stopQrAutoRefresh() {
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-top:20px;">
           <!-- QR Code Preview & Download Card -->
           <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; text-align:center;">
-            <h4 style="margin-bottom:8px; font-size:1.05rem;">Physical Counter QR Code</h4>
-            <p style="font-size:0.82rem; color:var(--soft); margin-bottom:14px;">Print and display at your billing counter and trial room mirror.</p>
-            <img src="assets/images/sree_boutique_qr.png" alt="Sree Designers QR Code" style="width:200px; height:200px; border-radius:10px; border:1px solid #e5e5e5; padding:6px; margin:0 auto 14px;">
-            <div style="font-size:0.75rem; color:var(--soft); margin-bottom:12px; word-break:break-all;">Target: <strong>sreedesigners.in/connect?utm_source=qr</strong></div>
-            <a href="assets/images/sree_boutique_qr.png" download="Sree_Designers_InStore_QR.png" class="btn-main" style="width:100%; text-decoration:none; display:inline-block;">⬇️ Download Print QR (1000x1000 PNG)</a>
+            <div style="display:inline-block; background:#eff6ff; color:#1e40af; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; margin-bottom:8px; border:1px solid #bfdbfe;">
+              🏪 IN-STORE QR CODE (REF: SHOP_QR)
+            </div>
+            <h4 style="margin-bottom:6px; font-size:1.05rem;">Physical Shop Counter QR</h4>
+            <p style="font-size:0.82rem; color:var(--soft); margin-bottom:14px;">Print and paste at your Coimbatore &amp; Samalapuram billing counters, reception desk, and trial mirrors.</p>
+            <img src="assets/images/sree_shop_counter_qr.png" alt="Sree Designers In-Store QR Code" style="width:200px; height:200px; border-radius:10px; border:1.5px solid #cbd5e1; padding:6px; margin:0 auto 12px; display:block; background:#fff;">
+            <div style="font-size:0.75rem; color:var(--soft); margin-bottom:12px; word-break:break-all;">Target: <strong>sreedesigners.in/connect?ref=shop_qr</strong></div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <a href="assets/images/sree_shop_counter_qr.png" download="Sree_Designers_InShop_QR_shop_qr.png" class="btn-main" style="width:100%; text-decoration:none; display:inline-block;">⬇️ Download Print QR (PNG)</a>
+              <a href="/connect?ref=shop_qr" target="_blank" rel="noopener noreferrer" style="font-size:0.78rem; font-weight:600; color:#2563eb; text-decoration:none;">🧪 Test Scan URL in New Tab &rarr;</a>
+            </div>
           </div>
 
           <!-- LIVE IN-STUDIO COUNTERS CARD -->
@@ -874,48 +898,57 @@ function stopQrAutoRefresh() {
                 </button>
               </div>
 
-              <!-- Metrics 2x3 Grid -->
+              <!-- Metrics Grid -->
               <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;">
-                <!-- 1. Total QR Scans -->
-                <div style="background:linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border:1.5px solid #fde68a; border-radius:12px; padding:14px 16px;">
-                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#92400e; letter-spacing:0.04em; margin-bottom:4px;">📱 Total QR Scans</div>
-                  <div style="font-size:2rem; font-weight:800; color:#78350f; line-height:1.1;" id="metric_qr_scans">0</div>
-                  <small style="color:#b45309; font-size:0.72rem;">Customer standee scans</small>
+                <!-- 1. In-Shop QR Scans (Dedicated Ref Tracking) -->
+                <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #93c5fd; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#1e40af; letter-spacing:0.04em; margin-bottom:4px;">🏪 In-Shop QR Scans</div>
+                  <div style="font-size:2rem; font-weight:800; color:#1e3a8a; line-height:1.1;" id="metric_shop_qr">0</div>
+                  <small style="color:#2563eb; font-size:0.72rem;">Tracked with <strong>ref: shop_qr</strong></small>
                 </div>
 
-                <!-- 2. Total Interactions -->
+                <!-- 2. Total Scans Across All Sources -->
+                <div style="background:linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border:1.5px solid #fde68a; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#92400e; letter-spacing:0.04em; margin-bottom:4px;">📱 Total All Scans</div>
+                  <div style="font-size:2rem; font-weight:800; color:#78350f; line-height:1.1;" id="metric_qr_scans">0</div>
+                  <small style="color:#b45309; font-size:0.72rem;">All physical &amp; web visits</small>
+                </div>
+
+                <!-- 3. Total Interactions -->
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
                   <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⚡ Customer Actions</div>
                   <div style="font-size:2rem; font-weight:800; color:#0f172a; line-height:1.1;" id="metric_total_interactions">0</div>
                   <small style="color:#64748b; font-size:0.72rem;">Reviews, IG &amp; WhatsApp</small>
                 </div>
 
-                <!-- 3. Samalapuram Reviews -->
+                <!-- 4. Samalapuram Reviews -->
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
                   <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⭐ Samalapuram Review</div>
                   <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_review_samalapuram">0</div>
                   <small style="color:#64748b; font-size:0.72rem;">Google Maps clicks</small>
                 </div>
 
-                <!-- 4. Karnempettai Reviews -->
+                <!-- 5. Karnempettai Reviews -->
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
                   <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">⭐ Karnempettai Review</div>
                   <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_review_karnempettai">0</div>
                   <small style="color:#64748b; font-size:0.72rem;">Google Maps clicks</small>
                 </div>
 
-                <!-- 5. Instagram Follows -->
+                <!-- 6. Instagram Follows -->
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
                   <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">📸 Instagram Follows</div>
                   <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_instagram_follow">0</div>
                   <small style="color:#64748b; font-size:0.72rem;">@sreedesigner_ taps</small>
                 </div>
 
-                <!-- 6. WhatsApp Saves -->
-                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
-                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">💬 WhatsApp Saves</div>
-                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_whatsapp_save">0</div>
-                  <small style="color:#64748b; font-size:0.72rem;">Inquiry &amp; re-order chats</small>
+                <!-- 7. WhatsApp Saves -->
+                <div style="grid-column: 1 / -1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:2px;">💬 WhatsApp Saves &amp; Inquiries</div>
+                    <small style="color:#64748b; font-size:0.72rem;">Direct client chats initiated from QR</small>
+                  </div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1;" id="metric_whatsapp_save">0</div>
                 </div>
               </div>
             </div>
@@ -1007,6 +1040,9 @@ function stopQrAutoRefresh() {
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
             <button type="button" class="btn-event-filter" onclick="setEventFilter('all', this)" style="border:1px solid #e2e8f0; background:#0f172a; color:#fff; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
               All Events (<span id="count_all">0</span>)
+            </button>
+            <button type="button" class="btn-event-filter" onclick="setEventFilter('shop_qr', this)" style="border:1.5px solid #93c5fd; background:#eff6ff; color:#1e40af; padding:4px 12px; font-size:0.74rem; font-weight:700; border-radius:20px; cursor:pointer;">
+              🏪 In-Shop QR (<span id="count_shop_qr">0</span>)
             </button>
             <button type="button" class="btn-event-filter" onclick="setEventFilter('reviews', this)" style="border:1px solid #e2e8f0; background:#fff; color:#475569; padding:4px 12px; font-size:0.74rem; font-weight:600; border-radius:20px; cursor:pointer;">
               ⭐ Google Reviews (<span id="count_reviews">0</span>)
