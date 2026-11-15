@@ -3751,9 +3751,12 @@
       overflow: hidden !important;
       border: 1px solid var(--line, #eee) !important;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
-      display: flex !important;
+      display: flex;
       flex-direction: column !important;
       transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+    .our-work-card.is-hidden {
+      display: none !important;
     }
     .our-work-card:hover {
       transform: translateY(-4px) !important;
