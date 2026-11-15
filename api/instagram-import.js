@@ -526,7 +526,7 @@ module.exports = async function handler(req, res) {
     try {
       const vxUrl = `https://vxinstagram.com/p/${shortcode}/`;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 6500);
+      const timeout = setTimeout(() => controller.abort(), 7500);
 
       const vxRes = await fetch(vxUrl, {
         signal: controller.signal,
@@ -537,47 +537,76 @@ module.exports = async function handler(req, res) {
       });
       clearTimeout(timeout);
 
+      let rawCaption = '';
+      const rawSlideUrls = [];
+
       if (vxRes.ok) {
         const vxHtml = await vxRes.text();
 
         // Extract description/caption
         const descMatch = vxHtml.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i) ||
                           vxHtml.match(/name="description"\s+content="([^"]+)"/i);
-        const rawCaption = cleanCaptionText(descMatch ? descMatch[1] : '');
+        rawCaption = cleanCaptionText(descMatch ? descMatch[1] : '');
 
-        // Extract all slide images from download links and image tags
+        // Extract all slide images from download links and image tags across cdninstagram.com and fbcdn.net
         const slideMatches = [
-          ...vxHtml.matchAll(/href="(https:\/\/[^"]*?fbcdn\.net[^"]*?\.jpg[^"]*?)"\s+download/gi),
-          ...vxHtml.matchAll(/<img\s+src="(https:\/\/[^"]*?fbcdn\.net[^"]*?\.jpg[^"]*?)"/gi)
+          ...vxHtml.matchAll(/href="(https:\/\/[^"]*?(?:cdninstagram\.com|fbcdn\.net)[^"]*?)"\s+download/gi),
+          ...vxHtml.matchAll(/<a\s+[^>]*?href="(https:\/\/[^"]*?(?:cdninstagram\.com|fbcdn\.net)[^"]*?)"[^>]*?download/gi),
+          ...vxHtml.matchAll(/<img\s+[^>]*?src="(https:\/\/[^"]*?(?:cdninstagram\.com|fbcdn\.net)[^"]*?)"/gi)
         ];
 
-        const rawSlideUrls = [];
         for (const m of slideMatches) {
           const u = m[1].replace(/&amp;/g, '&');
           if (!rawSlideUrls.includes(u)) {
             rawSlideUrls.push(u);
           }
         }
+      }
 
-        if (rawSlideUrls.length > 0) {
-          // Download all extracted slide photos as permanent base64 data URLs (up to 6 slides)
-          const downloadedImages = [];
-          for (let i = 0; i < Math.min(rawSlideUrls.length, 6); i++) {
-            const b64 = await downloadImageAsBase64(rawSlideUrls[i]);
-            if (b64) downloadedImages.push(b64);
-          }
-
-          if (downloadedImages.length > 0) {
-            const analysis = await getHybridAnalysis(rawCaption, downloadedImages[0]);
-            return sendJson(res, 200, {
-              success: true,
-              source: 'vxinstagram_multi_slide',
-              shortcode,
-              images: downloadedImages,
-              caption: rawCaption,
-              ...analysis
+      // Supplementary Multi-Slide Probe: If fewer than 2 slides found, probe VxInstagram offload redirects
+      if (rawSlideUrls.length < 2) {
+        for (let slideIdx = 0; slideIdx < 8; slideIdx++) {
+          try {
+            const probeRes = await fetch(`https://vxinstagram.com/offload/${shortcode}/${slideIdx}`, {
+              method: 'HEAD',
+              redirect: 'manual',
+              headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
             });
+            const loc = probeRes.headers.get('location');
+            if (loc && (loc.includes('cdninstagram.com') || loc.includes('fbcdn.net'))) {
+              const cleanLoc = loc.replace(/&amp;/g, '&');
+              if (rawSlideUrls.includes(cleanLoc)) {
+                // If redirected to an already seen image, carousel has ended
+                break;
+              }
+              rawSlideUrls.push(cleanLoc);
+            } else {
+              break;
+            }
+          } catch (probeErr) {
+            break;
           }
+        }
+      }
+
+      if (rawSlideUrls.length > 0) {
+        // Download all extracted slide photos as permanent base64 data URLs (up to 8 slides)
+        const downloadedImages = [];
+        for (let i = 0; i < Math.min(rawSlideUrls.length, 8); i++) {
+          const b64 = await downloadImageAsBase64(rawSlideUrls[i]);
+          if (b64) downloadedImages.push(b64);
+        }
+
+        if (downloadedImages.length > 0) {
+          const analysis = await getHybridAnalysis(rawCaption, downloadedImages[0]);
+          return sendJson(res, 200, {
+            success: true,
+            source: 'vxinstagram_multi_slide',
+            shortcode,
+            images: downloadedImages,
+            caption: rawCaption,
+            ...analysis
+          });
         }
       }
     } catch (vxErr) {
@@ -727,8 +756,26 @@ module.exports = async function handler(req, res) {
         const cleanCaption = cleanCaptionText(cleanOgDescription(rawCaption));
 
         const images = [];
-        if (ogImgMatch && ogImgMatch[1]) {
-          const rawImgUrl = ogImgMatch[1].replace(/&amp;/g, '&');
+        let rawImgUrl = null;
+
+        // Prefer uncropped full-resolution offload if reachable
+        try {
+          const offloadProbe = await fetch(`https://vxinstagram.com/offload/${shortcode}/0`, {
+            method: 'HEAD',
+            redirect: 'manual',
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+          });
+          const offloadLoc = offloadProbe.headers.get('location');
+          if (offloadLoc && (offloadLoc.includes('cdninstagram.com') || offloadLoc.includes('fbcdn.net'))) {
+            rawImgUrl = offloadLoc.replace(/&amp;/g, '&');
+          }
+        } catch(e) {}
+
+        if (!rawImgUrl && ogImgMatch && ogImgMatch[1]) {
+          rawImgUrl = ogImgMatch[1].replace(/&amp;/g, '&');
+        }
+
+        if (rawImgUrl) {
           const dataUrl = await downloadImageAsBase64(rawImgUrl);
           if (dataUrl) images.push(dataUrl);
         }
