@@ -621,6 +621,9 @@ function generateCustomRefLink() {
           <button type="button" onclick="navigator.clipboard.writeText('${fullUrl}').then(() => alert('📋 Referral link copied to clipboard:\\n\\n${fullUrl}'))" class="btn-main" style="padding:7px 14px; font-size:0.78rem;">
             📋 Copy Referral Link
           </button>
+          <button type="button" onclick="openStandeeDesignerModal('${cleanTag}')" class="btn-main" style="padding:7px 14px; font-size:0.78rem; background:linear-gradient(135deg, #b45309 0%, #d97706 100%); color:#fff; border:none; border-radius:8px; font-weight:700;">
+            🖨️ Print Standee with this Tag
+          </button>
           <a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm" style="padding:7px 12px; font-size:0.78rem; text-decoration:none; background:#fff; border:1px solid #cbd5e1; border-radius:8px; color:#0f172a; font-weight:600;">
             🧪 Test Link ↗
           </a>
@@ -650,6 +653,283 @@ function stopQrAutoRefresh() {
     clearInterval(qrAutoRefreshTimer);
     qrAutoRefreshTimer = null;
   }
+}
+
+// ─── 🖨️ 1-CLICK PRINTABLE COUNTER STANDEE POSTER GENERATOR ────────────────
+let currentStandeeTag = 'shop_qr';
+
+function openStandeeDesignerModal(initialTag) {
+  if (initialTag && typeof initialTag === 'string' && initialTag.trim()) {
+    currentStandeeTag = initialTag.trim();
+  } else {
+    currentStandeeTag = 'shop_qr';
+  }
+  const tagInput = document.getElementById('st_ref_tag');
+  if (tagInput) tagInput.value = currentStandeeTag;
+
+  openModal('modalStandee');
+  updateStandeePreview();
+}
+
+function updateStandeePreview() {
+  const sizeSelect = document.getElementById('st_size');
+  const size = sizeSelect ? sizeSelect.value : 'A5';
+
+  const themeSelect = document.getElementById('st_theme');
+  const theme = themeSelect ? themeSelect.value : 'ivory_gold';
+
+  const tagInput = document.getElementById('st_ref_tag');
+  const tag = (tagInput ? tagInput.value : 'shop_qr').trim() || 'shop_qr';
+
+  const headlineInput = document.getElementById('st_headline');
+  const headline = (headlineInput ? headlineInput.value : 'REVIEW & FOLLOW OUR BRIDAL EDITS').trim();
+
+  const showTamil = document.getElementById('st_show_tamil') ? document.getElementById('st_show_tamil').checked : true;
+  const showSamalapuram = document.getElementById('st_show_samalapuram') ? document.getElementById('st_show_samalapuram').checked : true;
+  const showKarnempettai = document.getElementById('st_show_karnempettai') ? document.getElementById('st_show_karnempettai').checked : true;
+  const showHelpline = document.getElementById('st_show_helpline') ? document.getElementById('st_show_helpline').checked : true;
+
+  const targetUrl = `https://sreedesigners.in/connect?ref=${encodeURIComponent(tag)}`;
+  const previewLabel = document.getElementById('st_target_url_preview');
+  if (previewLabel) previewLabel.textContent = `sreedesigners.in/connect?ref=${tag}`;
+
+  // QR image URL
+  const qrUrl = (tag === 'shop_qr') 
+    ? 'assets/images/sree_shop_counter_qr.png' 
+    : `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=15&format=png&data=${encodeURIComponent(targetUrl)}`;
+
+  // Theme styling
+  let bg = '#FFFDF9';
+  let ink = '#1C1B18';
+  let gold = '#C59B27';
+  let goldDark = '#9A7718';
+  let pillBg = '#FBF8F3';
+  let borderGold = '#C59B27';
+
+  if (theme === 'clean_white') {
+    bg = '#FFFFFF';
+    ink = '#0F172A';
+    gold = '#2563EB';
+    goldDark = '#1D4ED8';
+    pillBg = '#F8FAFC';
+    borderGold = '#CBD5E1';
+  } else if (theme === 'midnight_noir') {
+    bg = '#181716';
+    ink = '#FFFFFF';
+    gold = '#EAB308';
+    goldDark = '#FACC15';
+    pillBg = '#262422';
+    borderGold = '#EAB308';
+  }
+
+  // Width & scale
+  let widthPx = 360;
+  let minHeightPx = 530;
+  let qrSizePx = 175;
+  if (size === '4x6') {
+    widthPx = 330;
+    minHeightPx = 495;
+    qrSizePx = 155;
+  } else if (size === 'A4') {
+    widthPx = 380;
+    minHeightPx = 550;
+    qrSizePx = 190;
+  }
+
+  const container = document.getElementById('standeeSheetWrap');
+  if (!container) return;
+
+  container.style.width = widthPx + 'px';
+  container.style.minHeight = minHeightPx + 'px';
+  container.style.background = bg;
+  container.style.color = ink;
+  container.style.border = `2.5px solid ${borderGold}`;
+  container.style.outline = `1.5px solid ${borderGold}`;
+  container.style.outlineOffset = '-6px';
+  container.style.borderRadius = '6px';
+  container.style.padding = '20px 16px';
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  container.style.alignItems = 'center';
+  container.style.justifyContent = 'space-between';
+  container.style.textAlign = 'center';
+  container.style.boxShadow = '0 18px 45px rgba(0,0,0,0.4)';
+  container.style.position = 'relative';
+
+  container.innerHTML = `
+    <!-- Corner Flourishes -->
+    <div style="position:absolute; top:8px; left:10px; font-size:0.75rem; color:${gold};">✤</div>
+    <div style="position:absolute; top:8px; right:10px; font-size:0.75rem; color:${gold};">✤</div>
+    <div style="position:absolute; bottom:8px; left:10px; font-size:0.75rem; color:${gold};">✤</div>
+    <div style="position:absolute; bottom:8px; right:10px; font-size:0.75rem; color:${gold};">✤</div>
+
+    <!-- 1. Header & Logo -->
+    <div style="width:100%;">
+      <div style="width:52px; height:52px; margin:0 auto 6px; border-radius:50%; background:#fff; padding:3px; border:2px solid ${gold}; box-shadow:0 4px 12px rgba(197,155,39,0.3); display:flex; align-items:center; justify-content:center;">
+        <img src="assets/images/logo.png" alt="Sree Designers Logo" style="width:100%; height:100%; object-fit:contain; border-radius:50%;">
+      </div>
+      <h2 style="font-family:'Fraunces', Georgia, serif; font-size:1.25rem; font-weight:700; color:${ink}; letter-spacing:0.02em; margin-bottom:2px; line-height:1.2;">SREE DESIGNERS &amp; BOUTIQUE</h2>
+      <div style="font-size:0.66rem; text-transform:uppercase; letter-spacing:0.12em; color:${goldDark}; font-weight:700;">Bridal Blouse &amp; Maggam Work Atelier</div>
+      ${showTamil ? `<div style="font-size:0.72rem; color:${theme === 'midnight_noir' ? '#D6D3D1' : '#5C5850'}; font-style:italic; margin-top:2px;">"உங்கள் கனவு ப்ளவுஸ், எங்கள் கைவண்ணத்தில்"</div>` : ''}
+    </div>
+
+    <!-- 2. Headline & Star Rating -->
+    <div style="background:${pillBg}; border:1px dashed ${gold}; border-radius:10px; padding:6px 12px; margin:8px 0; width:100%;">
+      <div style="color:#F59E0B; font-size:1rem; letter-spacing:3px; margin-bottom:2px;">★★★★★</div>
+      <div style="font-size:0.76rem; font-weight:800; color:${ink}; letter-spacing:0.03em;">${escapeHtml(headline)}</div>
+    </div>
+
+    <!-- 3. High-Res QR Code Card -->
+    <div style="background:#FFFFFF; padding:8px; border:2px solid ${borderGold}; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); margin:3px 0;">
+      <img src="${qrUrl}" alt="Scan QR Code" style="width:${qrSizePx}px; height:${qrSizePx}px; display:block; border-radius:6px;">
+    </div>
+    <div style="font-size:0.68rem; font-weight:700; color:${goldDark}; margin-top:2px;">
+      📱 Scan with Phone Camera · No App Needed
+    </div>
+
+    <!-- 4. Action Pillars -->
+    <div style="display:flex; gap:5px; justify-content:center; flex-wrap:wrap; margin:7px 0; width:100%;">
+      <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
+        <span>⭐ Rate 5 Stars on Google</span>
+      </div>
+      <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
+        <span>📸 Follow @sreedesigner_</span>
+      </div>
+      <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
+        <span>💬 WhatsApp Booking</span>
+      </div>
+    </div>
+
+    <!-- 5. Studio Locations & Footer -->
+    <div style="font-size:0.62rem; color:${theme === 'midnight_noir' ? '#A8A29E' : '#475569'}; border-top:1px solid ${borderGold}; padding-top:6px; width:100%; line-height:1.35;">
+      ${showSamalapuram ? `<div>📍 <strong>Samalapuram:</strong> Opp. IDBI Bank, Somanur Rd, Coimbatore</div>` : ''}
+      ${showKarnempettai ? `<div>📍 <strong>Karnempettai:</strong> AutoStand, Annur Rd, Tiruppur</div>` : ''}
+      ${showHelpline ? `<div style="font-weight:700; color:${ink}; margin-top:2px;">📞 Helpline: +91 99763 44673 · sreedesigners.in</div>` : ''}
+    </div>
+  `;
+}
+
+function printStandeePoster() {
+  const container = document.getElementById('standeeSheetWrap');
+  if (!container) return;
+  const content = container.outerHTML;
+  const sizeSelect = document.getElementById('st_size');
+  const size = sizeSelect ? sizeSelect.value : 'A5';
+
+  let pageRule = '@page { size: A5 portrait; margin: 0; }';
+  if (size === '4x6') {
+    pageRule = '@page { size: 4in 6in; margin: 0; }';
+  } else if (size === 'A4') {
+    pageRule = '@page { size: A4 portrait; margin: 0; }';
+  }
+
+  const printWindow = window.open('', '_blank', 'width=800,height=900');
+  printWindow.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sree Designers Counter Standee - Print</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Jost:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    \${pageRule}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    #standeeSheetWrap {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  \${content}
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.print();
+      }, 400);
+    };
+  <\/script>
+</body>
+</html>`);
+  printWindow.document.close();
+}
+
+function downloadStandeeHtml() {
+  const container = document.getElementById('standeeSheetWrap');
+  if (!container) return;
+  const content = container.outerHTML;
+  const sizeSelect = document.getElementById('st_size');
+  const size = sizeSelect ? sizeSelect.value : 'A5';
+
+  let pageRule = '@page { size: A5 portrait; margin: 0; }';
+  if (size === '4x6') {
+    pageRule = '@page { size: 4in 6in; margin: 0; }';
+  } else if (size === 'A4') {
+    pageRule = '@page { size: A4 portrait; margin: 0; }';
+  }
+
+  const fullHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sree Designers Counter Standee (\${size})</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Jost:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    \${pageRule}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    #standeeSheetWrap {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  \${content}
+</body>
+</html>`;
+
+  const blob = new Blob([fullHtml], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Sree_Designers_Standee_\${size}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
   </script>
   <!-- End Google Tag Manager -->
@@ -999,7 +1279,14 @@ function stopQrAutoRefresh() {
             <h3>In-Studio QR Standee &amp; Scan Tracking</h3>
             <p>Track how many clients scan your counter QR code and what actions they take.</p>
           </div>
-          <a href="/connect" target="_blank" rel="noopener noreferrer" class="btn-main">👁️ Open Live QR Page</a>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <button type="button" class="btn-main" onclick="openStandeeDesignerModal('shop_qr')" style="background:linear-gradient(135deg, #b45309 0%, #d97706 100%); color:#fff; border:none; padding:10px 18px; border-radius:10px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(180,83,9,0.3);">
+              🖨️ Print Counter Standee (A5 / 4×6)
+            </button>
+            <a href="/connect" target="_blank" rel="noopener noreferrer" class="btn-sm" style="background:#f1f5f9; color:#0f172a; padding:10px 14px; text-decoration:none; border-radius:10px; font-weight:600; border:1px solid #cbd5e1;">
+              👁️ Open Live QR Page
+            </a>
+          </div>
         </div>
 
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-top:20px;">
@@ -1013,8 +1300,13 @@ function stopQrAutoRefresh() {
             <img src="assets/images/sree_shop_counter_qr.png" alt="Sree Designers In-Store QR Code" style="width:200px; height:200px; border-radius:10px; border:1.5px solid #cbd5e1; padding:6px; margin:0 auto 12px; display:block; background:#fff;">
             <div style="font-size:0.75rem; color:var(--soft); margin-bottom:12px; word-break:break-all;">Target: <strong>sreedesigners.in/connect?ref=shop_qr</strong></div>
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <a href="assets/images/sree_shop_counter_qr.png" download="Sree_Designers_InShop_QR_shop_qr.png" class="btn-main" style="width:100%; text-decoration:none; display:inline-block;">⬇️ Download Print QR (PNG)</a>
-              <a href="/connect?ref=shop_qr" target="_blank" rel="noopener noreferrer" style="font-size:0.78rem; font-weight:600; color:#2563eb; text-decoration:none;">🧪 Test Scan URL in New Tab &rarr;</a>
+              <button type="button" class="btn-main" onclick="openStandeeDesignerModal('shop_qr')" style="width:100%; background:linear-gradient(135deg, #b45309 0%, #d97706 100%); color:#fff; border:none; padding:11px 16px; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 12px rgba(180,83,9,0.25);">
+                🖨️ Design &amp; Print Standee (A5 / 4×6)
+              </button>
+              <div style="display:flex; gap:6px;">
+                <a href="assets/images/sree_shop_counter_qr.png" download="Sree_Designers_InShop_QR_shop_qr.png" class="btn-sm" style="flex:1; text-decoration:none; display:inline-block; background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:8px 10px; border-radius:8px; font-weight:600; text-align:center; font-size:0.78rem;">⬇️ Raw QR (PNG)</a>
+                <a href="/connect?ref=shop_qr" target="_blank" rel="noopener noreferrer" class="btn-sm" style="flex:1; font-size:0.78rem; font-weight:600; color:#2563eb; text-decoration:none; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; text-align:center; padding:8px 10px; display:inline-block;">🧪 Test URL &rarr;</a>
+              </div>
             </div>
           </div>
 
@@ -1154,21 +1446,6 @@ function stopQrAutoRefresh() {
           </div>
         </div>
 
-        <!-- ─── REAL-TIME CUSTOMER ACTIVITY LOG (TIME & DATE TRACKER) ─── -->
-        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:20px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
-            <div>
-              <h4 style="font-size:1.1rem; color:var(--ink); margin-bottom:2px;">⏱️ Real-Time Customer Activity Log</h4>
-              <p style="font-size:0.8rem; color:var(--soft); margin:0;">Detailed chronological log recording exact dates, timestamps, and button clicks.</p>
-            </div>
-            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-              <input type="text" id="qrEventSearch" oninput="filterQrEvents()" placeholder="Search action, date, studio..." style="padding:7px 12px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:8px; width:220px; outline:none;">
-              <button type="button" onclick="exportQrEventsCsv()" class="btn-sm" style="background:#0f172a; color:#fff; padding:7px 14px; font-size:0.78rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-                📥 Export CSV
-              </button>
-            </div>
-          </div>
-
         <!-- ─── 🔗 CUSTOM REFERRAL QR & LINK GENERATOR TOOL ─── -->
         <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:20px;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
@@ -1255,7 +1532,6 @@ function stopQrAutoRefresh() {
               </tbody>
             </table>
           </div>
-        </div>
         </div>
       </div>
 
@@ -1797,6 +2073,110 @@ function stopQrAutoRefresh() {
       <textarea id="rv_quote" class="field-textarea" rows="3" placeholder="Write exact customer testimonial..." required></textarea>
       <button type="submit" class="btn-main" style="width:100%;margin-top:8px;">Publish Review</button>
     </form>
+  </div>
+</div>
+
+<!-- 5. MODAL: IN-STUDIO COUNTER STANDEE GENERATOR -->
+<div class="modal" id="modalStandee">
+  <div class="modal-box" style="max-width:980px; width:95%; max-height:92vh; padding:28px 30px;">
+    <button class="modal-close" onclick="closeModal('modalStandee')">&times;</button>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <h3 style="font-size:1.45rem; margin-bottom:4px;">🖨️ In-Studio QR Standee &amp; Poster Generator</h3>
+        <p style="margin-bottom:0; font-size:0.84rem; color:var(--soft);">Generate and print luxury, high-resolution counter standees for your billing desks, trial mirrors, and reception tables.</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button type="button" class="btn-main" onclick="printStandeePoster()" style="background:linear-gradient(135deg, #b45309 0%, #d97706 100%); color:#fff; border:none; padding:10px 20px; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(180,83,9,0.35);">
+          🖨️ Print Standee Now
+        </button>
+        <button type="button" class="btn-sm" onclick="downloadStandeeHtml()" style="background:#f1f5f9; color:#0f172a; padding:10px 16px; border:1px solid #cbd5e1; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+          ⬇️ Download HTML
+        </button>
+      </div>
+    </div>
+
+    <!-- Designer Grid: Controls Left, Live Preview Right -->
+    <div style="display:grid; grid-template-columns: 360px 1fr; gap:24px; margin-top:16px; align-items:start;" class="standee-designer-grid">
+      
+      <!-- CONTROLS COLUMN -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:16px; padding:20px; font-size:0.84rem;">
+        
+        <!-- Paper Size -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-weight:700; color:#334155; margin-bottom:6px;">📄 Standee Paper Size</label>
+          <select id="st_size" onchange="updateStandeePreview()" class="field-select" style="margin-bottom:4px; font-size:0.85rem; padding:8px 12px;">
+            <option value="A5" selected>A5 Portrait (148 × 210 mm) — Standard Acrylic Standee</option>
+            <option value="4x6">4×6 Inch Photo (102 × 152 mm) — Photo Frame &amp; Trial Mirror</option>
+            <option value="A4">A4 Portrait (210 × 297 mm) — Wall / Glass Door Poster</option>
+          </select>
+          <small style="color:var(--soft); font-size:0.72rem;">Matches standard shop acrylic stands and wooden tabletop frames.</small>
+        </div>
+
+        <!-- Standee Theme -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-weight:700; color:#334155; margin-bottom:6px;">🎨 Luxury Frame Theme</label>
+          <select id="st_theme" onchange="updateStandeePreview()" class="field-select" style="margin-bottom:4px; font-size:0.85rem; padding:8px 12px;">
+            <option value="ivory_gold" selected>Royal Ivory &amp; Gold (Atelier Classic)</option>
+            <option value="clean_white">Modern Minimal White</option>
+            <option value="midnight_noir">Midnight Noir &amp; Gold Luxury</option>
+          </select>
+        </div>
+
+        <!-- Referral Tag Source -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-weight:700; color:#334155; margin-bottom:6px;">🏷️ Tracking Reference Tag</label>
+          <input type="text" id="st_ref_tag" value="shop_qr" oninput="updateStandeePreview()" class="field-input" placeholder="e.g. shop_qr, colleagues, classmates" style="margin-bottom:4px; font-size:0.85rem; padding:8px 12px;">
+          <small style="color:#2563eb; font-size:0.72rem;">Target: <strong id="st_target_url_preview">sreedesigners.in/connect?ref=shop_qr</strong></small>
+        </div>
+
+        <!-- Header Headline -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-weight:700; color:#334155; margin-bottom:6px;">✨ Main Callout Headline</label>
+          <input type="text" id="st_headline" value="REVIEW &amp; FOLLOW OUR BRIDAL EDITS" oninput="updateStandeePreview()" class="field-input" style="margin-bottom:4px; font-size:0.85rem; padding:8px 12px;">
+        </div>
+
+        <!-- Tamil Tagline Toggle -->
+        <div style="margin-bottom:14px;">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600; color:#334155;">
+            <input type="checkbox" id="st_show_tamil" checked onchange="updateStandeePreview()" style="width:16px; height:16px; accent-color:#b45309;">
+            <span>Include Tamil Slogan ("உங்கள் கனவு ப்ளவுஸ்...")</span>
+          </label>
+        </div>
+
+        <!-- Branch Display Checkboxes -->
+        <div style="margin-bottom:14px; border-top:1px solid #e2e8f0; padding-top:12px;">
+          <label style="display:block; font-weight:700; color:#334155; margin-bottom:8px;">📍 Studio Branch Info</label>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#475569;">
+              <input type="checkbox" id="st_show_samalapuram" checked onchange="updateStandeePreview()" style="accent-color:#b45309;">
+              <span>Samalapuram Branch (Coimbatore)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#475569;">
+              <input type="checkbox" id="st_show_karnempettai" checked onchange="updateStandeePreview()" style="accent-color:#b45309;">
+              <span>Karnempettai Branch (Tiruppur)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#475569;">
+              <input type="checkbox" id="st_show_helpline" checked onchange="updateStandeePreview()" style="accent-color:#b45309;">
+              <span>Helpline: +91 99763 44673</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LIVE PREVIEW CONTAINER RIGHT -->
+      <div style="background:#334155; border-radius:16px; padding:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:inset 0 2px 10px rgba(0,0,0,0.25); min-height:560px;">
+        <div style="color:#94a3b8; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">
+          👁️ Live Scaled Print Sheet Preview
+        </div>
+
+        <!-- THE ACTUAL PRINTABLE STANDEE SHEET (SCALED IN PREVIEW) -->
+        <div id="standeeSheetWrap" style="transition:all 0.25s ease;">
+          <!-- Content dynamically rendered via updateStandeePreview() -->
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
 
