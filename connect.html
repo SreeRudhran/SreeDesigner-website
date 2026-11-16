@@ -94,31 +94,31 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 60px;
+      padding: 16px 14px 48px;
     }
 
     .hub-container {
       width: 100%;
-      max-width: 480px;
+      max-width: 460px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 14px;
     }
 
-    /* HEADER */
+    /* HEADER - COMPACT & LUXURIOUS */
     .hub-header {
       text-align: center;
-      padding: 12px 8px 8px;
+      padding: 6px 4px 2px;
     }
 
     .brand-logo-wrap {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 14px;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 8px;
       border-radius: 50%;
       background: #FFFFFF;
-      padding: 6px;
-      box-shadow: 0 8px 24px -6px rgba(197, 155, 39, 0.35);
+      padding: 4px;
+      box-shadow: 0 6px 20px -4px rgba(197, 155, 39, 0.35);
       border: 2px solid var(--gold);
       display: flex;
       align-items: center;
@@ -134,28 +134,29 @@
 
     .brand-title {
       font-family: var(--serif);
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--ink);
       letter-spacing: -0.01em;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      line-height: 1.2;
     }
 
     .brand-subtitle {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--gold-dark);
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
 
     .tamil-quote {
-      font-size: 0.98rem;
+      font-size: 0.85rem;
       color: var(--ink-soft);
       font-style: italic;
-      background: rgba(255, 255, 255, 0.5);
-      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 4px 12px;
       border-radius: 20px;
       display: inline-block;
       border: 1px solid var(--line);
@@ -165,17 +166,18 @@
     .hub-card {
       background: var(--card-bg);
       border-radius: var(--radius);
-      padding: 22px 20px;
+      padding: 18px 16px;
       box-shadow: var(--shadow);
       border: 1px solid var(--line);
       position: relative;
       overflow: hidden;
     }
 
-    /* 1. GOOGLE REVIEW SPECIAL CARD */
+    /* 1. GOOGLE REVIEW PRIMARY CARD (SAMALAPURAM SPOTLIGHT) */
     .card-review {
-      background: linear-gradient(145deg, #FFFFFF 0%, #FFFBF4 100%);
+      background: linear-gradient(145deg, #FFFFFF 0%, #FFFDF8 100%);
       border: 2px solid var(--gold);
+      box-shadow: 0 10px 30px -8px rgba(197, 155, 39, 0.22);
     }
 
     .card-review::before {
@@ -183,22 +185,39 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       background: radial-gradient(circle, rgba(197, 155, 39, 0.2) 0%, transparent 70%);
       pointer-events: none;
     }
 
+    .review-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(197, 155, 39, 0.35);
+      margin-bottom: 8px;
+    }
+
     .review-header {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .stars-banner {
-      font-size: 1.35rem;
-      letter-spacing: 3px;
+      font-size: 1.45rem;
+      letter-spacing: 4px;
       color: #F59E0B;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      text-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
     }
 
     .review-heading {
@@ -206,107 +225,144 @@
       font-size: 1.35rem;
       color: var(--ink);
       font-weight: 600;
+      line-height: 1.25;
       margin-bottom: 4px;
     }
 
-    .review-prompt {
-      font-size: 0.88rem;
+    .review-location {
+      font-size: 0.82rem;
       color: var(--ink-soft);
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
-    .branch-buttons-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .btn-branch {
+    /* PRIMARY REVIEW BUTTON - SAMALAPURAM */
+    .btn-review-main {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
       background: var(--ink);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 14px 18px;
+      padding: 13px 16px;
       border-radius: 12px;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.95rem;
       transition: all 0.2s ease;
-      min-height: 48px;
+      min-height: 50px;
+      border: 1px solid rgba(197, 155, 39, 0.4);
+      box-shadow: 0 6px 18px -4px rgba(28, 27, 24, 0.25);
     }
 
-    .btn-branch:hover, .btn-branch:active {
+    .btn-review-main:hover, .btn-review-main:active {
       background: var(--gold-dark);
+      color: #FFFFFF;
       transform: translateY(-1px);
+      box-shadow: 0 8px 24px -4px rgba(154, 119, 24, 0.4);
     }
 
-    .btn-branch .branch-icon {
+    .btn-review-main .btn-icon {
       font-size: 1.25rem;
-      margin-right: 10px;
     }
 
-    .btn-branch .branch-text {
+    .btn-review-main .btn-text-wrap {
       flex: 1;
       text-align: left;
     }
 
-    .btn-branch .branch-sub {
+    .btn-review-main .btn-title {
       display: block;
-      font-size: 0.75rem;
-      font-weight: 400;
-      opacity: 0.85;
-      letter-spacing: 0.02em;
+      line-height: 1.2;
     }
 
-    .btn-branch .arrow {
-      font-size: 1.1rem;
+    .btn-review-main .btn-sub {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .btn-review-main .btn-arrow {
+      font-size: 1.15rem;
       color: var(--gold);
     }
 
-    /* IN-STUDIO PERK BADGE */
+    /* IN-STUDIO PERK / DISCOUNT INCENTIVE */
     .review-perk-box {
       background: var(--gold-light);
       border: 1px dashed var(--gold);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 11px;
     }
 
     .perk-gift {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       line-height: 1;
+      flex-shrink: 0;
     }
 
     .perk-text {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #78350F;
       line-height: 1.35;
     }
 
     .perk-text strong {
-      display: block;
-      font-size: 0.88rem;
       color: #92400E;
-      margin-bottom: 2px;
     }
 
-    /* 2. INSTAGRAM CARD */
-    .card-instagram {
+    /* KARNEMPETTAI ALTERNATE BRANCH LINK */
+    .alt-branch-wrap {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 14px;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .alt-branch-link {
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+
+    .alt-branch-link:hover {
+      color: var(--gold-dark);
+    }
+
+    /* 2. INSTAGRAM HERO CARD (PROMINENT, VIBRANT & ABOVE THE FOLD) */
+    .card-instagram {
       background: #FFFFFF;
+      border: 2px solid rgba(220, 39, 67, 0.35);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 28px -8px rgba(220, 39, 67, 0.18);
+      position: relative;
+    }
+
+    .ig-header-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .ig-icon-box {
       width: 48px;
       height: 48px;
-      border-radius: 12px;
+      border-radius: 14px;
       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
       display: flex;
       align-items: center;
@@ -314,42 +370,86 @@
       color: #fff;
       font-size: 1.5rem;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px -2px rgba(214, 36, 159, 0.45);
     }
 
     .ig-content {
       flex: 1;
     }
 
-    .ig-title {
-      font-weight: 600;
-      font-size: 0.98rem;
-      color: var(--ink);
+    .ig-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #C13584;
+      background: #FDF2F8;
+      padding: 2px 8px;
+      border-radius: 8px;
       margin-bottom: 2px;
     }
 
-    .ig-desc {
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-      line-height: 1.3;
-    }
-
-    .btn-ig {
-      background: var(--ink);
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 16px;
-      border-radius: 22px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
-      min-height: 44px;
+    .ig-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--ink);
       display: flex;
       align-items: center;
-      transition: background 0.2s;
+      gap: 5px;
     }
 
-    .btn-ig:hover, .btn-ig:active {
-      background: #d6249f;
+    .ig-verified {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0095F6;
+      color: #fff;
+      font-size: 0.65rem;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    .ig-desc {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      line-height: 1.3;
+      margin-top: 1px;
+    }
+
+    .btn-ig-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-height: 48px;
+      box-shadow: 0 6px 20px -4px rgba(220, 39, 67, 0.45);
+      transition: all 0.2s ease;
+    }
+
+    .btn-ig-main:hover, .btn-ig-main:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px -4px rgba(220, 39, 67, 0.6);
+      filter: brightness(1.05);
+    }
+
+    .btn-ig-main .ig-cta-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ig-main .btn-arrow {
+      font-size: 1.15rem;
+      font-weight: 700;
     }
 
     /* 3. QUICK LINKS GRID */
@@ -549,63 +649,72 @@
 
   <main class="hub-container" role="main">
 
-    <!-- 1. BRAND HEADER -->
+    <!-- 1. BRAND HEADER (COMPACT & SLEEK) -->
     <header class="hub-header">
       <div class="brand-logo-wrap">
-        <img src="assets/images/logo.png" alt="Sree Designers Logo" width="80" height="80">
+        <img src="assets/images/logo.png" alt="Sree Designers Logo" width="56" height="56">
       </div>
       <h1 class="brand-title">Sree Designers &amp; Boutique</h1>
       <p class="brand-subtitle">Bridal Blouse &amp; Maggam Work Atelier</p>
       <div class="tamil-quote">"உங்கள் கனவு ப்ளவுஸ், எங்கள் கைவண்ணத்தில்"</div>
     </header>
 
-    <!-- 2. PRIMARY ACTION: GOOGLE REVIEW (SPLIT BY BRANCH) -->
+    <!-- 2. PRIMARY ACTION #1: 5-STAR GOOGLE REVIEW (SAMALAPURAM FLAGSHIP SPOTLIGHT) -->
     <section class="hub-card card-review" aria-labelledby="reviewHeading">
+      <div style="text-align:center;">
+        <span class="review-top-badge">⭐ Recommended In-Studio Action</span>
+      </div>
       <div class="review-header">
         <div class="stars-banner" aria-hidden="true">★★★★★</div>
-        <h2 class="review-heading" id="reviewHeading">How Was Your Fitting?</h2>
-        <p class="review-prompt">Your review helps future South Indian brides find us! Please leave us your 5-star Google review below:</p>
+        <h2 class="review-heading" id="reviewHeading">Review Samalapuram Studio</h2>
+        <p class="review-location">Opp. IDBI Bank, Somanur Road, Coimbatore</p>
       </div>
 
-      <div class="branch-buttons-wrap">
-        <a href="https://share.google/hoaCh95clQinP8Bw1" target="_blank" rel="noopener noreferrer" class="btn-branch" onclick="trackClick('review_samalapuram')">
-          <span class="branch-icon">📍</span>
-          <div class="branch-text">
-            Samalapuram Branch
-            <span class="branch-sub">Opp. IDBI Bank, Somanur, Coimbatore</span>
-          </div>
-          <span class="arrow">⭐ Review →</span>
-        </a>
-
-        <a href="https://maps.app.goo.gl/RtQ1DR1BFFFs85Ju8" target="_blank" rel="noopener noreferrer" class="btn-branch" onclick="trackClick('review_karnempettai')">
-          <span class="branch-icon">📍</span>
-          <div class="branch-text">
-            Karnempettai Branch
-            <span class="branch-sub">AutoStand, Annur Road, Tiruppur</span>
-          </div>
-          <span class="arrow">⭐ Review →</span>
-        </a>
-      </div>
+      <a href="https://share.google/hoaCh95clQinP8Bw1" target="_blank" rel="noopener noreferrer" class="btn-review-main" onclick="trackClick('review_samalapuram')">
+        <span class="btn-icon">⭐</span>
+        <div class="btn-text-wrap">
+          <span class="btn-title">Write 5-Star Review for Samalapuram</span>
+          <span class="btn-sub">Takes only 15 seconds on Google Maps</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
       <!-- IN-STUDIO PERK / DISCOUNT INCENTIVE -->
       <div class="review-perk-box">
         <div class="perk-gift">🎁</div>
         <div class="perk-text">
-          <strong>Special In-Studio Thank You Gift:</strong>
-          Show your 5-star review to our counter master to get <strong>₹100 OFF</strong> your next stitching order or priority express delivery!
+          Show your review at the counter to get <strong>₹100 OFF</strong> your stitching order or priority delivery!
         </div>
+      </div>
+
+      <!-- KARNEMPETTAI ALTERNATE BRANCH -->
+      <div class="alt-branch-wrap">
+        <span>Visited our other branch?</span>
+        <a href="https://maps.app.goo.gl/RtQ1DR1BFFFs85Ju8" target="_blank" rel="noopener noreferrer" class="alt-branch-link" onclick="trackClick('review_karnempettai')">
+          Review Karnempettai Branch →
+        </a>
       </div>
     </section>
 
-    <!-- 3. INSTAGRAM FOLLOW CARD -->
+    <!-- 3. PRIMARY ACTION #2: INSTAGRAM FOLLOW (PROMINENT, VIBRANT & ABOVE THE FOLD) -->
     <section class="hub-card card-instagram" aria-label="Follow us on Instagram">
-      <div class="ig-icon-box" aria-hidden="true">📸</div>
-      <div class="ig-content">
-        <div class="ig-title">Follow @sreedesigner_</div>
-        <div class="ig-desc">Tag us in your blouse photos to be featured in our official Bridal Edit!</div>
+      <div class="ig-header-row">
+        <div class="ig-icon-box" aria-hidden="true">📸</div>
+        <div class="ig-content">
+          <span class="ig-badge">Official Bridal Edit</span>
+          <div class="ig-title">
+            <span>@sreedesigner_</span>
+            <span class="ig-verified" title="Verified Studio">✓</span>
+          </div>
+          <div class="ig-desc">Client fitting reels, daily bridal blouse drops &amp; trial videos</div>
+        </div>
       </div>
-      <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="btn-ig" onclick="trackClick('instagram_follow')">
-        Follow +
+
+      <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="btn-ig-main" onclick="trackClick('instagram_follow')">
+        <span class="ig-cta-label">
+          <span>Follow @sreedesigner_ on Instagram</span>
+        </span>
+        <span class="btn-arrow">→</span>
       </a>
     </section>
 
