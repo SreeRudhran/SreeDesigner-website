@@ -31,6 +31,7 @@ function initQrDashboardFromLocal() {
     review_samalapuram: 0,
     review_karnempettai: 0,
     instagram_follow: 0,
+    youtube_subscribe: 0,
     whatsapp_save: 0,
     shop_qr_scans: 0
   };
@@ -47,6 +48,7 @@ function initQrDashboardFromLocal() {
       if (act.includes('samalapuram')) s.review_samalapuram++;
       else if (act.includes('karnempettai')) s.review_karnempettai++;
       else if (act.includes('instagram')) s.instagram_follow++;
+      else if (act.includes('youtube')) s.youtube_subscribe++;
       else if (act.includes('whatsapp') || act.includes('helpline')) s.whatsapp_save++;
     }
   });
@@ -62,6 +64,7 @@ function initQrDashboardFromLocal() {
   setVal('metric_review_samalapuram', s.review_samalapuram);
   setVal('metric_review_karnempettai', s.review_karnempettai);
   setVal('metric_instagram_follow', s.instagram_follow);
+  setVal('metric_youtube_subscribe', s.youtube_subscribe);
   setVal('metric_whatsapp_save', s.whatsapp_save);
 
   const label = document.getElementById('qrLastUpdated');
@@ -97,6 +100,7 @@ async function fetchLiveQrStats() {
       setVal('metric_review_samalapuram', s.review_samalapuram);
       setVal('metric_review_karnempettai', s.review_karnempettai);
       setVal('metric_instagram_follow', s.instagram_follow);
+      setVal('metric_youtube_subscribe', s.youtube_subscribe);
       setVal('metric_whatsapp_save', s.whatsapp_save);
 
       // Separate In-Shop QR Tracking (ref: shop_qr)
@@ -187,6 +191,7 @@ function updateQrInsights(data) {
       { name: '⭐ Samalapuram Review', count: stats.review_samalapuram || 0 },
       { name: '⭐ Karnempettai Review', count: stats.review_karnempettai || 0 },
       { name: '📸 Instagram Follow', count: stats.instagram_follow || 0 },
+      { name: '▶️ YouTube Subscribe', count: stats.youtube_subscribe || 0 },
       { name: '💬 WhatsApp Save', count: stats.whatsapp_save || 0 },
       { name: '👗 Catalog Browse', count: stats.catalog_browse || 0 }
     ];
@@ -349,8 +354,8 @@ function renderQrChart(mode = 'daily') {
     });
   } else if (mode === 'actions') {
     const s = qrAnalyticsData.stats || {};
-    const labels = ['⭐ Samalapuram Review', '⭐ Karnempettai Review', '📸 Instagram Follow', '💬 WhatsApp Save', '👗 Catalog Browse'];
-    const values = [s.review_samalapuram || 0, s.review_karnempettai || 0, s.instagram_follow || 0, s.whatsapp_save || 0, s.catalog_browse || 0];
+    const labels = ['⭐ Samalapuram Review', '⭐ Karnempettai Review', '📸 Instagram Follow', '▶️ YouTube Subscribe', '💬 WhatsApp Save', '👗 Catalog Browse'];
+    const values = [s.review_samalapuram || 0, s.review_karnempettai || 0, s.instagram_follow || 0, s.youtube_subscribe || 0, s.whatsapp_save || 0, s.catalog_browse || 0];
 
     qrChartInstance = new Chart(ctx, {
       type: 'doughnut',
@@ -358,7 +363,7 @@ function renderQrChart(mode = 'daily') {
         labels: labels,
         datasets: [{
           data: values,
-          backgroundColor: ['#16a34a', '#2563eb', '#e11d48', '#128c7e', '#d97706'],
+          backgroundColor: ['#16a34a', '#2563eb', '#e11d48', '#dc2626', '#128c7e', '#d97706'],
           borderWidth: 2,
           borderColor: '#ffffff'
         }]
@@ -790,10 +795,13 @@ function updateStandeePreview() {
     <!-- 4. Action Pillars -->
     <div style="display:flex; gap:5px; justify-content:center; flex-wrap:wrap; margin:7px 0; width:100%;">
       <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
-        <span>⭐ Rate 5 Stars on Google</span>
+        <span>⭐ Rate 5 Stars</span>
       </div>
       <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
-        <span>📸 Follow @sreedesigner_</span>
+        <span>📸 @sreedesigner_</span>
+      </div>
+      <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
+        <span>▶️ @SreeDesignerss</span>
       </div>
       <div style="background:${pillBg}; border:1px solid ${borderGold}; border-radius:20px; padding:3px 9px; font-size:0.66rem; font-weight:700; color:${ink}; display:flex; align-items:center; gap:3px;">
         <span>💬 WhatsApp Booking</span>
@@ -1398,7 +1406,14 @@ function downloadStandeeHtml() {
                   <small style="color:#64748b; font-size:0.72rem;">@sreedesigner_ taps</small>
                 </div>
 
-                <!-- 7. WhatsApp Saves -->
+                <!-- 7. YouTube Subscribers -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">▶️ YouTube Subscribers</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_youtube_subscribe">0</div>
+                  <small style="color:#64748b; font-size:0.72rem;">@SreeDesignerss taps</small>
+                </div>
+
+                <!-- 8. WhatsApp Saves -->
                 <div style="grid-column: 1 / -1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
                   <div>
                     <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:2px;">💬 WhatsApp Saves &amp; Inquiries</div>

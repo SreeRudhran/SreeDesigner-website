@@ -6,6 +6,7 @@ const METRICS = [
   'review_samalapuram',
   'review_karnempettai',
   'instagram_follow',
+  'youtube_subscribe',
   'whatsapp_save',
   'catalog_browse'
 ];

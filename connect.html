@@ -27,7 +27,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Welcome to Sree Designers &amp; Boutique | Review, Follow &amp; Connect</title>
-  <meta name="description" content="Thank you for visiting Sree Designers & Boutique in Coimbatore & Tiruppur! Leave a 5-star Google review, follow our bridal drops on Instagram, and explore our collections.">
+  <meta name="description" content="Thank you for visiting Sree Designers &amp; Boutique in Coimbatore &amp; Tiruppur! Leave a 5-star Google review, follow our bridal drops on Instagram, watch YouTube shorts, and explore our collections.">
   <link rel="canonical" href="https://sreedesigners.in/connect">
   <meta name="robots" content="index, follow">
 
@@ -498,6 +498,197 @@
       font-weight: 700;
     }
 
+    /* 3. SREE DESIGNERS YOUTUBE SHORTS & BRIDAL MAKING SHOWCASE CARD */
+    .card-youtube {
+      background: #FFFFFF;
+      border: 2px solid rgba(255, 0, 0, 0.22);
+      border-radius: var(--radius);
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 28px -8px rgba(255, 0, 0, 0.15);
+      position: relative;
+    }
+
+    /* Clickable YouTube Channel Header Bar */
+    .yt-profile-header-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      background: #FAF8F6;
+      border: 1px solid rgba(255, 0, 0, 0.15);
+      border-radius: 12px;
+      padding: 10px 12px;
+      transition: all 0.2s ease;
+    }
+
+    .yt-profile-header-btn:hover {
+      background: #FFF5F5;
+      border-color: rgba(255, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .yt-avatar-ring {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      padding: 2.5px;
+      box-shadow: 0 4px 12px -2px rgba(255, 0, 0, 0.35);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .yt-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #FFFFFF;
+      padding: 2px;
+    }
+
+    .yt-profile-meta {
+      flex: 1;
+      text-align: left;
+    }
+
+    .yt-profile-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .yt-channel-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .yt-play-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FF0000;
+      color: #fff;
+      font-size: 0.55rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .yt-handle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold-dark);
+      margin-top: 1px;
+    }
+
+    .yt-profile-bio {
+      font-size: 0.74rem;
+      color: var(--ink-soft);
+      line-height: 1.25;
+      margin-top: 1px;
+    }
+
+    .yt-app-icon {
+      color: #FF0000;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.9;
+    }
+
+    /* 4-Shorts Thumbnail Grid */
+    .yt-feed-preview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      text-decoration: none;
+      padding: 2px 0;
+    }
+
+    .yt-feed-thumb {
+      position: relative;
+      aspect-ratio: 9 / 14;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000000;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px -2px rgba(28, 27, 24, 0.1);
+    }
+
+    .yt-feed-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .yt-feed-preview:hover .yt-feed-thumb img {
+      transform: scale(1.06);
+    }
+
+    .yt-thumb-tag {
+      position: absolute;
+      bottom: 4px;
+      left: 3px;
+      right: 3px;
+      background: rgba(0, 0, 0, 0.78);
+      color: #FFFFFF;
+      font-size: 0.52rem;
+      font-weight: 700;
+      padding: 1.5px 2px;
+      border-radius: 3px;
+      line-height: 1.2;
+      text-align: center;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(2px);
+    }
+
+    /* Big YouTube Subscribe CTA Button */
+    .btn-yt-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-height: 48px;
+      box-shadow: 0 6px 20px -4px rgba(255, 0, 0, 0.45);
+      transition: all 0.2s ease;
+    }
+
+    .btn-yt-main:hover, .btn-yt-main:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px -4px rgba(255, 0, 0, 0.6);
+      filter: brightness(1.05);
+    }
+
+    .btn-yt-main .yt-cta-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-yt-main .btn-arrow {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
     /* 3. QUICK LINKS GRID */
     .quick-links-title {
       font-size: 0.85rem;
@@ -787,7 +978,61 @@
       </a>
     </section>
 
-    <!-- 4. EXPLORE WEBSITE & COLLECTIONS -->
+    <!-- 4. PRIMARY ACTION #3: SREE DESIGNERS YOUTUBE SHORTS & BRIDAL MAKING SHOWCASE -->
+    <section class="hub-card card-youtube" aria-label="Sree Designers on YouTube">
+      <!-- Clickable Sree Designers YouTube Channel Profile Bar -->
+      <a href="https://www.youtube.com/@SreeDesignerss" target="_blank" rel="noopener noreferrer" class="yt-profile-header-btn" onclick="trackClick('youtube_subscribe')" aria-label="Open Sree Designers YouTube Channel">
+        <div class="yt-avatar-ring">
+          <img src="assets/images/logo.png" alt="Sree Designers YouTube Channel" class="yt-avatar-img" width="46" height="46">
+        </div>
+        <div class="yt-profile-meta">
+          <div class="yt-profile-title">
+            <span class="yt-channel-name">Sree Designers</span>
+            <span class="yt-play-badge" title="Official YouTube Channel">▶</span>
+          </div>
+          <div class="yt-handle">@SreeDesignerss</div>
+          <div class="yt-profile-bio">Bridal Blouse Making, Aari Work Tutorials &amp; Client Trials</div>
+        </div>
+        <div class="yt-app-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Real YouTube Shorts Thumbnails Grid -->
+      <a href="https://www.youtube.com/@SreeDesignerss/shorts" target="_blank" rel="noopener noreferrer" class="yt-feed-preview" onclick="trackClick('youtube_subscribe')" aria-label="Watch Sree Designers YouTube Shorts">
+        <div class="yt-feed-thumb">
+          <img src="assets/images/shorts/short_1uLUFMEcelU.webp" alt="Bridal Maggam Blouse Making Short" loading="lazy">
+          <span class="yt-thumb-tag">▶ SHORTS</span>
+        </div>
+        <div class="yt-feed-thumb">
+          <img src="assets/images/shorts/short_32WrlMLTAR4.webp" alt="Zardozi Handwork Short" loading="lazy">
+          <span class="yt-thumb-tag">▶ SHORTS</span>
+        </div>
+        <div class="yt-feed-thumb">
+          <img src="assets/images/shorts/short_a3dzh7_6Xa4.webp" alt="Illusion Net Embroidery Short" loading="lazy">
+          <span class="yt-thumb-tag">▶ SHORTS</span>
+        </div>
+        <div class="yt-feed-thumb">
+          <img src="assets/images/shorts/short_mbvADw3niwA.webp" alt="Bridal Fitting Video Short" loading="lazy">
+          <span class="yt-thumb-tag">▶ SHORTS</span>
+        </div>
+      </a>
+
+      <!-- Big Subscribe CTA Button -->
+      <a href="https://www.youtube.com/@SreeDesignerss?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-yt-main" onclick="trackClick('youtube_subscribe')">
+        <span class="yt-cta-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>Subscribe to @SreeDesignerss on YouTube</span>
+        </span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </section>
+
+    <!-- 5. EXPLORE WEBSITE & COLLECTIONS -->
     <section aria-labelledby="quickLinksHeading">
       <h3 class="quick-links-title" id="quickLinksHeading">Explore Bridal Collections &amp; Pricing</h3>
       <div class="grid-links">
@@ -890,6 +1135,10 @@
       },
       'instagram_follow': {
         label: '📸 Follow Instagram (@sreedesigner_)',
+        channel: 'Social'
+      },
+      'youtube_subscribe': {
+        label: '▶️ Subscribe YouTube (@SreeDesignerss)',
         channel: 'Social'
       },
       'whatsapp_save_contact': {
