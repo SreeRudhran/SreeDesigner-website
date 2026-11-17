@@ -875,6 +875,66 @@
       color: var(--ink);
       text-decoration: underline;
     }
+    /* STUDIO MAPS EMBEDS */
+    .card-maps {
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .map-studio-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .studio-info-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .studio-name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .studio-addr {
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+      margin-top: 2px;
+    }
+    .studio-hours {
+      font-size: 0.8rem;
+      color: var(--gold-dark);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .btn-directions {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 20px;
+      border: 1px solid rgba(197, 155, 39, 0.4);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-directions:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+    .map-iframe-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 12px rgba(28, 27, 24, 0.05);
+    }
   </style>
 </head>
 <body>
@@ -922,6 +982,71 @@
         <a href="https://maps.app.goo.gl/RtQ1DR1BFFFs85Ju8" target="_blank" rel="noopener noreferrer" class="alt-branch-link" onclick="trackClick('review_karnempettai')">
           Review Karnempettai Branch →
         </a>
+      </div>
+    </section>
+
+
+
+    <!-- 2. STUDIO LOCATIONS & INTERACTIVE GOOGLE MAPS -->
+    <section class="hub-card card-maps" aria-labelledby="mapsHeading">
+      <div style="text-align:center; margin-bottom: 16px;">
+        <span class="review-top-badge">📍 Walk-In Fitting Studios</span>
+        <h2 class="review-heading" id="mapsHeading" style="margin-top: 6px;">Visit Our Ateliers in Coimbatore &amp; Tiruppur</h2>
+        <p class="review-location">Trial fittings, bespoke fabric styling &amp; express bridal consultations</p>
+      </div>
+
+      <!-- Studio 1: Samalapuram (Coimbatore) -->
+      <div class="map-studio-block">
+        <div class="studio-info-header">
+          <div>
+            <h3 class="studio-name">Samalapuram Atelier (Coimbatore)</h3>
+            <p class="studio-addr">Opp. to IDBI Bank, Somanur Road, Samalapuram, Coimbatore – 641663</p>
+            <p class="studio-hours">🕒 Mon–Sat: 9:30 AM – 9:00 PM</p>
+          </div>
+          <a href="https://share.google/hoaCh95clQinP8Bw1" target="_blank" rel="noopener noreferrer" class="btn-directions" onclick="trackClick('directions_samalapuram')">
+            Get Directions →
+          </a>
+        </div>
+        <div class="map-iframe-wrap">
+          <iframe 
+            src="https://maps.google.com/maps?q=11.1271,77.1683&amp;hl=en&amp;z=15&amp;output=embed" 
+            width="100%" 
+            height="200" 
+            style="border:0; border-radius: 12px; display:block;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Sree Designers Samalapuram Coimbatore Google Map">
+          </iframe>
+        </div>
+      </div>
+
+      <div style="height: 1px; background: var(--line); margin: 20px 0;"></div>
+
+      <!-- Studio 2: Karnempettai (Tiruppur) -->
+      <div class="map-studio-block">
+        <div class="studio-info-header">
+          <div>
+            <h3 class="studio-name">Karnempettai Atelier (Tiruppur)</h3>
+            <p class="studio-addr">Karnempettai, Tiruppur – 641663, Tamil Nadu</p>
+            <p class="studio-hours">🕒 Mon–Sat: 9:30 AM – 9:00 PM</p>
+          </div>
+          <a href="https://maps.app.goo.gl/RtQ1DR1BFFFs85Ju8" target="_blank" rel="noopener noreferrer" class="btn-directions" onclick="trackClick('directions_karnempettai')">
+            Get Directions →
+          </a>
+        </div>
+        <div class="map-iframe-wrap">
+          <iframe 
+            src="https://maps.google.com/maps?q=Karnempettai+Tiruppur+Tamil+Nadu&amp;hl=en&amp;z=15&amp;output=embed" 
+            width="100%" 
+            height="200" 
+            style="border:0; border-radius: 12px; display:block;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Sree Designers Karnempettai Tiruppur Google Map">
+          </iframe>
+        </div>
       </div>
     </section>
 
@@ -1077,6 +1202,7 @@
     <!-- 7. FOOTER -->
     <footer class="hub-footer">
       <div>Sree Designers &amp; Boutique · Samalapuram &amp; Karnempettai</div>
+      <div><a href="/privacy-policy" style="color:var(--gold-dark); text-decoration:none;">Privacy Policy</a> · <a href="/return-policy" style="color:var(--gold-dark); text-decoration:none;">Return Policy</a></div>
       <div>Helpline: <a href="tel:+919976344673" onclick="trackClick('helpline_call')">+91 99763 44673</a> · Mon–Sat 9:30 AM–9:00 PM</div>
     </footer>
 
