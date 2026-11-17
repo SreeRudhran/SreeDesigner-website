@@ -38,6 +38,10 @@
       "destination": "/api/product-image?id=:id&index=0"
     },
     {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
       "source": "/connect",
       "destination": "/connect.html"
     },
