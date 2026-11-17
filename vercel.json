@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/*.js": {
-      "includeFiles": "{js/**,product.html,category.html}"
+      "includeFiles": "{js/**,product-template.html,category-template.html}"
     }
   },
   "rewrites": [
@@ -10,7 +10,15 @@
       "destination": "/api/product-page"
     },
     {
+      "source": "/product.html",
+      "destination": "/api/product-page"
+    },
+    {
       "source": "/category",
+      "destination": "/api/category-page"
+    },
+    {
+      "source": "/category.html",
       "destination": "/api/category-page"
     },
     {

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CATEGORY_HTML_PATH = path.join(__dirname, '../category.html');
+const CATEGORY_HTML_PATH = path.join(__dirname, '../category-template.html');
 let baseHtml = null;
 
 function getBaseHtml() {

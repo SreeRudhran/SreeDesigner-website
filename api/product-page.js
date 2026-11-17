@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { MASTER_CATALOG } = require('../js/catalogData.js');
 
-const PRODUCT_HTML_PATH = path.join(__dirname, '../product.html');
+const PRODUCT_HTML_PATH = path.join(__dirname, '../product-template.html');
 let baseHtml = null;
 
 function getBaseHtml() {
