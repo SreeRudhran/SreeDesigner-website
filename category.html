@@ -14,7 +14,20 @@
   <meta name="description" content="Browse 50+ bridal blouse &amp; maggam work designs, neck patterns, and wedding lehengas in Coimbatore &amp; Tiruppur. Starting Rs. 1,200 with trial fitting guarantee.">
   
   <!-- SEO & CANONICAL -->
-  <link rel="canonical" href="https://sreedesigners.in/category">
+  <link rel="canonical" id="pageCanonical" href="https://sreedesigners.in/category">
+  <script>
+    (function(){
+      try {
+        var sp = new URLSearchParams(window.location.search);
+        var cat = sp.get('cat');
+        if (cat) {
+          var clean = encodeURIComponent(cat);
+          var c = document.getElementById('pageCanonical');
+          if (c) c.setAttribute('href', 'https://sreedesigners.in/category?cat=' + clean);
+        }
+      } catch(e) {}
+    })();
+  </script>
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- OPEN GRAPH / FACEBOOK / WHATSAPP / PINTEREST RICH PINS -->

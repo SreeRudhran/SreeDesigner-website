@@ -19,7 +19,7 @@
     (function(){
       try {
         var sp = new URLSearchParams(window.location.search);
-        var id = sp.get('id');
+        var id = sp.get('id') || sp.get('slug');
         if (id) {
           var clean = encodeURIComponent(id);
           var c = document.getElementById('pageCanonical');

@@ -1,10 +1,18 @@
 {
   "functions": {
     "api/*.js": {
-      "includeFiles": "js/**"
+      "includeFiles": "{js/**,product.html,category.html}"
     }
   },
   "rewrites": [
+    {
+      "source": "/product",
+      "destination": "/api/product-page"
+    },
+    {
+      "source": "/category",
+      "destination": "/api/category-page"
+    },
     {
       "source": "/google-merchant-feed.xml",
       "destination": "/api/merchant-feed"
@@ -40,14 +48,25 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "www.sreedesigners.in"
         }
       ],
-      "destination": "https://sreedesigners.in/:path*",
+      "destination": "https://sreedesigners.in/",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sreedesigners.in"
+        }
+      ],
+      "destination": "https://sreedesigners.in/$1",
       "permanent": true
     },
     {
