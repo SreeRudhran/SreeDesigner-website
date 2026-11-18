@@ -1304,15 +1304,35 @@ function downloadStandeeHtml() {
         <div id="listTestimonials"><p class="empty-msg">Loading reviews...</p></div>
       </div>
 
-      <!-- SOCIAL TAB -->
+      <!-- SOCIAL TAB (REELS & YOUTUBE SHORTS MANAGER) -->
       <div class="tab-pane" id="tab-social">
-        <div class="tab-header">
+        <div class="tab-header" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
           <div>
-            <h3>Instagram Video Reels</h3>
-            <p>Feature crafting videos and fitting reel stories.</p>
+            <h3 style="margin:0 0 6px;">🎥 YouTube Shorts &amp; Homepage Reels Manager</h3>
+            <p style="margin:0; color:var(--soft); font-size:0.9rem;">Choose which video reels appear on your homepage, change their display order, or add new YouTube Shorts.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" class="btn-main" onclick="openAddReelModal()" style="background:linear-gradient(135deg, #b45309 0%, #d97706 100%); color:#fff; border:none; padding:10px 18px; border-radius:10px; font-weight:700; cursor:pointer;">
+              + Add New Short / Reel
+            </button>
+            <button type="button" class="btn-sm" onclick="resetReelsToDefault()" style="background:#f1f5f9; color:#475569; padding:10px 14px; border-radius:10px; font-weight:600; border:1px solid #cbd5e1; cursor:pointer;">
+              ↺ Reset to Defaults
+            </button>
           </div>
         </div>
-        <div id="listSocial"><p class="empty-msg">No custom reels yet.</p></div>
+
+        <div id="reelsStatsBar" style="background:#fdf8ec; border:1px solid #fde68a; border-radius:12px; padding:12px 18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:1.1rem;">⚡</span>
+            <span style="font-weight:700; color:#92400e; font-size:0.92rem;">Active on Homepage: <span id="reelsActiveCount">5</span> Reels Visible</span>
+            <span style="color:#b45309; font-size:0.82rem;">(Use ▲ / ▼ buttons to adjust sequence)</span>
+          </div>
+          <a href="/#reels" target="_blank" rel="noopener noreferrer" style="font-size:0.82rem; font-weight:600; color:#b45309; text-decoration:none;">Preview on Homepage &rarr;</a>
+        </div>
+
+        <div id="listSocial">
+          <p class="empty-msg">Loading reels...</p>
+        </div>
       </div>
 
       
@@ -2134,6 +2154,38 @@ function downloadStandeeHtml() {
   </div>
 </div>
 
+<!-- 4b. MODAL: ADD YOUTUBE SHORT / REEL -->
+<div class="modal" id="modalAddReel">
+  <div class="modal-box" style="max-width:540px;">
+    <button class="modal-close" onclick="closeModal('modalAddReel')">&times;</button>
+    <h3>Add YouTube Short / Video Reel</h3>
+    <p>Feature a YouTube Short or studio crafting reel on the homepage.</p>
+    <form id="formAddReel" onsubmit="saveCustomReel(event)">
+      <div style="margin-bottom:12px;">
+        <label class="field-label">YouTube Shorts URL or Video ID *</label>
+        <input type="text" id="reelYtInput" class="field-input" placeholder="e.g. 1uLUFMEcelU or https://youtube.com/shorts/1uLUFMEcelU" required>
+        <small style="color:var(--soft); font-size:0.75rem; margin-top:3px; display:block;">Paste any YouTube URL or 11-character video ID</small>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label class="field-label">Short / Reel Title *</label>
+        <input type="text" id="reelTitleInput" class="field-input" placeholder="e.g. Royal Maroon Silk Blouse with Kundan Work" required>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label class="field-label">Custom Thumbnail Image URL (Optional)</label>
+        <input type="text" id="reelThumbInput" class="field-input" placeholder="assets/images/shorts/short_1uLUFMEcelU.webp (or leave empty for YouTube auto-cover)">
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+        <input type="checkbox" id="reelEnabledInput" checked style="width:18px; height:18px; accent-color:#b45309;">
+        <label for="reelEnabledInput" style="font-size:0.88rem; font-weight:600; cursor:pointer;">Show on homepage immediately</label>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" class="btn-sm" onclick="closeModal('modalAddReel')">Cancel</button>
+        <button type="submit" class="btn-main">Save Reel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- 5. MODAL: IN-STUDIO COUNTER STANDEE GENERATOR -->
 <div class="modal" id="modalStandee">
   <div class="modal-box" style="max-width:980px; width:95%; max-height:92vh; padding:28px 30px;">
@@ -2501,6 +2553,7 @@ function switchTab(name) {
   if (name === 'tags')        renderTagManager();
   if (name === 'blog')        renderBlog();
   if (name === 'testimonials') renderTestimonials();
+  if (name === 'social')      renderSocialReelsManager();
   if (name === 'qrhub')       { initQrDashboardFromLocal(); fetchLiveQrStats(); startQrAutoRefresh(); } else { stopQrAutoRefresh(); }
   if (name === 'feeds')       renderFeedsTab();
 }
@@ -4166,6 +4219,175 @@ function deleteReview(id) {
     if (idx !== -1) window.MASTER_REVIEWS.splice(idx, 1);
   }
   renderTestimonials();
+}
+
+// ─── INSTAGRAM REELS & YOUTUBE SHORTS CONTROLLER ─────────────────────────────
+const MASTER_DEFAULT_REELS = [
+  { id: '1uLUFMEcelU', title: 'Maroon Blouse with Gold & Green Zari', thumbnail: 'assets/images/shorts/short_1uLUFMEcelU.webp', enabled: true },
+  { id: 'ZiEq_th5pUI', title: 'Purple Blouse with Floral Embroidery', thumbnail: 'assets/images/shorts/short_ZiEq_th5pUI.webp', enabled: true },
+  { id: 'RB8nXjxkRGc', title: 'Traditional Green Blouse with Hand Aari', thumbnail: 'assets/images/shorts/short_RB8nXjxkRGc.webp', enabled: true },
+  { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work', thumbnail: 'assets/images/shorts/short_w8GVpBO2e0U.webp', enabled: true },
+  { id: '_QuAAq8hpHk', title: 'Pink Custom Embroidery Blouse', thumbnail: 'assets/images/shorts/short__QuAAq8hpHk.webp', enabled: true },
+  { id: '32WrlMLTAR4', title: 'Grand Peacock Bridal Blouse Finishing', thumbnail: 'assets/images/shorts/short_32WrlMLTAR4.webp', enabled: false },
+  { id: 'a3dzh7_6Xa4', title: 'Intricate Kasu & Zari Neckline Showcase', thumbnail: 'assets/images/shorts/short_a3dzh7_6Xa4.webp', enabled: false },
+  { id: 'mbvADw3niwA', title: 'Bespoke Fitting & Muhurtham Blouse Walkthrough', thumbnail: 'assets/images/shorts/short_mbvADw3niwA.webp', enabled: false }
+];
+
+function getAdminReels() {
+  try {
+    const saved = localStorage.getItem('sree_homepage_reels');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(MASTER_DEFAULT_REELS));
+}
+
+function saveAdminReels(reels) {
+  try {
+    localStorage.setItem('sree_homepage_reels', JSON.stringify(reels));
+  } catch(e) {}
+  renderSocialReelsManager();
+}
+
+function renderSocialReelsManager() {
+  const el = document.getElementById('listSocial');
+  if (!el) return;
+
+  const reels = getAdminReels();
+  const activeCount = reels.filter(r => r.enabled !== false).length;
+  const countEl = document.getElementById('reelsActiveCount');
+  if (countEl) countEl.textContent = activeCount;
+
+  if (!reels || !reels.length) {
+    el.innerHTML = '<p class="empty-msg">No reels configured. Click "+ Add New Short / Reel" or "Reset to Defaults".</p>';
+    return;
+  }
+
+  el.innerHTML = reels.map((reel, idx) => {
+    const isEnabled = reel.enabled !== false;
+    const thumb = reel.thumbnail || `https://i.ytimg.com/vi/${reel.id}/hqdefault.jpg`;
+    const safeTitle = escapeHtml(reel.title || 'Studio Reel');
+    const safeId = escapeHtml(String(reel.id || ''));
+    const isFirst = idx === 0;
+    const isLast = idx === reels.length - 1;
+
+    return `
+      <div class="item-card" style="margin-bottom:14px; background:${isEnabled ? '#ffffff' : '#fafafa'}; padding:14px 18px; border:1.5px solid ${isEnabled ? '#d1d5db' : '#e5e7eb'}; border-radius:14px; display:flex; justify-content:space-between; align-items:center; gap:16px; opacity:${isEnabled ? '1' : '0.72'}; transition:all 0.2s ease;">
+        <div style="display:flex; align-items:center; gap:16px; min-width:0;">
+          <div style="position:relative; width:64px; height:90px; border-radius:8px; overflow:hidden; background:#111; flex-shrink:0; border:1px solid #d1d5db;">
+            <img src="${thumb}" alt="${safeTitle}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://i.ytimg.com/vi/${safeId}/hqdefault.jpg'">
+            <span style="position:absolute; bottom:3px; left:4px; font-size:0.6rem; background:rgba(0,0,0,0.7); color:#fff; padding:1px 4px; border-radius:4px;">#${idx + 1}</span>
+          </div>
+          <div style="min-width:0;">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+              <span style="font-weight:700; font-size:0.95rem; color:#0f172a;">${safeTitle}</span>
+              ${isEnabled ? '<span style="background:#dcfce7; color:#15803d; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:999px;">● Active on Homepage</span>' : '<span style="background:#f1f5f9; color:#64748b; font-size:0.72rem; font-weight:600; padding:2px 8px; border-radius:999px;">○ Hidden from Homepage</span>'}
+            </div>
+            <div style="font-size:0.78rem; color:#64748b; display:flex; align-items:center; gap:10px;">
+              <span>ID: <code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.76rem;">${safeId}</code></span>
+              <a href="https://www.youtube.com/shorts/${safeId}" target="_blank" rel="noopener noreferrer" style="color:#b45309; text-decoration:none; font-weight:600;">Play Short on YouTube ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+          <!-- Reorder Up/Down -->
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <button type="button" onclick="moveReel(${idx}, -1)" ${isFirst ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="cursor:pointer;"'} title="Move Up" style="padding:4px 8px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:0.75rem; font-weight:700; line-height:1;">▲</button>
+            <button type="button" onclick="moveReel(${idx}, 1)" ${isLast ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="cursor:pointer;"'} title="Move Down" style="padding:4px 8px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:0.75rem; font-weight:700; line-height:1;">▼</button>
+          </div>
+
+          <!-- Visibility Toggle -->
+          <button type="button" onclick="toggleReelStatus(${idx})" style="background:${isEnabled ? '#fef2f2' : '#f0fdf4'}; color:${isEnabled ? '#dc2626' : '#16a34a'}; border:1px solid ${isEnabled ? '#fecaca' : '#bbf7d0'}; padding:8px 14px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+            ${isEnabled ? '👁️ Hide' : '✓ Show on Homepage'}
+          </button>
+
+          <!-- Delete Custom Reel -->
+          <button type="button" onclick="deleteCustomReel(${idx})" title="Delete Reel" style="background:#f8fafc; color:#64748b; border:1px solid #e2e8f0; padding:8px 10px; border-radius:8px; cursor:pointer;">
+            🗑️
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleReelStatus(index) {
+  const reels = getAdminReels();
+  if (reels[index]) {
+    reels[index].enabled = !reels[index].enabled;
+    saveAdminReels(reels);
+  }
+}
+
+function moveReel(index, direction) {
+  const reels = getAdminReels();
+  const target = index + direction;
+  if (target < 0 || target >= reels.length) return;
+  const temp = reels[index];
+  reels[index] = reels[target];
+  reels[target] = temp;
+  saveAdminReels(reels);
+}
+
+function deleteCustomReel(index) {
+  const reels = getAdminReels();
+  if (!confirm('Are you sure you want to remove this reel?')) return;
+  reels.splice(index, 1);
+  saveAdminReels(reels);
+}
+
+function resetReelsToDefault() {
+  if (!confirm('Reset all reels and homepage order to original studio defaults?')) return;
+  localStorage.removeItem('sree_homepage_reels');
+  renderSocialReelsManager();
+}
+
+function openAddReelModal() {
+  document.getElementById('formAddReel').reset();
+  openModal('modalAddReel');
+}
+
+function extractYouTubeId(urlOrId) {
+  if (!urlOrId) return '';
+  const str = urlOrId.trim();
+  if (str.length === 11 && !str.includes('/') && !str.includes('.')) return str;
+  const match = str.match(/(?:shorts\/|v=|\/embed\/|\.be\/|v\/|watch\?v=|\&v=)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : str;
+}
+
+function saveCustomReel(e) {
+  e.preventDefault();
+  const rawId = document.getElementById('reelYtInput').value;
+  const id = extractYouTubeId(rawId);
+  if (!id) {
+    alert('Please enter a valid YouTube Shorts URL or Video ID.');
+    return;
+  }
+  const title = (document.getElementById('reelTitleInput').value || 'Bespoke Atelier Blouse Reel').trim();
+  const customThumb = (document.getElementById('reelThumbInput').value || '').trim();
+  const isEnabled = document.getElementById('reelEnabledInput').checked;
+
+  const newReel = {
+    id: id,
+    title: title,
+    thumbnail: customThumb || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    enabled: isEnabled
+  };
+
+  const reels = getAdminReels();
+  const existingIdx = reels.findIndex(r => r.id === id);
+  if (existingIdx !== -1) {
+    reels[existingIdx] = newReel;
+  } else {
+    reels.unshift(newReel);
+  }
+
+  saveAdminReels(reels);
+  closeModal('modalAddReel');
+  alert('✅ YouTube Short added and saved! Homepage will now display your selected reel.');
 }
 
 // ─── MODAL HELPERS ───────────────────────────────────────────────────────────

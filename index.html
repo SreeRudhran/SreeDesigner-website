@@ -2936,20 +2936,64 @@
       document.body.style.overflow = '';
     }
 
-    /* ── YouTube Shorts Modal Controller ── */
-    const SHORTS_DATA = [
-      { id: '1uLUFMEcelU', title: 'Maroon Blouse with Gold & Green Zari' },
-      { id: 'ZiEq_th5pUI', title: 'Purple Blouse with Floral Embroidery' },
-      { id: 'RB8nXjxkRGc', title: 'Traditional Green Blouse with Hand Aari' },
-      { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work' },
-      { id: '_QuAAq8hpHk', title: 'Pink Custom Embroidery Blouse' }
+    /* ── YouTube Shorts Modal & Homepage Reels Controller ── */
+    const DEFAULT_SHORTS = [
+      { id: '1uLUFMEcelU', title: 'Maroon Blouse with Gold & Green Zari', thumbnail: 'assets/images/shorts/short_1uLUFMEcelU.webp', enabled: true },
+      { id: 'ZiEq_th5pUI', title: 'Purple Blouse with Floral Embroidery', thumbnail: 'assets/images/shorts/short_ZiEq_th5pUI.webp', enabled: true },
+      { id: 'RB8nXjxkRGc', title: 'Traditional Green Blouse with Hand Aari', thumbnail: 'assets/images/shorts/short_RB8nXjxkRGc.webp', enabled: true },
+      { id: 'w8GVpBO2e0U', title: 'Bridal Blouse with Heirloom Aari Work', thumbnail: 'assets/images/shorts/short_w8GVpBO2e0U.webp', enabled: true },
+      { id: '_QuAAq8hpHk', title: 'Pink Custom Embroidery Blouse', thumbnail: 'assets/images/shorts/short__QuAAq8hpHk.webp', enabled: true }
     ];
+
+    function getActiveHomepageReels() {
+      try {
+        const saved = localStorage.getItem('sree_homepage_reels');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const visible = parsed.filter(r => r.enabled !== false);
+            if (visible.length > 0) return visible;
+          }
+        }
+      } catch(e) {}
+      return DEFAULT_SHORTS;
+    }
+
+    let SHORTS_DATA = getActiveHomepageReels();
+    window.SHORTS_DATA = SHORTS_DATA;
+
+    function renderHomepageReels() {
+      const row = document.getElementById('reelsRow');
+      if (!row) return;
+      SHORTS_DATA = getActiveHomepageReels();
+      window.SHORTS_DATA = SHORTS_DATA;
+
+      row.innerHTML = SHORTS_DATA.map((short, idx) => {
+        const thumb = short.thumbnail || `https://i.ytimg.com/vi/${short.id}/hqdefault.jpg`;
+        const safeTitle = (short.title || 'Studio Reel').replace(/"/g, '&quot;');
+        return `
+          <div class="reel-item">
+            <div class="reel-card" onclick="openShortModal(${idx})" role="button" tabindex="0" aria-label="Watch Short: ${safeTitle}" onkeydown="if(event.key==='Enter') openShortModal(${idx})">
+              <img src="${thumb}" alt="${safeTitle}" class="reel-img" width="200" height="355" loading="lazy" decoding="async" onerror="this.src='https://i.ytimg.com/vi/${short.id}/hqdefault.jpg'">
+              <div class="reel-play-btn" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="reel-title-below">${safeTitle}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderHomepageReels();
+    window.addEventListener('load', renderHomepageReels);
 
     let currentShortIndex = 0;
 
     function openShortModal(index) {
-      currentShortIndex = (index >= 0 && index < SHORTS_DATA.length) ? index : 0;
-      const short = SHORTS_DATA[currentShortIndex];
+      const list = window.SHORTS_DATA || SHORTS_DATA;
+      currentShortIndex = (index >= 0 && index < list.length) ? index : 0;
+      const short = list[currentShortIndex];
       const modal = document.getElementById('shortsModal');
       const iframeWrapper = document.getElementById('shortsIframeWrapper');
       const titleEl = document.getElementById('shortsModalTitle');
@@ -2983,12 +3027,14 @@
     }
 
     function prevShort() {
-      const prevIdx = (currentShortIndex - 1 + SHORTS_DATA.length) % SHORTS_DATA.length;
+      const list = window.SHORTS_DATA || SHORTS_DATA;
+      const prevIdx = (currentShortIndex - 1 + list.length) % list.length;
       openShortModal(prevIdx);
     }
 
     function nextShort() {
-      const nextIdx = (currentShortIndex + 1) % SHORTS_DATA.length;
+      const list = window.SHORTS_DATA || SHORTS_DATA;
+      const nextIdx = (currentShortIndex + 1) % list.length;
       openShortModal(nextIdx);
     }
 
