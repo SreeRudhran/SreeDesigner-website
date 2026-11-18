@@ -1453,29 +1453,26 @@
       <!-- Interactive Category Filter Pills -->
       <div class="home-catalog-tabs" id="homeCatalogTabs" role="tablist" aria-label="Catalog Style Filters">
         <button type="button" class="home-tab-pill active" onclick="filterHomeCatalog('all', this)" role="tab" aria-selected="true">
-          All Designs (6)
-        </button>
-        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('artwork', this)" role="tab" aria-selected="false">
-          Artwork
+          All Designs
         </button>
         <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('handwork', this)" role="tab" aria-selected="false">
-          Handwork
+          Aari Work &amp; Handwork
         </button>
-        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('sheertail', this)" role="tab" aria-selected="false">
-          Sheertail Embroidery
+        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('machine-embroidery', this)" role="tab" aria-selected="false">
+          Machine Embroidery
         </button>
         <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('bridal', this)" role="tab" aria-selected="false">
-          Blouses for Brides
+          Bridal Blouses
         </button>
-        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('budget-elegant', this)" role="tab" aria-selected="false">
-          Simple &amp; Strong Elegance (From ₹1,000)
+        <button type="button" class="home-tab-pill" onclick="filterHomeCatalog('daily-wear', this)" role="tab" aria-selected="false">
+          Daily Wear &amp; Minimal Embroidery
         </button>
       </div>
 
       <!-- 6 Blouse Cards Grid / Swipe Row -->
       <div class="our-work-grid" id="ourWorkRow" role="region" aria-label="Our Work Gallery">
         <!-- Card 1: Minimal Hand Embroidery Silk Blouse with Contrast Magenta Sleeve -->
-        <article class="our-work-card" data-category="handwork artwork budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="handwork daily-wear" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_minimal_olive_magenta_sleeve.jpg">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1512,7 +1509,7 @@
         </article>
 
         <!-- Card 2: Bottle Green Net Zigzag Aari Blouse -->
-        <article class="our-work-card" data-category="sheertail handwork artwork budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="handwork machine-embroidery" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_bottle_green_zigzag_net_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1548,7 +1545,7 @@
         </article>
 
         <!-- Card 3: Purple Illusion Net Aari Blouse -->
-        <article class="our-work-card" data-category="sheertail handwork artwork budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="handwork bridal" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_royal_purple_illusion_net_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1584,7 +1581,7 @@
         </article>
 
         <!-- Card 4: Magenta Pink Emerald Kundan Blouse -->
-        <article class="our-work-card" data-category="handwork bridal budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="handwork bridal" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_magenta_emerald_kundan_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1620,7 +1617,7 @@
         </article>
 
         <!-- Card 5: Peacock Green V-Neck Aari Blouse -->
-        <article class="our-work-card" data-category="sheertail handwork artwork budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="handwork bridal" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_peacock_green_v_neck_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -1656,7 +1653,7 @@
         </article>
 
         <!-- Card 6: Red Tissue Scalloped Border Blouse -->
-        <article class="our-work-card" data-category="sheertail handwork artwork budget-elegant" itemscope itemtype="https://schema.org/Product">
+        <article class="our-work-card" data-category="machine-embroidery daily-wear" itemscope itemtype="https://schema.org/Product">
           <div class="our-work-img-wrap" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
             <meta itemprop="contentUrl" content="https://sreedesigners.in/assets/images/blouse_red_tissue_scallop_back.webp">
             <meta itemprop="license" content="https://sreedesigners.in/return-policy">
@@ -3060,31 +3057,29 @@
             const tagStr = (Array.isArray(item.tags) ? item.tags.join(' ') : (item.tags || '')).toLowerCase();
             const titleStr = (item.title || '').toLowerCase();
             const descStr = (item.description || '').toLowerCase();
+            const catStr = (item.category || '').toLowerCase();
+            const workStr = (item.work_type || '').toLowerCase();
             const priceVal = parseFloat(item.starting_price) || 0;
-            const combined = `${tagStr} ${titleStr} ${descStr}`;
+            const combined = `${catStr} ${workStr} ${tagStr} ${titleStr} ${descStr}`;
 
             const cats = [];
-            // 1. Artwork: Motifs, peacocks, temple borders, geometric patterns, floral creeper art
-            if (combined.includes('artwork') || combined.includes('art') || combined.includes('motif') || combined.includes('peacock') || combined.includes('temple') || combined.includes('floral') || combined.includes('creeper') || combined.includes('pattern') || combined.includes('geometric')) {
-              cats.push('artwork');
-            }
-            // 2. Handwork: Hand aari, pure zardozi, hand embroidery, kundan stones, needlework, beadwork
-            if (combined.includes('handwork') || combined.includes('hand') || combined.includes('aari') || combined.includes('maggam') || combined.includes('zardozi') || combined.includes('embroidery') || combined.includes('kundan') || combined.includes('pearl') || combined.includes('bead') || combined.includes('needlework')) {
+            // 1. Aari Work & Handwork ('handwork')
+            if (combined.includes('handwork') || combined.includes('hand') || combined.includes('aari') || combined.includes('maggam') || combined.includes('zardozi') || combined.includes('kundan') || combined.includes('needlework') || combined.includes('bead') || combined.includes('pearl')) {
               cats.push('handwork');
             }
-            // 3. Sheertail Embroidery: Sheer back, illusion net, cutwork, scalloped back, sheer sleeves, tie-up
-            if (combined.includes('sheertail') || combined.includes('sheer') || combined.includes('net') || combined.includes('cutwork') || combined.includes('illusion') || combined.includes('back') || combined.includes('tail') || combined.includes('scallop') || combined.includes('slit') || combined.includes('tie-up') || combined.includes('cutout')) {
-              cats.push('sheertail');
+            // 2. Machine Embroidery ('machine-embroidery')
+            if (combined.includes('machine') || combined.includes('computer') || combined.includes('comput')) {
+              cats.push('machine-embroidery');
             }
-            // 4. Blouses for Brides: Grand bridal wedding couture, muhurtham, heavy kundan, reception
-            if (combined.includes('bridal') || combined.includes('bride') || combined.includes('wedding') || combined.includes('muhurtham') || combined.includes('reception') || combined.includes('kanchipuram')) {
+            // 3. Bridal Blouses ('bridal')
+            if (combined.includes('bridal') || combined.includes('bride') || combined.includes('wedding') || combined.includes('muhurtham') || combined.includes('reception') || priceVal >= 2500) {
               cats.push('bridal');
             }
-            // 5. Simple & Strong Elegance (From ₹1,000): Minimal blouses, clean lines, budget-friendly elegance (starting ~₹1,000-₹2,400)
-            if (priceVal <= 2400 || combined.includes('minimal') || combined.includes('simple') || combined.includes('elegant') || combined.includes('budget') || combined.includes('daily') || combined.includes('office') || combined.includes('comfort')) {
-              cats.push('budget-elegant');
+            // 4. Daily Wear & Minimal Embroidery ('daily-wear')
+            if (priceVal <= 2400 || combined.includes('daily') || combined.includes('minimal') || combined.includes('simple') || combined.includes('basic') || combined.includes('office') || combined.includes('casual') || combined.includes('closure')) {
+              cats.push('daily-wear');
             }
-            if (cats.length === 0) cats.push('artwork', 'handwork');
+            if (cats.length === 0) cats.push('handwork');
             const catAttr = cats.join(' ');
 
             return `
