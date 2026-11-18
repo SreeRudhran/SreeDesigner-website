@@ -31,6 +31,7 @@ function initQrDashboardFromLocal() {
     review_samalapuram: 0,
     review_karnempettai: 0,
     instagram_follow: 0,
+    instagram_floater_click: 0,
     youtube_subscribe: 0,
     whatsapp_save: 0,
     shop_qr_scans: 0
@@ -47,6 +48,7 @@ function initQrDashboardFromLocal() {
       s.total_interactions++;
       if (act.includes('samalapuram')) s.review_samalapuram++;
       else if (act.includes('karnempettai')) s.review_karnempettai++;
+      else if (act.includes('floater') || act === 'instagram_floater_click') s.instagram_floater_click++;
       else if (act.includes('instagram')) s.instagram_follow++;
       else if (act.includes('youtube')) s.youtube_subscribe++;
       else if (act.includes('whatsapp') || act.includes('helpline')) s.whatsapp_save++;
@@ -64,6 +66,7 @@ function initQrDashboardFromLocal() {
   setVal('metric_review_samalapuram', s.review_samalapuram);
   setVal('metric_review_karnempettai', s.review_karnempettai);
   setVal('metric_instagram_follow', s.instagram_follow);
+  setVal('metric_instagram_floater_click', s.instagram_floater_click);
   setVal('metric_youtube_subscribe', s.youtube_subscribe);
   setVal('metric_whatsapp_save', s.whatsapp_save);
 
@@ -100,6 +103,7 @@ async function fetchLiveQrStats() {
       setVal('metric_review_samalapuram', s.review_samalapuram);
       setVal('metric_review_karnempettai', s.review_karnempettai);
       setVal('metric_instagram_follow', s.instagram_follow);
+      setVal('metric_instagram_floater_click', s.instagram_floater_click || 0);
       setVal('metric_youtube_subscribe', s.youtube_subscribe);
       setVal('metric_whatsapp_save', s.whatsapp_save);
 
@@ -191,6 +195,7 @@ function updateQrInsights(data) {
       { name: '⭐ Samalapuram Review', count: stats.review_samalapuram || 0 },
       { name: '⭐ Karnempettai Review', count: stats.review_karnempettai || 0 },
       { name: '📸 Instagram Follow', count: stats.instagram_follow || 0 },
+      { name: '📸 Homepage IG Floater', count: stats.instagram_floater_click || 0 },
       { name: '▶️ YouTube Subscribe', count: stats.youtube_subscribe || 0 },
       { name: '💬 WhatsApp Save', count: stats.whatsapp_save || 0 },
       { name: '👗 Catalog Browse', count: stats.catalog_browse || 0 }
@@ -1404,6 +1409,13 @@ function downloadStandeeHtml() {
                   <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#475569; letter-spacing:0.04em; margin-bottom:4px;">📸 Instagram Follows</div>
                   <div style="font-size:1.6rem; font-weight:700; color:#0f172a; line-height:1.1;" id="metric_instagram_follow">0</div>
                   <small style="color:#64748b; font-size:0.72rem;">@sreedesigner_ taps</small>
+                </div>
+
+                <!-- 6b. Homepage Floater Instagram Clicks -->
+                <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px 16px;">
+                  <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#9d174d; letter-spacing:0.04em; margin-bottom:4px;">📸 Homepage Floater</div>
+                  <div style="font-size:1.6rem; font-weight:700; color:#831843; line-height:1.1;" id="metric_instagram_floater_click">0</div>
+                  <small style="color:#be185d; font-size:0.72rem;">Floating IG clicks</small>
                 </div>
 
                 <!-- 7. YouTube Subscribers -->

@@ -2399,7 +2399,7 @@
   </a>
 
   <!-- FLOATING INSTAGRAM BUTTON -->
-  <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="instagram-float" aria-label="Follow Sree Designers on Instagram">
+  <a href="https://www.instagram.com/sreedesigner_/" target="_blank" rel="noopener noreferrer" class="instagram-float" aria-label="Follow Sree Designers on Instagram" onclick="trackInstagramFloaterClick()">
     <div class="instagram-float-icon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -2412,6 +2412,41 @@
       <span class="instagram-float-sub">Watch Reels &amp; New Blouses →</span>
     </div>
   </a>
+
+  <script>
+    function trackInstagramFloaterClick() {
+      try {
+        const payload = {
+          action: 'instagram_floater_click',
+          event_type: 'click',
+          label: '📸 Homepage Floating Instagram Click (@sreedesigner_)',
+          channel: 'Homepage Floater',
+          ref: 'homepage_floater',
+          device: /Mobi|Android|iPhone/i.test(navigator.userAgent) ? (navigator.userAgent.includes('iPhone') ? 'Apple iPhone' : 'Android Phone') : 'Desktop PC',
+          timestamp: new Date().toISOString()
+        };
+        const jsonStr = JSON.stringify(payload);
+        if (typeof navigator.sendBeacon === 'function') {
+          const blob = new Blob([jsonStr], { type: 'application/json' });
+          navigator.sendBeacon('/api/qr-stats', blob);
+        } else {
+          fetch('/api/qr-stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonStr,
+            keepalive: true
+          }).catch(() => {});
+        }
+        if (typeof gtag === 'function') {
+          gtag('event', 'instagram_floater_click', {
+            'event_category': 'Social_Engagement',
+            'event_label': 'Homepage_Floating_Instagram'
+          });
+        }
+      } catch(e) {}
+    }
+    window.trackInstagramFloaterClick = trackInstagramFloaterClick;
+  </script>
 
   <!-- YOUTUBE SHORTS MODAL PLAYER -->
   <div id="shortsModal" class="shorts-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" onclick="if(event.target === this) closeShortModal();">
