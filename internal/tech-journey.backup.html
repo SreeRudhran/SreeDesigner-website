@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>My 60-Day Tech Journey</title>
+<!-- Privacy & SEO Safeguards: Disallow indexing and crawling across all search engines -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<link rel="icon" type="image/png" href="/assets/images/logo.png">
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#18263a;--text:#edf3fb;--muted:#9aabc0;--line:#293950;--blue:#68a7ff;--green:#43d19e;--amber:#f4bd63}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172943 0,#0b1220 52%);color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:28px 18px 60px}.hero{padding:30px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#172a43,#111b2b);box-shadow:0 18px 60px #0004}
+.eyebrow{color:var(--green);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:10px 0}.sub{color:var(--muted);margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.stat,.card,.phase,.day,.resource{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px}.stat strong{display:block;font-size:27px}.stat span{font-size:12px;color:var(--muted)}
+.progressbox{margin-top:22px}.progressline{height:10px;background:#26364b;border-radius:99px;overflow:hidden}.progressfill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .2s}.progressmeta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:8px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 15px;border-radius:999px;cursor:pointer;font-weight:650}.tab.active{background:#23436a;color:white;border-color:#3b6da7}
+section{display:none}section.active{display:block}.sectionhead{margin:28px 0 15px}.sectionhead h2{margin:0;font-size:25px}.sectionhead p{margin:4px 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.phase h3,.resource h3{margin:0 0 5px}.phase small,.muted{color:var(--muted)}.phase ul{padding-left:19px;color:#d6e1ee}.phase li{margin:7px 0}
+select,input,textarea{background:#0d1726;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}button{font:inherit}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.daylist{display:grid;gap:9px}.day{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:13px}.day input{margin-top:5px;accent-color:var(--green);width:18px;height:18px}.day strong{display:block}.day small{color:var(--muted)}.day.done{opacity:.58}.day.done strong{text-decoration:line-through}
+a{color:var(--blue)}.resource{display:flex;flex-direction:column;gap:7px}.resource p{margin:0;color:var(--muted);font-size:13px}.pill{display:inline-block;border:1px solid var(--line);padding:3px 8px;border-radius:99px;font-size:11px;color:var(--green);width:max-content}
+.project{margin-bottom:12px}.project h3{margin:0}.project p{color:var(--muted);margin:6px 0}.question{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:9px 0}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:32px}.btn{background:#244b77;color:white;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}.btn.secondary{background:var(--panel2);border:1px solid var(--line)}.note{padding:14px;border-left:3px solid var(--amber);background:#2a251b;border-radius:8px;color:#f4dfbd}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.hero{padding:22px}.day{grid-template-columns:auto 1fr}.day .tag{grid-column:2}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+ <div class="eyebrow">Personal learning dashboard</div>
+ <h1>My 60-Day<br>Tech Journey</h1>
+ <p class="sub">From Junior Business Analyst to a stronger, more technical candidate.</p>
+ <p class="sub" style="margin-top:8px">19 November 2026 – 17 January 2027 · Beginner track</p>
+ <div class="stats">
+  <div class="stat"><strong>60</strong><span>Learning days</span></div>
+  <div class="stat"><strong>180</strong><span>Study hours planned</span></div>
+  <div class="stat"><strong>6</strong><span>Skill areas</span></div>
+  <div class="stat"><strong id="completedStat">0/60</strong><span>Days completed</span></div>
+ </div>
+ <div class="progressbox"><div class="progressmeta"><span>Overall progress</span><b id="progressText">0%</b></div><div class="progressline"><div class="progressfill" id="progressFill"></div></div></div>
+</header>
+
+<nav>
+ <button class="tab active" data-tab="roadmap">Roadmap</button>
+ <button class="tab" data-tab="tracker">Daily tracker</button>
+ <button class="tab" data-tab="resources">Courses & resources</button>
+ <button class="tab" data-tab="projects">Projects</button>
+ <button class="tab" data-tab="interviews">Interview prep</button>
+</nav>
+
+<section id="roadmap" class="active">
+ <div class="sectionhead"><h2>Your 5 learning phases</h2><p>Build foundations first, then apply them to a fintech business problem.</p></div>
+ <div class="grid">
+  <article class="phase"><span class="pill">Days 1–10 · 19–28 Nov</span><h3>01 · Excel</h3><p class="muted">Clean, analyse and summarise data.</p><ul><li>Formulas: SUM, IF, COUNTIFS, SUMIFS</li><li>XLOOKUP / VLOOKUP</li><li>Sorting, filtering and data cleaning</li><li>Pivot Tables, charts and slicers</li><li>Build a sales and transaction workbook</li></ul></article>
+  <article class="phase"><span class="pill">Days 11–25 · 29 Nov–13 Dec</span><h3>02 · SQL</h3><p class="muted">Query relational data independently.</p><ul><li>SELECT, WHERE, ORDER BY</li><li>GROUP BY, HAVING and aggregates</li><li>INNER / LEFT JOIN</li><li>CASE WHEN, subqueries and CTEs</li><li>Dates, ranking and business questions</li></ul></article>
+  <article class="phase"><span class="pill">Days 26–39 · 14–27 Dec</span><h3>03 · Power BI</h3><p class="muted">Turn data into useful business insights.</p><ul><li>Import Excel / CSV data</li><li>Power Query and data modelling</li><li>Relationships and star schema basics</li><li>DAX measures and filter context</li><li>Build an interactive dashboard</li></ul></article>
+  <article class="phase"><span class="pill">Days 40–47 · 28 Dec–4 Jan</span><h3>04 · APIs & Postman</h3><p class="muted">Understand how applications communicate.</p><ul><li>REST, HTTP methods and status codes</li><li>JSON, headers and parameters</li><li>GET and POST requests in Postman</li><li>Authentication concepts and errors</li><li>Write API test cases and requirements</li></ul></article>
+  <article class="phase"><span class="pill">Days 48–60 · 5–17 Jan</span><h3>05 · Portfolio & interviews</h3><p class="muted">Demonstrate what you can do.</p><ul><li>Create a synthetic fintech dataset</li><li>Analyse it with SQL and Excel</li><li>Build a Power BI report</li><li>Document requirements and user stories</li><li>Practise technical and behavioural interviews</li></ul></article>
+  <article class="phase"><span class="pill">Throughout all 60 days</span><h3>06 · Career development</h3><p class="muted">Keep your job search moving.</p><ul><li>Update resume and LinkedIn</li><li>Apply to relevant junior BA / product roles</li><li>Record project evidence and achievements</li><li>Explore master's pathways for 2028</li></ul></article>
+ </div>
+ <div class="note" style="margin-top:16px">Study rhythm: 60 minutes learning, 90 minutes hands-on practice and 30 minutes revision or interview preparation. Aim to practise more than you watch.</div>
+</section>
+
+<section id="tracker">
+ <div class="sectionhead"><h2>Daily learning tracker</h2><p>Tick a day when you have completed its learning and practical exercise. Your progress is saved in this browser.</p></div>
+ <div class="controls"><select id="phaseFilter"><option value="all">All phases</option><option value="0">Excel · Days 1–10</option><option value="1">SQL · Days 11–25</option><option value="2">Power BI · Days 26–39</option><option value="3">APIs · Days 40–47</option><option value="4">Portfolio · Days 48–60</option></select><button class="btn secondary" id="resetBtn">Reset progress</button></div>
+ <div class="daylist" id="dayList"></div>
+</section>
+
+<section id="resources">
+ <div class="sectionhead"><h2>Courses & learning resources</h2><p>Start with free resources. Pay only if you find a specific gap that a paid course solves.</p></div>
+ <div class="grid">
+  <article class="resource"><span class="pill">Excel · Free help</span><h3>Microsoft Excel Help & Learning</h3><p>Formulas, PivotTables, charts, sorting and data analysis.</p><a href="https://support.microsoft.com/en-us/excel" target="_blank" rel="noopener">Open Microsoft Excel resources ↗</a></article>
+  <article class="resource"><span class="pill">SQL · Interactive</span><h3>SQLBolt</h3><p>Beginner-friendly lessons with in-browser SQL exercises.</p><a href="https://sqlbolt.com/" target="_blank" rel="noopener">Start SQLBolt ↗</a></article>
+  <article class="resource"><span class="pill">Power BI · Official</span><h3>Microsoft Learn</h3><p>Prepare, model and visualise data using Power BI.</p><a href="https://learn.microsoft.com/en-us/training/paths/prepare-visualize-data-power-bi/" target="_blank" rel="noopener">Open learning path ↗</a></article>
+  <article class="resource"><span class="pill">Power BI · Download</span><h3>Power BI Desktop</h3><p>Install the Windows desktop application to build reports.</p><a href="https://www.microsoft.com/en-us/power-platform/products/power-bi/desktop" target="_blank" rel="noopener">Download / learn more ↗</a></article>
+  <article class="resource"><span class="pill">APIs · Official</span><h3>Postman Learning Hub</h3><p>Learn API basics and practise requests and collections.</p><a href="https://www.postman.com/learn/" target="_blank" rel="noopener">Open Postman learning ↗</a></article>
+  <article class="resource"><span class="pill">Practice data</span><h3>Kaggle Datasets</h3><p>Find public datasets for analysis. Check each dataset's licence before reuse.</p><a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener">Explore datasets ↗</a></article>
+ </div>
+ <p class="muted" style="font-size:12px;margin-top:14px">Power BI Desktop is Windows-focused. Check current device and licensing requirements before installing or purchasing anything.</p>
+</section>
+
+<section id="projects">
+ <div class="sectionhead"><h2>Portfolio projects</h2><p>Use fictional or properly licensed public data. Never use confidential employer or customer records.</p></div>
+ <article class="card project"><span class="pill">Project 1 · Days 7–10</span><h3>Sales & Revenue Analysis in Excel</h3><p>Create a fictional dataset and analyse monthly sales, product performance, revenue growth and customer activity.</p><ul><li>Clean data and validate missing / duplicate records.</li><li>Use formulas, lookups and Pivot Tables.</li><li>Create charts and a summary dashboard.</li></ul><label><input type="checkbox" class="projectcheck" data-project="excel"> Project completed</label></article>
+ <article class="card project"><span class="pill">Project 2 · Days 48–56</span><h3>FinTech Investment Operations Analytics</h3><p>Analyse synthetic SIP transactions, payment outcomes, active investors and monthly investment volume.</p><ul><li>Write SQL queries to answer business questions.</li><li>Prepare an Excel validation and analysis sheet.</li><li>Build an interactive Power BI dashboard.</li><li>Write a short BRD, user stories and acceptance criteria.</li><li>Prepare a short project walkthrough.</li></ul><label><input type="checkbox" class="projectcheck" data-project="fintech"> Project completed</label></article>
+ <div class="card"><h3>Portfolio checklist</h3><div id="portfolioChecks">
+  <label><input type="checkbox" class="portcheck"> SQL query file saved</label><br><label><input type="checkbox" class="portcheck"> Excel workbook saved</label><br><label><input type="checkbox" class="portcheck"> Power BI .pbix saved</label><br><label><input type="checkbox" class="portcheck"> Requirements document saved</label><br><label><input type="checkbox" class="portcheck"> Screenshots and project summary prepared</label>
+ </div></div>
+</section>
+
+<section id="interviews">
+ <div class="sectionhead"><h2>Interview preparation</h2><p>Practise explaining concepts in your own words. Don't memorise answers without understanding them.</p></div>
+ <div class="grid">
+  <div><h3>Excel</h3><div class="question">When would you use XLOOKUP instead of VLOOKUP?</div><div class="question">How do Pivot Tables help a business analyst?</div><div class="question">How would you identify duplicate transactions?</div></div>
+  <div><h3>SQL</h3><div class="question">What is the difference between WHERE and HAVING?</div><div class="question">Explain INNER JOIN versus LEFT JOIN.</div><div class="question">How would you find the top five customers by investment amount?</div><div class="question">How would you calculate monthly transaction success rates?</div></div>
+  <div><h3>Power BI</h3><div class="question">What is the difference between a measure and a calculated column?</div><div class="question">What is Power Query used for?</div><div class="question">How would you explain a dashboard to a nontechnical stakeholder?</div></div>
+  <div><h3>Business Analysis</h3><div class="question">How do you gather requirements from stakeholders?</div><div class="question">What makes a good user story?</div><div class="question">How would you handle changing requirements during a sprint?</div><div class="question">Describe a feature you helped deliver.</div></div>
+  <div><h3>Behavioural</h3><div class="question">Tell me about yourself.</div><div class="question">Why are you looking for a new opportunity?</div><div class="question">Describe a disagreement with a stakeholder.</div><div class="question">What technical skills have you recently learned?</div></div>
+ </div>
+ <div class="note" style="margin-top:16px">Be transparent in interviews: distinguish your professional experience from skills and projects you have developed independently. Never claim professional SQL or Power BI experience unless you have actually used them at work.</div>
+</section>
+
+<footer>Built for one focused 60-day learning sprint · Progress is stored locally in this browser using local storage.</footer>
+</div>
+<script>
+const tasks = [
+["Excel",["Understand spreadsheets, tables, data types and formatting","Practise SUM, AVERAGE, COUNT, MIN and MAX","Learn IF, AND, OR and IFERROR","Practise SUMIFS and COUNTIFS","Learn XLOOKUP, VLOOKUP and matching records","Sort, filter, remove duplicates and clean text","Learn Pivot Tables and grouping","Build charts, slicers and conditional formatting","Build a sales and transaction analysis workbook","Complete an Excel skills test without tutorials"]],
+["SQL",["Understand databases, tables, rows, columns and keys","Practise SELECT, DISTINCT and aliases","Learn WHERE and comparison operators","Practise LIKE, IN, NULL and ORDER BY","Learn COUNT, SUM, AVG, MIN and MAX","Practise GROUP BY and HAVING","Learn INNER JOIN","Learn LEFT JOIN and unmatched records","Practise CASE WHEN","Learn subqueries","Learn CTEs using WITH","Practise date functions and monthly reporting","Try ROW_NUMBER and RANK","Solve 15 business-oriented SQL questions","Complete a timed SQL assessment and review errors"]],
+["Power BI",["Install Power BI Desktop and explore the interface","Import CSV and Excel files","Clean data using Power Query","Learn data models and table relationships","Understand star schema basics and date tables","Learn measures versus calculated columns","Practise basic DAX: SUM, COUNTROWS and DIVIDE","Understand CALCULATE and filter context","Create bar, line, matrix and card visuals","Add slicers and report interactions","Design dashboard page one","Design dashboard page two","Write insights and business recommendations","Finish and present your dashboard without a tutorial"]],
+["APIs",["Understand HTTP, client-server concepts and REST APIs","Learn GET, POST, PUT, PATCH and DELETE","Understand JSON, status codes and headers","Make GET requests in Postman","Make POST requests and inspect responses","Learn parameters and authentication concepts","Write API requirements and acceptance criteria","Build a small Postman collection and test cases"]],
+["Portfolio",["Define your portfolio project's business problem","Create a synthetic fintech dataset and data dictionary","Analyse transactions with SQL","Write 10 additional SQL business queries","Build an Excel analysis and validation sheet","Build a Power BI dashboard","Refine KPIs and visual explanations","Write a BRD, user stories and acceptance criteria","Document the project and create screenshots","Prepare resume and LinkedIn project descriptions","Mock Excel and SQL interview","Mock BA, product and behavioural interview","Present your final project and assess career direction"]]
+];
+const phaseStarts=[1,11,26,40,48], dayList=document.getElementById('dayList');
+let state={days:{},projects:{},portfolio:{}};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem('techJourney60')||'{}'));}catch(e){}
+function save(){localStorage.setItem('techJourney60',JSON.stringify(state));updateProgress();}
+function allDays(){let a=[];tasks.forEach((p,pi)=>p[1].forEach((t,i)=>a.push({day:phaseStarts[pi]+i,phase:pi,title:t,phaseName:p[0]})));return a;}
+function updateProgress(){let n=Object.values(state.days||{}).filter(Boolean).length;document.getElementById('completedStat').textContent=n+'/60';document.getElementById('progressText').textContent=Math.round(n/60*100)+'%';document.getElementById('progressFill').style.width=(n/60*100)+'%';}
+function renderDays(){let f=document.getElementById('phaseFilter').value;dayList.innerHTML='';allDays().filter(x=>f==='all'||x.phase===Number(f)).forEach(x=>{let el=document.createElement('label');el.className='day'+(state.days[x.day]?' done':'');el.innerHTML=`<input type="checkbox" ${state.days[x.day]?'checked':''}><span><strong>Day ${x.day} · ${x.title}</strong><small>${x.phaseName} · 3-hour study target</small></span><span class="pill tag">${state.days[x.day]?'Done':'To do'}</span>`;el.querySelector('input').addEventListener('change',e=>{state.days[x.day]=e.target.checked;save();renderDays();});dayList.appendChild(el);});}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
+document.getElementById('phaseFilter').addEventListener('change',renderDays);
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Reset all 60-day progress in this browser?')){state.days={};save();renderDays();}});
+document.querySelectorAll('.projectcheck').forEach(c=>{c.checked=!!state.projects[c.dataset.project];c.addEventListener('change',()=>{state.projects[c.dataset.project]=c.checked;save();});});
+document.querySelectorAll('.portcheck').forEach((c,i)=>{c.checked=!!state.portfolio[i];c.addEventListener('change',()=>{state.portfolio[i]=c.checked;save();});});
+renderDays();updateProgress();
+</script>
+</body>
+</html>
