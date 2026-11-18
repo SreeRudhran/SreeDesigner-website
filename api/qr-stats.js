@@ -288,6 +288,25 @@ module.exports = async function handler(req, res) {
 
     let rawAction = String(body.action || 'qr_scans').trim().toLowerCase();
 
+    // 0. Batch Sync from Admin LocalStorage to prevent container restart count drops
+    if (rawAction === 'sync_events' && Array.isArray(body.events)) {
+      const currentEvents = loadPersistedEvents();
+      const map = new Map();
+      currentEvents.forEach(e => { if (e && e.id) map.set(e.id, e); });
+      body.events.forEach(e => { if (e && e.id) map.set(e.id, e); });
+      const merged = Array.from(map.values()).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+      inMemoryEvents = merged.slice(0, MAX_EVENTS);
+      persistEvents(inMemoryEvents);
+      const { stats, daily, hourly } = compileAnalytics(inMemoryEvents);
+      return sendJson(res, 200, {
+        success: true,
+        stats,
+        daily,
+        hourly,
+        events: inMemoryEvents
+      });
+    }
+
     // Map common aliases
     const aliasMap = {
       'qr_scan': 'qr_scans',

@@ -20,13 +20,11 @@ let qrAnalyticsData = null;
 let currentChartMode = 'daily';
 let currentEventFilter = 'all';
 
-// ─── INSTANT DASHBOARD INITIALIZATION (0MS LATENCY FROM LOCALSTORAGE) ────────
-function initQrDashboardFromLocal() {
-  const allEvents = getAllEvents();
-  if (!allEvents || allEvents.length === 0) return;
-
+// ─── INSTANT DASHBOARD INITIALIZATION & STATS ENGINE ─────────────────────────
+function computeStatsFromEvents(events) {
   const s = {
     qr_scans: 0,
+    shop_qr_scans: 0,
     total_interactions: 0,
     review_samalapuram: 0,
     review_karnempettai: 0,
@@ -34,16 +32,19 @@ function initQrDashboardFromLocal() {
     instagram_floater_click: 0,
     youtube_subscribe: 0,
     whatsapp_save: 0,
-    shop_qr_scans: 0
+    catalog_browse: 0
   };
 
-  allEvents.forEach(e => {
+  if (!Array.isArray(events)) return s;
+
+  events.forEach(e => {
     const act = (e.action || '').toLowerCase();
     const isScan = e.event_type === 'scan' || act === 'qr_scans';
     const ref = (e.ref || '').toLowerCase();
+    const channel = (e.channel || '').toLowerCase();
     if (isScan) {
       s.qr_scans++;
-      if (ref.includes('shop')) s.shop_qr_scans++;
+      if (ref.includes('shop') || channel.includes('shop') || channel.includes('standee')) s.shop_qr_scans++;
     } else {
       s.total_interactions++;
       if (act.includes('samalapuram')) s.review_samalapuram++;
@@ -52,12 +53,27 @@ function initQrDashboardFromLocal() {
       else if (act.includes('instagram')) s.instagram_follow++;
       else if (act.includes('youtube')) s.youtube_subscribe++;
       else if (act.includes('whatsapp') || act.includes('helpline')) s.whatsapp_save++;
+      else if (act.includes('catalog') || act.includes('browse')) s.catalog_browse++;
     }
   });
 
+  return s;
+}
+
+function setDashboardMetrics(s, enforceMonotonic = true) {
+  const getExistingNum = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    const txt = (el.textContent || '').replace(/,/g, '').trim();
+    return parseInt(txt) || 0;
+  };
+
   const setVal = (id, val) => {
     const el = document.getElementById(id);
-    if (el) el.textContent = (typeof val === 'number') ? val.toLocaleString('en-IN') : (val || 0);
+    if (!el) return;
+    const num = (typeof val === 'number') ? val : (parseInt(val) || 0);
+    const finalVal = enforceMonotonic ? Math.max(getExistingNum(id), num) : num;
+    el.textContent = finalVal.toLocaleString('en-IN');
   };
 
   setVal('metric_qr_scans', s.qr_scans);
@@ -69,6 +85,14 @@ function initQrDashboardFromLocal() {
   setVal('metric_instagram_floater_click', s.instagram_floater_click);
   setVal('metric_youtube_subscribe', s.youtube_subscribe);
   setVal('metric_whatsapp_save', s.whatsapp_save);
+}
+
+function initQrDashboardFromLocal() {
+  const allEvents = getAllEvents();
+  if (!allEvents || allEvents.length === 0) return;
+
+  const s = computeStatsFromEvents(allEvents);
+  setDashboardMetrics(s, false);
 
   const label = document.getElementById('qrLastUpdated');
   if (label && (!label.textContent || label.textContent.includes('Auto-updating'))) {
@@ -91,38 +115,52 @@ async function fetchLiveQrStats() {
     const res = await fetch('/api/qr-stats');
     const data = await res.json();
     if (res.ok && data.success) {
-      qrAnalyticsData = data;
-      const s = data.stats || {};
-      const setVal = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = (typeof val === 'number') ? val.toLocaleString('en-IN') : (val || 0);
+      // 1. Merge server events into local history and get the full unified list
+      const mergedEvents = (Array.isArray(data.events) && data.events.length > 0)
+        ? mergeLocalEvents(data.events)
+        : getAllEvents();
+
+      // 2. Compute true combined stats from the unified, de-duplicated events
+      const combinedStats = computeStatsFromEvents(mergedEvents);
+      const serverStats = data.stats || {};
+
+      // 3. Take the maximum between de-duplicated events and server stats
+      // This permanently solves the glitch where refreshing causes numbers to jump down
+      const safeStats = {
+        qr_scans: Math.max(combinedStats.qr_scans, serverStats.qr_scans || 0),
+        shop_qr_scans: Math.max(combinedStats.shop_qr_scans, serverStats.shop_qr_scans || 0),
+        total_interactions: Math.max(combinedStats.total_interactions, serverStats.total_interactions || 0),
+        review_samalapuram: Math.max(combinedStats.review_samalapuram, serverStats.review_samalapuram || 0),
+        review_karnempettai: Math.max(combinedStats.review_karnempettai, serverStats.review_karnempettai || 0),
+        instagram_follow: Math.max(combinedStats.instagram_follow, serverStats.instagram_follow || 0),
+        instagram_floater_click: Math.max(combinedStats.instagram_floater_click, serverStats.instagram_floater_click || 0),
+        youtube_subscribe: Math.max(combinedStats.youtube_subscribe, serverStats.youtube_subscribe || 0),
+        whatsapp_save: Math.max(combinedStats.whatsapp_save, serverStats.whatsapp_save || 0),
+        catalog_browse: Math.max(combinedStats.catalog_browse, serverStats.catalog_browse || 0)
       };
 
-      setVal('metric_qr_scans', s.qr_scans);
-      setVal('metric_total_interactions', s.total_interactions);
-      setVal('metric_review_samalapuram', s.review_samalapuram);
-      setVal('metric_review_karnempettai', s.review_karnempettai);
-      setVal('metric_instagram_follow', s.instagram_follow);
-      setVal('metric_instagram_floater_click', s.instagram_floater_click || 0);
-      setVal('metric_youtube_subscribe', s.youtube_subscribe);
-      setVal('metric_whatsapp_save', s.whatsapp_save);
+      qrAnalyticsData = {
+        ...data,
+        stats: safeStats,
+        events: mergedEvents
+      };
 
-      // Separate In-Shop QR Tracking (ref: shop_qr)
-      const allEvts = Array.isArray(data.events) && data.events.length > 0 ? data.events : getAllEvents();
-      const shopEvts = allEvts.filter(e => (e.ref && e.ref.toLowerCase().includes('shop')) || (e.channel && e.channel.toLowerCase().includes('shop')));
-      const shopScans = (s.shop_qr_scans && s.shop_qr_scans > 0) ? s.shop_qr_scans : shopEvts.filter(e => e.event_type === 'scan').length;
-      setVal('metric_shop_qr', shopScans);
+      setDashboardMetrics(safeStats, true);
 
-      // Merge & save events to localStorage so history persists permanently in the admin browser
-      if (Array.isArray(data.events) && data.events.length > 0) {
-        mergeLocalEvents(data.events);
+      // 4. Sync merged events back to serverless container if local has more events
+      if (Array.isArray(data.events) && mergedEvents.length > data.events.length) {
+        fetch('/api/qr-stats', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'sync_events', events: mergedEvents })
+        }).catch(() => {});
       }
 
       const now = new Date();
       if (label) label.textContent = 'Live • Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
       // Update Insights
-      updateQrInsights(data);
+      updateQrInsights(qrAnalyticsData);
 
       // Render Charts & Activity Table
       renderQrChart(currentChartMode);
@@ -138,6 +176,14 @@ function mergeLocalEvents(serverEvents) {
     const stored = JSON.parse(localStorage.getItem('sree_qr_events_history') || '[]');
     const map = new Map();
     stored.forEach(e => { if (e && e.id) map.set(e.id, e); });
+    serverEvents.forEach(e => { if (e && e.id) map.set(e.id, e); });
+    const merged = Array.from(map.values()).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+    localStorage.setItem('sree_qr_events_history', JSON.stringify(merged.slice(0, 500)));
+    return merged;
+  } catch(e) {
+    return serverEvents || [];
+  }
+}
     serverEvents.forEach(e => { if (e && e.id) map.set(e.id, e); });
     const merged = Array.from(map.values()).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
     localStorage.setItem('sree_qr_events_history', JSON.stringify(merged.slice(0, 300)));
