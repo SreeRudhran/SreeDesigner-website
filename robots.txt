@@ -4,6 +4,8 @@ Allow: /product-image/
 Allow: /api/product-image
 Allow: /api/merchant-feed
 Allow: /google-merchant-feed.xml
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
@@ -15,6 +17,8 @@ Allow: /product-image/
 Allow: /api/product-image
 Allow: /api/merchant-feed
 Allow: /google-merchant-feed.xml
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
@@ -36,30 +40,40 @@ Allow: /product-image/
 Allow: /api/product-image
 Allow: /api/merchant-feed
 Allow: /google-merchant-feed.xml
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Applebot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Slurp
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
@@ -67,72 +81,96 @@ Disallow: /api/
 # Generative AI & LLM Search Crawlers (GEO Optimization)
 User-agent: GPTBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Meta-ExternalAgent
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: cohere-ai
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: Bytespider
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
 
 User-agent: CCBot
 Allow: /
+Disallow: /internal/
+Disallow: /internal
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/

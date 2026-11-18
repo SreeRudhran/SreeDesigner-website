@@ -50,6 +50,14 @@
       "destination": "/connect.html"
     },
     {
+      "source": "/internal/tech-journey",
+      "destination": "/internal/tech-journey.html"
+    },
+    {
+      "source": "/internal/tech-journey/",
+      "destination": "/internal/tech-journey.html"
+    },
+    {
       "source": "/admin",
       "destination": "/admin.html"
     },
@@ -256,6 +264,19 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/internal/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     },
