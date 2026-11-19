@@ -1705,17 +1705,8 @@
             btn.classList.add('active');
             btn.setAttribute('aria-selected', 'true');
           }
-          var cards = document.querySelectorAll('.our-work-card');
-          for (var j = 0; j < cards.length; j++) {
-            var cardCat = (cards[j].getAttribute('data-category') || '').toLowerCase();
-            var catTokens = cardCat.split(/\s+/);
-            if (category === 'all' || catTokens.indexOf(category) !== -1 || cardCat.indexOf(category) !== -1) {
-              cards[j].classList.remove('is-hidden');
-              cards[j].style.setProperty('display', '', '');
-            } else {
-              cards[j].classList.add('is-hidden');
-              cards[j].style.setProperty('display', 'none', 'important');
-            }
+          if (typeof window.renderMainOurWork === 'function') {
+            window.renderMainOurWork(category);
           }
         }
         window.filterHomeCatalog = filterHomeCatalog;
@@ -3107,25 +3098,87 @@
 
       // Synchronize Live Featured Products from Unified Catalog Engine
       try {
-        function renderMainOurWork() {
+        function getItemCategories(item) {
+          const tagStr = (Array.isArray(item.tags) ? item.tags.join(' ') : (item.tags || '')).toLowerCase();
+          const titleStr = (item.title || '').toLowerCase();
+          const descStr = (item.description || '').toLowerCase();
+          const catStr = (item.category || '').toLowerCase();
+          const workStr = (item.work_type || '').toLowerCase();
+          const priceVal = parseFloat(item.starting_price) || 0;
+          const combined = `${catStr} ${workStr} ${tagStr} ${titleStr} ${descStr}`;
+
+          const cats = [];
+          // 1. Handwork & Aari
+          if (combined.includes('handwork') || combined.includes('hand') || combined.includes('aari') || combined.includes('maggam') || combined.includes('zardozi') || combined.includes('kundan') || combined.includes('needlework') || combined.includes('bead') || combined.includes('pearl')) {
+            cats.push('handwork');
+          }
+          // 2. Machine Embroidery
+          if (combined.includes('machine') || combined.includes('computer') || combined.includes('comput')) {
+            cats.push('machine-embroidery');
+          }
+          // 3. Bridal Blouses
+          if (combined.includes('bridal') || combined.includes('bride') || combined.includes('wedding') || combined.includes('muhurtham') || combined.includes('reception') || priceVal >= 2500) {
+            cats.push('bridal');
+          }
+          // 4. Daily Wear & Minimal Embroidery
+          if (priceVal <= 2400 || combined.includes('daily') || combined.includes('minimal') || combined.includes('simple') || combined.includes('basic') || combined.includes('office') || combined.includes('casual') || combined.includes('closure')) {
+            cats.push('daily-wear');
+          }
+          if (cats.length === 0) cats.push('handwork');
+          return cats;
+        }
+
+        function renderMainOurWork(selectedCat = 'all') {
           const row = document.getElementById('ourWorkRow');
           if (!row) return;
 
+          const all = (typeof window.getUnifiedCatalog === 'function') 
+            ? window.getUnifiedCatalog() 
+            : ((typeof MASTER_CATALOG !== 'undefined') ? MASTER_CATALOG : []);
+
+          if (!all || !all.length) return;
+
           let products = [];
-          if (typeof window.getFeaturedMainPageProducts === 'function') {
-            products = window.getFeaturedMainPageProducts(6);
-          } else if (typeof window.getUnifiedCatalog === 'function') {
-            const all = window.getUnifiedCatalog();
-            const feat = all.filter(i => (typeof window.isItemFeatured === 'function' ? window.isItemFeatured(i) : !!i.is_featured));
-            const nonFeat = all.filter(i => (typeof window.isItemFeatured === 'function' ? !window.isItemFeatured(i) : !i.is_featured));
-            products = feat.length >= 6 ? feat.slice(0, 6) : [...feat, ...nonFeat].slice(0, 6);
-          } else if (typeof MASTER_CATALOG !== 'undefined') {
-            const feat = MASTER_CATALOG.filter(i => !!i.is_featured);
-            const nonFeat = MASTER_CATALOG.filter(i => !i.is_featured);
-            products = feat.length >= 6 ? feat.slice(0, 6) : [...feat, ...nonFeat].slice(0, 6);
+
+          // 1. Check for Admin Curated Section Configuration
+          let customSecConfig = null;
+          try {
+            const raw = localStorage.getItem('sree_homepage_sections_config');
+            if (raw) customSecConfig = JSON.parse(raw);
+          } catch(e) {}
+
+          if (customSecConfig && Array.isArray(customSecConfig[selectedCat]) && customSecConfig[selectedCat].length > 0) {
+            const itemMap = new Map(all.map(i => [String(i.id), i]));
+            products = customSecConfig[selectedCat].map(id => itemMap.get(String(id))).filter(Boolean);
           }
 
-          if (!products || !products.length) return;
+          if (!products || !products.length) {
+            if (selectedCat === 'all') {
+            const feat = all.filter(i => (typeof window.isItemFeatured === 'function' ? window.isItemFeatured(i) : !!i.is_featured));
+            const machineItems = all.filter(i => getItemCategories(i).includes('machine-embroidery'));
+            const handItems = feat.filter(i => !getItemCategories(i).includes('machine-embroidery'));
+            // Curate a balanced showcase featuring both exquisite handwork and precision machine embroidery
+            if (machineItems.length > 0) {
+              products = [...handItems.slice(0, 4), ...machineItems.slice(0, 2)];
+            } else {
+              products = feat.slice(0, 6);
+            }
+            if (products.length < 6) {
+              const nonFeat = all.filter(i => !products.some(p => String(p.id) === String(i.id)));
+              products = [...products, ...nonFeat].slice(0, 6);
+            }
+          } else {
+            const matching = all.filter(i => getItemCategories(i).includes(selectedCat));
+            const feat = matching.filter(i => (typeof window.isItemFeatured === 'function' ? window.isItemFeatured(i) : !!i.is_featured));
+            const nonFeat = matching.filter(i => !feat.some(f => String(f.id) === String(i.id)));
+            products = [...feat, ...nonFeat].slice(0, 8);
+          }
+        }
+
+          if (!products || !products.length) {
+            row.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:48px 16px; color:#64748b;">No designs found in this category.</div>`;
+            return;
+          }
 
           row.innerHTML = products.map(item => {
             const title = (item.title || 'Bespoke Bridal Blouse').replace(/"/g, '&quot;');
@@ -3134,33 +3187,7 @@
             const safeSlug = encodeURIComponent(String(item.id || item.slug || ''));
             const waMsg = encodeURIComponent(`Hi Sree Designers, I would like to enquire about the ${item.title || 'Bridal Blouse'}.`);
             const igUrl = item.instagram_url ? item.instagram_url.replace(/"/g, '&quot;') : '';
-
-            const tagStr = (Array.isArray(item.tags) ? item.tags.join(' ') : (item.tags || '')).toLowerCase();
-            const titleStr = (item.title || '').toLowerCase();
-            const descStr = (item.description || '').toLowerCase();
-            const catStr = (item.category || '').toLowerCase();
-            const workStr = (item.work_type || '').toLowerCase();
-            const priceVal = parseFloat(item.starting_price) || 0;
-            const combined = `${catStr} ${workStr} ${tagStr} ${titleStr} ${descStr}`;
-
-            const cats = [];
-            // 1. Aari Work & Handwork ('handwork')
-            if (combined.includes('handwork') || combined.includes('hand') || combined.includes('aari') || combined.includes('maggam') || combined.includes('zardozi') || combined.includes('kundan') || combined.includes('needlework') || combined.includes('bead') || combined.includes('pearl')) {
-              cats.push('handwork');
-            }
-            // 2. Machine Embroidery ('machine-embroidery')
-            if (combined.includes('machine') || combined.includes('computer') || combined.includes('comput')) {
-              cats.push('machine-embroidery');
-            }
-            // 3. Bridal Blouses ('bridal')
-            if (combined.includes('bridal') || combined.includes('bride') || combined.includes('wedding') || combined.includes('muhurtham') || combined.includes('reception') || priceVal >= 2500) {
-              cats.push('bridal');
-            }
-            // 4. Daily Wear & Minimal Embroidery ('daily-wear')
-            if (priceVal <= 2400 || combined.includes('daily') || combined.includes('minimal') || combined.includes('simple') || combined.includes('basic') || combined.includes('office') || combined.includes('casual') || combined.includes('closure')) {
-              cats.push('daily-wear');
-            }
-            if (cats.length === 0) cats.push('handwork');
+            const cats = getItemCategories(item);
             const catAttr = cats.join(' ');
 
             return `
@@ -3194,16 +3221,28 @@
             `;
           }).join('');
 
-          // Preserve currently selected category tab if any
-          const activeTab = document.querySelector('.home-tab-pill.active');
-          if (activeTab && typeof window.filterHomeCatalog === 'function') {
-            const catMatch = (activeTab.getAttribute('onclick') || '').match(/filterHomeCatalog\('([^']+)'/);
-            const currentCat = catMatch ? catMatch[1] : 'all';
-            if (currentCat !== 'all') {
-              window.filterHomeCatalog(currentCat, activeTab);
+          // Update View Full Catalog button target dynamically based on current tab
+          const btnViewAll = document.querySelector('.btn-view-all-pill');
+          if (btnViewAll) {
+            if (selectedCat === 'machine-embroidery') {
+              btnViewAll.href = 'category?cat=Machine%20Embroidered%20Blouse';
+              btnViewAll.textContent = 'View All Machine Embroidery Designs →';
+            } else if (selectedCat === 'handwork') {
+              btnViewAll.href = 'category?cat=Hand%20Embroidered%20Blouses';
+              btnViewAll.textContent = 'View All Hand Embroidered Blouses →';
+            } else if (selectedCat === 'bridal') {
+              btnViewAll.href = 'category?cat=Bridal%20Blouse%20%26%20Maggam%20Work';
+              btnViewAll.textContent = 'View All Bridal Blouses →';
+            } else if (selectedCat === 'daily-wear') {
+              btnViewAll.href = 'category?cat=Kurtis%20%26%20Chudidhar';
+              btnViewAll.textContent = 'View All Daily & Minimal Designs →';
+            } else {
+              btnViewAll.href = 'category?cat=Bridal%20Blouse%20%26%20Maggam%20Work';
+              btnViewAll.textContent = 'View Full Catalog (21+ Designs) →';
             }
           }
         }
+        window.renderMainOurWork = renderMainOurWork;
 
         renderMainOurWork();
         window.addEventListener('load', renderMainOurWork);
