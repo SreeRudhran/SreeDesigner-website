@@ -31,8 +31,112 @@ function loadPersistedEvents() {
     }
   } catch(e) {}
 
-  // Initial historical events with rich attribution
+  // Initial historical events with rich attribution spanning atelier operations
   inMemoryEvents = [
+    {
+      id: 'evt-init-16',
+      action: 'review_samalapuram',
+      ref: 'shop_qr',
+      event_type: 'click',
+      label: '⭐ Google Review (Samalapuram Branch)',
+      channel: 'In-Studio Hub',
+      date: '2026-11-18',
+      time: '06:40:15 PM',
+      hour: 18,
+      device: 'Android Phone',
+      timestamp: '2026-11-18T13:10:15.000Z'
+    },
+    {
+      id: 'evt-init-15',
+      action: 'qr_scans',
+      ref: 'shop_qr',
+      event_type: 'scan',
+      label: '📱 In-Shop QR Scan (ref: shop_qr)',
+      channel: 'Counter Standee',
+      date: '2026-11-18',
+      time: '06:36:20 PM',
+      hour: 18,
+      device: 'Android Phone',
+      timestamp: '2026-11-18T13:06:20.000Z'
+    },
+    {
+      id: 'evt-init-14',
+      action: 'instagram_floater_click',
+      ref: 'homepage_floater',
+      event_type: 'click',
+      label: '📸 Homepage Floating Instagram Click',
+      channel: 'Homepage Floater',
+      date: '2026-11-17',
+      time: '08:14:22 PM',
+      hour: 20,
+      device: 'Apple iPhone',
+      timestamp: '2026-11-17T14:44:22.000Z'
+    },
+    {
+      id: 'evt-init-13',
+      action: 'qr_scans',
+      ref: 'shop_qr',
+      event_type: 'scan',
+      label: '📱 In-Shop QR Scan (ref: shop_qr)',
+      channel: 'Counter Standee',
+      date: '2026-11-17',
+      time: '05:22:11 PM',
+      hour: 17,
+      device: 'Apple iPhone',
+      timestamp: '2026-11-17T11:52:11.000Z'
+    },
+    {
+      id: 'evt-init-12',
+      action: 'youtube_subscribe',
+      ref: 'connect_hub',
+      event_type: 'click',
+      label: '▶️ YouTube Subscribe (@SreeDesignerss)',
+      channel: 'Connect Hub',
+      date: '2026-11-16',
+      time: '07:11:05 PM',
+      hour: 19,
+      device: 'Android Phone',
+      timestamp: '2026-11-16T13:41:05.000Z'
+    },
+    {
+      id: 'evt-init-11',
+      action: 'qr_scans',
+      ref: 'direct',
+      event_type: 'scan',
+      label: '🌐 Direct Connect Page Visit',
+      channel: 'Direct Link',
+      date: '2026-11-16',
+      time: '04:50:33 PM',
+      hour: 16,
+      device: 'Apple iPhone',
+      timestamp: '2026-11-16T11:20:33.000Z'
+    },
+    {
+      id: 'evt-init-10',
+      action: 'whatsapp_save',
+      ref: 'shop_qr',
+      event_type: 'click',
+      label: '💬 WhatsApp Save & Enquiry',
+      channel: 'WhatsApp',
+      date: '2026-11-16',
+      time: '04:52:19 PM',
+      hour: 16,
+      device: 'Apple iPhone',
+      timestamp: '2026-11-16T11:22:19.000Z'
+    },
+    {
+      id: 'evt-init-9',
+      action: 'qr_scans',
+      ref: 'shop_qr',
+      event_type: 'scan',
+      label: '📱 In-Shop QR Scan (ref: shop_qr)',
+      channel: 'Counter Standee',
+      date: '2026-11-16',
+      time: '03:15:02 PM',
+      hour: 15,
+      device: 'Android Phone',
+      timestamp: '2026-11-16T09:45:02.000Z'
+    },
     {
       id: 'evt-init-8',
       action: 'review_samalapuram',
