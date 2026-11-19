@@ -46,8 +46,37 @@ const MASTER_TAG_CONFIG = {
     "Puff Sleeve",
     "Cutwork",
     "V-Neck"
+  ],
+  trendingCuts: [
+    { title: "Boat Neck Designs", tag: "Boat Neck", enabled: true },
+    { title: "Puff Sleeve Blouses", tag: "Puff Sleeve", enabled: true },
+    { title: "V-Neck Maggam Blouses", tag: "V-Neck", enabled: true },
+    { title: "Cutwork Blouse Designs", tag: "Cutwork", enabled: true },
+    { title: "Off-Shoulder Blouses", tag: "Off-Shoulder", enabled: true },
+    { title: "Sweetheart Neck Blouses", tag: "Sweetheart Neck", enabled: true }
   ]
 };
+
+function getActiveTrendingCuts() {
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const saved = localStorage.getItem('sree_trending_cuts');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch(e) {}
+  }
+  return JSON.parse(JSON.stringify(MASTER_TAG_CONFIG.trendingCuts));
+}
+
+function saveActiveTrendingCuts(cuts) {
+  if (typeof localStorage !== 'undefined' && Array.isArray(cuts)) {
+    try {
+      localStorage.setItem('sree_trending_cuts', JSON.stringify(cuts));
+    } catch(e) {}
+  }
+}
 
 function getActiveTagConfig() {
   if (typeof localStorage !== 'undefined') {
@@ -937,6 +966,8 @@ if (typeof window !== 'undefined') {
   window.getFeaturedProductsForSection = getFeaturedProductsForSection;
   window.getFeaturedMainPageProducts = getFeaturedMainPageProducts;
   window.syncUnifiedCatalogFromCloud = syncUnifiedCatalogFromCloud;
+  window.getActiveTrendingCuts = getActiveTrendingCuts;
+  window.saveActiveTrendingCuts = saveActiveTrendingCuts;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -952,6 +983,8 @@ if (typeof module !== 'undefined' && module.exports) {
     toggleFeaturedItem,
     getFeaturedProductsForSection,
     getFeaturedMainPageProducts,
-    syncUnifiedCatalogFromCloud
+    syncUnifiedCatalogFromCloud,
+    getActiveTrendingCuts,
+    saveActiveTrendingCuts
   };
 }

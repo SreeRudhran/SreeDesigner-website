@@ -548,13 +548,9 @@
     <a href="category.html?cat=V-Neck" class="cat-pill" data-cat="V-Neck" style="font-weight:600; border-color:var(--gold);">✨ V-Neck</a>
   </div>
 
-  <!-- TRENDING DESIGN HUBS PILLS -->
-  <div class="cat-pills-bar" style="margin-top:-16px; margin-bottom:28px;">
-    <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-dark); display:flex; align-items:center; white-space:nowrap; padding-right:6px;">Trending Cuts:</span>
-    <a href="/designs/boat-neck-blouse-designs" class="cat-pill">Boat Neck Designs</a>
-    <a href="/designs/puff-sleeve-bridal-blouses" class="cat-pill">Puff Sleeve Blouses</a>
-    <a href="/designs/v-neck-maggam-work-blouses" class="cat-pill">V-Neck Maggam Blouses</a>
-    <a href="/designs/cutwork-blouse-back-neck-designs" class="cat-pill">Cutwork Blouse Designs</a>
+  <!-- TRENDING DESIGN HUBS PILLS (DYNAMICALLY MANAGED FROM ADMIN APP) -->
+  <div class="cat-pills-bar" id="trendingCutsPillsBar" style="margin-top:-16px; margin-bottom:28px;">
+    <!-- Populated dynamically by renderTrendingCutsPills() -->
   </div>
 
   <!-- PRODUCT SHOWCASE SECTION -->
@@ -648,6 +644,40 @@
       container.innerHTML = html;
     }
 
+    function renderTrendingCutsPills() {
+      const bar = document.getElementById('trendingCutsPillsBar');
+      if (!bar) return;
+      const cuts = (typeof getActiveTrendingCuts === 'function') 
+        ? getActiveTrendingCuts() 
+        : [
+            { title: "Boat Neck Designs", tag: "Boat Neck", enabled: true },
+            { title: "Puff Sleeve Blouses", tag: "Puff Sleeve", enabled: true },
+            { title: "V-Neck Maggam Blouses", tag: "V-Neck", enabled: true },
+            { title: "Cutwork Blouse Designs", tag: "Cutwork", enabled: true },
+            { title: "Off-Shoulder Blouses", tag: "Off-Shoulder", enabled: true },
+            { title: "Sweetheart Neck Blouses", tag: "Sweetheart Neck", enabled: true }
+          ];
+
+      const activeCuts = cuts.filter(c => c && c.enabled !== false);
+      if (!activeCuts.length) {
+        bar.style.display = 'none';
+        return;
+      }
+      bar.style.display = 'flex';
+
+      const params = new URLSearchParams(window.location.search);
+      const curCat = (params.get('cat') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+      let html = '<span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-dark); display:flex; align-items:center; white-space:nowrap; padding-right:6px;">Trending Cuts:</span>';
+      activeCuts.forEach(c => {
+        const targetTag = c.tag || c.title;
+        const norm = targetTag.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isActive = curCat === norm;
+        html += `<a href="category.html?cat=${encodeURIComponent(targetTag)}" class="cat-pill ${isActive ? 'active' : ''}">${escapeHtml(c.title || targetTag)}</a>\n`;
+      });
+      bar.innerHTML = html;
+    }
+
     function loadCategoryPage() {
       const params = new URLSearchParams(window.location.search);
       const rawCat = (params.get('cat') || 'Hand Embroidered Blouses').trim();
@@ -656,6 +686,7 @@
 
       // Render category & featured design pills dynamically
       renderCategoryPills(categoryName);
+      renderTrendingCutsPills();
 
       // Update Header Text & Meta (textContent and title are already XSS-safe text sinks)
       document.getElementById('breadcrumbCat').textContent = categoryName;
