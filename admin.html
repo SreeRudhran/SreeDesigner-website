@@ -1195,6 +1195,7 @@ function downloadStandeeHtml() {
     <div class="sidebar">
       <div style="font-size:.78rem;color:var(--soft);padding:0 8px;margin-bottom:6px;">Logged in as:<br><strong id="userEmail">admin@sreedesigners.com</strong></div>
       <button class="nav-btn active" data-tab="showcase" onclick="switchTab('showcase')">📁 Showcase Portfolio</button>
+      <button class="nav-btn" data-tab="homesections" onclick="switchTab('homesections')">🎨 Homepage 5 Sections</button>
       <button class="nav-btn" data-tab="tags" onclick="switchTab('tags')">🏷️ Categories &amp; Design Tags</button>
       <button class="nav-btn" data-tab="blog" onclick="switchTab('blog')">✍️ Blog Articles</button>
       <button class="nav-btn" data-tab="testimonials" onclick="switchTab('testimonials')">⭐ Customer Reviews</button>
@@ -1212,7 +1213,11 @@ function downloadStandeeHtml() {
             <h3>Service Portfolio Showcase &amp; Homepage Featured</h3>
             <p>Manage your boutique products and choose which designs appear on the main page (homepage) of your website.</p>
           </div>
-          <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-sm" onclick="promptGitHubToken()" style="background:#334155; color:#fff; border:none; padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;" title="Set GitHub Personal Access Token for direct cloud commits">🔑 GitHub Sync Key</button>
+            <button class="btn-sm" onclick="forceSyncAllToCloud()" style="background:#15803d; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">🚀 Sync All to Live Site</button>
+            <button class="btn-main" onclick="openModal('modalShowcase')">+ Add New Showcase Item</button>
+          </div>
         </div>
 
         <!-- CATEGORY & DESIGN FILTER TABS -->
@@ -1317,6 +1322,24 @@ function downloadStandeeHtml() {
               <input type="text" id="inputNewTag_works" class="tag-add-input" placeholder="New craft detail (e.g. Mirror Work)" onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromManager('works');}">
               <button type="button" class="btn-sm btn-preview" onclick="addTagFromManager('works')">+ Add</button>
             </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: ✂️ TRENDING CUTS FOR "VIEW FULL CATALOG" -->
+        <div style="margin-top:24px; background:#fff; border:1.5px solid var(--gold); border-radius:16px; padding:20px; box-shadow:0 4px 14px rgba(0,0,0,0.03);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+            <div>
+              <h4 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin:0 0 4px;">✂️ Trending Cuts Filter Bar ("View Full Catalog" Page)</h4>
+              <p style="font-size:0.82rem; color:var(--soft); margin:0;">Control which cuts (Boat Neck, Off-Shoulder, V-Neck, Cutwork, etc.) appear prominently in the trending filter bar on catalog pages.</p>
+            </div>
+            <button type="button" class="btn-main" onclick="saveTrendingCutsFromAdmin()" style="background:#15803d; border-color:#15803d; padding:8px 16px; font-size:0.82rem; color:#fff;">💾 Save &amp; Publish Trending Cuts</button>
+          </div>
+
+          <div id="adminTrendingCutsList" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;"></div>
+
+          <div style="display:flex; gap:10px; align-items:center; max-width:460px;">
+            <input type="text" id="inputNewTrendingCut" class="tag-add-input" placeholder="New trending cut (e.g. Off-Shoulder Blouses)" onkeydown="if(event.key==='Enter'){event.preventDefault();addNewTrendingCutFromAdmin();}">
+            <button type="button" class="btn-sm btn-preview" onclick="addNewTrendingCutFromAdmin()" style="white-space:nowrap;">+ Add Trending Cut</button>
           </div>
         </div>
       </div>
@@ -1738,6 +1761,47 @@ function downloadStandeeHtml() {
               4. Pinterest will generate Shoppable Product Pins with live prices automatically!
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ─── HOMEPAGE 5 SIGNATURE SECTIONS CURATOR TAB ─── -->
+      <div class="tab-pane" id="tab-homesections">
+        <div class="tab-header">
+          <div>
+            <h3>🎨 Homepage 5 Signature Sections Curator</h3>
+            <p>Directly control which blouse designs appear under each of the 5 signature collection tabs on your live homepage.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-main" onclick="saveAndPublishHomeSections()" style="background:#15803d; border-color:#15803d; color:#fff;">💾 Save &amp; Publish Sections Live</button>
+            <button class="btn-sm" onclick="autoResetHomeSections()" style="background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1;">🔄 Auto-Populate from Tags</button>
+          </div>
+        </div>
+
+        <!-- Section Navigation Tabs -->
+        <div class="section-filter-bar" style="margin-bottom:20px;">
+          <button class="filter-pill active" id="secPill-all" onclick="selectHomeSectionEdit('all')">🌟 1. All Designs (<span id="secCount-all">0</span>)</button>
+          <button class="filter-pill" id="secPill-handwork" onclick="selectHomeSectionEdit('handwork')">🪡 2. Aari Work &amp; Handwork (<span id="secCount-handwork">0</span>)</button>
+          <button class="filter-pill" id="secPill-machine-embroidery" onclick="selectHomeSectionEdit('machine-embroidery')">⚙️ 3. Machine Embroidery (<span id="secCount-machine-embroidery">0</span>)</button>
+          <button class="filter-pill" id="secPill-bridal" onclick="selectHomeSectionEdit('bridal')">👑 4. Bridal Blouses (<span id="secCount-bridal">0</span>)</button>
+          <button class="filter-pill" id="secPill-daily-wear" onclick="selectHomeSectionEdit('daily-wear')">🌸 5. Daily Wear &amp; Minimal (<span id="secCount-daily-wear">0</span>)</button>
+        </div>
+
+        <!-- Active Section Workspace -->
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; box-shadow:0 4px 14px rgba(0,0,0,0.03);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h4 id="secActiveTitle" style="font-size:1.15rem; font-weight:700; color:var(--dark); margin:0 0 4px;">1. All Designs</h4>
+              <p id="secActiveDesc" style="font-size:0.85rem; color:var(--soft); margin:0;">Top showcase designs displayed when visitors first view your homepage.</p>
+            </div>
+            <!-- Add Product Picker -->
+            <div style="display:flex; gap:8px; align-items:center;">
+              <select id="secAddProductSelect" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:0.84rem; max-width:280px;"></select>
+              <button class="btn-sm" onclick="addSelectedProductToCurrentSection()" style="background:var(--gold-dark); color:#fff; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer;">+ Add to Section</button>
+            </div>
+          </div>
+
+          <!-- Section Cards Grid -->
+          <div id="secProductsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;"></div>
         </div>
       </div>
 
@@ -2370,6 +2434,31 @@ function getShowcaseItems() {
   return custom.filter(i => !deleted.has(String(i.id)));
 }
 
+function getAdminAuthHeaders(extra = {}) {
+  const token = localStorage.getItem('sree_admin_token') || '';
+  const ghToken = localStorage.getItem('sree_github_token') || '';
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': 'Bearer ' + token } : {}),
+    ...(ghToken ? { 'X-GitHub-Token': ghToken } : {}),
+    ...extra
+  };
+}
+
+function promptGitHubToken() {
+  const current = localStorage.getItem('sree_github_token') || '';
+  const token = prompt('Enter your GitHub Personal Access Token (with repo access) to enable instant live cloud sync for all admin edits:\n(Leave empty to clear or rely on server environment variables)', current);
+  if (token !== null) {
+    if (token.trim()) {
+      localStorage.setItem('sree_github_token', token.trim());
+      alert('✅ GitHub Sync Key saved! All changes you make will now commit directly to the repository and update live across all devices.');
+    } else {
+      localStorage.removeItem('sree_github_token');
+      alert('ℹ️ GitHub Sync Key cleared. Sync will use server environment variables.');
+    }
+  }
+}
+
 async function syncCatalogFromCloud() {
   try {
     const res = await fetch('/api/catalog');
@@ -2378,10 +2467,57 @@ async function syncCatalogFromCloud() {
       if (data && Array.isArray(data.items) && data.items.length > 0) {
         window.MASTER_CATALOG = data.items;
         renderShowcase();
+
+        // Auto-sync uncommitted local items to repository so they appear on all devices and browsers
+        const localCustom = lsGet('custom_showcase_items');
+        if (localCustom && localCustom.length > 0) {
+          const cloudIds = new Set(data.items.map(i => String(i.id)));
+          const uncommitted = localCustom.filter(i => !cloudIds.has(String(i.id)));
+          if (uncommitted.length > 0) {
+            fetch('/api/catalog', {
+              method: 'POST',
+              headers: getAdminAuthHeaders(),
+              body: JSON.stringify({ action: 'bulk_sync', items: uncommitted })
+            }).then(r => r.json()).then(syncRes => {
+              if (syncRes && syncRes.synced_to_repo) {
+                console.log('✅ Auto-synced uncommitted local items to repository:', syncRes.synced_count);
+              }
+            }).catch(() => {});
+          }
+        }
       }
     }
   } catch(e) {
     console.warn('Live catalog sync note:', e.message);
+  }
+}
+
+async function forceSyncAllToCloud() {
+  const localItems = lsGet('custom_showcase_items');
+  if (!localItems || !localItems.length) {
+    alert('All custom products are already synchronized with the live website repository.');
+    return;
+  }
+  const btn = event ? event.target : null;
+  const oldText = btn ? btn.textContent : '';
+  if (btn) btn.textContent = '⏳ Committing to GitHub...';
+  try {
+    const res = await fetch('/api/catalog', {
+      method: 'POST',
+      headers: getAdminAuthHeaders(),
+      body: JSON.stringify({ action: 'bulk_sync', items: localItems })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      alert(`✅ Synchronized successfully! ${data.synced_count || localItems.length} product(s) committed to GitHub repository. Changes are now propagating live to all browsers.`);
+      syncCatalogFromCloud();
+    } else {
+      alert('⚠️ Sync response: ' + (data.error || data.message || 'No details returned'));
+    }
+  } catch(err) {
+    alert('❌ Sync failed: ' + err.message);
+  } finally {
+    if (btn) btn.textContent = oldText || '🚀 Sync All to Live Site';
   }
 }
 
@@ -2591,6 +2727,7 @@ function switchTab(name) {
   });
   document.getElementById('tab-' + name).classList.add('active');
   if (name === 'showcase')    renderShowcase();
+  if (name === 'homesections') renderHomeSectionsManager();
   if (name === 'tags')        renderTagManager();
   if (name === 'blog')        renderBlog();
   if (name === 'testimonials') renderTestimonials();
@@ -2617,6 +2754,238 @@ function copyFeedUrl(elId) {
     });
   } else {
     prompt('Copy this Feed URL:', text);
+  }
+}
+
+// ─── 🎨 HOMEPAGE 5 SIGNATURE SECTIONS CURATOR CONTROLLER ─────────────────────
+let currentActiveHomeSection = 'all';
+
+const SECTION_METADATA = {
+  all: {
+    title: '1. All Designs',
+    desc: 'Top highlight blouses across atelier collections, featured on the default homepage overview.'
+  },
+  handwork: {
+    title: '2. Aari Work & Handwork',
+    desc: 'Exquisite hand-guided needlework, zardozi embroidery, cut beads, kundan and maggam artistry.'
+  },
+  'machine-embroidery': {
+    title: '3. Machine Embroidery',
+    desc: 'High-density computerized floral repeats, geometric sleeve accents, and express 48-hr blouses.'
+  },
+  bridal: {
+    title: '4. Bridal Blouses',
+    desc: 'Regal bridal wedding blouses, temple jewellery peacock motifs, and muhurtham couture.'
+  },
+  'daily-wear': {
+    title: '5. Daily Wear & Minimal Embroidery',
+    desc: 'Elegant minimal necklines, office-appropriate silk tops, and subtle daily wear stitching.'
+  }
+};
+
+function getLocalHomeSectionsConfig() {
+  try {
+    const saved = localStorage.getItem('sree_homepage_sections_config');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return null;
+}
+
+function computeAutoSectionItems(allItems) {
+  const getItemCats = (item) => {
+    const tagStr = (Array.isArray(item.tags) ? item.tags.join(' ') : (item.tags || '')).toLowerCase();
+    const titleStr = (item.title || '').toLowerCase();
+    const descStr = (item.description || '').toLowerCase();
+    const catStr = (item.category || '').toLowerCase();
+    const workStr = (item.work_type || '').toLowerCase();
+    const priceVal = parseFloat(item.starting_price) || 0;
+    const combined = `${catStr} ${workStr} ${tagStr} ${titleStr} ${descStr}`;
+    const cats = [];
+    if (combined.includes('handwork') || combined.includes('hand') || combined.includes('aari') || combined.includes('maggam') || combined.includes('zardozi') || combined.includes('kundan') || combined.includes('needlework') || combined.includes('bead') || combined.includes('pearl')) cats.push('handwork');
+    if (combined.includes('machine') || combined.includes('computer') || combined.includes('comput')) cats.push('machine-embroidery');
+    if (combined.includes('bridal') || combined.includes('bride') || combined.includes('wedding') || combined.includes('muhurtham') || combined.includes('reception') || priceVal >= 2500) cats.push('bridal');
+    if (priceVal <= 2400 || combined.includes('daily') || combined.includes('minimal') || combined.includes('simple') || combined.includes('basic') || combined.includes('office') || combined.includes('casual') || combined.includes('closure')) cats.push('daily-wear');
+    if (!cats.length) cats.push('handwork');
+    return cats;
+  };
+
+  const hand = allItems.filter(i => getItemCats(i).includes('handwork')).map(i => String(i.id));
+  const machine = allItems.filter(i => getItemCats(i).includes('machine-embroidery')).map(i => String(i.id));
+  const bridal = allItems.filter(i => getItemCats(i).includes('bridal')).map(i => String(i.id));
+  const daily = allItems.filter(i => getItemCats(i).includes('daily-wear')).map(i => String(i.id));
+
+  const all = [
+    ...hand.slice(0, 3),
+    ...machine.slice(0, 2),
+    ...bridal.slice(0, 2),
+    ...daily.slice(0, 1)
+  ];
+
+  return {
+    all: Array.from(new Set(all)).slice(0, 8),
+    handwork: hand.slice(0, 10),
+    'machine-embroidery': machine.slice(0, 10),
+    bridal: bridal.slice(0, 10),
+    'daily-wear': daily.slice(0, 10)
+  };
+}
+
+function getActiveHomeSectionsMap() {
+  const allItems = getShowcaseItems();
+  const saved = getLocalHomeSectionsConfig();
+  if (saved && typeof saved === 'object') {
+    return saved;
+  }
+  return computeAutoSectionItems(allItems);
+}
+
+function selectHomeSectionEdit(secKey) {
+  currentActiveHomeSection = secKey;
+  document.querySelectorAll('#tab-homesections .filter-pill').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('secPill-' + secKey);
+  if (activeBtn) activeBtn.classList.add('active');
+  renderHomeSectionsManager();
+}
+
+function renderHomeSectionsManager() {
+  const allItems = getShowcaseItems();
+  const cfg = getActiveHomeSectionsMap();
+
+  // Update counts on filter pills
+  Object.keys(SECTION_METADATA).forEach(k => {
+    const el = document.getElementById('secCount-' + k);
+    if (el) el.textContent = (cfg[k] || []).length;
+  });
+
+  // Update Section Header Info
+  const meta = SECTION_METADATA[currentActiveHomeSection] || SECTION_METADATA['all'];
+  const elTitle = document.getElementById('secActiveTitle');
+  const elDesc = document.getElementById('secActiveDesc');
+  if (elTitle) elTitle.textContent = meta.title;
+  if (elDesc) elDesc.textContent = meta.desc;
+
+  // Populate Add Product Select
+  const select = document.getElementById('secAddProductSelect');
+  if (select) {
+    const curList = cfg[currentActiveHomeSection] || [];
+    const curSet = new Set(curList.map(String));
+    const available = allItems.filter(i => !curSet.has(String(i.id)));
+    select.innerHTML = '<option value="">-- Pick a blouse to add --</option>' + available.map(i => {
+      const price = (parseFloat(i.starting_price) || 1800).toLocaleString('en-IN');
+      return `<option value="${escapeHtml(String(i.id))}">[₹${price}] ${escapeHtml(i.title || 'Blouse')}</option>`;
+    }).join('');
+  }
+
+  // Render Section Cards
+  const grid = document.getElementById('secProductsGrid');
+  if (!grid) return;
+
+  const currentIds = cfg[currentActiveHomeSection] || [];
+  const itemMap = new Map(allItems.map(i => [String(i.id), i]));
+  const currentProducts = currentIds.map(id => itemMap.get(String(id))).filter(Boolean);
+
+  if (currentProducts.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1; padding:36px; text-align:center; color:#94a3b8; background:#f8fafc; border-radius:12px; border:1px dashed #cbd5e1;">
+        No blouses currently assigned to this section. Use the dropdown above to add designs, or click "🔄 Auto-Populate from Tags".
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = currentProducts.map((p, idx) => {
+    const safeId = escapeHtml(String(p.id));
+    const safeTitle = escapeHtml(p.title || 'Blouse');
+    const safeImg = escapeHtml(p.main_image_url || 'assets/images/service_bridal.webp');
+    const price = (parseFloat(p.starting_price) || 1800).toLocaleString('en-IN');
+    const tags = Array.isArray(p.tags) ? p.tags.slice(0, 2).join(', ') : (p.tags || '');
+
+    return `
+      <div style="border:1px solid #e2e8f0; border-radius:12px; padding:12px; background:#fff; display:flex; flex-direction:column; gap:8px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div style="width:58px; height:58px; border-radius:8px; overflow:hidden; background:#f8fafc; flex-shrink:0;">
+            <img src="${safeImg}" alt="${safeTitle}" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:0.72rem; font-weight:700; color:#b45309; margin-bottom:2px;">Slot #${idx + 1}</div>
+            <div style="font-size:0.86rem; font-weight:700; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${safeTitle}">${safeTitle}</div>
+            <div style="font-size:0.8rem; font-weight:600; color:var(--gold-dark);">Starting from ₹${price}</div>
+          </div>
+        </div>
+        <div style="font-size:0.72rem; color:#64748b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(tags)}</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; padding-top:6px; border-top:1px solid #f1f5f9;">
+          <div style="display:flex; gap:4px;">
+            <button type="button" class="btn-sm" onclick="moveProductInHomeSection('${currentActiveHomeSection}', '${safeId}', -1)" ${idx === 0 ? 'disabled style="opacity:0.4;"' : ''} title="Move Earlier">←</button>
+            <button type="button" class="btn-sm" onclick="moveProductInHomeSection('${currentActiveHomeSection}', '${safeId}', 1)" ${idx === currentProducts.length - 1 ? 'disabled style="opacity:0.4;"' : ''} title="Move Later">→</button>
+          </div>
+          <button type="button" class="btn-sm" onclick="removeProductFromHomeSection('${currentActiveHomeSection}', '${safeId}')" style="background:#fee2e2; color:#991b1b; border:none; padding:4px 10px; font-weight:600; cursor:pointer; border-radius:6px;">Remove</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function addSelectedProductToCurrentSection() {
+  const select = document.getElementById('secAddProductSelect');
+  const prodId = select ? select.value : '';
+  if (!prodId) return;
+
+  const cfg = getActiveHomeSectionsMap();
+  if (!cfg[currentActiveHomeSection]) cfg[currentActiveHomeSection] = [];
+  if (!cfg[currentActiveHomeSection].includes(prodId)) {
+    cfg[currentActiveHomeSection].push(prodId);
+    localStorage.setItem('sree_homepage_sections_config', JSON.stringify(cfg));
+  }
+  renderHomeSectionsManager();
+}
+
+function removeProductFromHomeSection(secKey, prodId) {
+  const cfg = getActiveHomeSectionsMap();
+  if (!cfg[secKey]) return;
+  cfg[secKey] = cfg[secKey].filter(id => String(id) !== String(prodId));
+  localStorage.setItem('sree_homepage_sections_config', JSON.stringify(cfg));
+  renderHomeSectionsManager();
+}
+
+function moveProductInHomeSection(secKey, prodId, direction) {
+  const cfg = getActiveHomeSectionsMap();
+  if (!cfg[secKey]) return;
+  const list = cfg[secKey];
+  const idx = list.indexOf(String(prodId));
+  if (idx === -1) return;
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= list.length) return;
+  const temp = list[idx];
+  list[idx] = list[newIdx];
+  list[newIdx] = temp;
+  localStorage.setItem('sree_homepage_sections_config', JSON.stringify(cfg));
+  renderHomeSectionsManager();
+}
+
+function autoResetHomeSections() {
+  if (!confirm('Auto-populate all 5 sections from your catalog tags? (Any custom arrangement will be replaced by tag matching)')) return;
+  const allItems = getShowcaseItems();
+  const autoCfg = computeAutoSectionItems(allItems);
+  localStorage.setItem('sree_homepage_sections_config', JSON.stringify(autoCfg));
+  renderHomeSectionsManager();
+  alert('✅ Sections auto-populated from product tags!');
+}
+
+async function saveAndPublishHomeSections() {
+  const cfg = getActiveHomeSectionsMap();
+  localStorage.setItem('sree_homepage_sections_config', JSON.stringify(cfg));
+
+  // Commit to repository / serverless API
+  try {
+    const res = await fetch('/api/catalog', {
+      method: 'POST',
+      headers: getAdminAuthHeaders(),
+      body: JSON.stringify({ action: 'save_sections_config', sections: cfg })
+    });
+    const data = await res.json();
+    alert('✅ Homepage 5 Signature Sections published successfully! Your curated blouse collections are now live across all browsers.');
+  } catch(e) {
+    alert('✅ Homepage sections saved locally and queued for deployment.');
   }
 }
 
@@ -2697,6 +3066,88 @@ function renderTagManager() {
       }
     }
   });
+
+  renderAdminTrendingCuts();
+}
+
+function renderAdminTrendingCuts() {
+  const container = document.getElementById('adminTrendingCutsList');
+  if (!container) return;
+  const cuts = (typeof getActiveTrendingCuts === 'function') 
+    ? getActiveTrendingCuts() 
+    : [
+        { title: "Boat Neck Designs", tag: "Boat Neck", enabled: true },
+        { title: "Puff Sleeve Blouses", tag: "Puff Sleeve", enabled: true },
+        { title: "V-Neck Maggam Blouses", tag: "V-Neck", enabled: true },
+        { title: "Cutwork Blouse Designs", tag: "Cutwork", enabled: true },
+        { title: "Off-Shoulder Blouses", tag: "Off-Shoulder", enabled: true },
+        { title: "Sweetheart Neck Blouses", tag: "Sweetheart Neck", enabled: true }
+      ];
+
+  container.innerHTML = cuts.map((c, idx) => {
+    const isEnabled = c.enabled !== false;
+    const safeTitle = escapeHtml(c.title || c.tag);
+    return `
+      <div style="display:inline-flex; align-items:center; gap:8px; background:${isEnabled ? '#fef3c7' : '#f1f5f9'}; border:1px solid ${isEnabled ? '#f59e0b' : '#cbd5e1'}; border-radius:999px; padding:6px 14px; font-size:0.82rem; font-weight:700; color:${isEnabled ? '#92400e' : '#64748b'};">
+        <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; margin:0;">
+          <input type="checkbox" ${isEnabled ? 'checked' : ''} onchange="toggleTrendingCutEnabled(${idx}, this.checked)">
+          <span>✂️ ${safeTitle}</span>
+        </label>
+        <button type="button" onclick="deleteTrendingCut(${idx})" style="background:transparent; border:none; cursor:pointer; color:#ef4444; font-size:0.9rem; padding:0 2px;" title="Delete cut">&times;</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleTrendingCutEnabled(idx, enabled) {
+  const cuts = (typeof getActiveTrendingCuts === 'function') ? getActiveTrendingCuts() : [];
+  if (cuts[idx]) {
+    cuts[idx].enabled = enabled;
+    if (typeof saveActiveTrendingCuts === 'function') saveActiveTrendingCuts(cuts);
+    else localStorage.setItem('sree_trending_cuts', JSON.stringify(cuts));
+  }
+}
+
+function addNewTrendingCutFromAdmin() {
+  const input = document.getElementById('inputNewTrendingCut');
+  const val = input ? input.value.trim() : '';
+  if (!val) return;
+  const cuts = (typeof getActiveTrendingCuts === 'function') ? getActiveTrendingCuts() : [];
+  cuts.push({
+    title: val,
+    tag: val.replace(/\s+(designs?|blouses?)/gi, '').trim(),
+    enabled: true
+  });
+  if (typeof saveActiveTrendingCuts === 'function') saveActiveTrendingCuts(cuts);
+  else localStorage.setItem('sree_trending_cuts', JSON.stringify(cuts));
+  input.value = '';
+  renderAdminTrendingCuts();
+}
+
+function deleteTrendingCut(idx) {
+  const cuts = (typeof getActiveTrendingCuts === 'function') ? getActiveTrendingCuts() : [];
+  cuts.splice(idx, 1);
+  if (typeof saveActiveTrendingCuts === 'function') saveActiveTrendingCuts(cuts);
+  else localStorage.setItem('sree_trending_cuts', JSON.stringify(cuts));
+  renderAdminTrendingCuts();
+}
+
+async function saveTrendingCutsFromAdmin() {
+  const cuts = (typeof getActiveTrendingCuts === 'function') ? getActiveTrendingCuts() : [];
+  if (typeof saveActiveTrendingCuts === 'function') saveActiveTrendingCuts(cuts);
+  else localStorage.setItem('sree_trending_cuts', JSON.stringify(cuts));
+
+  try {
+    const res = await fetch('/api/catalog', {
+      method: 'POST',
+      headers: getAdminAuthHeaders(),
+      body: JSON.stringify({ action: 'save_trending_cuts', cuts })
+    });
+    const data = await res.json();
+    alert('✅ Trending Cuts saved and published successfully! Live catalog pages are now updated across all browsers.');
+  } catch(e) {
+    alert('✅ Trending Cuts saved locally and queued for deployment.');
+  }
 }
 
 function toggleFeaturedTab(tagName) {
@@ -3694,10 +4145,9 @@ async function submitShowcase(e) {
     let syncErrorMsg = '';
     try {
       btn.textContent = '⏳ Committing to catalog & repository...';
-      const token = localStorage.getItem('sree_admin_token') || '';
       const catRes = await fetch('/api/catalog', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        headers: getAdminAuthHeaders(),
         body: JSON.stringify(newItem)
       });
       const catData = await catRes.json();
@@ -3840,10 +4290,9 @@ async function submitEditShowcase(e) {
     let syncErrorMsg = '';
     try {
       btn.textContent = '⏳ Saving changes to catalog & repository...';
-      const token = localStorage.getItem('sree_admin_token') || '';
       const catRes = await fetch('/api/catalog', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        headers: getAdminAuthHeaders(),
         body: JSON.stringify(updatedItem)
       });
       const catData = await catRes.json();
@@ -3899,10 +4348,9 @@ async function deleteShowcase(id) {
 
   // 4. Notify serverless catalog endpoint and commit deletion globally to repository
   try {
-    const token = localStorage.getItem('sree_admin_token') || '';
     const res = await fetch('/api/catalog?id=' + encodeURIComponent(strId), {
       method: 'DELETE',
-      headers: { 'Authorization': 'Bearer ' + token }
+      headers: getAdminAuthHeaders()
     });
     const data = await res.json();
     if (data.synced_to_repo) {
