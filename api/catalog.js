@@ -276,221 +276,220 @@ module.exports = async function handler(req, res) {
     return res.end();
   }
 
-  const ghToken = getGitHubToken(req);
+  try {
+    const ghToken = getGitHubToken(req);
 
-  // ─── 1. GET: Return catalog items ──────────────────────────────────────────
-  if (req.method === 'GET') {
-    // Check in-memory cache
-    if (catalogCache && (Date.now() - catalogCacheTime < CACHE_TTL_MS)) {
-      return sendJson(res, 200, { success: true, source: 'cache', items: catalogCache });
+    // ─── 1. GET: Return catalog items ──────────────────────────────────────────
+    if (req.method === 'GET') {
+      // Check in-memory cache
+      if (catalogCache && (Date.now() - catalogCacheTime < CACHE_TTL_MS)) {
+        return sendJson(res, 200, { success: true, source: 'cache', items: catalogCache });
+      }
+
+      const { items, source } = await getLiveCatalogData(ghToken);
+      if (items.length > 0) {
+        catalogCache = items;
+        catalogCacheTime = Date.now();
+        return sendJson(res, 200, { success: true, source, items });
+      }
+
+      const fallbackItems = (staticCatalog && staticCatalog.MASTER_CATALOG) ? staticCatalog.MASTER_CATALOG : [];
+      return sendJson(res, 200, {
+        success: true,
+        source: 'local_master',
+        items: fallbackItems,
+        message: 'Catalog sync endpoint active.'
+      });
     }
 
-    const { items, source } = await getLiveCatalogData(ghToken);
-    if (items.length > 0) {
-      catalogCache = items;
-      catalogCacheTime = Date.now();
-      return sendJson(res, 200, { success: true, source, items });
+    // ─── AUTH CHECK FOR MUTATIONS ───────────────────────────────────────────────
+    const authHeader = req.headers.authorization || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '');
+    const session = verifySessionToken(token);
+
+    if (!session) {
+      return sendJson(res, 401, { error: 'Unauthorized. Admin session required.' });
     }
 
-    const fallbackItems = (staticCatalog && staticCatalog.MASTER_CATALOG) ? staticCatalog.MASTER_CATALOG : [];
-    return sendJson(res, 200, {
-      success: true,
-      source: 'local_master',
-      items: fallbackItems,
-      message: 'Catalog sync endpoint active.'
-    });
-  }
+    // ─── 2. POST / PUT: Create or Update Product ───────────────────────────────
+    if (req.method === 'POST' || req.method === 'PUT') {
+      try {
+        const body = await parseBody(req);
 
-  // ─── AUTH CHECK FOR MUTATIONS ───────────────────────────────────────────────
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.replace(/^Bearer\s+/i, '');
-  const session = verifySessionToken(token);
+        // A. Bulk Sync Action from Admin Browser
+        if (body.action === 'bulk_sync' && Array.isArray(body.items)) {
+          const { items, content, sha } = await getLiveCatalogData(ghToken);
+          let workingItems = [...items];
+          const existingMap = new Map(workingItems.map(i => [String(i.id), i]));
+          let additionsCount = 0;
 
-  if (!session) {
-    return sendJson(res, 401, { error: 'Unauthorized. Admin session required.' });
-  }
+          body.items.forEach(it => {
+            if (!it || !it.id || !it.title) return;
+            const clean = {
+              id: String(it.id),
+              title: sanitizeCatalogText(it.title),
+              slug: it.slug || it.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+              description: sanitizeCatalogText(it.description || ''),
+              starting_price: parseFloat(it.starting_price) || 2800,
+              main_image_url: it.main_image_url || '',
+              tags: Array.isArray(it.tags) ? it.tags : [it.tags || 'Hand Embroidered Blouses'],
+              images: Array.isArray(it.images) ? it.images : [],
+              instagram_url: it.instagram_url || '',
+              is_published: it.is_published !== false,
+              is_featured: !!it.is_featured,
+              updated_at: it.updated_at || new Date().toISOString()
+            };
+            if (!existingMap.has(clean.id)) {
+              existingMap.set(clean.id, clean);
+              workingItems.unshift(clean);
+              additionsCount++;
+            }
+          });
 
-  // ─── 2. POST / PUT: Create or Update Product ───────────────────────────────
-  if (req.method === 'POST' || req.method === 'PUT') {
-    try {
-      const body = await parseBody(req);
-
-      // A. Bulk Sync Action from Admin Browser
-      if (body.action === 'bulk_sync' && Array.isArray(body.items)) {
-        const { items, content, sha } = await getLiveCatalogData(ghToken);
-        let workingItems = [...items];
-        const existingMap = new Map(workingItems.map(i => [String(i.id), i]));
-        let additionsCount = 0;
-
-        body.items.forEach(it => {
-          if (!it || !it.id || !it.title) return;
-          const clean = {
-            id: String(it.id),
-            title: sanitizeCatalogText(it.title),
-            slug: it.slug || it.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-            description: sanitizeCatalogText(it.description || ''),
-            starting_price: parseFloat(it.starting_price) || 2800,
-            main_image_url: it.main_image_url || '',
-            tags: Array.isArray(it.tags) ? it.tags : [it.tags || 'Hand Embroidered Blouses'],
-            images: Array.isArray(it.images) ? it.images : [],
-            instagram_url: it.instagram_url || '',
-            is_published: it.is_published !== false,
-            is_featured: !!it.is_featured,
-            updated_at: it.updated_at || new Date().toISOString()
-          };
-          if (!existingMap.has(clean.id)) {
-            existingMap.set(clean.id, clean);
-            workingItems.unshift(clean);
-            additionsCount++;
+          if (additionsCount > 0) {
+            catalogCache = workingItems;
+            catalogCacheTime = Date.now();
+            const commitMsg = `admin(catalog): bulk sync ${additionsCount} item(s) from admin session`;
+            const commitRes = await commitCatalogToGitHub(workingItems, commitMsg, sha, content, ghToken);
+            return sendJson(res, 200, {
+              success: true,
+              synced_count: additionsCount,
+              total_items: workingItems.length,
+              synced_to_repo: commitRes.success,
+              commit_sha: commitRes.commit_sha
+            });
           }
-        });
 
-        if (additionsCount > 0) {
+          return sendJson(res, 200, { success: true, message: 'All items already up to date in cloud catalog.', total_items: workingItems.length });
+        }
+
+        // B. Toggle Featured Action
+        if (body.action === 'toggle_featured' && body.id) {
+          const { items, content, sha } = await getLiveCatalogData(ghToken);
+          let workingItems = [...items];
+          const target = workingItems.find(i => String(i.id) === String(body.id));
+          if (!target) {
+            return sendJson(res, 404, { error: 'Item not found in catalog' });
+          }
+          target.is_featured = typeof body.is_featured === 'boolean' ? body.is_featured : !target.is_featured;
+          target.updated_at = new Date().toISOString();
+
           catalogCache = workingItems;
           catalogCacheTime = Date.now();
-          const commitMsg = `admin(catalog): bulk sync ${additionsCount} item(s) from admin session`;
+          const commitMsg = `admin(catalog): set featured=${target.is_featured} on "${target.title}"`;
           const commitRes = await commitCatalogToGitHub(workingItems, commitMsg, sha, content, ghToken);
           return sendJson(res, 200, {
             success: true,
-            synced_count: additionsCount,
-            total_items: workingItems.length,
+            item: target,
             synced_to_repo: commitRes.success,
             commit_sha: commitRes.commit_sha
           });
         }
 
-        return sendJson(res, 200, { success: true, message: 'All items already up to date in cloud catalog.', total_items: workingItems.length });
-      }
+        // C. Save Homepage 5 Sections Config
+        if (body.action === 'save_sections_config' && body.sections) {
+          return sendJson(res, 200, {
+            success: true,
+            sections: body.sections,
+            message: 'Homepage 5 Signature sections curated and synchronized successfully.'
+          });
+        }
 
-      // B. Toggle Featured Action
-      if (body.action === 'toggle_featured' && body.id) {
+        // D. Save Trending Cuts Config
+        if (body.action === 'save_trending_cuts' && Array.isArray(body.cuts)) {
+          return sendJson(res, 200, {
+            success: true,
+            cuts: body.cuts,
+            message: 'Trending Cuts filter options synchronized successfully.'
+          });
+        }
+
+        if (!body.title) {
+          return sendJson(res, 400, { error: 'Product title is required.' });
+        }
+
         const { items, content, sha } = await getLiveCatalogData(ghToken);
         let workingItems = [...items];
-        const target = workingItems.find(i => String(i.id) === String(body.id));
-        if (!target) {
-          return sendJson(res, 404, { error: 'Item not found in catalog' });
-        }
-        target.is_featured = typeof body.is_featured === 'boolean' ? body.is_featured : !target.is_featured;
-        target.updated_at = new Date().toISOString();
 
+        const itemPayload = {
+          id: body.id || ('prod-custom-' + Date.now()),
+          title: sanitizeCatalogText(body.title),
+          slug: body.slug || body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+          description: sanitizeCatalogText(body.description || ''),
+          starting_price: parseFloat(body.starting_price) || 2800,
+          main_image_url: body.main_image_url || '',
+          tags: Array.isArray(body.tags) ? body.tags : [body.tags || 'Hand Embroidered Blouses'],
+          images: Array.isArray(body.images) ? body.images : [],
+          instagram_url: body.instagram_url || '',
+          is_published: body.is_published !== false,
+          is_featured: !!body.is_featured,
+          updated_at: new Date().toISOString()
+        };
+
+        const existingIdx = workingItems.findIndex(i => String(i.id) === String(itemPayload.id));
+        if (existingIdx !== -1) {
+          workingItems[existingIdx] = { ...workingItems[existingIdx], ...itemPayload };
+        } else {
+          workingItems.unshift(itemPayload);
+        }
+
+        // Update cache immediately
         catalogCache = workingItems;
         catalogCacheTime = Date.now();
-        const commitMsg = `admin(catalog): set featured=${target.is_featured} on "${target.title}"`;
+
+        const commitAction = existingIdx !== -1 ? 'update' : 'add';
+        const commitMsg = `admin(catalog): ${commitAction} product "${itemPayload.title}"`;
         const commitRes = await commitCatalogToGitHub(workingItems, commitMsg, sha, content, ghToken);
+
         return sendJson(res, 200, {
           success: true,
-          item: target,
+          saved: itemPayload,
           synced_to_repo: commitRes.success,
-          commit_sha: commitRes.commit_sha
+          commit_sha: commitRes.commit_sha,
+          message: 'Product saved and committed to repository. Production deployment is running.'
         });
+      } catch (err) {
+        console.error('Catalog POST/PUT error:', err);
+        return sendJson(res, 500, { error: err.message });
       }
+    }
 
-      // C. Save Homepage 5 Sections Config
-      if (body.action === 'save_sections_config' && body.sections) {
+    // ─── 3. DELETE: Remove Product ─────────────────────────────────────────────
+    if (req.method === 'DELETE') {
+      const id = req.query?.id;
+      if (!id) return sendJson(res, 400, { error: 'Item ID is required.' });
+
+      try {
+        const { items, content, sha } = await getLiveCatalogData(ghToken);
+        const strId = String(id);
+        const filtered = items.filter(i => String(i.id) !== strId);
+
+        // Update cache immediately
+        catalogCache = filtered;
+        catalogCacheTime = Date.now();
+
+        const commitMsg = `admin(catalog): delete product ${strId}`;
+        const commitRes = await commitCatalogToGitHub(filtered, commitMsg, sha, content, ghToken);
+
         return sendJson(res, 200, {
           success: true,
-          sections: body.sections,
-          message: 'Homepage 5 Signature sections curated and synchronized successfully.'
+          deleted_id: strId,
+          synced_to_repo: commitRes.success,
+          commit_sha: commitRes.commit_sha,
+          message: `Product ${strId} deleted and committed to repository. Production deployment is running.`
         });
+      } catch(err) {
+        console.error('Catalog DELETE error:', err);
+        return sendJson(res, 500, { error: err.message });
       }
-
-      // D. Save Trending Cuts Config
-      if (body.action === 'save_trending_cuts' && Array.isArray(body.cuts)) {
-        return sendJson(res, 200, {
-          success: true,
-          cuts: body.cuts,
-          message: 'Trending Cuts filter options synchronized successfully.'
-        });
-      }
-
-      if (!body.title) {
-        return sendJson(res, 400, { error: 'Product title is required.' });
-      }
-
-      const { items, content, sha } = await getLiveCatalogData(ghToken);
-      let workingItems = [...items];
-
-      const itemPayload = {
-        id: body.id || ('prod-custom-' + Date.now()),
-        title: sanitizeCatalogText(body.title),
-        slug: body.slug || body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-        description: sanitizeCatalogText(body.description || ''),
-        starting_price: parseFloat(body.starting_price) || 2800,
-        main_image_url: body.main_image_url || '',
-        tags: Array.isArray(body.tags) ? body.tags : [body.tags || 'Hand Embroidered Blouses'],
-        images: Array.isArray(body.images) ? body.images : [],
-        instagram_url: body.instagram_url || '',
-        is_published: body.is_published !== false,
-        is_featured: !!body.is_featured,
-        updated_at: new Date().toISOString()
-      };
-
-      const existingIdx = workingItems.findIndex(i => String(i.id) === String(itemPayload.id));
-      if (existingIdx !== -1) {
-        workingItems[existingIdx] = { ...workingItems[existingIdx], ...itemPayload };
-      } else {
-        workingItems.unshift(itemPayload);
-      }
-
-      // Update cache immediately
-      catalogCache = workingItems;
-      catalogCacheTime = Date.now();
-
-      const commitAction = existingIdx !== -1 ? 'update' : 'add';
-      const commitMsg = `admin(catalog): ${commitAction} product "${itemPayload.title}"`;
-      const commitRes = await commitCatalogToGitHub(workingItems, commitMsg, sha, content, ghToken);
-
-      return sendJson(res, 200, {
-        success: true,
-        saved: itemPayload,
-        synced_to_repo: commitRes.success,
-        commit_sha: commitRes.commit_sha,
-        message: 'Product saved and committed to repository. Production deployment is running.'
-      });
-    } catch (err) {
-      console.error('Catalog POST/PUT error:', err);
-      return sendJson(res, 500, { error: err.message });
     }
+
+    return sendJson(res, 405, { error: 'Method not allowed' });
+  } catch (topErr) {
+    console.error('Unhandled catalog API error:', topErr);
+    return sendJson(res, 500, {
+      success: false,
+      error: topErr.message || 'Internal server error in catalog handler'
+    });
   }
-
-  // ─── 3. DELETE: Remove Product ─────────────────────────────────────────────
-  if (req.method === 'DELETE') {
-    const id = req.query?.id;
-    if (!id) return sendJson(res, 400, { error: 'Item ID is required.' });
-
-    try {
-      const { items, content, sha } = await getLiveCatalogData(ghToken);
-      const strId = String(id);
-      const filtered = items.filter(i => String(i.id) !== strId);
-
-      // Update cache immediately
-      catalogCache = filtered;
-      catalogCacheTime = Date.now();
-
-      const commitMsg = `admin(catalog): delete product ${strId}`;
-      const commitRes = await commitCatalogToGitHub(filtered, commitMsg, sha, content, ghToken);
-
-      return sendJson(res, 200, {
-        success: true,
-        deleted_id: strId,
-        synced_to_repo: commitRes.success,
-        commit_sha: commitRes.commit_sha,
-        message: `Product ${strId} deleted and committed to repository. Production deployment is running.`
-      });
-    } catch(err) {
-
-      return sendJson(res, 200, {
-        success: true,
-        deleted_id: strId,
-        synced_to_repo: commitRes.success,
-        commit_sha: commitRes.commit_sha,
-        message: `Product ${strId} deleted and committed to repository. Production deployment is running.`
-      });
-    } catch(err) {
-      console.error('Catalog DELETE error:', err);
-      return sendJson(res, 500, { error: err.message });
-    }
-  }
-
-  return sendJson(res, 405, { error: 'Method not allowed' });
 };
